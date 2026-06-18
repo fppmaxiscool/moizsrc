@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Moiz — Your premium streaming destination for movies and series." />
+  <meta name="theme-color" content="#060608" />
+  <meta name="color-scheme" content="dark" />
+  <title>MoizSrc — Stream Movies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.themoviedb.org" />
+  <link rel="preconnect" href="https://image.tmdb.org" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ═══════════ BACKGROUND & CURSOR ═══════════ -->
+  <canvas id="bg-canvas" class="bg-canvas"></canvas>
+  <div id="custom-cursor" class="custom-cursor"></div>
+
+  <!-- ═══════════ SPLASH SCREEN ═══════════ -->
+  <div id="splash-screen" class="splash-screen">
+    <svg class="splash-logo" viewBox="0 0 350 60" aria-label="MoizSrc Logo">
+      <defs>
+        <linearGradient id="splash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff2030" />
+          <stop offset="100%" stop-color="#b20710" />
+        </linearGradient>
+        <filter id="splash-glow">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
+            font-family="Inter, sans-serif" font-weight="900" font-size="48" fill="url(#splash-grad)" filter="url(#splash-glow)" letter-spacing="3">
+        MOIZ SRC
+      </text>
+    </svg>
+    <div class="splash-spinner"></div>
+  </div>
+
+  <!-- ═══════════ PROFILE SELECTION SCREEN ═══════════ -->
+  <section id="profile-screen" class="profile-screen">
+    <div class="profile-screen__inner">
+      <svg class="profile-logo" viewBox="0 0 350 60" aria-label="MoizSrc Logo">
+        <defs>
+          <linearGradient id="logo-grad-main" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff2030" />
+            <stop offset="100%" stop-color="#b20710" />
+          </linearGradient>
+          <filter id="logo-glow-main">
+            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
+              font-family="Inter, sans-serif" font-weight="900" font-size="48" fill="url(#logo-grad-main)" filter="url(#logo-glow-main)" letter-spacing="3">
+          MOIZ SRC
+        </text>
+      </svg>
+      <h1 class="profile-screen__title" data-i18n="whoIsWatching">Who's watching?</h1>
+
+      <div class="lang-selector lang-selector--profile">
+        <button class="lang-selector__btn" id="profile-lang-btn" aria-label="Language">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+          <span id="profile-lang-label">EN</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lang-selector__menu hidden" id="profile-lang-menu">
+          <li data-lang="en">English</li><li data-lang="es">Español</li><li data-lang="fr">Français</li>
+          <li data-lang="sv">Svenska</li><li data-lang="de">Deutsch</li><li data-lang="it">Italiano</li>
+          <li data-lang="pt">Português</li><li data-lang="ja">日本語</li>
+        </ul>
+      </div>
+
+      <div class="profile-grid" id="profile-grid"></div>
+
+      <div class="profile-actions">
+        <button class="profile-add-btn" id="add-profile-btn">
+          <span class="profile-add-btn__icon">+</span>
+          <span data-i18n="addProfile">Add Profile</span>
+        </button>
+        <button class="manage-profiles-btn" id="manage-profiles-btn">
+          Manage Profiles
+        </button>
+      </div>
+    </div>
+    <div class="profile-bg">
+      <video autoplay muted loop playsinline id="profile-bg-video">
+        <source src="https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-9a10-07d3f118d910/c6237254-2c6b-4e0e-9486-538421b9201a/US-en-20220502-popsignuptwoweeks-perspective_alpha_website_large.jpg" type="image/jpeg">
+      </video>
+      <div class="profile-bg__overlay"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ADD PROFILE MODAL ═══════════ -->
+  <div id="add-profile-modal" class="modal-overlay hidden">
+    <div class="modal-overlay__backdrop" id="add-profile-backdrop"></div>
+    <div class="modal-box modal-box--large">
+      <button class="modal-box__close" id="add-profile-close" aria-label="Close">&times;</button>
+      <h2 class="modal-box__title" data-i18n="createProfile" style="text-align:center;font-size:1.8rem;margin-bottom:24px;">Create Profile</h2>
+      <div class="modal-box__body" style="background:rgba(255,255,255,.02);padding:28px;border-radius:16px;border:1px solid rgba(255,255,255,.04);">
+        <div class="profile-form-header">
+          <div class="avatar-preview-wrap">
+            <img class="avatar-preview" id="avatar-preview" src="" alt="Avatar preview" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=User&background=141414&color=e50914';" />
+          </div>
+          <div class="profile-form-inputs">
+            <label class="modal-label" data-i18n="profileName">Profile Name</label>
+            <input class="modal-input" type="text" id="new-profile-name" placeholder="Name" maxlength="20" autocomplete="off" />
+            <label class="checkbox-label">
+              <input type="checkbox" id="kid-profile-checkbox" />
+              <span class="checkbox-custom"></span>
+              <span data-i18n="kidsProfileCheck">Kid's Profile?</span>
+            </label>
+          </div>
+        </div>
+        <label class="modal-label" data-i18n="chooseAvatar" style="margin-top:16px;">Choose an Avatar</label>
+        <div class="avatar-picker" id="avatar-picker"></div>
+        <button class="btn btn--play btn--play-modal btn--full" id="save-profile-btn" data-i18n="saveProfile">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAIN APP ═══════════ -->
+  <main id="app" class="app hidden">
+    <!-- ──── NAVBAR ──── -->
+    <nav id="navbar" class="navbar">
+      <div class="navbar__left">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+          <span class="mobile-menu-btn__bar"></span>
+        </button>
+        <svg class="navbar__logo" viewBox="0 0 250 40" aria-label="MoizSrc">
+          <defs>
+            <linearGradient id="logo-grad-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff2030" />
+              <stop offset="100%" stop-color="#b20710" />
+            </linearGradient>
+            <filter id="logo-glow-nav">
+              <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <text x="0" y="32" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="url(#logo-grad-nav)" filter="url(#logo-glow-nav)" letter-spacing="2">MOIZ SRC</text>
+        </svg>
+        <ul class="navbar__links">
+          <li id="nav-home-li"><a href="#" class="active" data-i18n="navHome">Home</a></li>
+          <li id="nav-tv-li"><a href="#" data-i18n="navTvShows">TV Shows</a></li>
+          <li id="nav-movies-li"><a href="#" data-i18n="navMovies">Movies</a></li>
+          <li id="nav-mylist-li"><a href="#" data-i18n="navMyList">My List</a></li>
+          <li id="nav-music-li"><a href="#" id="nav-music-btn">Music</a></li>
+          <li id="nav-sports-li"><a href="#" data-i18n="navSports" id="nav-sports-btn">Live Sports</a></li>
+        </ul>
+      </div>
+      <div class="navbar__right">
+        <div class="search-bar" id="search-bar">
+          <button class="search-bar__toggle" id="search-toggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+          </button>
+          <input class="search-bar__input" type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="Titles, people, genres" autocomplete="off" />
+          <button class="search-bar__clear hidden" id="search-clear" aria-label="Clear search">&times;</button>
+        </div>
+        <div class="lang-selector">
+          <button class="lang-selector__btn" id="nav-lang-btn" aria-label="Language">
+            <svg class="lang-selector__globe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+            <span id="nav-lang-label">EN</span>
+            <svg class="lang-selector__chevron" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="lang-selector__menu hidden" id="nav-lang-menu">
+            <li data-lang="en">English</li><li data-lang="es">Español</li><li data-lang="fr">Français</li>
+            <li data-lang="sv">Svenska</li><li data-lang="de">Deutsch</li><li data-lang="it">Italiano</li>
+            <li data-lang="pt">Português</li><li data-lang="ja">日本語</li>
+          </ul>
+        </div>
+        <button id="nav-settings-btn" class="navbar__icon-btn" aria-label="Settings" title="Settings">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+        </button>
+        <div class="navbar__dropdown-container" id="nav-notif-container">
+          <button id="notif-btn" class="navbar__icon-btn" aria-label="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notif-badge" id="notif-badge"></span>
+          </button>
+          <div class="nav-dropdown-menu hidden" id="notif-dropdown">
+            <div class="notif-header">
+              <h4 class="nav-dropdown-header">Notifications</h4>
+              <button class="notif-clear-btn" id="notif-clear-btn">Clear all</button>
+            </div>
+            <div id="notif-list" class="notif-list">
+              <!-- Notifications rendered dynamically -->
+            </div>
+            <div class="notif-empty hidden" id="notif-empty">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.3;margin-bottom:8px"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <p>No notifications yet</p>
+            </div>
+          </div>
+        </div>
+        <div class="navbar__dropdown-container" id="nav-avatar-container">
+          <div class="navbar__avatar" id="navbar-avatar"></div>
+          <div class="nav-dropdown-menu hidden" id="avatar-dropdown">
+            <ul class="avatar-menu-list">
+              <li id="switch-profiles-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg><span data-i18n="switchProfiles">Switch Profiles</span></li>
+              <li id="account-settings-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span data-i18n="accountSettings">Account Settings</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg><span data-i18n="signOut">Sign out of Moiz</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ──── HERO BANNER ──── -->
+    <section id="hero" class="hero">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <h2 class="hero__title" id="hero-title"></h2>
+        <p class="hero__desc" id="hero-desc"></p>
+        <div class="hero__actions">
+          <button class="btn btn--play" id="hero-play-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+            <span data-i18n="play">Play</span>
+          </button>
+          <button class="btn btn--info" id="hero-info-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span data-i18n="moreInfo">More Info</span>
+          </button>
+          <button class="btn btn--list" id="hero-mylist-btn">
+            <span class="mylist-icon">+</span>
+            <span data-i18n="navMyList">My List</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──── SEARCH/LIST RESULTS (hidden by default) ──── -->
+    <section id="search-results" class="search-results hidden">
+      <h2 class="search-results__heading" id="search-results-heading"></h2>
+      <div class="search-results__grid" id="search-results-grid"></div>
+    </section>
+
+    <!-- ──── MOVIE ROWS ──── -->
+    <div id="rows-container" class="rows-container"></div>
+
+    <!-- ──── LIVE SPORTS SCREEN (hidden by default) ──── -->
+    <section id="sports-screen" class="sports-screen hidden">
+      <div id="sports-hero" class="sports-hero">
+        <div class="sports-hero__overlay"></div>
+        <div class="sports-hero__content">
+          <div class="sports-hero__badge"><span class="live-dot"></span> LIVE NOW</div>
+          <h2 id="sports-hero-title" class="sports-hero__title">Red Bull TV: Action Sports Live</h2>
+          <p id="sports-hero-desc" class="sports-hero__desc">Experience premium live sports, global adventure events, elite racing series, and live festivals from around the world. Tune in now for the active broadcast feed in Full Ultra HD.</p>
+          <button class="btn btn--play" id="sports-hero-play-btn" style="margin-top:16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Watch Live</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="sports-categories">
+        <button class="sports-category-btn active" data-sport="all">All Sports</button>
+        <button class="sports-category-btn" data-sport="football">⚽ Soccer</button>
+        <button class="sports-category-btn" data-sport="motorsport">🏎️ Motorsport</button>
+        <button class="sports-category-btn" data-sport="action">🔥 Extreme</button>
+        <button class="sports-category-btn" data-sport="tennis">🎾 Tennis</button>
+        <button class="sports-category-btn" data-sport="other">📺 More</button>
+      </div>
+
+      <div class="sports-rows" id="sports-rows-container">
+        <!-- Live Sports categories and rows are rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ──── MUSIC SCREEN (hidden by default) ──── -->
+    <section id="music-screen" class="music-screen hidden">
+      <div class="music-header">
+        <h2 class="music-header__title">🎵 Music Player</h2>
+        <p class="music-header__subtitle">Search for previews, add local files, or paste direct MP3/audio URLs for full playback</p>
+      </div>
+      <div class="music-player" id="music-player">
+        <div class="music-player__top">
+          <div class="music-player__artwork" id="music-artwork">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div class="music-player__details">
+            <div class="music-player__title" id="music-title">No track loaded</div>
+            <div class="music-player__artist" id="music-artist">Add music files or search for songs</div>
+            <div class="music-player__progress">
+              <input type="range" class="music-progress-slider" id="music-progress" min="0" max="100" value="0" step="0.1" />
+              <div class="music-player__times">
+                <span id="music-current-time">0:00</span>
+                <span id="music-duration">0:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="music-player__controls">
+          <button class="music-ctrl-btn" id="music-shuffle-btn" title="Shuffle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+          </button>
+          <button class="music-ctrl-btn" id="music-prev-btn" title="Previous">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button class="music-ctrl-btn music-ctrl-btn--play" id="music-play-btn" title="Play">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="music-play-icon"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+          <button class="music-ctrl-btn" id="music-next-btn" title="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 18h2V6h-2zm-8.5-6l8.5 6V6z" transform="rotate(180 12 12)"/></svg>
+          </button>
+          <button class="music-ctrl-btn" id="music-repeat-btn" title="Repeat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+          <div class="music-volume">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.08"/></svg>
+            <input type="range" class="music-volume-slider" id="music-volume" min="0" max="100" value="80" />
+          </div>
+        </div>
+      </div>
+      <div class="music-add-section">
+        <label class="music-add-btn" for="music-file-input">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Upload Files</span>
+        </label>
+        <input type="file" id="music-file-input" accept="audio/*" multiple hidden />
+        <div class="music-url-input-wrap">
+          <input type="text" class="music-url-input" id="music-url-input" placeholder="Search songs or paste audio URL..." />
+          <button class="music-url-add-btn" id="music-url-add-btn">Search</button>
+        </div>
+      </div>
+      <div class="music-playlist" id="music-playlist">
+        <h3 class="music-playlist__title">Playlist <span id="music-track-count">(0 tracks)</span></h3>
+        <div class="music-playlist__list" id="music-playlist-list">
+          <div class="music-playlist__empty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <p>Your playlist is empty.<br/>Upload files for full songs, or search to discover previews.</p>
+          </div>
+        </div>
+      </div>
+      <audio id="music-audio" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+
+    <!-- ──── LOADING SPINNER ──── -->
+    <div id="loading-spinner" class="loading-spinner hidden">
+      <div class="spinner-ring"></div>
+    </div>
+
+    <!-- ──── INFO MODAL ──── -->
+    <div id="info-modal" class="info-modal hidden">
+      <div class="info-modal__backdrop" id="info-modal-backdrop"></div>
+      <div class="info-modal__content">
+        <button class="info-modal__close" id="info-modal-close" aria-label="Close">&times;</button>
+        <div class="info-modal__poster" id="info-modal-poster"></div>
+        <div class="info-modal__body">
+          <h2 id="info-modal-title"></h2>
+          <p class="info-modal__meta" id="info-modal-meta"></p>
+          <p class="info-modal__overview" id="info-modal-overview"></p>
+
+          <div id="info-modal-tv-selection" class="info-modal__tv-selection hidden">
+            <div class="selection-row">
+              <label>Season</label>
+              <select id="info-season-select" class="selection-select"></select>
+            </div>
+          </div>
+
+          <div id="info-episodes-list" class="info-episodes-list hidden">
+            <h3 style="color:var(--white);font-size:1.1rem;margin-bottom:10px;font-weight:700;letter-spacing:.3px;">Episodes</h3>
+            <div id="episodes-container" style="display:flex;flex-direction:column;gap:12px;"></div>
+          </div>
+
+          <div class="info-modal__actions">
+            <button class="btn btn--play btn--play-modal" id="info-modal-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+              <span data-i18n="playNow">Play Now</span>
+            </button>
+            <button class="btn btn--list-modal" id="info-modal-list">
+              <span class="mylist-icon">+</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ──── VIDEO PLAYER OVERLAY ──── -->
+    <div id="player-overlay" class="player-overlay hidden">
+      <div class="player-overlay__header">
+        <div style="display:flex;align-items:center;gap:12px;pointer-events:auto;">
+          <button id="player-back-btn" style="color:var(--white);background:rgba(255,255,255,.08);padding:8px 14px;border-radius:var(--radius-lg);display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;cursor:pointer;pointer-events:auto;transition:all .2s;border:1px solid rgba(255,255,255,.06)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Back</span>
+          </button>
+          <div class="player-overlay__title" id="player-title"></div>
+          <div id="tv-controls" class="hidden" style="display:flex;gap:8px;background:rgba(255,255,255,.06);padding:5px 12px;border-radius:var(--radius-lg);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.06)">
+            <button id="tv-prev" style="color:var(--white);font-weight:bold;font-size:.88rem;padding:0 5px;opacity:.5;transition:opacity .2s" title="Previous Episode">&laquo;</button>
+            <span style="color:var(--text-muted);font-size:.75rem;align-self:center;font-weight:700;">S:</span>
+            <input type="number" id="tv-season" value="1" min="1" style="width:32px;background:transparent;border:none;color:white;outline:none;font-size:.88rem;font-weight:700;">
+            <span style="color:var(--text-muted);font-size:.75rem;align-self:center;font-weight:700;">E:</span>
+            <input type="number" id="tv-episode" value="1" min="1" style="width:32px;background:transparent;border:none;color:white;outline:none;font-size:.88rem;font-weight:700;">
+            <button id="tv-next" style="color:var(--white);font-weight:bold;font-size:.88rem;padding:0 5px;opacity:.5;transition:opacity .2s" title="Next Episode">&raquo;</button>
+            <button id="tv-go" style="color:var(--accent-bright);font-weight:bold;font-size:.85rem;padding:0 5px">GO</button>
+          </div>
+        </div>
+        <div class="player-overlay__controls">
+          <button id="crop-btn" style="background:rgba(255,255,255,.06);color:white;padding:7px 16px;border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.06);font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:8px;pointer-events:auto;transition:all .2s">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            Fill Screen
+          </button>
+          <button id="cinema-mode-btn" class="cinema-mode-btn" title="Cinema Mode">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20M2 16h20M8 4v16M16 4v16"/></svg>
+            Cinema
+          </button>
+          <button id="server-toggle-btn" class="server-toggle-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            Servers
+          </button>
+          <button class="player-overlay__close" id="player-close" aria-label="Close Player">&times;</button>
+        </div>
+      </div>
+
+      <!-- Server Drawer -->
+      <div id="server-drawer" class="server-drawer hidden">
+        <div class="server-drawer__handle" id="server-drawer-handle"></div>
+        <div class="server-drawer__content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+            <h3 class="server-drawer__title" style="margin:0">Select Server</h3>
+            <button id="auto-server-btn" class="auto-server-btn">
+              <div class="auto-server-btn__dot"></div>
+              Auto Select: <span id="auto-server-status">OFF</span>
+            </button>
+          </div>
+          <div class="server-grid" id="server-picker"></div>
+        </div>
+      </div>
+      <div id="player-loader" class="player-loader hidden">
+        <div class="spinner-ring"></div>
+        <div class="player-loader__text">Connecting to server...</div>
+      </div>
+      <div id="iframe-container" class="player-overlay__iframe-container"></div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════ SETTINGS MODAL ═══════════ -->
+  <div id="settings-modal-backdrop" class="modal-backdrop hidden"></div>
+  <div id="settings-modal" class="modal hidden" style="max-width:420px;cursor:default">
+    <div class="modal__header" id="settings-modal-header" style="cursor:move;user-select:none;">
+      <h2 style="font-size:1.3rem;font-weight:700;pointer-events:none;letter-spacing:.3px">Settings</h2>
+      <button id="settings-modal-close" class="modal__close" aria-label="Close settings">&times;</button>
+    </div>
+    <div class="modal__body" style="display:flex;flex-direction:column;gap:18px;padding:24px 32px 36px">
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Theme</label>
+        <select id="settings-theme" class="settings-select">
+          <option value="default">Default (Red & Dark)</option>
+          <option value="cyberpunk">Cyberpunk (Neon Blue)</option>
+          <option value="netflix-chill">Netflix & Chill (Midnight)</option>
+          <option value="dracula">Dracula (Vampire Purple)</option>
+          <option value="forest">Toxic Forest (Neon Green)</option>
+          <option value="gold">Luxury Gold (Black & Gold)</option>
+          <option value="ocean">Deep Ocean (Teal)</option>
+          <option value="sunset">Sunset (Orange Glow)</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Cursor Style</label>
+        <select id="settings-cursor" class="settings-select">
+          <option value="neon-dot">Neon Dot (Default)</option>
+          <option value="ring">Minimalist Ring</option>
+          <option value="crosshair">Gamer Crosshair</option>
+          <option value="hollow-dot">Hollow Dot</option>
+          <option value="sword">Knight's Sword</option>
+          <option value="diamond">Crystal Diamond</option>
+          <option value="ghost">Ghost Blur</option>
+          <option value="pulse">Heartbeat Pulse</option>
+          <option value="fluid">Fluid Glow</option>
+          <option value="default">System Default</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Background Effects</label>
+        <select id="settings-particles" class="settings-select">
+          <option value="none">None</option>
+          <option value="rain">Gentle Rain</option>
+          <option value="stars">Starry Night</option>
+          <option value="snow">Winter Snow</option>
+          <option value="matrix">Matrix Code</option>
+          <option value="fireflies">Fireflies</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Animation Speed</label>
+        <select id="settings-anim-speed" class="settings-select">
+          <option value="normal">Normal</option>
+          <option value="fast">Turbo (Snappy)</option>
+          <option value="slow">Cinematic (Smooth)</option>
+          <option value="buttery">Buttery (60fps Feel)</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Glassmorphism Intensity</label>
+        <select id="settings-glass" class="settings-select">
+          <option value="med">Medium (Standard)</option>
+          <option value="low">Low (Solid)</option>
+          <option value="high">High (Frosted)</option>
+          <option value="ultra">Ultra (Maximum Blur)</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Preferred Server</label>
+        <select id="settings-server-pref" class="settings-select">
+          <option value="0">Moiz 4K Ultra</option>
+          <option value="13">Moiz VidKing</option>
+          <option value="1">Moiz Pro</option>
+          <option value="4">Moiz Net</option>
+          <option value="14">Moiz Videasy</option>
+          <option value="24">Moiz Nova</option>
+        </select>
+      </div>
+      <div class="settings-group" style="display:flex;align-items:center;justify-content:space-between">
+        <label style="color:var(--text-muted);font-weight:600;font-size:.82rem">Show Watermark</label>
+        <input type="checkbox" id="settings-watermark" checked style="width:18px;height:18px;accent-color:var(--accent)">
+      </div>
+      <div class="settings-group" style="display:flex;align-items:center;justify-content:space-between">
+        <label style="color:var(--text-muted);font-weight:600;font-size:.82rem">Auto-Play Next</label>
+        <input type="checkbox" id="settings-autoplay" checked style="width:18px;height:18px;accent-color:var(--accent)">
+      </div>
+      <div class="settings-group">
+        <label style="display:flex;justify-content:space-between;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Default Volume <span id="settings-volume-label" style="color:var(--accent-bright)">80%</span></label>
+        <input type="range" id="settings-default-volume" min="0" max="100" value="80" style="width:100%;accent-color:var(--accent);height:6px;cursor:pointer">
+      </div>
+      <div class="settings-group">
+        <label style="display:block;margin-bottom:7px;color:var(--text-muted);font-weight:600;font-size:.82rem;letter-spacing:.5px">Playback Quality</label>
+        <select id="settings-quality" class="settings-select">
+          <option value="auto">Auto</option>
+          <option value="4k">4K</option>
+          <option value="1080p">1080p</option>
+          <option value="720p">720p</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <button id="clear-history-btn" class="manage-profiles-btn" style="width:100%;border-color:rgba(229,9,20,.3);color:var(--accent);margin-top:6px">
+          Clear Watch History
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="moiz-watermark" style="position:fixed;bottom:10px;left:10px;z-index:999999;color:rgba(255,255,255,.08);font-size:.75rem;pointer-events:none;font-weight:600;letter-spacing:1.5px;">Made by Moiz</div>
+
+  <!-- ═══════════ FLOATING MINI MUSIC PLAYER ═══════════ -->
+  <div id="mini-music-player" class="mini-music-player">
+    <div class="mini-music-player__progress">
+      <div class="mini-music-player__progress-bar" id="mini-player-progress-bar"></div>
+    </div>
+    <div class="mini-music-player__artwork">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <div class="mini-music-player__info">
+      <div class="mini-music-player__title" id="mini-player-title">No track</div>
+      <div class="mini-music-player__artist" id="mini-player-artist">—</div>
+    </div>
+    <div class="mini-music-player__controls">
+      <button class="mini-music-player__btn" id="mini-player-prev" aria-label="Previous">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button class="mini-music-player__btn mini-music-player__btn--play" id="mini-player-play" aria-label="Play/Pause">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="mini-player-play-icon"><polygon points="5,3 19,12 5,21"/></svg>
+      </button>
+      <button class="mini-music-player__btn" id="mini-player-next" aria-label="Next">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 18h2V6h-2zm-8.5-6l8.5 6V6z" transform="rotate(180 12 12)"/></svg>
+      </button>
+    </div>
+    <button class="mini-music-player__close" id="mini-player-close" aria-label="Close mini player">&times;</button>
+  </div>
+
+  <!-- ═══════════ CINEMA MODE OVERLAY ═══════════ -->
+  <div id="cinema-mode-overlay" class="cinema-mode-overlay"></div>
+
+  <!-- ═══════════ MOBILE NAV OVERLAY ═══════════ -->
+  <div id="mobile-nav-overlay" class="mobile-nav-overlay">
+    <a href="#" data-mobile-nav="home" class="active">Home</a>
+    <a href="#" data-mobile-nav="tv">TV Shows</a>
+    <a href="#" data-mobile-nav="movies">Movies</a>
+    <a href="#" data-mobile-nav="mylist">My List</a>
+    <a href="#" data-mobile-nav="music">Music</a>
+    <a href="#" data-mobile-nav="sports">Live Sports</a>
+  </div>
+
+  <!-- ═══════════ TOAST CONTAINER ═══════════ -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer id="site-footer" class="site-footer hidden">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__brand-name">MOIZ SRC</div>
+        <p class="footer__brand-desc">Your premium streaming destination. Watch movies, TV shows, and live sports — anytime, anywhere. Built with passion for cinema lovers.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social-link" aria-label="GitHub" title="GitHub">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Twitter" title="Twitter">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Discord" title="Discord">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="#" data-nav="home">Home</a></li>
+          <li><a href="#" data-nav="tv">TV Shows</a></li>
+          <li><a href="#" data-nav="movies">Movies</a></li>
+          <li><a href="#" data-nav="sports">Live Sports</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Account</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Supported Devices</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Cookie Preferences</a></li>
+          <li><a href="#">DMCA Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2025 Moiz Src. All rights reserved. Made with &#10084; for movie lovers.</span>
+      <div class="footer__badges">
+        <span class="footer__badge">4K UHD</span>
+        <span class="footer__badge">HDR</span>
+        <span class="footer__badge">Dolby Atmos</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════ KEYBOARD HINT ═══════════ -->
+  <div id="kbd-hint" class="kbd-hint">
+    <kbd>/</kbd><span>Search</span>
+    <kbd>Esc</kbd><span>Close</span>
+  </div>
+
+  <!-- ═══════════ BACK TO TOP ═══════════ -->
+  <button id="back-to-top" class="back-to-top hidden" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="app.js"></script>
+</body>
+</html>
