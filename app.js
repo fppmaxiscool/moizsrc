@@ -53,11 +53,12 @@
       searchPlaceholder: 'Titles, people, genres',
       searchResultsFor: 'Search results for',
       noResults: 'No results found.',
-      trendingNow: 'Trending Now', action: 'Action', comedy: 'Comedy',
+      trendingNow: 'Trending Now', tvShows: 'TV Shows', action: 'Action', comedy: 'Comedy',
       horror: 'Horror', sciFi: 'Sci-Fi', drama: 'Drama', thriller: 'Thriller', romance: 'Romance', animationAdult: 'Animation', documentary: 'Documentaries',
       family: 'Family', animation: 'Animation', adventure: 'Adventure',
       switchProfiles: 'Switch Profiles', accountSettings: 'Account Settings', signOut: 'Sign out of Moiz', kidsProfileCheck: "Kid's Profile?",
-      kids: "KIDS", recentlyWatched: "Recently Watched"
+      kids: "KIDS", recentlyWatched: "Recently Watched",
+      editorsChoice: "Editor's Choice"
     },
     es: {
       whoIsWatching: '\u00bfQui\u00e9n est\u00e1 viendo?',
@@ -70,11 +71,12 @@
       searchPlaceholder: 'T\u00edtulos, personas, g\u00e9neros',
       searchResultsFor: 'Resultados para',
       noResults: 'Sin resultados.',
-      trendingNow: 'Tendencias', action: 'Acci\u00f3n', comedy: 'Comedia',
+      trendingNow: 'Tendencias', tvShows: 'Series', action: 'Acci\u00f3n', comedy: 'Comedia',
       horror: 'Terror', sciFi: 'Ciencia Ficci\u00f3n', drama: 'Drama', thriller: 'Suspense', romance: 'Romance', animationAdult: 'Animaci\u00f3n', documentary: 'Documentales',
       family: 'Familia', animation: 'Animaci\u00f3n', adventure: 'Aventura',
       switchProfiles: 'Cambiar Perfiles', accountSettings: 'Ajustes de Cuenta', signOut: 'Cerrar sesi\u00f3n', kidsProfileCheck: "\u00bfPerfil infantil?",
-      kids: "NI\u00d1OS", recentlyWatched: "Vistos Recientemente"
+      kids: "NI\u00d1OS", recentlyWatched: "Vistos Recientemente",
+      editorsChoice: "Selecci\u00f3n del Editor"
     },
     fr: {
       whoIsWatching: 'Qui regarde ?',
@@ -87,11 +89,12 @@
       searchPlaceholder: 'Titres, personnes, genres',
       searchResultsFor: 'R\u00e9sultats pour',
       noResults: 'Aucun r\u00e9sultat.',
-      trendingNow: 'Tendances', action: 'Action', comedy: 'Com\u00e9die',
+      trendingNow: 'Tendances', tvShows: 'Séries', action: 'Action', comedy: 'Com\u00e9die',
       horror: 'Horreur', sciFi: 'Science-Fiction', drama: 'Drame', thriller: 'Thriller', romance: 'Romance', animationAdult: 'Animation', documentary: 'Documentaires',
       family: 'Famille', animation: 'Animation', adventure: 'Aventure',
       switchProfiles: 'Changer de Profil', accountSettings: 'Param\u00e8tres', signOut: 'D\u00e9connexion', kidsProfileCheck: "Profil Enfant ?",
-      kids: "ENFANTS", recentlyWatched: "Vus R\u00e9cemment"
+      kids: "ENFANTS", recentlyWatched: "Vus R\u00e9cemment",
+      editorsChoice: "Choix de l'\u00c9diteur"
     },
     de: {
       whoIsWatching: 'Wer schaut gerade?',
@@ -104,11 +107,12 @@
       searchPlaceholder: 'Titel, Personen, Genres',
       searchResultsFor: 'Suchergebnisse f\u00fcr',
       noResults: 'Keine Ergebnisse gefunden.',
-      trendingNow: 'Angesagt', action: 'Action', comedy: 'Kom\u00f6die',
+      trendingNow: 'Angesagt', tvShows: 'Serien', action: 'Action', comedy: 'Kom\u00f6die',
       horror: 'Horror', sciFi: 'Sci-Fi', drama: 'Drama', thriller: 'Thriller', romance: 'Romanze', animationAdult: 'Animation', documentary: 'Dokus',
       family: 'Familie', animation: 'Animation', adventure: 'Abenteuer',
       switchProfiles: 'Profil wechseln', accountSettings: 'Konto', signOut: 'Abmelden', kidsProfileCheck: "Kinderprofil?",
-      kids: "KINDER", recentlyWatched: "Zuletzt gesehen"
+      kids: "KINDER", recentlyWatched: "Zuletzt gesehen",
+      editorsChoice: "Redaktionswahl"
     },
     it: {
       whoIsWatching: 'Chi vuole guardare Moiz?',
@@ -121,11 +125,12 @@
       searchPlaceholder: 'Titoli, persone, generi',
       searchResultsFor: 'Risultati della ricerca per',
       noResults: 'Nessun risultato trovato.',
-      trendingNow: 'In primo piano', action: 'Azione', comedy: 'Commedia',
+      trendingNow: 'In primo piano', tvShows: 'Serie TV', action: 'Azione', comedy: 'Commedia',
       horror: 'Horror', sciFi: 'Fantascienza', drama: 'Dramma', thriller: 'Thriller', romance: 'Romantico', animationAdult: 'Animazione', documentary: 'Documentari',
       family: 'Famiglia', animation: 'Animazione', adventure: 'Avventura',
       switchProfiles: 'Cambia profilo', accountSettings: 'Account', signOut: 'Esci da Moiz', kidsProfileCheck: "Profilo bambini?",
-      kids: "BAMBINI", recentlyWatched: "Visti di recente"
+      kids: "BAMBINI", recentlyWatched: "Visti di recente",
+      editorsChoice: "Scelta della redazione"
     },
     pt: {
       whoIsWatching: 'Quem est\u00e1 assistindo?',
@@ -138,11 +143,12 @@
       searchPlaceholder: 'T\u00edtulos, pessoas, g\u00eaneros',
       searchResultsFor: 'Resultados para',
       noResults: 'Nenhum resultado encontrado.',
-      trendingNow: 'Em alta', action: 'A\u00e7\u00e3o', comedy: 'Com\u00e9dia',
+      trendingNow: 'Em alta', tvShows: 'Séries', action: 'A\u00e7\u00e3o', comedy: 'Com\u00e9dia',
       horror: 'Terror', sciFi: 'Fic\u00e7\u00e3o cient\u00edfica', drama: 'Drama', thriller: 'Suspense', romance: 'Romance', animationAdult: 'Anima\u00e7\u00e3o', documentary: 'Document\u00e1rios',
       family: 'Fam\u00edlia', animation: 'Anima\u00e7\u00e3o', adventure: 'Aventura',
       switchProfiles: 'Trocar perfil', accountSettings: 'Conta', signOut: 'Sair da Moiz', kidsProfileCheck: "Perfil para crian\u00e7as?",
-      kids: "KIDS", recentlyWatched: "Assistidos recentemente"
+      kids: "KIDS", recentlyWatched: "Assistidos recentemente",
+      editorsChoice: "Escolha do Editor"
     },
     sv: {
       whoIsWatching: 'Vem tittar?',
@@ -155,11 +161,12 @@
       searchPlaceholder: 'Titlar, personer, genrer',
       searchResultsFor: 'S\u00f6kresultat f\u00f6r',
       noResults: 'Inga resultat hittades.',
-      trendingNow: 'Trender just nu', action: 'Action', comedy: 'Komedi',
+      trendingNow: 'Trender just nu', tvShows: 'Serier', action: 'Action', comedy: 'Komedi',
       horror: 'Skr\u00e4ck', sciFi: 'Sci-Fi', drama: 'Drama', thriller: 'Thriller', romance: 'Romantik', animationAdult: 'Animering', documentary: 'Dokument\u00e4rer',
       family: 'Familj', animation: 'Animering', adventure: '\u00c4ventyr',
       switchProfiles: 'Byt profil', accountSettings: 'Kontoinst\u00e4llningar', signOut: 'Logga ut fr\u00e5n Moiz', kidsProfileCheck: "Barnprofil?",
-      kids: "BARN", recentlyWatched: "Nyligen sedda"
+      kids: "BARN", recentlyWatched: "Nyligen sedda",
+      editorsChoice: "Redakt\u00f6rens val"
     },
     ja: {
       whoIsWatching: '\u8996\u8074\u3059\u308b\u30e6\u30fc\u30b6\u30fc\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044',
@@ -172,11 +179,12 @@
       searchPlaceholder: '\u30bf\u30a4\u30c8\u30eb\u3001\u4eba\u540d\u3001\u30b8\u30e3\u30f3\u30eb',
       searchResultsFor: '\u691c\u7d22\u7d50\u679c: ',
       noResults: '\u4e00\u81f4\u3059\u308b\u4f5c\u54c1\u304c\u3042\u308a\u307e\u305b\u3093\u3002',
-      trendingNow: '\u4eca\u6ce8\u76ee\u306e\u4f5c\u54c1', action: '\u30a2\u30af\u30b7\u30e7\u30f3', comedy: '\u30b3\u30e1\u30c7\u30a3',
+      trendingNow: '\u4eca\u6ce8\u76ee\u306e\u4f5c\u54c1', tvShows: 'TV番組', action: '\u30a2\u30af\u30b7\u30e7\u30f3', comedy: '\u30b3\u30e1\u30c7\u30a3',
       horror: '\u30db\u30e9\u30fc', sciFi: 'SF', drama: '\u30c9\u30e9\u30de', thriller: '\u30b9\u30ea\u30e9\u30fc', romance: '\u30ed\u30de\u30f3\u30b9', animationAdult: '\u30a2\u30cb\u30e1', documentary: '\u30c9\u30ad\u30e5\u30e1\u30f3\u30bf\u30ea\u30fc',
       family: '\u30d5\u30a1\u30df\u30ea\u30fc', animation: '\u30a2\u30cb\u30e1', adventure: '\u30a2\u30c9\u30d9\u30f3\u30c1\u30e3\u30fc',
       switchProfiles: '\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u306e\u5207\u308a\u66ff\u3048', accountSettings: '\u30a2\u30ab\u30a6\u30f3\u30c8\u8a2d\u5b9a', signOut: 'Moiz\u304b\u3089\u30b5\u30a4\u30f3\u30a2\u30a6\u30c8', kidsProfileCheck: '\u30ad\u30c3\u30ba\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u3067\u3059\u304b\uff1f',
-      kids: "\u30ad\u30c3\u30ba", recentlyWatched: "\u6700\u8fd1\u898b\u305f\u4f5c\u54c1"
+      kids: "\u30ad\u30c3\u30ba", recentlyWatched: "\u6700\u8fd1\u898b\u305f\u4f5c\u54c1",
+      editorsChoice: "\u30a8\u30c7\u30a3\u30bf\u30fc\u30ba\u30c1\u30e7\u30a4\u30b9"
     }
   };
 
@@ -1156,6 +1164,12 @@
     const exists = profiles[pIdx].recentlyWatched.findIndex(m => m.id === movie.id);
     if (exists > -1) {
       profiles[pIdx].recentlyWatched.splice(exists, 1);
+    } else {
+      // Only add notification for new watches
+      const posterImg = movie.poster_path ? TMDB_IMG + 'w200' + movie.poster_path : null;
+      if (typeof addNotification === 'function') {
+        addNotification('Now Playing', movie.title || movie.name || 'Unknown', posterImg);
+      }
     }
     
     // Add to front
@@ -1286,14 +1300,17 @@
       if (manageBtn) manageBtn.textContent = 'Manage Profiles';
     }
 
+    // Smooth exit animation
     profileScreen.style.opacity = '0';
-    profileScreen.style.transition = 'opacity .45s ease';
+    profileScreen.style.transform = 'scale(1.01)';
+    profileScreen.style.transition = 'opacity .4s ease, transform .4s ease';
     setTimeout(() => {
       profileScreen.classList.add('hidden');
+      profileScreen.style.transform = '';
       app.classList.remove('hidden');
       if (navbarAvatar) navbarAvatar.style.backgroundImage = 'url(' + currentProfile.avatar + ')';
       initDashboard();
-    }, 450);
+    }, 380);
   }
 
   // ═══════ NAVBAR DROPDOWNS & CATEGORY FILTERING ═══════
@@ -1348,61 +1365,56 @@
       });
     }
 
-    // Nav category links (Home, TV Shows, Movies, My List, Live Sports, Music)
+    // Nav category links (Home, TV Shows, Movies, My List, Live Sports)
     $$('.navbar__links a').forEach(function(link) {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         $$('.navbar__links a').forEach(function(el) { el.classList.remove('active'); });
         link.classList.add('active');
         var key = link.dataset.i18n;
-
+        
+        // Hide/Show sports screen appropriately
         const sportsScreen = $('#sports-screen');
-        const musicScreen = $('#music-screen');
-
-        // Helper: hide all special screens
-        function hideAllScreens() {
-          if (sportsScreen) sportsScreen.classList.add('hidden');
-          if (musicScreen) musicScreen.classList.add('hidden');
-        }
-
-        // ── Music ──
-        if (link.id === 'nav-music-btn') {
-          hideAllScreens();
-          if (musicScreen) musicScreen.classList.remove('hidden');
-          hero.classList.add('hidden');
-          rowsContainer.classList.add('hidden');
-          searchResults.classList.add('hidden');
-          currentCategoryFilter = 'music';
-          clearSearch();
-          initMusicPlayer();
-          return;
-        }
-
-        // ── Live Sports ──
-        if (key === 'navSports' || link.id === 'nav-sports-btn') {
-          hideAllScreens();
+        if (key === 'navSports' || link.id === 'nav-sports-btn' || link.getAttribute('id') === 'nav-sports-btn') {
           currentCategoryFilter = 'sports';
-          if (sportsScreen) sportsScreen.classList.remove('hidden');
-          hero.classList.add('hidden');
-          rowsContainer.classList.add('hidden');
-          searchResults.classList.add('hidden');
-          initSportsScreen();
+          // Smooth transition
+          hero.style.opacity = '0';
+          rowsContainer.style.opacity = '0';
+          setTimeout(() => {
+            if (sportsScreen) sportsScreen.classList.remove('hidden');
+            const reelsScreen = $('#reels-screen');
+            const musicScreen = $('#music-screen');
+            if (reelsScreen) reelsScreen.classList.add('hidden');
+            if (musicScreen) musicScreen.classList.add('hidden');
+            if (reelsTimer) clearInterval(reelsTimer);
+            hero.classList.add('hidden');
+            rowsContainer.classList.add('hidden');
+            searchResults.classList.add('hidden');
+            hero.style.opacity = '';
+            rowsContainer.style.opacity = '';
+            initSportsScreen();
+          }, 150);
           clearSearch();
-          return;
-        }
-
-        // ── Standard nav ──
-        hideAllScreens();
-        if (key === 'navTvShows') currentCategoryFilter = 'tv';
-        else if (key === 'navMovies') currentCategoryFilter = 'movie';
-        else if (key === 'navMyList') currentCategoryFilter = 'list';
-        else currentCategoryFilter = 'home';
-        clearSearch();
-
-        if (currentCategoryFilter === 'list') {
-          renderMyList();
         } else {
-          initDashboard();
+          if (sportsScreen) sportsScreen.classList.add('hidden');
+          const reelsScreen = $('#reels-screen');
+          const musicScreen = $('#music-screen');
+          if (reelsScreen) reelsScreen.classList.add('hidden');
+          if (musicScreen) musicScreen.classList.add('hidden');
+          if (sportsHeroInterval) clearInterval(sportsHeroInterval);
+          if (reelsTimer) clearInterval(reelsTimer);
+          
+          if (key === 'navTvShows') currentCategoryFilter = 'tv';
+          else if (key === 'navMovies') currentCategoryFilter = 'movie';
+          else if (key === 'navMyList') currentCategoryFilter = 'list';
+          else currentCategoryFilter = 'home';
+          clearSearch();
+          
+          if (currentCategoryFilter === 'list') {
+            renderMyList();
+          } else {
+            initDashboard();
+          }
         }
       });
     });
@@ -1540,8 +1552,10 @@
 
     // Standard movie container routing
     if (sportsScreen) sportsScreen.classList.add('hidden');
-    const musicScreen2 = $('#music-screen');
-    if (musicScreen2) musicScreen2.classList.add('hidden');
+    const reelsScreenEl = $('#reels-screen');
+    const musicScreenEl = $('#music-screen');
+    if (reelsScreenEl) reelsScreenEl.classList.add('hidden');
+    if (musicScreenEl) musicScreenEl.classList.add('hidden');
     hero.classList.remove('hidden');
     rowsContainer.classList.remove('hidden');
     searchResults.classList.add('hidden');
@@ -1560,12 +1574,25 @@
         rowsToFetch[0].url = '/trending/movie/week';
       }
 
-      const results = await Promise.all(
-        rowsToFetch.map(g => tmdbFetch(g.url, (g.params || '')).then(d => ({ key: g.key, movies: d.results || [] })))
-      );
+      const [results, editorsChoiceData] = await Promise.all([
+        Promise.all(
+          rowsToFetch.map(g => tmdbFetch(g.url, (g.params || '')).then(d => ({ key: g.key, movies: d.results || [] })))
+        ),
+        tmdbFetch('/movie/367551').catch(() => null)
+      ]);
       
-      if ((currentCategoryFilter === 'home' || currentCategoryFilter === 'all') && currentProfile && currentProfile.recentlyWatched && currentProfile.recentlyWatched.length > 0) {
-        results.unshift({ key: 'recentlyWatched', movies: currentProfile.recentlyWatched });
+      if (editorsChoiceData && editorsChoiceData.id) {
+        const trendingIdx = results.findIndex(r => r.key === 'trendingNow');
+        if (trendingIdx >= 0) {
+          results.splice(trendingIdx + 1, 0, { key: 'editorsChoice', movies: [editorsChoiceData] });
+        }
+      }
+
+      if ((currentCategoryFilter === 'home' || currentCategoryFilter === 'all') && currentProfile && currentProfile.recentlyWatched) {
+        const validMovies = currentProfile.recentlyWatched.filter(m => m && m.id);
+        if (validMovies.length > 0) {
+          results.unshift({ key: 'recentlyWatched', movies: validMovies.slice(0, 10) });
+        }
       }
 
       const trending = results.find(r => r.key === 'trendingNow');
@@ -1619,8 +1646,9 @@
       rowsContainer.appendChild(row);
 
       const track = $('.row__track', row);
-      $('.row__arrow--left', row).addEventListener('click', () => { track.scrollLeft -= 600; });
-      $('.row__arrow--right', row).addEventListener('click', () => { track.scrollLeft += 600; });
+      const scrollAmount = Math.min(track.clientWidth * 0.75, 800);
+      $('.row__arrow--left', row).addEventListener('click', () => { track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }); });
+      $('.row__arrow--right', row).addEventListener('click', () => { track.scrollBy({ left: scrollAmount, behavior: 'smooth' }); });
     });
   }
 
@@ -1628,13 +1656,14 @@
     const img = m.backdrop_path ? posterURL(m.backdrop_path, 'w780') : posterURL(m.poster_path, 'w500');
     const year = (m.release_date || m.first_air_date || '').slice(0, 4);
     const rating = m.vote_average ? Math.round(m.vote_average * 10) + '%' : '';
+    const ratingClass = m.vote_average >= 7 ? 'rating-high' : m.vote_average >= 5 ? 'rating-med' : 'rating-low';
     const listBtnLabel = isInMyList(m.id) ? '-' : '+';
     const rankHtml = (rank && rank <= 10) ? '<div class="card__rank">' + rank + '</div>' : '';
     return '<div class="card" data-id="' + m.id + '" tabindex="0" role="button" aria-label="' + (m.title || m.name || '') + '">' + rankHtml +
-      '<img class="card__img" src="' + img + '" alt="' + (m.title || m.name || '') + '" loading="lazy"/>' +
+      '<img class="card__img" src="' + img + '" alt="' + (m.title || m.name || '') + '" loading="lazy" onerror="this.src=\'https://via.placeholder.com/780x440/1a1a1a/555?text=No+Image\'"/>' +
       '<div class="card__play-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="6,3 20,12 6,21"/></svg></div>' +
       '<div class="card__info"><div class="card__info-title">' + (m.title || m.name || '') + '</div>' +
-      '<div class="card__info-meta"><span>' + rating + (rating && year ? ' \u00b7 ' : '') + year + '</span>' + 
+      '<div class="card__info-meta"><span class="' + ratingClass + '">' + rating + (rating && year ? ' \u00b7 ' : '') + year + '</span>' + 
       '<div class="card__add-btn" data-list-id="' + m.id + '">' + listBtnLabel + '</div></div></div></div>';
   }
 
@@ -1651,7 +1680,7 @@
       searchClear.classList.toggle('hidden', !q);
       clearTimeout(searchDebounce);
       if (!q) { clearSearch(); return; }
-      searchDebounce = setTimeout(() => performSearch(q), 400);
+      searchDebounce = setTimeout(() => performSearch(q), 300);
     });
     searchInput.addEventListener('keydown', e => {
       if (e.key === 'Escape') clearSearch();
@@ -1762,6 +1791,7 @@
 
     infoModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    if (siteFooter) siteFooter.classList.add('hidden');
   }
 
   async function fetchTVDetails(id) {
@@ -1832,10 +1862,23 @@
   }
 
   function closeInfoModal() {
-    infoModal.classList.add('hidden');
-    document.body.style.overflow = '';
-    currentInfoMovie = null;
-    currentTvDetails = null;
+    // Smooth close animation
+    const content = $('.info-modal__content');
+    if (content) {
+      content.style.transform = 'scale(0.97)';
+      content.style.opacity = '0';
+    }
+    setTimeout(() => {
+      infoModal.classList.add('hidden');
+      if (content) {
+        content.style.transform = '';
+        content.style.opacity = '';
+      }
+      document.body.style.overflow = '';
+      currentInfoMovie = null;
+      currentTvDetails = null;
+      updateFooterVisibility();
+    }, 200);
   }
 
   infoClose.addEventListener('click', closeInfoModal);
@@ -1887,12 +1930,18 @@
   // ═══════ LIVE SPORTS SCREEN RENDER ENGINE ═══════
   let currentSportsCategory = 'all';
   let sportsHeroChannel = SPORTS_CHANNELS[0];
+  let sportsHeroInterval = null;
 
   function initSportsScreen() {
     const sportsHero = $('#sports-hero');
     const sportsHeroTitle = $('#sports-hero-title');
     const sportsHeroDesc = $('#sports-hero-desc');
     const sportsHeroPlayBtn = $('#sports-hero-play-btn');
+
+    // Pick a random featured channel for the hero
+    const featuredCategories = ['football', 'motorsport', 'action'];
+    const featured = SPORTS_CHANNELS.filter(c => featuredCategories.includes(c.category));
+    sportsHeroChannel = featured[Math.floor(Math.random() * featured.length)] || SPORTS_CHANNELS[0];
 
     if (sportsHero && sportsHeroChannel) {
       sportsHero.style.backgroundImage = `url(${sportsHeroChannel.backdrop})`;
@@ -1902,6 +1951,25 @@
         sportsHeroPlayBtn.onclick = () => playSportsChannel(sportsHeroChannel);
       }
     }
+
+    // Auto-rotate hero every 8 seconds
+    if (sportsHeroInterval) clearInterval(sportsHeroInterval);
+    sportsHeroInterval = setInterval(() => {
+      const nextChan = featured[Math.floor(Math.random() * featured.length)] || SPORTS_CHANNELS[0];
+      if (nextChan.id === sportsHeroChannel.id) return;
+      sportsHeroChannel = nextChan;
+      
+      if (sportsHero) {
+        sportsHero.style.opacity = '0.7';
+        setTimeout(() => {
+          sportsHero.style.backgroundImage = `url(${sportsHeroChannel.backdrop})`;
+          if (sportsHeroTitle) sportsHeroTitle.textContent = sportsHeroChannel.title;
+          if (sportsHeroDesc) sportsHeroDesc.textContent = sportsHeroChannel.description;
+          if (sportsHeroPlayBtn) sportsHeroPlayBtn.onclick = () => playSportsChannel(sportsHeroChannel);
+          sportsHero.style.opacity = '1';
+        }, 400);
+      }
+    }, 8000);
 
     renderSportsRows();
     bindSportsCategoryEvents();
@@ -1916,47 +1984,87 @@
       ? SPORTS_CHANNELS
       : SPORTS_CHANNELS.filter(c => c.category === currentSportsCategory);
 
-    let html = `
-      <div class="row">
-        <h3 class="row__title">Active Live Broadcasts (${filtered.length})</h3>
-        <div class="sports-grid">
-    `;
-
-    if (filtered.length === 0) {
-      html += `<p style="color:var(--text-muted);padding:20px 0;">No active streams for this category.</p>`;
-    } else {
-      html += filtered.map(chan => `
-        <div class="sports-card" data-chan-id="${chan.id}">
-          <div class="sports-card__thumbnail-wrap">
-            <img class="sports-card__thumbnail" src="${chan.backdrop}" alt="${chan.title}" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop'" />
-            <div class="sports-card__live-badge">
-              <span class="sports-card__live-dot"></span>
-              LIVE
+    // Group by category for "All" view
+    const categoryNames = { football: '⚽ Soccer', motorsport: '🏎️ Motorsport', action: '🔥 Extreme & Combat Sports', tennis: '🎾 Tennis & Racquet', other: '📺 More Sports & Entertainment' };
+    
+    let html = '';
+    
+    if (currentSportsCategory === 'all') {
+      // Show grouped rows
+      const groups = {};
+      filtered.forEach(chan => {
+        if (!groups[chan.category]) groups[chan.category] = [];
+        groups[chan.category].push(chan);
+      });
+      
+      Object.entries(groups).forEach(([cat, channels]) => {
+        html += `
+          <div class="row sports-row" style="animation-delay:${Object.keys(groups).indexOf(cat) * 0.08}s">
+            <h3 class="row__title">${categoryNames[cat] || cat} <span class="sports-count">${channels.length} channels</span></h3>
+            <div class="sports-grid">
+              ${channels.map(chan => renderSportsCard(chan)).join('')}
             </div>
           </div>
-          <div class="sports-card__body">
-            <h4 class="sports-card__title">${chan.title}</h4>
-            <p class="sports-card__desc">${chan.description}</p>
-          </div>
-        </div>
-      `).join('');
-    }
+        `;
+      });
+    } else {
+      html = `
+        <div class="row sports-row">
+          <h3 class="row__title">${categoryNames[currentSportsCategory] || 'Live Channels'} <span class="sports-count">${filtered.length} channels</span></h3>
+          <div class="sports-grid">
+      `;
 
-    html += `
-        </div>
-      </div>
-    `;
+      if (filtered.length === 0) {
+        html += `<p style="color:var(--text-muted);padding:20px 0;grid-column:1/-1;">No active streams for this category.</p>`;
+      } else {
+        html += filtered.map(chan => renderSportsCard(chan)).join('');
+      }
+
+      html += `</div></div>`;
+    }
 
     container.innerHTML = html;
 
-    // Bind card clicks
+    // Bind card clicks with ripple effect
     $$('.sports-card', container).forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        // Ripple effect
+        const ripple = document.createElement('span');
+        ripple.className = 'sports-card__ripple';
+        const rect = card.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+        card.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+        
         const id = card.dataset.chanId;
         const chan = SPORTS_CHANNELS.find(c => c.id === id);
         if (chan) playSportsChannel(chan);
       });
     });
+  }
+
+  function renderSportsCard(chan) {
+    return `
+      <div class="sports-card" data-chan-id="${chan.id}">
+        <div class="sports-card__thumbnail-wrap">
+          <img class="sports-card__thumbnail" src="${chan.logo}" alt="${chan.title}" loading="lazy" onerror="this.src='${chan.backdrop}'" />
+          <div class="sports-card__overlay">
+            <div class="sports-card__play-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+          <div class="sports-card__live-badge">
+            <span class="sports-card__live-dot"></span>
+            LIVE
+          </div>
+        </div>
+        <div class="sports-card__body">
+          <h4 class="sports-card__title">${chan.title}</h4>
+          <span class="sports-card__category">${chan.category}</span>
+        </div>
+      </div>
+    `;
   }
 
   function bindSportsCategoryEvents() {
@@ -1984,29 +2092,36 @@
     if (playerLoader) playerLoader.classList.remove('hidden');
     if (iframeContainer) iframeContainer.innerHTML = '';
 
-    // Handle Live Sports streams — load in iframe
+    // Handle Live Sports streams - embed the channel page directly in iframe
     if (currentPlayingMovie && currentPlayingMovie.isSports) {
-      var sportsIframe = document.createElement('iframe');
-      sportsIframe.id = 'main-video-iframe';
-      sportsIframe.className = 'player-overlay__video';
-      sportsIframe.setAttribute('allowfullscreen', 'true');
-      sportsIframe.setAttribute('webkitallowfullscreen', 'true');
-      sportsIframe.setAttribute('mozallowfullscreen', 'true');
-      sportsIframe.setAttribute('allow', 'autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen');
-      sportsIframe.setAttribute('frameborder', '0');
-      sportsIframe.setAttribute('scrolling', 'no');
-      sportsIframe.style.opacity = '0';
-      sportsIframe.style.transition = 'opacity 0.5s ease';
-      sportsIframe.src = currentPlayingMovie.streamUrl;
-      sportsIframe.addEventListener('load', function () {
+      var iframe = document.createElement('iframe');
+      iframe.id = 'main-video-iframe';
+      iframe.className = 'player-overlay__video';
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('webkitallowfullscreen', 'true');
+      iframe.setAttribute('mozallowfullscreen', 'true');
+      iframe.setAttribute('allow', 'autoplay; encrypted-media; gyroscope; picture-in-picture; clipboard-write; screen-wake-lock; fullscreen');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('scrolling', 'no');
+      iframe.style.opacity = '0';
+      iframe.style.transition = 'opacity .6s cubic-bezier(.16,1,.3,1), transform .4s ease';
+      iframe.style.transform = 'scale(.98)';
+
+      iframe.addEventListener('load', function() {
         if (playerLoader) playerLoader.classList.add('hidden');
-        sportsIframe.style.opacity = '1';
+        iframe.style.opacity = '1';
+        iframe.style.transform = 'scale(1)';
       });
-      setTimeout(function () {
+
+      // Fallback timeout
+      setTimeout(function() {
         if (playerLoader) playerLoader.classList.add('hidden');
-        sportsIframe.style.opacity = '1';
+        iframe.style.opacity = '1';
+        iframe.style.transform = 'scale(1)';
       }, 3000);
-      if (iframeContainer) iframeContainer.appendChild(sportsIframe);
+
+      iframe.src = currentPlayingMovie.streamUrl;
+      if (iframeContainer) iframeContainer.appendChild(iframe);
       return;
     }
 
@@ -2132,23 +2247,31 @@
   }
 
   function closePlayer() {
-    if (iframeContainer) iframeContainer.innerHTML = '';
-    currentPlayingMovie = null;
-    playerOverlay.classList.add('hidden');
-    document.body.style.overflow = '';
+    // Smooth close animation
+    playerOverlay.style.opacity = '0';
+    playerOverlay.style.transition = 'opacity .25s ease';
     
-    // Exit fullscreen when closing the player
-    try {
-      if (document.fullscreenElement) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
+    setTimeout(() => {
+      if (iframeContainer) iframeContainer.innerHTML = '';
+      currentPlayingMovie = null;
+      playerOverlay.classList.add('hidden');
+      playerOverlay.style.opacity = '';
+      playerOverlay.style.transition = '';
+      document.body.style.overflow = '';
+      
+      // Exit fullscreen when closing the player
+      try {
+        if (document.fullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
         }
-      }
-    } catch (err) {}
+      } catch (err) {}
+    }, 220);
   }
 
   const playerBackBtn = $('#player-back-btn');
@@ -2161,12 +2284,22 @@
 
   // Auto-hide the player header to make it truly borderless
   let idleTimeout;
-  playerOverlay.addEventListener('mousemove', () => {
+  function resetPlayerIdle() {
     playerOverlay.classList.remove('idle');
     clearTimeout(idleTimeout);
     idleTimeout = setTimeout(() => {
       playerOverlay.classList.add('idle');
-    }, 2500);
+    }, 3000);
+  }
+  playerOverlay.addEventListener('mousemove', resetPlayerIdle);
+  playerOverlay.addEventListener('touchstart', resetPlayerIdle, { passive: true });
+  playerOverlay.addEventListener('click', (e) => {
+    // Toggle header visibility on click (for touch devices)
+    if (e.target === iframeContainer || e.target.closest('.player-overlay__iframe-container')) {
+      if (playerOverlay.classList.contains('idle')) {
+        resetPlayerIdle();
+      }
+    }
   });
 
   document.addEventListener('keydown', e => {
@@ -2178,279 +2311,24 @@
   });
 
   // ═══════ LOADING ═══════
-  function showLoading(show) { if (loadingSpinner) loadingSpinner.classList.toggle('hidden', !show); }
-
-  // ═══════ MUSIC PLAYER ═══════
-  let musicTracks = [];
-  let musicCurrentIdx = -1;
-  let musicShuffle = false;
-  let musicRepeat = false;
-  let musicInitialized = false;
-
-  function initMusicPlayer() {
-    if (musicInitialized) return;
-    musicInitialized = true;
-
-    const audio       = $('#music-audio');
-    const playBtn     = $('#music-play-btn');
-    const playIcon    = $('#music-play-icon');
-    const prevBtn     = $('#music-prev-btn');
-    const nextBtn     = $('#music-next-btn');
-    const shuffleBtn  = $('#music-shuffle-btn');
-    const repeatBtn   = $('#music-repeat-btn');
-    const progress    = $('#music-progress');
-    const volumeSlider= $('#music-volume');
-    const currentTime = $('#music-current-time');
-    const duration    = $('#music-duration');
-    const titleEl     = $('#music-title');
-    const artistEl    = $('#music-artist');
-    const artworkEl   = $('#music-artwork');
-    const fileInput   = $('#music-file-input');
-    const urlInput    = $('#music-url-input');
-    const urlAddBtn   = $('#music-url-add-btn');
-    const playlistList= $('#music-playlist-list');
-    const trackCount  = $('#music-track-count');
-
-    if (!audio) return;
-
-    function fmt(s) {
-      if (isNaN(s)) return '0:00';
-      const m = Math.floor(s / 60);
-      const sec = Math.floor(s % 60);
-      return m + ':' + (sec < 10 ? '0' : '') + sec;
+  function showLoading(show) { 
+    if (!loadingSpinner) return;
+    if (show) {
+      loadingSpinner.classList.remove('hidden');
+      loadingSpinner.style.opacity = '0';
+      requestAnimationFrame(() => { loadingSpinner.style.opacity = '1'; });
+    } else {
+      loadingSpinner.style.opacity = '0';
+      setTimeout(() => { loadingSpinner.classList.add('hidden'); loadingSpinner.style.opacity = ''; }, 200);
     }
-
-    function setPlayIcon(playing) {
-      if (!playIcon) return;
-      playIcon.outerHTML = playing
-        ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="music-play-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
-        : '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="music-play-icon"><polygon points="5,3 19,12 5,21"/></svg>';
-    }
-
-    function renderPlaylist() {
-      if (!playlistList) return;
-      if (!musicTracks.length) {
-        playlistList.innerHTML = `<div class="music-playlist__empty">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          <p>Your playlist is empty.<br/>Upload files for full songs, or search to discover previews.</p>
-        </div>`;
-      } else {
-        playlistList.innerHTML = musicTracks.map((t, i) =>
-          `<div class="music-track ${i === musicCurrentIdx ? 'music-track--active' : ''}" data-tidx="${i}">
-            <div class="music-track__num">${i === musicCurrentIdx ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>' : (i + 1)}</div>
-            <div class="music-track__info">
-              <div class="music-track__name">${t.name}</div>
-              <div class="music-track__artist">${t.artist || '—'}</div>
-            </div>
-            <button class="music-track__remove" data-removeidx="${i}" title="Remove">×</button>
-          </div>`
-        ).join('');
-
-        $$('.music-track', playlistList).forEach(row => {
-          row.addEventListener('click', e => {
-            if (e.target.closest('.music-track__remove')) return;
-            loadTrack(+row.dataset.tidx, true);
-          });
-        });
-        $$('.music-track__remove', playlistList).forEach(btn => {
-          btn.addEventListener('click', e => {
-            e.stopPropagation();
-            const idx = +btn.dataset.removeidx;
-            musicTracks.splice(idx, 1);
-            if (musicCurrentIdx === idx) {
-              stopMusic();
-              musicCurrentIdx = -1;
-            } else if (musicCurrentIdx > idx) {
-              musicCurrentIdx--;
-            }
-            renderPlaylist();
-            updateTrackCount();
-          });
-        });
-      }
-      if (trackCount) trackCount.textContent = `(${musicTracks.length} track${musicTracks.length !== 1 ? 's' : ''})`;
-    }
-
-    function updateTrackCount() {
-      if (trackCount) trackCount.textContent = `(${musicTracks.length} track${musicTracks.length !== 1 ? 's' : ''})`;
-    }
-
-    function loadTrack(idx, autoPlay) {
-      if (!musicTracks[idx]) return;
-      musicCurrentIdx = idx;
-      const track = musicTracks[idx];
-      audio.src = track.url;
-      if (titleEl) titleEl.textContent = track.name;
-      if (artistEl) artistEl.textContent = track.artist || 'Unknown Artist';
-      if (artworkEl) {
-        artworkEl.style.backgroundImage = track.artwork ? `url(${track.artwork})` : '';
-        artworkEl.innerHTML = track.artwork ? '' :
-          `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
-      }
-      renderPlaylist();
-      if (autoPlay) {
-        audio.play().then(() => setPlayIcon(true)).catch(() => setPlayIcon(false));
-      }
-    }
-
-    function stopMusic() {
-      audio.pause();
-      audio.currentTime = 0;
-      setPlayIcon(false);
-    }
-
-    function addTrack(track) {
-      musicTracks.push(track);
-      renderPlaylist();
-      updateTrackCount();
-      if (musicCurrentIdx === -1) loadTrack(0, false);
-    }
-
-    // File upload
-    if (fileInput) {
-      fileInput.addEventListener('change', () => {
-        Array.from(fileInput.files).forEach(file => {
-          const url = URL.createObjectURL(file);
-          addTrack({ name: file.name.replace(/\.[^.]+$/, ''), artist: '', url, artwork: '' });
-        });
-        fileInput.value = '';
-      });
-    }
-
-    // URL / search input
-    if (urlAddBtn && urlInput) {
-      function handleUrlAdd() {
-        const val = urlInput.value.trim();
-        if (!val) return;
-
-        if (/^https?:\/\/.+\.(mp3|ogg|wav|flac|aac|m4a|opus)(\?.*)?$/i.test(val)) {
-          // Direct audio URL
-          const name = val.split('/').pop().replace(/\?.*/, '').replace(/\.[^.]+$/, '') || 'Audio Track';
-          addTrack({ name, artist: '', url: val, artwork: '' });
-          urlInput.value = '';
-        } else {
-          // YouTube Music / Deezer / Spotify search via iTunes API (preview only)
-          urlInput.disabled = true;
-          urlAddBtn.textContent = 'Searching...';
-          fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(val)}&media=music&limit=8`)
-            .then(r => r.json())
-            .then(data => {
-              const results = data.results || [];
-              if (!results.length) {
-                showToast('No results found. Try a different search.', 'info');
-                return;
-              }
-              results.forEach(r => {
-                addTrack({
-                  name: r.trackName || r.collectionName || val,
-                  artist: r.artistName || '',
-                  url: r.previewUrl || '',
-                  artwork: r.artworkUrl100 ? r.artworkUrl100.replace('100x100', '300x300') : ''
-                });
-              });
-              showToast(`Added ${results.length} preview track(s)`, 'success', 2500);
-            })
-            .catch(() => showToast('Search failed. Try pasting a direct audio URL.', 'error'))
-            .finally(() => {
-              urlInput.disabled = false;
-              urlAddBtn.textContent = 'Search';
-              urlInput.value = '';
-            });
-        }
-      }
-      urlAddBtn.addEventListener('click', handleUrlAdd);
-      urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUrlAdd(); });
-    }
-
-    // Play / pause
-    if (playBtn) {
-      playBtn.addEventListener('click', () => {
-        if (musicCurrentIdx === -1 && musicTracks.length) loadTrack(0, true);
-        else if (audio.paused) { audio.play().then(() => setPlayIcon(true)).catch(() => {}); }
-        else { audio.pause(); setPlayIcon(false); }
-      });
-    }
-
-    // Prev / Next
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        if (!musicTracks.length) return;
-        if (audio.currentTime > 3) { audio.currentTime = 0; return; }
-        const idx = musicShuffle
-          ? Math.floor(Math.random() * musicTracks.length)
-          : (musicCurrentIdx - 1 + musicTracks.length) % musicTracks.length;
-        loadTrack(idx, true);
-      });
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        if (!musicTracks.length) return;
-        const idx = musicShuffle
-          ? Math.floor(Math.random() * musicTracks.length)
-          : (musicCurrentIdx + 1) % musicTracks.length;
-        loadTrack(idx, true);
-      });
-    }
-
-    // Shuffle / Repeat
-    if (shuffleBtn) {
-      shuffleBtn.addEventListener('click', () => {
-        musicShuffle = !musicShuffle;
-        shuffleBtn.style.color = musicShuffle ? 'var(--accent-bright)' : '';
-      });
-    }
-    if (repeatBtn) {
-      repeatBtn.addEventListener('click', () => {
-        musicRepeat = !musicRepeat;
-        repeatBtn.style.color = musicRepeat ? 'var(--accent-bright)' : '';
-      });
-    }
-
-    // Progress slider
-    if (progress) {
-      audio.addEventListener('timeupdate', () => {
-        if (!audio.duration) return;
-        const pct = (audio.currentTime / audio.duration) * 100;
-        progress.value = pct;
-        if (currentTime) currentTime.textContent = fmt(audio.currentTime);
-      });
-      audio.addEventListener('loadedmetadata', () => {
-        if (duration) duration.textContent = fmt(audio.duration);
-      });
-      progress.addEventListener('input', () => {
-        if (audio.duration) audio.currentTime = (progress.value / 100) * audio.duration;
-      });
-    }
-
-    // Volume
-    if (volumeSlider) {
-      audio.volume = 0.8;
-      volumeSlider.addEventListener('input', () => { audio.volume = volumeSlider.value / 100; });
-    }
-
-    // Auto next track
-    audio.addEventListener('ended', () => {
-      if (musicRepeat) { audio.currentTime = 0; audio.play(); return; }
-      if (!musicTracks.length) return;
-      const nextIdx = musicShuffle
-        ? Math.floor(Math.random() * musicTracks.length)
-        : (musicCurrentIdx + 1) % musicTracks.length;
-      if (nextIdx === 0 && !musicRepeat && !musicShuffle && musicCurrentIdx === musicTracks.length - 1) {
-        setPlayIcon(false);
-        return;
-      }
-      loadTrack(nextIdx, true);
-    });
-
-    audio.addEventListener('play', () => setPlayIcon(true));
-    audio.addEventListener('pause', () => setPlayIcon(false));
-
-    renderPlaylist();
   }
 
   // ═══════ BOOT ═══════
   const splashScreen = $('#splash-screen');
-  if (splashScreen) splashScreen.classList.add('hidden');
+  // Smooth splash screen dismissal
+  setTimeout(() => {
+    if (splashScreen) splashScreen.classList.add('hidden');
+  }, 800);
   
   ensureDefaults();
   loadSettings();
@@ -2523,6 +2401,701 @@
 
   // Replace alert() calls with toasts globally
   window.moizToast = showToast;
+
+  // ═══════ NOTIFICATION SYSTEM ═══════
+  const notifList = $('#notif-list');
+  const notifEmpty = $('#notif-empty');
+  const notifBadge = $('#notif-badge');
+  const notifClearBtn = $('#notif-clear-btn');
+
+  function getNotifications() {
+    try { return JSON.parse(localStorage.getItem('moiz_notifications') || '[]'); }
+    catch { return []; }
+  }
+  function saveNotifications(n) { localStorage.setItem('moiz_notifications', JSON.stringify(n)); }
+
+  function addNotification(title, body, img) {
+    const notifs = getNotifications();
+    notifs.unshift({ id: Date.now(), title, body, img, time: new Date().toISOString(), read: false });
+    if (notifs.length > 20) notifs.pop();
+    saveNotifications(notifs);
+    renderNotifications();
+  }
+
+  function renderNotifications() {
+    const notifs = getNotifications();
+    const unread = notifs.filter(n => !n.read).length;
+    
+    if (notifBadge) {
+      notifBadge.classList.toggle('hidden', unread === 0);
+      notifBadge.textContent = unread > 9 ? '9+' : unread;
+    }
+    
+    if (!notifList || !notifEmpty) return;
+    
+    if (notifs.length === 0) {
+      notifList.classList.add('hidden');
+      notifEmpty.classList.remove('hidden');
+    } else {
+      notifList.classList.remove('hidden');
+      notifEmpty.classList.add('hidden');
+      notifList.innerHTML = notifs.slice(0, 8).map(n => {
+        const timeAgo = getTimeAgo(n.time);
+        const imgSrc = n.img || 'https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png';
+        return `<div class="notif-item ${n.read ? '' : 'notif-item--unread'}" data-nid="${n.id}">
+          <img src="${imgSrc}" alt="" onerror="this.src='https://via.placeholder.com/80x45/141414/e50914?text=Moiz'" />
+          <div class="notif-item__content">
+            <strong>${n.title}</strong>
+            <span>${n.body}</span>
+            <span class="notif-item__time">${timeAgo}</span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  function getTimeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'Just now';
+    if (mins < 60) return mins + 'm ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    const days = Math.floor(hrs / 24);
+    return days + 'd ago';
+  }
+
+  if (notifClearBtn) {
+    notifClearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      saveNotifications([]);
+      renderNotifications();
+      showToast('Notifications cleared', 'info', 2000);
+    });
+  }
+
+  // Mark notifications as read when dropdown opens
+  if (navNotifContainer) {
+    const origNotifClick = navNotifContainer.onclick;
+    navNotifContainer.addEventListener('click', () => {
+      const notifs = getNotifications();
+      notifs.forEach(n => n.read = true);
+      saveNotifications(notifs);
+      setTimeout(renderNotifications, 300);
+    });
+  }
+
+  // Generate notifications based on activity
+  function generateWelcomeNotifications() {
+    const notifs = getNotifications();
+    if (notifs.length === 0) {
+      addNotification('Welcome to Moiz SRC! 🎬', 'Start streaming movies, TV shows, and live sports.', null);
+      addNotification('New: Live Sports 🏈', '40+ live sports channels now available. Check it out!', null);
+      addNotification('Tip: Keyboard Shortcuts', 'Press / to search, H for home, ? for all shortcuts.', null);
+    }
+  }
+
+  renderNotifications();
+  setTimeout(generateWelcomeNotifications, 1500);
+
+  // ═══════ REELS MODE — Full-Screen Movie Discovery ═══════
+  let reelsMovies = [];
+  let reelsIndex = 0;
+  let reelsTimer = null;
+  let reelsTrailerKey = null;
+  const REEL_DURATION = 12000; // 12 seconds per reel
+
+  async function initReels() {
+    const reelsScreen = $('#reels-screen');
+    if (!reelsScreen) return;
+    
+    showLoading(true);
+    try {
+      // Fetch multiple pages for variety
+      const [page1, page2] = await Promise.all([
+        tmdbFetch('/trending/movie/week'),
+        tmdbFetch('/movie/popular', '&page=2')
+      ]);
+      reelsMovies = [...(page1.results || []), ...(page2.results || [])]
+        .filter(m => m.backdrop_path && m.overview)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 20);
+      
+      if (reelsMovies.length > 0) {
+        reelsIndex = 0;
+        await showReel(reelsIndex);
+        startReelTimer();
+      }
+    } catch (err) {
+      console.error('Failed to load reels:', err);
+      const wrap = $('#reels-video-wrap');
+      if (wrap) wrap.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px">Failed to load. Check your connection.</p>';
+    }
+    showLoading(false);
+  }
+
+  async function showReel(idx) {
+    if (!reelsMovies.length) return;
+    const movie = reelsMovies[idx];
+    loadedMoviesMap[movie.id] = movie;
+    
+    const wrap = $('#reels-video-wrap');
+    const title = $('#reels-title');
+    const desc = $('#reels-desc');
+    const meta = $('#reels-meta');
+    const counter = $('#reels-counter');
+    const progressBar = $('#reels-progress-bar');
+    
+    // Try to get a YouTube trailer
+    let trailerHtml = '';
+    try {
+      const videos = await tmdbFetch(`/movie/${movie.id}/videos`);
+      const trailer = (videos.results || []).find(v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser'));
+      if (trailer) {
+        reelsTrailerKey = trailer.key;
+        trailerHtml = `<iframe src="https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailer.key}&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3" allow="autoplay; encrypted-media" allowfullscreen frameborder="0" style="width:100%;height:100%;position:absolute;inset:0;object-fit:cover"></iframe>`;
+      }
+    } catch (e) { /* fallback to image */ }
+    
+    if (wrap) {
+      if (trailerHtml) {
+        wrap.innerHTML = `<div style="position:relative;width:100%;height:100%;background:#000">${trailerHtml}<img src="${backdropURL(movie.backdrop_path)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s" onerror="this.remove()"/></div>`;
+      } else {
+        wrap.innerHTML = `<img src="${backdropURL(movie.backdrop_path)}" alt="${movie.title || ''}" style="width:100%;height:100%;object-fit:cover;animation:reelZoom ${REEL_DURATION}ms linear forwards"/>`;
+      }
+    }
+    if (title) title.textContent = movie.title || movie.name || '';
+    if (desc) desc.textContent = movie.overview || '';
+    if (meta) {
+      const year = (movie.release_date || '').slice(0, 4);
+      const rating = movie.vote_average ? Math.round(movie.vote_average * 10) + '% Match' : '';
+      const genres = movie.genre_ids ? movie.genre_ids.slice(0, 2).map(id => getGenreName(id)).filter(Boolean).join(', ') : '';
+      meta.textContent = [rating, year, genres].filter(Boolean).join(' · ');
+    }
+    if (counter) counter.textContent = `${idx + 1} / ${reelsMovies.length}`;
+    if (progressBar) {
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      requestAnimationFrame(() => {
+        progressBar.style.transition = `width ${REEL_DURATION}ms linear`;
+        progressBar.style.width = '100%';
+      });
+    }
+    
+    // Bind action buttons
+    const playBtn = $('#reels-play-btn');
+    const infoBtn = $('#reels-info-btn');
+    const listBtn = $('#reels-list-btn');
+    if (playBtn) playBtn.onclick = () => { 
+      clearInterval(reelsTimer);
+      const reelsScreen = $('#reels-screen');
+      if (reelsScreen) reelsScreen.classList.add('hidden');
+      openPlayer(movie); 
+    };
+    if (infoBtn) infoBtn.onclick = () => { openInfoModal(movie); };
+    if (listBtn) listBtn.onclick = () => {
+      const added = toggleMyList(movie);
+      showToast(added ? 'Added to My List' : 'Removed from My List', added ? 'success' : 'info', 2000);
+    };
+  }
+
+  function getGenreName(id) {
+    const map = {28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',53:'Thriller',10752:'War',37:'Western'};
+    return map[id] || '';
+  }
+
+  function startReelTimer() {
+    clearInterval(reelsTimer);
+    reelsTimer = setInterval(() => {
+      reelsIndex = (reelsIndex + 1) % reelsMovies.length;
+      showReel(reelsIndex);
+    }, REEL_DURATION);
+  }
+
+  function nextReel() {
+    reelsIndex = (reelsIndex + 1) % reelsMovies.length;
+    showReel(reelsIndex);
+    startReelTimer();
+  }
+
+  function prevReel() {
+    reelsIndex = (reelsIndex - 1 + reelsMovies.length) % reelsMovies.length;
+    showReel(reelsIndex);
+    startReelTimer();
+  }
+
+  // Reels navigation
+  const reelsNextBtn = $('#reels-next-btn');
+  const reelsNextNav = $('#reels-next-nav');
+  const reelsPrevNav = $('#reels-prev-nav');
+  if (reelsNextBtn) reelsNextBtn.addEventListener('click', nextReel);
+  if (reelsNextNav) reelsNextNav.addEventListener('click', nextReel);
+  if (reelsPrevNav) reelsPrevNav.addEventListener('click', prevReel);
+
+  // Swipe + wheel support for reels
+  let reelsTouchStartY = 0;
+  let reelsWheelCooldown = false;
+  const reelsContainer = $('#reels-container');
+  if (reelsContainer) {
+    reelsContainer.addEventListener('touchstart', (e) => { reelsTouchStartY = e.touches[0].clientY; }, { passive: true });
+    reelsContainer.addEventListener('touchend', (e) => {
+      const diff = reelsTouchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextReel();
+        else prevReel();
+      }
+    });
+    reelsContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (reelsWheelCooldown) return;
+      reelsWheelCooldown = true;
+      setTimeout(() => { reelsWheelCooldown = false; }, 800);
+      if (e.deltaY > 0) nextReel();
+      else prevReel();
+    }, { passive: false });
+  }
+
+  // ═══════ MUSIC PLAYER ═══════
+  let musicPlaylist = [];
+  let musicCurrentIdx = -1;
+  let musicIsPlaying = false;
+  let musicShuffle = false;
+  let musicRepeat = false;
+  const musicAudio = $('#music-audio');
+
+  function initMusic() {
+    const fileInput = $('#music-file-input');
+    if (fileInput) {
+      fileInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+          if (file.type.startsWith('audio/') || file.name.match(/\.(mp3|wav|ogg|flac|m4a|aac|wma)$/i)) {
+            const url = URL.createObjectURL(file);
+            musicPlaylist.push({
+              name: file.name.replace(/\.[^/.]+$/, ''),
+              url: url,
+              duration: 0,
+              isLocal: true
+            });
+          }
+        });
+        renderMusicPlaylist();
+        if (musicCurrentIdx === -1 && musicPlaylist.length > 0) {
+          loadMusicTrack(0);
+        }
+        showToast(`Added ${files.length} track${files.length > 1 ? 's' : ''}`, 'success', 2000);
+        fileInput.value = '';
+      });
+    }
+
+    // URL input handler
+    const urlInput = $('#music-url-input');
+    const urlAddBtn = $('#music-url-add-btn');
+    if (urlAddBtn && urlInput) {
+      const addFromUrl = () => {
+        const url = urlInput.value.trim();
+        if (!url) return;
+        
+        // Check if it's a search query (no http/dots) - search JioSaavn
+        if (!url.startsWith('http') && !url.includes('.')) {
+          searchMusicLibrary(url);
+          urlInput.value = '';
+          return;
+        }
+        
+        // Direct URL
+        let name = url.split('/').pop().split('?')[0] || 'Stream';
+        name = decodeURIComponent(name).replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+        if (name.length > 50) name = name.slice(0, 50) + '...';
+        
+        musicPlaylist.push({ name, url, duration: 0, isLocal: false });
+        renderMusicPlaylist();
+        if (musicCurrentIdx === -1) loadMusicTrack(musicPlaylist.length - 1);
+        showToast('Track added from URL', 'success', 2000);
+        urlInput.value = '';
+      };
+      urlAddBtn.addEventListener('click', addFromUrl);
+      urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addFromUrl(); });
+    }
+
+    // Play/Pause
+    const playBtn = $('#music-play-btn');
+    if (playBtn) playBtn.addEventListener('click', toggleMusicPlay);
+
+    // Next/Prev
+    const nextBtn = $('#music-next-btn');
+    const prevBtn = $('#music-prev-btn');
+    if (nextBtn) nextBtn.addEventListener('click', musicNext);
+    if (prevBtn) prevBtn.addEventListener('click', musicPrev);
+
+    // Shuffle/Repeat
+    const shuffleBtn = $('#music-shuffle-btn');
+    const repeatBtn = $('#music-repeat-btn');
+    if (shuffleBtn) shuffleBtn.addEventListener('click', () => {
+      musicShuffle = !musicShuffle;
+      shuffleBtn.classList.toggle('active', musicShuffle);
+    });
+    if (repeatBtn) repeatBtn.addEventListener('click', () => {
+      musicRepeat = !musicRepeat;
+      repeatBtn.classList.toggle('active', musicRepeat);
+    });
+
+    // Progress slider
+    const progressSlider = $('#music-progress');
+    if (progressSlider) {
+      progressSlider.addEventListener('input', () => {
+        if (musicAudio && musicAudio.duration) {
+          musicAudio.currentTime = (progressSlider.value / 100) * musicAudio.duration;
+        }
+      });
+    }
+
+    // Volume slider
+    const volumeSlider = $('#music-volume');
+    if (volumeSlider) {
+      volumeSlider.addEventListener('input', () => {
+        if (musicAudio) musicAudio.volume = volumeSlider.value / 100;
+      });
+    }
+
+    // Audio events
+    if (musicAudio) {
+      musicAudio.addEventListener('timeupdate', updateMusicProgress);
+      musicAudio.addEventListener('ended', () => {
+        if (musicRepeat) {
+          musicAudio.currentTime = 0;
+          musicAudio.play();
+        } else {
+          musicNext();
+        }
+      });
+      musicAudio.addEventListener('loadedmetadata', () => {
+        const dur = $('#music-duration');
+        if (dur) dur.textContent = formatTime(musicAudio.duration);
+        if (musicPlaylist[musicCurrentIdx]) {
+          musicPlaylist[musicCurrentIdx].duration = musicAudio.duration;
+          renderMusicPlaylist();
+        }
+      });
+    }
+  }
+
+  function loadMusicTrack(idx) {
+    if (idx < 0 || idx >= musicPlaylist.length) return;
+    musicCurrentIdx = idx;
+    const track = musicPlaylist[idx];
+    
+    if (musicAudio) {
+      musicAudio.src = track.url;
+      musicAudio.load();
+      
+      // Handle load errors
+      musicAudio.onerror = () => {
+        showToast('Failed to load track. Try another.', 'error', 3000);
+        const titleEl = $('#music-title');
+        if (titleEl) titleEl.textContent = 'Error loading track';
+      };
+    }
+    
+    const titleEl = $('#music-title');
+    const artistEl = $('#music-artist');
+    const artwork = $('#music-artwork');
+    
+    if (titleEl) titleEl.textContent = track.name;
+    if (artistEl) artistEl.textContent = track.artist || (track.isLocal ? 'Local file' : 'Stream') + ' · Track ' + (idx + 1);
+    if (artwork) {
+      if (track.image) {
+        artwork.innerHTML = `<img src="${track.image}" alt="${track.name}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"/>`;
+      } else {
+        artwork.innerHTML = `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+      }
+    }
+    
+    renderMusicPlaylist();
+    
+    if (musicIsPlaying) {
+      musicAudio.play().catch(() => {});
+    }
+  }
+
+  function toggleMusicPlay() {
+    if (!musicAudio || musicCurrentIdx === -1) {
+      if (musicPlaylist.length > 0) {
+        loadMusicTrack(0);
+        musicIsPlaying = true;
+        musicAudio.play().catch(() => {});
+        updatePlayButton();
+      }
+      return;
+    }
+    
+    if (musicIsPlaying) {
+      musicAudio.pause();
+      musicIsPlaying = false;
+    } else {
+      musicAudio.play().then(() => {
+        musicIsPlaying = true;
+        updatePlayButton();
+      }).catch(() => {
+        showToast('Playback failed. Try another track.', 'error', 2000);
+      });
+      musicIsPlaying = true;
+    }
+    updatePlayButton();
+  }
+
+  function updatePlayButton() {
+    const icon = $('#music-play-icon');
+    const artwork = $('#music-artwork');
+    if (icon) {
+      icon.innerHTML = musicIsPlaying 
+        ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+        : '<polygon points="5,3 19,12 5,21"/>';
+    }
+    if (artwork) artwork.classList.toggle('playing', musicIsPlaying);
+  }
+
+  function musicNext() {
+    if (musicPlaylist.length === 0) return;
+    let next;
+    if (musicShuffle) {
+      next = Math.floor(Math.random() * musicPlaylist.length);
+    } else {
+      next = (musicCurrentIdx + 1) % musicPlaylist.length;
+    }
+    loadMusicTrack(next);
+    if (musicIsPlaying) musicAudio.play();
+  }
+
+  function musicPrev() {
+    if (musicPlaylist.length === 0) return;
+    if (musicAudio && musicAudio.currentTime > 3) {
+      musicAudio.currentTime = 0;
+      return;
+    }
+    const prev = (musicCurrentIdx - 1 + musicPlaylist.length) % musicPlaylist.length;
+    loadMusicTrack(prev);
+    if (musicIsPlaying) musicAudio.play();
+  }
+
+  function updateMusicProgress() {
+    if (!musicAudio || !musicAudio.duration) return;
+    const pct = (musicAudio.currentTime / musicAudio.duration) * 100;
+    const slider = $('#music-progress');
+    const timeEl = $('#music-current-time');
+    if (slider) slider.value = pct;
+    if (timeEl) timeEl.textContent = formatTime(musicAudio.currentTime);
+  }
+
+  function formatTime(sec) {
+    if (!sec || isNaN(sec)) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  function renderMusicPlaylist() {
+    const list = $('#music-playlist-list');
+    const countEl = $('#music-track-count');
+    if (!list) return;
+    
+    if (countEl) countEl.textContent = `(${musicPlaylist.length} track${musicPlaylist.length !== 1 ? 's' : ''})`;
+    
+    if (musicPlaylist.length === 0) {
+      list.innerHTML = `<div class="music-playlist__empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><p>Your playlist is empty. Add some tracks to get started.</p></div>`;
+      return;
+    }
+    
+    list.innerHTML = musicPlaylist.map((track, idx) => `
+      <div class="music-track ${idx === musicCurrentIdx ? 'active' : ''}" data-idx="${idx}">
+        <div class="music-track__num">${idx === musicCurrentIdx && musicIsPlaying ? '♫' : idx + 1}</div>
+        <div class="music-track__info">
+          <div class="music-track__name">${track.name}</div>
+          <div class="music-track__duration">${track.duration ? formatTime(track.duration) : '--:--'}</div>
+        </div>
+        <button class="music-track__remove" data-remove="${idx}" title="Remove">&times;</button>
+      </div>
+    `).join('');
+    
+    // Bind clicks
+    $$('.music-track', list).forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.music-track__remove')) return;
+        const idx = +el.dataset.idx;
+        loadMusicTrack(idx);
+        musicIsPlaying = true;
+        musicAudio.play();
+        updatePlayButton();
+      });
+    });
+    
+    $$('.music-track__remove', list).forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = +btn.dataset.remove;
+        URL.revokeObjectURL(musicPlaylist[idx].url);
+        musicPlaylist.splice(idx, 1);
+        if (musicCurrentIdx === idx) {
+          musicAudio.pause();
+          musicIsPlaying = false;
+          musicCurrentIdx = -1;
+          updatePlayButton();
+          const titleEl = $('#music-title');
+          if (titleEl) titleEl.textContent = 'No track loaded';
+        } else if (musicCurrentIdx > idx) {
+          musicCurrentIdx--;
+        }
+        renderMusicPlaylist();
+      });
+    });
+  }
+
+  initMusic();
+
+  // ═══════ MUSIC LIBRARY SEARCH (Deezer Previews + Direct URLs) ═══════
+  let musicSearchResults = [];
+
+  async function searchMusicLibrary(query) {
+    if (!query || query.length < 2) return;
+    showToast('Searching...', 'info', 1500);
+    
+    let data = null;
+    try {
+      const res = await fetch('https://api.deezer.com/search?q=' + encodeURIComponent(query) + '&limit=25');
+      if (res.ok) {
+        const json = await res.json();
+        if (json.data && json.data.length) {
+          data = json.data.map(track => ({
+            song_name: track.title || 'Unknown',
+            song_artist: track.artist ? track.artist.name : 'Unknown',
+            album_name: track.album ? track.album.title : '',
+            song_image: track.album ? track.album.cover_medium : '',
+            song_duration: String(track.duration || 0),
+            download_url: track.preview
+          }));
+        }
+      }
+    } catch (err) {}
+    
+    if (!data || !data.length) {
+      showToast('No results found.', 'error', 2000);
+      return;
+    }
+    
+    musicSearchResults = data;
+    renderMusicSearchResults(data, query);
+  }
+
+  function renderMusicSearchResults(results, query) {
+    const list = $('#music-playlist-list');
+    if (!list) return;
+    
+    let searchHtml = `<div class="music-search-results" id="music-search-results">
+      <div class="music-search-results__header">
+        <h4>🎵 "${query}" — ${results.length} tracks found</h4>
+        <button class="music-search-results__close" id="music-search-close">&times;</button>
+      </div>
+      <p style="font-size:.7rem;color:var(--text-muted);margin-bottom:12px;padding:0 4px">Previews via Deezer. For full songs, add local files or paste direct MP3 URLs.</p>`;
+    
+    searchHtml += results.map((song, idx) => {
+      const duration = song.song_duration && song.song_duration !== '0' ? formatTime(parseInt(song.song_duration)) : '';
+      return `<div class="music-search-item" data-search-idx="${idx}">
+        ${song.song_image ? '<img class="music-search-item__img" src="' + song.song_image + '" alt="" />' : ''}
+        <div class="music-search-item__info">
+          <div class="music-search-item__name">${song.song_name}</div>
+          <div class="music-search-item__artist">${song.song_artist} ${song.album_name ? '· ' + song.album_name : ''} ${duration ? '· ' + duration : ''}</div>
+        </div>
+        <button class="music-search-item__add" data-search-idx="${idx}">+</button>
+      </div>`;
+    }).join('');
+    
+    searchHtml += '</div>';
+    
+    const existing = $('#music-search-results');
+    if (existing) existing.remove();
+    list.insertAdjacentHTML('beforebegin', searchHtml);
+    
+    const closeBtn = $('#music-search-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => { const el = $('#music-search-results'); if (el) el.remove(); });
+    
+    $$('.music-search-item__add').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); addSongFromSearch(parseInt(btn.dataset.searchIdx)); });
+    });
+    
+    $$('.music-search-item').forEach(item => {
+      item.addEventListener('click', () => {
+        addSongFromSearch(parseInt(item.dataset.searchIdx));
+        musicIsPlaying = true;
+        loadMusicTrack(musicPlaylist.length - 1);
+        if (musicAudio) musicAudio.play().catch(() => {});
+        updatePlayButton();
+      });
+    });
+  }
+
+  function addSongFromSearch(idx) {
+    const song = musicSearchResults[idx];
+    if (!song || !song.download_url) { showToast('No stream available', 'error', 2000); return; }
+    
+    musicPlaylist.push({
+      name: song.song_name,
+      artist: song.song_artist,
+      album: song.album_name,
+      url: song.download_url,
+      image: song.song_image,
+      duration: parseInt(song.song_duration) || 0,
+      isLocal: false
+    });
+    renderMusicPlaylist();
+    showToast('Added: ' + song.song_name, 'success', 1500);
+    if (musicCurrentIdx === -1) loadMusicTrack(0);
+  }
+
+  // ═══════ NAV ROUTING FOR REELS & MUSIC ═══════
+  function hideAllScreens() {
+    const screens = ['#sports-screen', '#reels-screen', '#music-screen'];
+    screens.forEach(s => { const el = $(s); if (el) el.classList.add('hidden'); });
+    if (sportsHeroInterval) clearInterval(sportsHeroInterval);
+    if (reelsTimer) clearInterval(reelsTimer);
+  }
+
+  // Add reels/music to the nav click handler
+  const reelsNavBtn = $('#nav-reels-btn');
+  const musicNavBtn = $('#nav-music-btn');
+
+  if (reelsNavBtn) {
+    reelsNavBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      $$('.navbar__links a').forEach(el => el.classList.remove('active'));
+      reelsNavBtn.classList.add('active');
+      hideAllScreens();
+      hero.classList.add('hidden');
+      rowsContainer.classList.add('hidden');
+      searchResults.classList.add('hidden');
+      const reelsScreen = $('#reels-screen');
+      if (reelsScreen) reelsScreen.classList.remove('hidden');
+      initReels();
+    });
+  }
+
+  if (musicNavBtn) {
+    musicNavBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      $$('.navbar__links a').forEach(el => el.classList.remove('active'));
+      musicNavBtn.classList.add('active');
+      hideAllScreens();
+      hero.classList.add('hidden');
+      rowsContainer.classList.add('hidden');
+      searchResults.classList.add('hidden');
+      const musicScreen = $('#music-screen');
+      if (musicScreen) musicScreen.classList.remove('hidden');
+    });
+  }
+
+  // Add CSS animation for reels zoom
+  const reelStyle = document.createElement('style');
+  reelStyle.textContent = '@keyframes reelZoom{from{transform:scale(1)}to{transform:scale(1.15)}}';
+  document.head.appendChild(reelStyle);
 
   // ═══════ FOOTER VISIBILITY ═══════
   const siteFooter = $('#site-footer');
@@ -2734,5 +3307,450 @@
       }, 50);
     });
   }
+
+  // ═══════════════════════════════════════════════════════════════
+  // MASSIVE UPGRADE v4.0 — New Features
+  // ═══════════════════════════════════════════════════════════════
+
+  // ═══════ FLOATING MINI MUSIC PLAYER ═══════
+  (function initMiniPlayer() {
+    const miniPlayer = $('#mini-music-player');
+    const miniTitle = $('#mini-player-title');
+    const miniArtist = $('#mini-player-artist');
+    const miniPlayBtn = $('#mini-player-play');
+    const miniPlayIcon = $('#mini-player-play-icon');
+    const miniPrevBtn = $('#mini-player-prev');
+    const miniNextBtn = $('#mini-player-next');
+    const miniCloseBtn = $('#mini-player-close');
+    const miniProgressBar = $('#mini-player-progress-bar');
+    let miniPlayerDismissed = false;
+
+    function updateMiniPlayer() {
+      if (!miniPlayer || miniPlayerDismissed) return;
+      const musicScreenEl = $('#music-screen');
+      const isMusicVisible = musicScreenEl && !musicScreenEl.classList.contains('hidden');
+      
+      // Show mini player when music is playing and user is NOT on music tab
+      if (musicIsPlaying && !isMusicVisible && musicCurrentIdx >= 0 && musicPlaylist.length > 0) {
+        miniPlayer.classList.add('visible');
+        const track = musicPlaylist[musicCurrentIdx];
+        if (miniTitle) miniTitle.textContent = track ? track.name : 'Unknown';
+        if (miniArtist) miniArtist.textContent = track && track.isLocal === false ? 'Streaming' : 'Local file';
+        // Update play icon
+        if (miniPlayIcon) {
+          miniPlayIcon.innerHTML = musicIsPlaying 
+            ? '<rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/>'
+            : '<polygon points="5,3 19,12 5,21"/>';
+        }
+      } else {
+        miniPlayer.classList.remove('visible');
+      }
+    }
+
+    // Update progress bar on mini player
+    if (musicAudio) {
+      musicAudio.addEventListener('timeupdate', () => {
+        if (miniProgressBar && musicAudio.duration) {
+          const pct = (musicAudio.currentTime / musicAudio.duration) * 100;
+          miniProgressBar.style.width = pct + '%';
+        }
+        updateMiniPlayer();
+      });
+      musicAudio.addEventListener('play', () => { musicIsPlaying = true; updateMiniPlayer(); });
+      musicAudio.addEventListener('pause', () => { musicIsPlaying = false; updateMiniPlayer(); });
+    }
+
+    // Mini player controls
+    if (miniPlayBtn) miniPlayBtn.addEventListener('click', toggleMusicPlay);
+    if (miniPrevBtn) miniPrevBtn.addEventListener('click', musicPrev);
+    if (miniNextBtn) miniNextBtn.addEventListener('click', musicNext);
+    if (miniCloseBtn) miniCloseBtn.addEventListener('click', () => {
+      miniPlayerDismissed = true;
+      miniPlayer.classList.remove('visible');
+    });
+
+    // Re-show mini player when navigating away from music
+    const observer = new MutationObserver(() => {
+      miniPlayerDismissed = false;
+      updateMiniPlayer();
+    });
+    const musicScreenObs = $('#music-screen');
+    if (musicScreenObs) {
+      observer.observe(musicScreenObs, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    // Also update when nav links are clicked
+    $$('.navbar__links a').forEach(link => {
+      link.addEventListener('click', () => setTimeout(updateMiniPlayer, 100));
+    });
+  })();
+
+  // ═══════ KEYBOARD SHORTCUTS FOR MUSIC ═══════
+  (function initMusicKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // Don't trigger if user is typing in an input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+      // Don't trigger if player overlay is open (conflicts with video controls)
+      const playerOverlay = $('#player-overlay');
+      if (playerOverlay && !playerOverlay.classList.contains('hidden')) return;
+
+      switch (e.key) {
+        case ' ':
+          // Space = play/pause music (only if music has tracks)
+          if (musicPlaylist.length > 0) {
+            e.preventDefault();
+            toggleMusicPlay();
+          }
+          break;
+        case 'ArrowRight':
+          // Seek forward 10s
+          if (musicAudio && musicIsPlaying) {
+            e.preventDefault();
+            musicAudio.currentTime = Math.min(musicAudio.currentTime + 10, musicAudio.duration || 0);
+          }
+          break;
+        case 'ArrowLeft':
+          // Seek backward 10s
+          if (musicAudio && musicIsPlaying) {
+            e.preventDefault();
+            musicAudio.currentTime = Math.max(musicAudio.currentTime - 10, 0);
+          }
+          break;
+        case 'n':
+        case 'N':
+          // Next track
+          if (musicPlaylist.length > 0) {
+            e.preventDefault();
+            musicNext();
+            showToast('Next track', 'info', 1500);
+          }
+          break;
+        case 'p':
+        case 'P':
+          // Previous track
+          if (musicPlaylist.length > 0) {
+            e.preventDefault();
+            musicPrev();
+            showToast('Previous track', 'info', 1500);
+          }
+          break;
+      }
+    });
+  })();
+
+  // ═══════ DOUBLE-CLICK ON REEL TO ADD TO MY LIST ═══════
+  (function initReelsDoubleTap() {
+    const reelsContainer = $('#reels-container');
+    if (!reelsContainer) return;
+    let lastTap = 0;
+
+    reelsContainer.addEventListener('dblclick', (e) => {
+      // Don't trigger on buttons
+      if (e.target.closest('.reels-action-btn') || e.target.closest('.reels-nav__btn')) return;
+      
+      const movie = reelsMovies[reelsIndex];
+      if (!movie) return;
+
+      // Add to list
+      const added = toggleMyList(movie);
+      
+      // Show heart animation
+      const heart = document.createElement('div');
+      heart.className = 'reels-heart-anim';
+      heart.textContent = added ? '♥' : '♡';
+      reelsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 900);
+
+      showToast(added ? 'Added to My List' : 'Removed from My List', added ? 'success' : 'info', 2000);
+    });
+  })();
+
+  // ═══════ REELS AUTO-ADVANCEMENT WHEN TRAILER ENDS ═══════
+  (function initReelsAutoAdvance() {
+    // Listen for YouTube iframe messages (postMessage API)
+    window.addEventListener('message', (e) => {
+      try {
+        // YouTube sends state changes via postMessage
+        if (typeof e.data === 'string') {
+          const data = JSON.parse(e.data);
+          // YouTube player state: 0 = ended
+          if (data.event === 'onStateChange' && data.info === 0) {
+            const reelsScreen = $('#reels-screen');
+            if (reelsScreen && !reelsScreen.classList.contains('hidden')) {
+              showToast('Auto-playing next reel...', 'info', 1500);
+              setTimeout(() => {
+                if (typeof nextReel === 'function') nextReel();
+              }, 1500);
+            }
+          }
+        }
+      } catch (err) { /* ignore non-JSON messages */ }
+    });
+  })();
+
+  // ═══════ MUSIC PLAYER REMEMBERS LAST PLAYLIST (localStorage) ═══════
+  (function initMusicPersistence() {
+    const MUSIC_STORAGE_KEY = 'moiz_music_playlist';
+
+    function saveMusicState() {
+      try {
+        // Only save URL-based tracks (can't persist blob URLs)
+        const persistable = musicPlaylist.filter(t => !t.url.startsWith('blob:'));
+        const state = {
+          tracks: persistable,
+          currentIdx: musicCurrentIdx,
+          volume: musicAudio ? musicAudio.volume : 0.8
+        };
+        localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(state));
+      } catch (err) { /* quota exceeded or other error */ }
+    }
+
+    function loadMusicState() {
+      try {
+        const raw = localStorage.getItem(MUSIC_STORAGE_KEY);
+        if (!raw) return;
+        const state = JSON.parse(raw);
+        if (state.tracks && state.tracks.length > 0) {
+          // Only load if playlist is currently empty
+          if (musicPlaylist.length === 0) {
+            musicPlaylist.push(...state.tracks);
+            renderMusicPlaylist();
+            if (state.currentIdx >= 0 && state.currentIdx < musicPlaylist.length) {
+              loadMusicTrack(state.currentIdx);
+            }
+            if (musicAudio && state.volume !== undefined) {
+              musicAudio.volume = state.volume;
+              const volSlider = $('#music-volume');
+              if (volSlider) volSlider.value = state.volume * 100;
+            }
+            showToast('Restored your last playlist', 'info', 2000);
+          }
+        }
+      } catch (err) { /* corrupted data */ }
+    }
+
+    // Save on changes
+    if (musicAudio) {
+      musicAudio.addEventListener('loadedmetadata', saveMusicState);
+      musicAudio.addEventListener('volumechange', saveMusicState);
+    }
+
+    // Auto-save when playlist changes (hook into the audio events)
+    if (musicAudio) {
+      musicAudio.addEventListener('play', saveMusicState);
+      musicAudio.addEventListener('ended', saveMusicState);
+    }
+
+    // Load saved state after a short delay (let the music player init first)
+    setTimeout(loadMusicState, 1500);
+  })();
+
+  // ═══════ QUICK-PLAY CONTEXT MENU (Right-Click on Cards) ═══════
+  (function initContextMenu() {
+    let activeMenu = null;
+
+    function removeMenu() {
+      if (activeMenu) {
+        activeMenu.remove();
+        activeMenu = null;
+      }
+    }
+
+    document.addEventListener('click', removeMenu);
+    document.addEventListener('scroll', removeMenu, true);
+
+    document.addEventListener('contextmenu', (e) => {
+      const card = e.target.closest('.card');
+      if (!card) return;
+
+      e.preventDefault();
+      removeMenu();
+
+      const movieId = parseInt(card.dataset.id);
+      const movie = loadedMoviesMap[movieId];
+      if (!movie) return;
+
+      const menu = document.createElement('div');
+      menu.className = 'card-context-menu';
+      menu.innerHTML = `
+        <div class="card-context-menu__item" data-action="play">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Quick Play
+        </div>
+        <div class="card-context-menu__item" data-action="info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          More Info
+        </div>
+        <div class="card-context-menu__divider"></div>
+        <div class="card-context-menu__item" data-action="list">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          ${isInMyList(movieId) ? 'Remove from My List' : 'Add to My List'}
+        </div>
+      `;
+
+      // Position menu
+      const x = Math.min(e.clientX, window.innerWidth - 200);
+      const y = Math.min(e.clientY, window.innerHeight - 150);
+      menu.style.left = x + 'px';
+      menu.style.top = y + 'px';
+
+      document.body.appendChild(menu);
+      activeMenu = menu;
+
+      // Handle clicks
+      menu.addEventListener('click', (ev) => {
+        const item = ev.target.closest('.card-context-menu__item');
+        if (!item) return;
+        const action = item.dataset.action;
+
+        if (action === 'play') {
+          openPlayer(movie);
+          showToast('Quick playing: ' + (movie.title || movie.name), 'success', 2000);
+        } else if (action === 'info') {
+          openInfoModal(movie);
+        } else if (action === 'list') {
+          const added = toggleMyList(movie);
+          showToast(added ? 'Added to My List' : 'Removed from My List', added ? 'success' : 'info', 2000);
+        }
+        removeMenu();
+      });
+    });
+  })();
+
+  // ═══════ CINEMA MODE ═══════
+  (function initCinemaMode() {
+    const cinemaBtn = $('#cinema-mode-btn');
+    const cinemaOverlay = $('#cinema-mode-overlay');
+    let cinemaActive = false;
+
+    function toggleCinema() {
+      cinemaActive = !cinemaActive;
+      document.body.classList.toggle('cinema-mode', cinemaActive);
+      if (cinemaOverlay) cinemaOverlay.classList.toggle('active', cinemaActive);
+      if (cinemaBtn) cinemaBtn.classList.toggle('active', cinemaActive);
+      showToast(cinemaActive ? 'Cinema Mode ON — lights dimmed' : 'Cinema Mode OFF', 'info', 2000);
+    }
+
+    if (cinemaBtn) cinemaBtn.addEventListener('click', toggleCinema);
+    if (cinemaOverlay) cinemaOverlay.addEventListener('click', () => {
+      if (cinemaActive) toggleCinema();
+    });
+
+    // Turn off cinema mode when player closes
+    const playerClose = $('#player-close');
+    const playerBack = $('#player-back-btn');
+    function offCinema() {
+      if (cinemaActive) {
+        cinemaActive = false;
+        document.body.classList.remove('cinema-mode');
+        if (cinemaOverlay) cinemaOverlay.classList.remove('active');
+        if (cinemaBtn) cinemaBtn.classList.remove('active');
+      }
+    }
+    if (playerClose) playerClose.addEventListener('click', offCinema);
+    if (playerBack) playerBack.addEventListener('click', offCinema);
+  })();
+
+  // ═══════ MOBILE HAMBURGER MENU ═══════
+  (function initMobileMenu() {
+    const menuBtn = $('#mobile-menu-btn');
+    const overlay = $('#mobile-nav-overlay');
+    if (!menuBtn || !overlay) return;
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+
+    // Handle mobile nav clicks
+    overlay.querySelectorAll('[data-mobile-nav]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const nav = link.dataset.mobileNav;
+        
+        // Remove active from all
+        overlay.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+
+        // Close menu
+        menuBtn.classList.remove('open');
+        overlay.classList.remove('open');
+
+        // Trigger the corresponding nav action
+        const navMap = {
+          home: '#nav-home-li a',
+          tv: '#nav-tv-li a',
+          movies: '#nav-movies-li a',
+          mylist: '#nav-mylist-li a',
+          reels: '#nav-reels-btn',
+          music: '#nav-music-btn',
+          sports: '#nav-sports-btn'
+        };
+
+        const target = $(navMap[nav]);
+        if (target) target.click();
+      });
+    });
+  })();
+
+  // ═══════ SKELETON LOADING PLACEHOLDERS ═══════
+  (function initSkeletonLoading() {
+    const rowsContainer = $('#rows-container');
+    if (!rowsContainer) return;
+
+    function showSkeletons() {
+      // Only show if rows container is empty
+      if (rowsContainer.children.length > 0) return;
+      
+      let skeletonHTML = '';
+      for (let i = 0; i < 3; i++) {
+        skeletonHTML += '<div class="skeleton-row__title"></div><div class="skeleton-row">';
+        for (let j = 0; j < 7; j++) {
+          skeletonHTML += '<div class="skeleton-card"></div>';
+        }
+        skeletonHTML += '</div>';
+      }
+      rowsContainer.innerHTML = skeletonHTML;
+    }
+
+    // Show skeletons initially
+    showSkeletons();
+
+    // Remove skeletons when real content loads
+    const obs = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node.classList && node.classList.contains('row')) {
+            // Real content arrived, remove skeletons
+            rowsContainer.querySelectorAll('.skeleton-card, .skeleton-row, .skeleton-row__title').forEach(el => el.remove());
+            obs.disconnect();
+            return;
+          }
+        }
+      }
+    });
+    obs.observe(rowsContainer, { childList: true });
+  })();
+
+  // ═══════ NOW PLAYING EQUALIZER IN MUSIC TRACK LIST ═══════
+  // Adds equalizer animation to active track via MutationObserver
+  (function initNowPlayingEqualizer() {
+    const playlistList = document.getElementById('music-playlist-list');
+    if (!playlistList) return;
+    
+    const eqObserver = new MutationObserver(() => {
+      const activeTrack = playlistList.querySelector('.music-track.active .music-track__num');
+      if (activeTrack && musicIsPlaying && !activeTrack.querySelector('.now-playing-eq')) {
+        activeTrack.innerHTML = `<span class="now-playing-eq">
+          <span class="now-playing-eq__bar"></span>
+          <span class="now-playing-eq__bar"></span>
+          <span class="now-playing-eq__bar"></span>
+          <span class="now-playing-eq__bar"></span>
+          <span class="now-playing-eq__bar"></span>
+        </span>`;
+      }
+    });
+    eqObserver.observe(playlistList, { childList: true, subtree: true });
+  })();
 
 })();
