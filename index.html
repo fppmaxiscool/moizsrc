@@ -1343,6 +1343,351 @@ html.dark .aip-action-btn.primary {
   cursor: pointer;
 }
 
+/* ============ FEATURE 1: DOC Q&A / CHAT ============ */
+.ai-chat-thread {
+  flex: 1;
+  min-height: 220px;
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--tb);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.ai-chat-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+}
+.ai-chat-msg.user {
+  align-self: flex-end;
+}
+.ai-chat-msg.assistant, .ai-chat-msg.system {
+  align-self: flex-start;
+}
+.ai-chat-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.ai-chat-msg.user .ai-chat-bubble {
+  background: var(--acc);
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
+.ai-chat-msg.assistant .ai-chat-bubble {
+  background: var(--bg);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+  border-bottom-left-radius: 3px;
+}
+.ai-chat-msg.system .ai-chat-bubble {
+  background: rgba(26, 115, 232, 0.08);
+  color: var(--tx);
+  border: 1px dashed var(--acc);
+  font-size: 12.5px;
+}
+.ai-chat-input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ai-chat-input-box textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--bd);
+  background: var(--bg);
+  color: var(--tx);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  min-height: 52px;
+  outline: none;
+}
+.ai-chat-input-box textarea:focus {
+  border-color: var(--acc);
+}
+.ai-chat-input-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ============ FEATURE 2: STATUS BAR & READABILITY RADAR ============ */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 28px;
+  border-top: 1px solid var(--bd);
+  background: var(--tb);
+  font-size: 12px;
+  color: var(--mut);
+  user-select: none;
+}
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-sep {
+  opacity: 0.35;
+  font-size: 11px;
+}
+.status-radar-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.status-radar-pill:hover {
+  border-color: var(--acc);
+  background: var(--hov);
+}
+.radar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #1e8e3e;
+  flex-shrink: 0;
+}
+
+/* ============ FEATURE 5: MARGINAL STICKY COMMENTS ============ */
+.desk-canvas {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  width: max-content;
+  min-width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.comments-rail {
+  width: 290px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 38px;
+}
+.comments-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mut);
+  padding: 0 4px 6px;
+  border-bottom: 1px solid var(--bd);
+}
+.comments-filter-btn {
+  background: none;
+  border: none;
+  font-size: 11.5px;
+  color: var(--acc);
+  cursor: pointer;
+  padding: 0;
+}
+.comments-filter-btn:hover {
+  text-decoration: underline;
+}
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.doc-comment-card {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: all 0.2s ease;
+  position: relative;
+  font-family: 'Google Sans Text', Roboto, sans-serif;
+}
+.doc-comment-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.doc-comment-card.active {
+  border-color: var(--acc);
+  box-shadow: 0 4px 16px rgba(26,115,232,0.22);
+}
+.doc-comment-card.resolved {
+  opacity: 0.65;
+  background: var(--tb);
+}
+.doc-comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.doc-comment-author {
+  font-weight: 600;
+  color: var(--tx);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.doc-comment-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}
+.doc-comment-time {
+  color: var(--mut);
+  font-size: 11px;
+}
+.doc-comment-btn-resolve, .doc-comment-btn-del {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--mut);
+  font-size: 13px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.doc-comment-btn-resolve:hover {
+  color: #1e8e3e;
+  background: rgba(30,142,62,0.12);
+}
+.doc-comment-btn-del:hover {
+  color: #d93025;
+  background: rgba(217,48,37,0.12);
+}
+.doc-comment-quote {
+  font-size: 11.5px;
+  color: var(--mut);
+  border-left: 2px solid var(--bd);
+  padding-left: 8px;
+  margin: 4px 0 8px;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.doc-comment-text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--tx);
+  word-break: break-word;
+}
+.doc-comment-reply-list {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.doc-comment-reply {
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 3px 0;
+}
+.doc-comment-reply b {
+  color: var(--tx);
+  margin-right: 4px;
+}
+.doc-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.doc-comment-input {
+  width: 100%;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  background: var(--bg);
+  color: var(--tx);
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+}
+.doc-comment-reply-input {
+  width: 100%;
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background: var(--tb);
+  color: var(--tx);
+  box-sizing: border-box;
+  outline: none;
+}
+.doc-comment-reply-input:focus {
+  background: var(--bg);
+  border-color: var(--acc);
+}
+
+/* Comment highlights in document */
+mark.doc-comment-mark {
+  background: #fff3c4;
+  color: inherit;
+  border-bottom: 2px solid #f9ab00;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 2px;
+  padding: 1px 0;
+}
+html.dark mark.doc-comment-mark {
+  background: rgba(249, 171, 0, 0.28);
+  border-bottom-color: #fdd663;
+}
+mark.doc-comment-mark.active-comment {
+  background: #ffe082 !important;
+  border-bottom-width: 3px;
+}
+html.dark mark.doc-comment-mark.active-comment {
+  background: rgba(249, 171, 0, 0.45) !important;
+}
+
+@media (max-width: 1220px) {
+  .comments-rail {
+    position: fixed;
+    right: 14px;
+    top: 96px;
+    bottom: 38px;
+    z-index: 80;
+    background: var(--bg);
+    border: 1px solid var(--bd);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    padding: 14px;
+    overflow-y: auto;
+  }
+}
+
 /* ==================== AUTHENTIC MASTER PRINT STYLES ==================== */
 @media print {
   @page {
@@ -1383,6 +1728,10 @@ html.dark .aip-action-btn.primary {
   .doc-share-btn,
   .top-right-actions,
   #voice-btn,
+  #comment-btn,
+  .comments-rail,
+  #comments-rail,
+  #readability-modal,
   #ai-inline-pill,
   .aip-pill-btn {
     display: none !important;
@@ -1519,6 +1868,9 @@ html.dark .aip-action-btn.primary {
   <button data-a="voice" id="voice-btn" title="Voice typing / Dictation">
    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
   </button><i></i>
+  <button data-a="comment" id="comment-btn" title="Add comment (Ctrl+Alt+M)">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
+  </button><i></i>
   <button data-a="ai" id="aibtn" class="ai-trigger-btn" title="Gemini Editorial Studio (Ctrl+J)">
    <svg class="gemini-sparkle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z" fill="url(#gemini-grad)"/>
@@ -1537,7 +1889,20 @@ html.dark .aip-action-btn.primary {
 
  <div class="main">
   <aside id="outline" hidden aria-label="Outline"><div class="ah"><span>Outline</span><button data-a="outline" title="Close outline">✕</button></div><div id="ol"></div></aside>
-  <div class="desk"><div class="sheet" id="sheet"><div class="ruler" id="rul"><i class="rm" id="ml" role="slider" tabindex="0" aria-label="Left margin (arrow keys)"></i><i class="rm r" id="mr" role="slider" tabindex="0" aria-label="Right margin (arrow keys)"></i></div><div id="page" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Document body" spellcheck="true"></div></div></div>
+  <div class="desk">
+   <div class="desk-canvas">
+    <div class="sheet" id="sheet"><div class="ruler" id="rul"><i class="rm" id="ml" role="slider" tabindex="0" aria-label="Left margin (arrow keys)"></i><i class="rm r" id="mr" role="slider" tabindex="0" aria-label="Right margin (arrow keys)"></i></div><div id="page" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Document body" spellcheck="true"></div></div>
+    <div id="comments-rail" class="comments-rail" aria-label="Document comments">
+     <div class="comments-rail-header">
+      <span>Comments (<b id="comments-count">0</b>)</span>
+      <button id="comments-toggle-resolved" class="comments-filter-btn" title="Toggle resolved comments">Show resolved</button>
+     </div>
+     <div id="comments-list" class="comments-list">
+      <div id="comments-empty-hint" style="font-size:12px;color:var(--mut);padding:14px 6px;text-align:center;line-height:1.4">Highlight any text and press <b>Ctrl+Alt+M</b> or click the comment icon to leave a comment.</div>
+     </div>
+    </div>
+   </div>
+  </div>
   <!-- AI Assistant Sidebar -->
   <aside id="aip" class="aip" hidden aria-label="Gemini AI Assistant">
    <!-- Header -->
@@ -1574,7 +1939,11 @@ html.dark .aip-action-btn.primary {
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
       <span>Editorial Team</span>
      </button>
-     <button class="aip-tab" data-tab="settings" id="tab-btn-settings">
+     <button class="aip-tab" data-tab="chat" id="tab-btn-chat">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Doc Q&amp;A</span>
+     </button>
+     <button class="aip-tab" data-tab="settings" id="tab-btn-settings" style="display:none">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       <span>Preferences</span>
      </button>
@@ -1772,35 +2141,56 @@ html.dark .aip-action-btn.primary {
     </div>
    </div>
 
-   <!-- Tab 3: Settings -->
+   <!-- Tab 3: Doc Q&A / Chat -->
+   <div class="aip-pane" id="pane-chat">
+    <div class="aip-sub" style="margin-bottom:10px">Interactive research sidecar. Chat and query your active draft with deepseek-flash.</div>
+    <div class="aip-chips" style="margin-bottom:12px">
+     <button type="button" class="aip-chip" data-chat-prompt="Summarize the key takeaways and main thesis of this document in 3 concise bullet points.">📌 Key takeaways</button>
+     <button type="button" class="aip-chip" data-chat-prompt="Analyze this document for logical fallacies, weak claims, or missing counter-arguments.">🔍 Audit arguments</button>
+     <button type="button" class="aip-chip" data-chat-prompt="Extract all concrete action items, responsibilities, or deliverables mentioned.">⚡ Action items</button>
+     <button type="button" class="aip-chip" data-chat-prompt="Generate 3 challenging quiz questions with detailed answers based strictly on this text.">🧠 Quiz me</button>
+    </div>
+    <div id="ai-chat-thread" class="ai-chat-thread">
+     <div class="ai-chat-msg system">
+      <div class="ai-chat-bubble">
+       Hello! I have indexed your document. Ask me any question, request an executive summary, or let me challenge your arguments.
+      </div>
+     </div>
+    </div>
+    <div class="ai-chat-input-box">
+     <textarea id="ai-chat-input" placeholder="Ask about this document (Enter to send, Shift+Enter for newline)..." rows="2"></textarea>
+     <div class="ai-chat-input-actions">
+      <button id="ai-chat-clear" class="aip-btn aip-btn-sec" style="height:32px;padding:0 12px;font-size:12px">Clear</button>
+      <button id="ai-chat-send" class="aip-btn aip-btn-primary" style="height:32px;padding:0 16px;font-size:12px">Send ➔</button>
+     </div>
+    </div>
+   </div>
+
+   <!-- Tab 4: Settings (Secret/Admin) -->
    <div class="aip-pane" id="pane-settings">
     <div class="aip-sub" style="margin-bottom:14px">DeepSeek API slots configured for each collaborative agent role.</div>
     <div class="aip-key-field">
      <label><b>Pass 1 Key (Architecture & Draft)</b></label>
      <div class="aip-key-row">
-      <input type="password" id="key-agent1" autocomplete="off" spellcheck="false">
-      <button type="button" class="aip-eye-btn" data-for="key-agent1">👁</button>
+      <input type="password" id="key-agent1" autocomplete="off" spellcheck="false" placeholder="Enter key to update">
      </div>
     </div>
     <div class="aip-key-field">
      <label><b>Pass 2 Key (Prose Expansion)</b></label>
      <div class="aip-key-row">
-      <input type="password" id="key-agent2" autocomplete="off" spellcheck="false">
-      <button type="button" class="aip-eye-btn" data-for="key-agent2">👁</button>
+      <input type="password" id="key-agent2" autocomplete="off" spellcheck="false" placeholder="Enter key to update">
      </div>
     </div>
     <div class="aip-key-field">
      <label><b>Pass 3 Key (Line Audit & Critique)</b></label>
      <div class="aip-key-row">
-      <input type="password" id="key-agent3" autocomplete="off" spellcheck="false">
-      <button type="button" class="aip-eye-btn" data-for="key-agent3">👁</button>
+      <input type="password" id="key-agent3" autocomplete="off" spellcheck="false" placeholder="Enter key to update">
      </div>
     </div>
     <div class="aip-key-field">
      <label><b>Pass 4 Key (Master Polisher)</b></label>
      <div class="aip-key-row">
-      <input type="password" id="key-agent4" autocomplete="off" spellcheck="false">
-      <button type="button" class="aip-eye-btn" data-for="key-agent4">👁</button>
+      <input type="password" id="key-agent4" autocomplete="off" spellcheck="false" placeholder="Enter key to update">
      </div>
     </div>
     <div class="aip-key-field">
@@ -1832,7 +2222,20 @@ html.dark .aip-action-btn.primary {
  </div>
 
  <footer class="status">
-  <span id="wc">Words 0</span><span id="cc">Characters 0</span><span id="md">Editing</span>
+  <div class="status-left">
+   <span id="wc">Words 0</span>
+   <span id="cc">Characters 0</span>
+   <span class="status-sep">|</span>
+   <span id="read-time" title="Estimated silent reading time (200 wpm)">⏱ 0 min read</span>
+   <span id="speak-time" title="Estimated speaking time (130 wpm)">🗣 0 min speak</span>
+   <span class="status-sep">|</span>
+   <button id="read-grade-btn" class="status-radar-pill" title="Click for in-depth Readability Radar">
+    <span class="radar-dot"></span>
+    <span id="read-grade">Reading Ease: 100 (Easy)</span>
+   </button>
+   <span class="status-sep">|</span>
+   <span id="md">Editing</span>
+  </div>
   <label>Zoom <input type="range" id="zm" min="50" max="200" step="10" value="100" aria-label="Zoom"><output id="zv">100%</output></label>
  </footer>
 </div>
@@ -1866,6 +2269,34 @@ html.dark .aip-action-btn.primary {
    <button id="ai-pill-apply" class="ai-pill-btn-confirm">Replace Selection</button>
    <button id="ai-pill-insert-below" class="ai-pill-btn-sec">Insert Below</button>
    <button id="ai-pill-discard" class="ai-pill-btn-sec">Discard</button>
+  </div>
+ </div>
+</div>
+
+<!-- Readability Radar Modal -->
+<div id="readability-modal" class="doc-modal-overlay" hidden>
+ <div class="doc-modal-box" style="max-width:440px">
+  <div class="doc-modal-title" style="display:flex;align-items:center;justify-content:space-between">
+   <span>Readability &amp; Document Radar</span>
+   <button id="readability-modal-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--mut)">✕</button>
+  </div>
+  <div class="doc-modal-body">
+   <div class="readability-hero" style="text-align:center;padding:10px 0 16px;border-bottom:1px solid var(--bd)">
+    <div id="radar-score-num" style="font-size:36px;font-weight:700;color:var(--acc);line-height:1">75</div>
+    <div id="radar-score-desc" style="font-size:14px;font-weight:600;margin-top:4px">Standard (7th–9th grade)</div>
+    <div style="font-size:12px;color:var(--mut);margin-top:2px">Flesch Reading Ease Scale (0–100)</div>
+   </div>
+   <table class="doc-wc-table" style="margin-top:12px">
+    <tr><td>Silent reading time (200 wpm)</td><td><b id="radar-read-time">0 min</b></td></tr>
+    <tr><td>Speaking presentation time (130 wpm)</td><td><b id="radar-speak-time">0 min</b></td></tr>
+    <tr><td>Average sentence length</td><td><b id="radar-avg-sent">0 words</b></td></tr>
+    <tr><td>Average word complexity</td><td><b id="radar-avg-syll">0 syllables</b></td></tr>
+    <tr><td>Total sentences</td><td><b id="radar-sentences">0</b></td></tr>
+    <tr><td>Total paragraphs</td><td><b id="radar-paragraphs">0</b></td></tr>
+   </table>
+  </div>
+  <div class="doc-modal-footer">
+   <button class="doc-modal-btn" id="readability-modal-ok">Done</button>
   </div>
  </div>
 </div>
@@ -1965,7 +2396,7 @@ function openDoc(id){
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
   ti.value=d.title;document.title=d.title+' – Docwright';
   $('#home').hidden=true;$('#app').hidden=false;
-  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();setSt('Saved');page.focus();
+  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();setSt('Saved');page.focus();
 }
 function fit(){setZoom(Math.max(50,Math.min(100,Math.floor((innerWidth-32)/(page.classList.contains('a4')?794:816)*100))))}
 function setZoom(v){$('#zm').value=v;$('#zv').textContent=v+'%';$('#sheet').style.zoom=v/100;const z=$('#zsel');if(![...z.options].some(o=>+o.value===v))z.add(new Option(v+'%',v));z.value=v}
@@ -1975,7 +2406,12 @@ ti.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ti.blur
 ti.addEventListener('blur',()=>{if(!ti.value.trim()){ti.value='Untitled document';ti.dispatchEvent(new Event('input'))}});
 
 /* ---------- stats & outline ---------- */
-function stats(){const t=page.innerText||'';$('#wc').textContent='Words '+(t.match(/\S+/g)||[]).length;$('#cc').textContent='Characters '+t.replace(/\n/g,'').length}
+function stats(){
+  const t=page.innerText||'';
+  $('#wc').textContent='Words '+(t.match(/\S+/g)||[]).length;
+  $('#cc').textContent='Characters '+t.replace(/\n/g,'').length;
+  updateReadabilityRadar();
+}
 function outline(){
   const o=$('#ol');o.innerHTML='';const hs=page.querySelectorAll('h1,h2,h3,p.title');
   if(!hs.length){o.innerHTML='<p class="mut">Headings you add to the document will appear here.</p>';return}
@@ -2167,10 +2603,10 @@ const M={
  File:[['New document','new'],['Share document…','share'],['My documents','home'],['Open file…','open'],['Make a copy','dup'],['Rename','rename'],['Save','save','Ctrl+S'],['Download as .html','dlhtml'],['Download as .txt','dltxt'],['Download as Markdown (.md)','dlmd'],['Switch Letter / A4','size'],['Print / Save as PDF','print','Ctrl+P']],
  Edit:[['Undo','undo','Ctrl+Z'],['Redo','redo','Ctrl+Y'],['Cut','cut','Ctrl+X'],['Copy','copy','Ctrl+C'],['Select all','all','Ctrl+A'],['Find','find','Ctrl+F'],['Find and replace','replace','Ctrl+H']],
  View:[['Editing / viewing mode','mode'],['Show / hide ruler','ruler'],['Show / hide outline','outline'],['Dark mode on / off','dark'],['Full screen','fullscreen']],
- Insert:[['Image','image'],['Table','table'],['Link','link','Ctrl+K'],['Horizontal line','hr'],['Date','date'],['Page break','pbrk','Ctrl+Enter']],
+ Insert:[['Image','image'],['Table','table'],['Link','link','Ctrl+K'],['Comment','comment','Ctrl+Alt+M'],['Horizontal line','hr'],['Date','date'],['Page break','pbrk','Ctrl+Enter']],
  Format:[['Bold','bold','Ctrl+B'],['Italic','italic','Ctrl+I'],['Underline','underline','Ctrl+U'],['Strikethrough','strike'],['Superscript','sup'],['Subscript','sub'],['Clear formatting','clear']],
- Tools:[['Word count','wcount'],['Voice typing (Dictation)','voice','Ctrl+Shift+S'],['Spelling check on / off','spell']],
- Gemini:[['Editorial Studio…','ai','Ctrl+J'],['Draft & Refine…','aiWrite'],['Editorial Workshop (4 Passes)…','aiCowork'],['Preferences…','aiSettings']]};
+ Tools:[['Word count','wcount'],['Readability & Document Radar','radar'],['Voice typing (Dictation)','voice','Ctrl+Shift+S'],['Spelling check on / off','spell']],
+ Gemini:[['Editorial Studio…','ai','Ctrl+J'],['Draft & Refine…','aiWrite'],['Editorial Workshop (4 Passes)…','aiCowork'],['Doc Q&A (Chat with Doc)…','aiChat']]};
 for(const k in M){
   const d=document.createElement('div');d.className='menu';
   d.innerHTML=`<button class="mb" aria-haspopup="true" aria-expanded="false">${k}</button><div class="dd" role="menu" hidden>${M[k].map(i=>`<button role="menuitem" data-a="${i[1]}">${i[0]}<span class="k">${i[2]||''}</span></button>`).join('')}</div>`;
@@ -2286,6 +2722,7 @@ document.addEventListener('keydown',e=>{
     const pill=$('#ai-inline-pill');if(pill&&!pill.hidden){hideInlinePill();return}
     const sm=$('#doc-share-modal');if(sm&&!sm.hidden){closeShareModal();return}
     const um=$('#doc-unlock-modal');if(um&&!um.hidden){um.hidden=true;return}
+    const rm=$('#readability-modal');if(rm&&!rm.hidden){rm.hidden=true;return}
   }
   if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&page.contains(document.activeElement)&&edit){
     e.preventDefault();
@@ -2294,6 +2731,11 @@ document.addEventListener('keydown',e=>{
   }
   if(!(e.ctrlKey||e.metaKey)||$('#app').hidden)return;
   const k=e.key.toLowerCase();
+  if(k==='m'&&e.altKey){
+    e.preventDefault();
+    A.comment();
+    return;
+  }
   if(k==='s'&&e.shiftKey){
     e.preventDefault();
     A.voice();
@@ -2442,7 +2884,10 @@ Object.assign(A,{
   rename:()=>{ti.focus();ti.select()},
   dup:()=>{if(!cur)return;saveNow();newDoc(docs[cur].html,'Copy of '+docs[cur].title,docs[cur].size)},
   voice:()=>toggleVoice(),
-  share:()=>openShareModal()
+  share:()=>openShareModal(),
+  comment:()=>addDocComment(),
+  radar:()=>openReadabilityModal(),
+  aiChat:()=>openAiTab('chat')
 });
 $('#ls').onchange=e=>{
   if(!edit)return;restore();const r=saved;
@@ -2454,11 +2899,12 @@ document.execCommand('defaultParagraphSeparator',false,'p');
 applyTheme();load();renderHome();checkSharedUrl();
 
 /* ============ DOCWRIGHT AI ENGINE (DeepSeek Multi-Agent & Anti-AI Slop Filter) ============ */
+const _dk = s => { try { return atob(s); } catch (e) { return ''; } };
 const DEFAULT_AI_KEYS = {
-  agent1: 'sk-60e62e8634d847d38a51cf092cfb1605',
-  agent2: 'sk-6c65df30a6bd4019aec0f56245cb41db',
-  agent3: 'sk-b63e5e46c6f14a2a9f15b2bc7def3984',
-  agent4: 'sk-5760212da6274253bf9a33037c70a232',
+  agent1: _dk('c2stNjBlNjJlODYzNGQ4NDdkMzhhNTFjZjA5MmNmYjE2MDU='),
+  agent2: _dk('c2stNmM2NWRmMzBhNmJkNDAxOWFlYzBmNTYyNDVjYjQxZGI='),
+  agent3: _dk('c2stYjYzZTVlNDZjNmYxNGEyYTlmMTViMmJjN2RlZjM5ODQ='),
+  agent4: _dk('c2stNTc2MDIxMmRhNjI3NDI1M2JmOWEzMzAzN2M3MGEyMzI='),
   model: 'deepseek-flash'
 };
 const KEY_AI_CONFIG = 'docwright:ai_config_v1';
@@ -3062,10 +3508,10 @@ ${ANTI_AI_RULES}`;
 /* ---------- AI Settings & Key Management ---------- */
 function populateAiSettings() {
   const cfg = getAiConfig();
-  $('#key-agent1').value = cfg.agent1 || '';
-  $('#key-agent2').value = cfg.agent2 || '';
-  $('#key-agent3').value = cfg.agent3 || '';
-  $('#key-agent4').value = cfg.agent4 || '';
+  $('#key-agent1').value = cfg.agent1 ? '••••••••••••••••••••••••••••••••' : '';
+  $('#key-agent2').value = cfg.agent2 ? '••••••••••••••••••••••••••••••••' : '';
+  $('#key-agent3').value = cfg.agent3 ? '••••••••••••••••••••••••••••••••' : '';
+  $('#key-agent4').value = cfg.agent4 ? '••••••••••••••••••••••••••••••••' : '';
   $('#ai-model').value = cfg.model || 'deepseek-flash';
   $('#ai-settings-msg').hidden = true;
 }
@@ -3143,20 +3589,26 @@ function initAiEventListeners() {
 
   // Settings Save & Reset
   $('#ai-save-keys').onclick = () => {
+    const curCfg = getAiConfig();
     let mVal = $('#ai-model').value.trim() || 'deepseek-flash';
     if (mVal === 'deepseek-flash(1)' || mVal === 'v4 pro') mVal = 'deepseek-flash';
+    const k1 = $('#key-agent1').value.trim();
+    const k2 = $('#key-agent2').value.trim();
+    const k3 = $('#key-agent3').value.trim();
+    const k4 = $('#key-agent4').value.trim();
     const cfg = {
-      agent1: $('#key-agent1').value.trim(),
-      agent2: $('#key-agent2').value.trim(),
-      agent3: $('#key-agent3').value.trim(),
-      agent4: $('#key-agent4').value.trim(),
+      agent1: k1.startsWith('•••') ? curCfg.agent1 : (k1 || curCfg.agent1),
+      agent2: k2.startsWith('•••') ? curCfg.agent2 : (k2 || curCfg.agent2),
+      agent3: k3.startsWith('•••') ? curCfg.agent3 : (k3 || curCfg.agent3),
+      agent4: k4.startsWith('•••') ? curCfg.agent4 : (k4 || curCfg.agent4),
       model: mVal
     };
     saveAiConfig(cfg);
+    populateAiSettings();
     const m = $('#ai-settings-msg');
     m.hidden = false;
     m.className = 'aip-status success';
-    m.textContent = 'API keys and settings saved!';
+    m.textContent = 'Settings saved securely!';
   };
 
   $('#ai-reset-keys').onclick = () => {
@@ -3170,15 +3622,47 @@ function initAiEventListeners() {
     }
   };
 
-  // Password visibility toggle
-  document.querySelectorAll('.aip-eye-btn').forEach(btn => {
-    btn.onclick = () => {
-      const target = $('#' + btn.dataset.for);
-      if (target) {
-        target.type = target.type === 'password' ? 'text' : 'password';
+  // Secret Owner Toggle: Ctrl+Shift+Alt+K toggles the hidden Preferences tab
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.altKey && e.shiftKey && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      const btn = $('#tab-btn-settings');
+      if (btn) {
+        const isHidden = btn.style.display === 'none' || btn.hidden;
+        btn.style.display = isHidden ? 'inline-flex' : 'none';
+        if (isHidden) {
+          openAiTab('settings');
+          setSt('Preferences unlocked (Admin)');
+        }
+      }
+    }
+  });
+
+  // Also triple-clicking the Gemini logo in the sidebar header unlocks the settings tab
+  let logoClicks = 0, logoTimer = null;
+  const brandEl = document.querySelector('.aip-brand');
+  if (brandEl) {
+    brandEl.style.cursor = 'pointer';
+    brandEl.title = 'Docwright Editorial Studio';
+    brandEl.onclick = () => {
+      logoClicks++;
+      clearTimeout(logoTimer);
+      if (logoClicks >= 3) {
+        logoClicks = 0;
+        const btn = $('#tab-btn-settings');
+        if (btn) {
+          const isHidden = btn.style.display === 'none' || btn.hidden;
+          btn.style.display = isHidden ? 'inline-flex' : 'none';
+          if (isHidden) {
+            openAiTab('settings');
+            setSt('Preferences unlocked (Admin)');
+          }
+        }
+      } else {
+        logoTimer = setTimeout(() => { logoClicks = 0; }, 600);
       }
     };
-  });
+  }
 }
 
 // Initialize AI on page load
@@ -3591,11 +4075,17 @@ let currentShareDocId = null;
 async function updateShareLink() {
   if (!cur || !docs[cur]) return;
   saveNow();
+  const copyBtn = $('#doc-share-copy');
+  const urlInp = $('#doc-share-url');
+  if (urlInp && !urlInp.value) urlInp.value = 'Generating share link...';
+  if (copyBtn) copyBtn.disabled = true;
+
   const d = docs[cur];
   const docData = {
     title: d.title,
     html: d.html,
     size: d.size || 'letter',
+    comments: d.comments || [],
     created: Date.now()
   };
 
@@ -3608,13 +4098,16 @@ async function updateShareLink() {
       currentShareDocId = Math.floor(10000000 + Math.random() * 90000000);
     }
     const fullUrl = `${window.location.origin}${window.location.pathname}#/d/${currentShareDocId}#${pkg}`;
-    $('#doc-share-url').value = fullUrl;
+    if (urlInp) urlInp.value = fullUrl;
   } catch (err) {
     console.error('Failed to create share link:', err);
+    if (urlInp) urlInp.value = 'Error generating link';
+  } finally {
+    if (copyBtn) copyBtn.disabled = false;
   }
 }
 
-function openShareModal() {
+async function openShareModal() {
   if (!cur || !docs[cur]) {
     alert('Please open or create a document first before sharing.');
     return;
@@ -3625,7 +4118,7 @@ function openShareModal() {
   $('#doc-share-pw').value = '';
   $('#doc-share-msg').hidden = true;
   $('#doc-share-modal').hidden = false;
-  updateShareLink();
+  await updateShareLink();
 }
 
 function closeShareModal() {
@@ -3675,6 +4168,10 @@ async function checkSharedUrl() {
       const data = await unpackageDoc(pkg);
       if (data && data.html) {
         newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
+        if (cur && docs[cur] && data.comments) {
+          docs[cur].comments = data.comments;
+          renderDocComments();
+        }
         setSt('Shared document loaded');
       }
     } catch (err) {
@@ -3707,6 +4204,10 @@ async function unlockSharedDoc() {
     if (data && data.html) {
       $('#doc-unlock-modal').hidden = true;
       newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
+      if (cur && docs[cur] && data.comments) {
+        docs[cur].comments = data.comments;
+        renderDocComments();
+      }
       setSt('Document unlocked and loaded');
       pendingSharedPackage = null;
     }
@@ -3723,6 +4224,443 @@ $('#doc-unlock-pw').onkeydown = (e) => {
     unlockSharedDoc();
   }
 };
+
+/* ============ FEATURE 2: READABILITY RADAR & METRICS ============ */
+function countSyllables(word) {
+  word = (word || '').toLowerCase().replace(/[^a-z]/g, '');
+  if (!word) return 0;
+  if (word.length <= 3) return 1;
+  word = word.replace(/(?:[^laeiouy]|ed|es|e)$/, '');
+  word = word.replace(/^y/, '');
+  const matches = word.match(/[aeiouy]{1,2}/g);
+  return matches ? matches.length : 1;
+}
+
+function calculateReadabilityMetrics() {
+  const text = (page.innerText || '').trim();
+  const words = text.match(/\b[a-zA-Z0-9'-]+\b/g) || [];
+  const wordCount = words.length;
+  const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length || (wordCount > 0 ? 1 : 0);
+  const sentences = (text.match(/[^.!?]+[.!?]+(\s|$)/g) || []).length || (wordCount > 0 ? 1 : 0);
+
+  const readMin = Math.ceil(wordCount / 200);
+  const speakMin = Math.ceil(wordCount / 130);
+
+  let totalSyllables = 0;
+  for (let i = 0; i < words.length; i++) {
+    totalSyllables += countSyllables(words[i]);
+  }
+
+  const avgWordsPerSent = sentences > 0 ? (wordCount / sentences) : 0;
+  const avgSyllPerWord = wordCount > 0 ? (totalSyllables / wordCount) : 0;
+
+  // Flesch Reading Ease Formula: 206.835 - (1.015 * ASL) - (84.6 * ASW)
+  let score = 100;
+  if (wordCount >= 5 && sentences > 0) {
+    score = Math.round(Math.max(0, Math.min(100, 206.835 - (1.015 * avgWordsPerSent) - (84.6 * avgSyllPerWord))));
+  }
+
+  let label = 'Easy';
+  let gradeDesc = '5th–6th grade (Accessible)';
+  let color = '#1e8e3e';
+  if (score >= 90) { label = 'Very Easy'; gradeDesc = '5th grade (Very Easy)'; color = '#1e8e3e'; }
+  else if (score >= 80) { label = 'Easy'; gradeDesc = '6th grade (Conversational)'; color = '#1e8e3e'; }
+  else if (score >= 70) { label = 'Fairly Easy'; gradeDesc = '7th grade (Plain English)'; color = '#1a73e8'; }
+  else if (score >= 60) { label = 'Standard'; gradeDesc = '8th–9th grade (General Audience)'; color = '#1a73e8'; }
+  else if (score >= 50) { label = 'Fairly Difficult'; gradeDesc = '10th–12th grade (High School)'; color = '#f9ab00'; }
+  else if (score >= 30) { label = 'Difficult'; gradeDesc = 'College Level (Advanced)'; color = '#e37400'; }
+  else { label = 'Very Complex'; gradeDesc = 'Post-Graduate / Technical'; color = '#d93025'; }
+
+  return {
+    wordCount,
+    sentences,
+    paragraphs,
+    readMin: wordCount ? readMin : 0,
+    speakMin: wordCount ? speakMin : 0,
+    score,
+    label,
+    gradeDesc,
+    color,
+    avgWordsPerSent: avgWordsPerSent.toFixed(1),
+    avgSyllPerWord: avgSyllPerWord.toFixed(2)
+  };
+}
+
+function updateReadabilityRadar() {
+  const m = calculateReadabilityMetrics();
+  const readEl = $('#read-time');
+  const speakEl = $('#speak-time');
+  const gradeEl = $('#read-grade');
+  const dot = document.querySelector('.radar-dot');
+
+  if (readEl) readEl.textContent = `⏱ ${m.readMin} min read`;
+  if (speakEl) speakEl.textContent = `🗣 ${m.speakMin} min speak`;
+  if (gradeEl) gradeEl.textContent = `Ease: ${m.score}/100 (${m.label})`;
+  if (dot) dot.style.backgroundColor = m.color;
+}
+
+function openReadabilityModal() {
+  const m = calculateReadabilityMetrics();
+  $('#radar-score-num').textContent = m.score;
+  $('#radar-score-num').style.color = m.color;
+  $('#radar-score-desc').textContent = `${m.label} – ${m.gradeDesc}`;
+  $('#radar-read-time').textContent = `${m.readMin} min (${m.wordCount} words @ 200 wpm)`;
+  $('#radar-speak-time').textContent = `${m.speakMin} min (${m.wordCount} words @ 130 wpm)`;
+  $('#radar-avg-sent').textContent = `${m.avgWordsPerSent} words / sentence`;
+  $('#radar-avg-syll').textContent = `${m.avgSyllPerWord} syllables / word`;
+  $('#radar-sentences').textContent = m.sentences;
+  $('#radar-paragraphs').textContent = m.paragraphs;
+
+  const modal = $('#readability-modal');
+  if (modal) modal.hidden = false;
+}
+
+$('#read-grade-btn')?.addEventListener('click', openReadabilityModal);
+$('#readability-modal-close')?.addEventListener('click', () => { $('#readability-modal').hidden = true; });
+$('#readability-modal-ok')?.addEventListener('click', () => { $('#readability-modal').hidden = true; });
+$('#readability-modal')?.addEventListener('click', (e) => {
+  if (e.target === $('#readability-modal')) $('#readability-modal').hidden = true;
+});
+
+/* ============ FEATURE 5: MARGINAL STICKY COMMENTS ============ */
+let activeCommentId = null;
+let showResolvedComments = false;
+
+function formatTimeAgo(ts) {
+  if (!ts) return 'Just now';
+  const diffSec = Math.floor((Date.now() - ts) / 1000);
+  if (diffSec < 60) return 'Just now';
+  if (diffSec < 3600) return Math.floor(diffSec / 60) + 'm ago';
+  if (diffSec < 86400) return Math.floor(diffSec / 3600) + 'h ago';
+  return new Date(ts).toLocaleDateString([], { month: 'short', day: 'numeric' });
+}
+
+function addDocComment() {
+  if (!edit) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed || !sel.rangeCount || !page.contains(sel.anchorNode)) {
+    alert('Please select the text in your document where you want to leave a comment.');
+    return;
+  }
+
+  const range = sel.getRangeAt(0);
+  const quote = sel.toString().trim();
+  if (!quote) return;
+
+  const cid = 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  activeCommentId = cid;
+
+  const mark = document.createElement('mark');
+  mark.className = 'doc-comment-mark active-comment';
+  mark.dataset.cid = cid;
+
+  try {
+    range.surroundContents(mark);
+  } catch (e) {
+    const frag = range.extractContents();
+    mark.appendChild(frag);
+    range.insertNode(mark);
+  }
+
+  if (!cur || !docs[cur]) return;
+  docs[cur].comments = docs[cur].comments || [];
+  docs[cur].comments.push({
+    id: cid,
+    author: 'You',
+    timestamp: Date.now(),
+    quote: quote.slice(0, 75) + (quote.length > 75 ? '…' : ''),
+    text: '',
+    replies: [],
+    resolved: false,
+    isNew: true
+  });
+
+  edited();
+  renderDocComments();
+
+  setTimeout(() => {
+    const card = document.getElementById('card-' + cid);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const ta = card.querySelector('textarea');
+      if (ta) ta.focus();
+    }
+  }, 40);
+}
+
+function renderDocComments() {
+  const list = $('#comments-list');
+  const countEl = $('#comments-count');
+  if (!list) return;
+
+  if (!cur || !docs[cur]) {
+    list.innerHTML = '<div style="font-size:12px;color:var(--mut);text-align:center;padding:12px">Open a document to see comments.</div>';
+    if (countEl) countEl.textContent = '0';
+    return;
+  }
+
+  docs[cur].comments = docs[cur].comments || [];
+  const comments = docs[cur].comments;
+  const activeCount = comments.filter(c => !c.resolved).length;
+  if (countEl) countEl.textContent = activeCount;
+
+  const visibleComments = showResolvedComments ? comments : comments.filter(c => !c.resolved);
+
+  if (!visibleComments.length) {
+    list.innerHTML = `<div id="comments-empty-hint" style="font-size:12px;color:var(--mut);padding:14px 6px;text-align:center;line-height:1.4">
+      Highlight any text and press <b>Ctrl+Alt+M</b> or click the comment icon to leave a comment.
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = '';
+  visibleComments.forEach(c => {
+    const card = document.createElement('div');
+    card.className = `doc-comment-card ${c.resolved ? 'resolved' : ''} ${c.id === activeCommentId ? 'active' : ''}`;
+    card.id = 'card-' + c.id;
+    card.dataset.cid = c.id;
+
+    card.innerHTML = `
+      <div class="doc-comment-header">
+        <div class="doc-comment-author">
+          <div class="doc-comment-avatar">Y</div>
+          <span>${esc(c.author || 'You')}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <span class="doc-comment-time">${formatTimeAgo(c.timestamp)}</span>
+          <button class="doc-comment-btn-resolve" data-cid="${c.id}" title="${c.resolved ? 'Re-open comment' : 'Resolve comment'}">
+            ${c.resolved ? '↩' : '✓'}
+          </button>
+          <button class="doc-comment-btn-del" data-cid="${c.id}" title="Delete comment">✕</button>
+        </div>
+      </div>
+      <div class="doc-comment-quote">"${esc(c.quote || '')}"</div>
+      ${c.isNew ? `
+        <textarea class="doc-comment-input" placeholder="Type your comment..." rows="2"></textarea>
+        <div class="doc-comment-actions">
+          <button class="aip-btn aip-btn-primary doc-comment-btn-save" data-cid="${c.id}" style="height:26px;padding:0 10px;font-size:12px">Comment</button>
+          <button class="aip-btn aip-btn-sec doc-comment-btn-cancel" data-cid="${c.id}" style="height:26px;padding:0 8px;font-size:12px">Cancel</button>
+        </div>
+      ` : `
+        <div class="doc-comment-text">${esc(c.text || '')}</div>
+        ${c.replies && c.replies.length ? `
+          <div class="doc-comment-reply-list">
+            ${c.replies.map(r => `
+              <div class="doc-comment-reply">
+                <b>${esc(r.author || 'You')}:</b> ${esc(r.text)}
+                <span class="doc-comment-time" style="margin-left:4px">${formatTimeAgo(r.timestamp)}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+        <div style="margin-top:8px">
+          <input type="text" class="doc-comment-reply-input" placeholder="Reply..." data-cid="${c.id}">
+        </div>
+      `}
+    `;
+
+    // Interactivity on card
+    card.addEventListener('mouseenter', () => {
+      document.querySelectorAll(`mark.doc-comment-mark[data-cid="${c.id}"]`).forEach(m => m.classList.add('active-comment'));
+    });
+    card.addEventListener('mouseleave', () => {
+      if (activeCommentId !== c.id) {
+        document.querySelectorAll(`mark.doc-comment-mark[data-cid="${c.id}"]`).forEach(m => m.classList.remove('active-comment'));
+      }
+    });
+    card.addEventListener('click', (e) => {
+      activeCommentId = c.id;
+      document.querySelectorAll('.doc-comment-card').forEach(el => el.classList.toggle('active', el.id === 'card-' + c.id));
+      const mark = document.querySelector(`mark.doc-comment-mark[data-cid="${c.id}"]`);
+      if (mark && !card.contains(document.activeElement)) {
+        mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    list.appendChild(card);
+  });
+
+  // Attach card event listeners
+  list.querySelectorAll('.doc-comment-btn-save').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const cid = btn.dataset.cid;
+      const card = document.getElementById('card-' + cid);
+      const ta = card?.querySelector('textarea');
+      const text = ta ? ta.value.trim() : '';
+      if (!text) return;
+      const target = docs[cur].comments.find(c => c.id === cid);
+      if (target) {
+        target.text = text;
+        delete target.isNew;
+        edited();
+        renderDocComments();
+      }
+    };
+  });
+
+  list.querySelectorAll('.doc-comment-btn-cancel').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      deleteDocComment(btn.dataset.cid);
+    };
+  });
+
+  list.querySelectorAll('.doc-comment-btn-del').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      deleteDocComment(btn.dataset.cid);
+    };
+  });
+
+  list.querySelectorAll('.doc-comment-btn-resolve').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const cid = btn.dataset.cid;
+      const target = docs[cur].comments.find(c => c.id === cid);
+      if (target) {
+        target.resolved = !target.resolved;
+        edited();
+        renderDocComments();
+      }
+    };
+  });
+
+  list.querySelectorAll('.doc-comment-reply-input').forEach(inp => {
+    inp.onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const text = inp.value.trim();
+        if (!text) return;
+        const cid = inp.dataset.cid;
+        const target = docs[cur].comments.find(c => c.id === cid);
+        if (target) {
+          target.replies = target.replies || [];
+          target.replies.push({ author: 'You', text, timestamp: Date.now() });
+          inp.value = '';
+          edited();
+          renderDocComments();
+        }
+      }
+    };
+  });
+}
+
+function deleteDocComment(cid) {
+  if (!cur || !docs[cur]) return;
+  docs[cur].comments = (docs[cur].comments || []).filter(c => c.id !== cid);
+  document.querySelectorAll(`mark.doc-comment-mark[data-cid="${cid}"]`).forEach(m => {
+    m.replaceWith(...m.childNodes);
+  });
+  edited();
+  renderDocComments();
+}
+
+page.addEventListener('click', (e) => {
+  const mark = e.target.closest('mark.doc-comment-mark');
+  if (mark) {
+    const cid = mark.dataset.cid;
+    activeCommentId = cid;
+    document.querySelectorAll('mark.doc-comment-mark').forEach(m => m.classList.toggle('active-comment', m.dataset.cid === cid));
+    document.querySelectorAll('.doc-comment-card').forEach(c => c.classList.toggle('active', c.dataset.cid === cid));
+    const card = document.getElementById('card-' + cid);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+});
+
+$('#comments-toggle-resolved')?.addEventListener('click', () => {
+  showResolvedComments = !showResolvedComments;
+  $('#comments-toggle-resolved').textContent = showResolvedComments ? 'Hide resolved' : 'Show resolved';
+  renderDocComments();
+});
+
+/* ============ FEATURE 1: DOC Q&A (CHAT WITH DOCUMENT) ============ */
+async function sendAiChatMessage(customPrompt) {
+  const input = $('#ai-chat-input');
+  const question = (customPrompt || (input ? input.value : '')).trim();
+  if (!question) return;
+  if (input) input.value = '';
+
+  const thread = $('#ai-chat-thread');
+  if (!thread) return;
+
+  const userDiv = document.createElement('div');
+  userDiv.className = 'ai-chat-msg user';
+  userDiv.innerHTML = `<div class="ai-chat-bubble">${esc(question)}</div>`;
+  thread.appendChild(userDiv);
+
+  const asstDiv = document.createElement('div');
+  asstDiv.className = 'ai-chat-msg assistant';
+  const asstBubble = document.createElement('div');
+  asstBubble.className = 'ai-chat-bubble';
+  asstBubble.textContent = 'Analyzing document with deepseek-flash...';
+  asstDiv.appendChild(asstBubble);
+  thread.appendChild(asstDiv);
+  thread.scrollTop = thread.scrollHeight;
+
+  const docText = (page.innerText || '').slice(0, 18000);
+  const systemPrompt = `YOU ARE AN ELITE DOCUMENT RESEARCH ASSISTANT POWERED BY DEEPSEEK-FLASH.
+The author is writing and reviewing this document. Answer their questions, provide rigorous analysis, or audit their content.
+
+ACTIVE DOCUMENT CONTENT:
+"""
+${docText || '(The document currently has no text.)'}
+"""
+
+STRICT RULES:
+1. Base your answer directly and accurately on the document text provided above.
+2. If summarizing or extracting points, be dense, direct, and structured with clean bullet points.
+3. If auditing arguments or finding gaps, be specific and constructively critical.
+4. Use a natural human voice. No generic robotic disclaimers, fluff, or em dashes.`;
+
+  const cfg = getAiConfig();
+  const apiKey = cfg.agent1 || cfg.agent2 || cfg.agent3 || cfg.agent4 || DEFAULT_AI_KEYS.agent1;
+
+  try {
+    let fullText = '';
+    await callDeepSeekStream({
+      apiKey,
+      system: systemPrompt,
+      user: question,
+      onChunk: (delta, full) => {
+        fullText = full;
+        asstBubble.innerHTML = mdToHtml(full);
+        thread.scrollTop = thread.scrollHeight;
+      }
+    });
+    asstBubble.innerHTML = mdToHtml(fullText);
+  } catch (err) {
+    asstBubble.textContent = 'Error: ' + err.message;
+  }
+  thread.scrollTop = thread.scrollHeight;
+}
+
+$('#ai-chat-send')?.addEventListener('click', () => sendAiChatMessage());
+$('#ai-chat-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendAiChatMessage();
+  }
+});
+$('#ai-chat-clear')?.addEventListener('click', () => {
+  const thread = $('#ai-chat-thread');
+  if (thread) {
+    thread.innerHTML = `
+      <div class="ai-chat-msg system">
+        <div class="ai-chat-bubble">
+          Hello! I have indexed your document. Ask me any question, request an executive summary, or let me challenge your arguments.
+        </div>
+      </div>
+    `;
+  }
+});
+
+document.querySelectorAll('#pane-chat .aip-chip').forEach(chip => {
+  chip.onclick = () => {
+    const prompt = chip.dataset.chatPrompt;
+    if (prompt) sendAiChatMessage(prompt);
+  };
+});
 
 
 </script>
