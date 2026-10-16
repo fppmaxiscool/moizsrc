@@ -2615,6 +2615,439 @@ html.dark mark.doc-comment-mark.active-comment {
 }
 .db-guest-btn:hover {
   text-decoration: underline;
+/* ============ DISCORD EMOJI PICKER POPOVER ============ */
+.db-emoji-picker-popover {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  height: 380px;
+  background: #2b2d31;
+  border: 1px solid #1e1f22;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+  animation: dbFadeIn 0.15s ease-out;
+}
+@keyframes dbFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.db-emoji-picker-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid #1f2023;
+  background: #2b2d31;
+}
+.db-emoji-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e1f22;
+  border-radius: 4px;
+  padding: 6px 10px;
+  color: #949ba4;
+}
+.db-emoji-search-wrap input {
+  background: transparent;
+  border: 0;
+  color: #f2f3f5;
+  font-size: 13.5px;
+  outline: none;
+  width: 100%;
+}
+.db-emoji-categories {
+  display: flex;
+  gap: 4px;
+  padding: 6px 12px;
+  border-bottom: 1px solid #1f2023;
+  background: #232428;
+  overflow-x: auto;
+}
+.db-emoji-cat-btn {
+  background: transparent;
+  border: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #949ba4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.db-emoji-cat-btn:hover {
+  background: #35373c;
+  color: #dbdee1;
+}
+.db-emoji-cat-btn.active {
+  background: #5865F2;
+  color: #fff;
+}
+.db-emoji-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 2px;
+  padding: 8px 10px;
+  overflow-y: auto;
+}
+.db-emoji-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.1s;
+}
+.db-emoji-item:hover {
+  background: #35373c;
+  transform: scale(1.15);
+}
+.db-emoji-preview-footer {
+  height: 36px;
+  background: #232428;
+  border-top: 1px solid #1f2023;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  font-size: 13px;
+  color: #dbdee1;
+}
+
+/* ============ DISCORD USER SETTINGS MODAL (IMAGE 2) ============ */
+.db-settings-window {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  height: 600px;
+  max-height: 90vh;
+  background: #313338;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+}
+.db-settings-sidebar {
+  width: 240px;
+  background: #2b2d31;
+  border-right: 1px solid #232428;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+.db-settings-user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.2);
+}
+.db-settings-user-text {
+  min-width: 0;
+}
+.db-settings-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #f2f3f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-settings-sub {
+  font-size: 11px;
+  color: #949ba4;
+}
+.db-settings-search {
+  margin-bottom: 10px;
+}
+.db-settings-search-input {
+  width: 100%;
+  background: #1e1f22;
+  border: 0;
+  border-radius: 4px;
+  color: #dbdee1;
+  padding: 6px 10px;
+  font-size: 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+.db-settings-group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #949ba4;
+  padding: 8px 8px 4px;
+}
+.db-settings-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 0;
+  background: transparent;
+  color: #b5bac1;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.db-settings-nav-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #dbdee1;
+}
+.db-settings-nav-btn.active {
+  background: rgba(88,101,242,0.2);
+  color: #c9cdfb;
+  font-weight: 600;
+}
+.db-settings-sep {
+  height: 1px;
+  background: #3f4147;
+  margin: 12px 6px;
+}
+.db-settings-nav-btn.logout {
+  color: #ED4245;
+  margin-top: auto;
+}
+.db-settings-nav-btn.logout:hover {
+  background: rgba(237, 66, 69, 0.15);
+  color: #ff7b7d;
+}
+.db-settings-content {
+  flex: 1;
+  padding: 32px 40px;
+  overflow-y: auto;
+  position: relative;
+  background: #313338;
+}
+.db-settings-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.db-esc-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #b5bac1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b5bac1;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.15s;
+}
+.db-esc-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #949ba4;
+}
+.db-settings-close-btn:hover .db-esc-circle {
+  border-color: #f2f3f5;
+  color: #f2f3f5;
+  transform: rotate(90deg);
+}
+.db-settings-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f2f3f5;
+  margin: 0 0 20px;
+}
+.db-profile-banner {
+  height: 100px;
+  background: linear-gradient(135deg, #5865F2, #2c337d);
+  border-radius: 8px;
+  position: relative;
+  margin-bottom: 24px;
+}
+.db-profile-avatar-wrap {
+  position: absolute;
+  bottom: -32px;
+  left: 20px;
+  border: 6px solid #313338;
+  border-radius: 50%;
+}
+
+/* ============ DISCORD USER PROFILE POPOVER (IMAGE 4) ============ */
+.db-profile-popover {
+  position: fixed;
+  width: 320px;
+  background: #232428;
+  border: 1px solid #111214;
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.7);
+  z-index: 1050;
+  overflow: hidden;
+  animation: dbFadeIn 0.15s ease-out;
+}
+.db-popover-banner {
+  height: 80px;
+  background: linear-gradient(135deg, #5865F2, #eb459e);
+  position: relative;
+}
+.db-popover-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.5);
+  border: 0;
+  color: #f2f3f5;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.db-popover-avatar-wrap {
+  position: absolute;
+  top: 40px;
+  left: 18px;
+  border: 6px solid #232428;
+  border-radius: 50%;
+}
+.db-popover-body {
+  padding: 44px 18px 18px;
+  background: #111214;
+  border-radius: 0 0 8px 8px;
+}
+.db-popover-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.db-popover-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f2f3f5;
+}
+.db-popover-tag {
+  font-size: 13px;
+  color: #949ba4;
+  margin-top: 2px;
+}
+.db-popover-actions {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+}
+.db-popover-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  border-radius: 4px;
+  border: 0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.db-popover-btn.primary {
+  background: #5865F2;
+  color: #fff;
+}
+.db-popover-btn.secondary {
+  background: #4e5058;
+  color: #f2f3f5;
+}
+.db-popover-btn:hover {
+  filter: brightness(1.15);
+}
+.db-popover-sep {
+  height: 1px;
+  background: #2b2d31;
+  margin: 12px 0;
+}
+.db-popover-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #949ba4;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+.db-popover-bio {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #dbdee1;
+  word-break: break-word;
+}
+.db-role-pill {
+  display: inline-block;
+  background: #2b2d31;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #dbdee1;
+  margin-top: 4px;
+}
+
+/* ============ DIRECT MESSAGES (DMS) UI ============ */
+.db-dm-header-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 0;
+  background: transparent;
+  color: #949ba4;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+.db-dm-header-btn:hover {
+  background: #35373c;
+  color: #dbdee1;
+}
+.db-dm-header-btn.active {
+  background: #404249;
+  color: #fff;
+}
+.db-dm-cat-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 10px 4px;
+  color: #949ba4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.db-add-dm-btn {
+  background: transparent;
+  border: 0;
+  color: #949ba4;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+.db-add-dm-btn:hover {
+  color: #fff;
+  background: #35373c;
 }
 
 </style>
@@ -3157,12 +3590,16 @@ html.dark mark.doc-comment-mark.active-comment {
 <div id="disboard" class="disboard-container" hidden>
   <!-- Servers Left Rail (72px) -->
   <div class="db-servers-rail">
-    <button class="db-server-btn db-logo-btn active" data-server="docwright" title="Docwright HQ">
+    <!-- Direct Messages Button (Discord Logo) -->
+    <button class="db-server-btn db-logo-btn active" id="db-btn-server-dms" data-server="dms" title="Direct Messages">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
         <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.01.02.04.03.07.02 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.03-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/>
       </svg>
     </button>
     <div class="db-rail-sep"></div>
+    <button class="db-server-btn" id="db-btn-server-hq" data-server="docwright" title="Docwright HQ">
+      <span>HQ</span>
+    </button>
     <button class="db-server-btn" data-server="lounge" title="Global Writer Lounge">
       <span>GW</span>
     </button>
@@ -3187,58 +3624,82 @@ html.dark mark.doc-comment-mark.active-comment {
 
   <!-- Channels Left Sidebar (240px) -->
   <div class="db-channels-rail">
-    <!-- Server Title Header -->
-    <div class="db-server-header">
-      <span id="db-server-name">Docwright HQ</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </div>
-    <!-- Channels Scrollable List -->
-    <div class="db-channels-list">
-      <div class="db-channel-category">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-        <span>TEXT CHANNELS</span>
+    <!-- Server Channels View -->
+    <div id="db-guild-channels" style="display:none;flex:1;flex-direction:column;min-height:0">
+      <div class="db-server-header">
+        <span id="db-server-name">Docwright HQ</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </div>
-      <button class="db-channel-btn active" data-ch="general">
-        <span class="db-hash">#</span>
-        <span class="db-ch-title">general</span>
-      </button>
-      <button class="db-channel-btn" data-ch="doc-collab">
-        <span class="db-hash">#</span>
-        <span class="db-ch-title">doc-collab</span>
-        <span class="db-unread-pill" hidden></span>
-      </button>
-      <button class="db-channel-btn" data-ch="random">
-        <span class="db-hash">#</span>
-        <span class="db-ch-title">random</span>
-        <span class="db-unread-pill" hidden></span>
-      </button>
-      <button class="db-channel-btn" data-ch="showcase">
-        <span class="db-hash">#</span>
-        <span class="db-ch-title">showcase</span>
-        <span class="db-unread-pill" hidden></span>
-      </button>
+      <div class="db-channels-list">
+        <div class="db-channel-category">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+          <span>TEXT CHANNELS</span>
+        </div>
+        <button class="db-channel-btn active" data-ch="general">
+          <span class="db-hash">#</span>
+          <span class="db-ch-title">general</span>
+        </button>
+        <button class="db-channel-btn" data-ch="doc-collab">
+          <span class="db-hash">#</span>
+          <span class="db-ch-title">doc-collab</span>
+          <span class="db-unread-pill" hidden></span>
+        </button>
+        <button class="db-channel-btn" data-ch="random">
+          <span class="db-hash">#</span>
+          <span class="db-ch-title">random</span>
+          <span class="db-unread-pill" hidden></span>
+        </button>
+        <button class="db-channel-btn" data-ch="showcase">
+          <span class="db-hash">#</span>
+          <span class="db-ch-title">showcase</span>
+          <span class="db-unread-pill" hidden></span>
+        </button>
 
-      <div class="db-channel-category" style="margin-top:16px">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-        <span>VOICE CHANNELS</span>
+        <div class="db-channel-category" style="margin-top:16px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+          <span>VOICE CHANNELS</span>
+        </div>
+        <button class="db-channel-btn" data-ch="voice-lounge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+          <span class="db-ch-title">Lounge (Live Voice)</span>
+        </button>
+        <button class="db-channel-btn" data-ch="voice-focus">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+          <span class="db-ch-title">Focus &amp; Writing</span>
+        </button>
       </div>
-      <button class="db-channel-btn" data-ch="voice-lounge">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-        <span class="db-ch-title">Lounge (Live Voice)</span>
-      </button>
-      <button class="db-channel-btn" data-ch="voice-focus">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-        <span class="db-ch-title">Focus &amp; Writing</span>
-      </button>
+    </div>
+
+    <!-- Direct Messages View (Default) -->
+    <div id="db-dms-channels" style="display:flex;flex:1;flex-direction:column;min-height:0">
+      <div style="padding:10px 10px 6px">
+        <button class="db-dm-header-btn" id="db-btn-start-search-dm" style="background:#1e1f22;color:#949ba4;font-size:12.5px;padding:6px 10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Find or start a conversation</span>
+        </button>
+      </div>
+      <div class="db-channels-list">
+        <button class="db-dm-header-btn active" id="db-btn-friends">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <span>Friends</span>
+        </button>
+        <div class="db-dm-cat-wrap">
+          <span>DIRECT MESSAGES</span>
+          <button class="db-add-dm-btn" id="db-btn-add-dm" title="Create DM / Add Friend">+</button>
+        </div>
+        <div id="db-dms-contacts-list" style="display:flex;flex-direction:column;gap:2px">
+          <!-- DM contacts list rendered dynamically -->
+        </div>
+      </div>
     </div>
 
     <!-- Active User Dock at Bottom -->
     <div class="db-user-dock">
-      <div class="db-user-avatar-wrap" id="db-dock-avatar-btn" title="Edit Avatar &amp; Profile">
+      <div class="db-user-avatar-wrap" id="db-dock-avatar-btn" title="User Settings &amp; Profile">
         <div class="db-avatar" id="db-dock-avatar" style="background:#5865F2">M</div>
         <span class="db-status-dot online"></span>
       </div>
-      <div class="db-user-info" id="db-dock-info-btn" title="Edit Profile">
+      <div class="db-user-info" id="db-dock-info-btn" title="User Settings &amp; Profile">
         <div class="db-user-name" id="db-dock-name">User</div>
         <div class="db-user-tag" id="db-dock-tag">#1337</div>
       </div>
@@ -3246,7 +3707,7 @@ html.dark mark.doc-comment-mark.active-comment {
         <button class="db-icon-btn" id="db-btn-mic" title="Mute Microphone">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
         </button>
-        <button class="db-icon-btn" id="db-btn-settings" title="Profile &amp; Avatar Settings">
+        <button class="db-icon-btn" id="db-btn-settings" title="User Settings (Profile, Audio, Log Out)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
       </div>
@@ -3258,7 +3719,7 @@ html.dark mark.doc-comment-mark.active-comment {
     <!-- Channel Top Bar -->
     <div class="db-chat-topbar">
       <div class="db-topbar-left">
-        <span class="db-hash">#</span>
+        <span class="db-hash" id="db-chat-hash">#</span>
         <span class="db-topbar-title" id="db-chat-title">general</span>
         <div class="db-topbar-divider"></div>
         <span class="db-topbar-desc" id="db-chat-desc">Welcome to the general chat! Chat live with other writers and friends.</span>
@@ -3279,8 +3740,30 @@ html.dark mark.doc-comment-mark.active-comment {
       <!-- Dynamic Messages rendered here -->
     </div>
 
-    <!-- Chat Input Form -->
-    <div class="db-chat-input-wrap">
+    <!-- Chat Input Form & Emoji Picker Popup -->
+    <div class="db-chat-input-wrap" style="position:relative">
+      <!-- Discord Emoji Picker Popup (Image 3) -->
+      <div id="db-emoji-picker" class="db-emoji-picker-popover" hidden>
+        <div class="db-emoji-picker-header">
+          <div class="db-emoji-search-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="db-emoji-search-input" placeholder="Search emojis..." autocomplete="off">
+          </div>
+        </div>
+        <div class="db-emoji-categories">
+          <button type="button" class="db-emoji-cat-btn active" data-cat="all">All</button>
+          <button type="button" class="db-emoji-cat-btn" data-cat="smileys">Smileys</button>
+          <button type="button" class="db-emoji-cat-btn" data-cat="gestures">Gestures</button>
+          <button type="button" class="db-emoji-cat-btn" data-cat="fun">Fun</button>
+          <button type="button" class="db-emoji-cat-btn" data-cat="objects">Objects</button>
+        </div>
+        <div class="db-emoji-grid" id="db-emoji-grid"></div>
+        <div class="db-emoji-preview-footer">
+          <span id="db-emoji-preview-char" style="font-size:20px">😀</span>
+          <span id="db-emoji-preview-name" style="font-size:12px;color:#949ba4">:grinning:</span>
+        </div>
+      </div>
+
       <div class="db-chat-input-box">
         <button class="db-chat-attach-btn" id="db-chat-attach" title="Upload Image / Attachment">+</button>
         <input type="text" id="db-chat-input" placeholder="Message #general (Enter to send)..." autocomplete="off">
@@ -3297,6 +3780,161 @@ html.dark mark.doc-comment-mark.active-comment {
     <div class="db-members-header" id="db-members-count">ONLINE — 1</div>
     <div class="db-members-list" id="db-members-list">
       <!-- Member cards rendered here -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ DISCORD USER SETTINGS MODAL (IMAGE 2) ============ -->
+<div id="db-settings-modal" class="doc-modal-overlay" hidden>
+  <div class="db-settings-window">
+    <!-- Left Navigation Sidebar -->
+    <div class="db-settings-sidebar">
+      <div class="db-settings-user-card">
+        <div id="db-settings-sidebar-avatar" class="db-avatar medium" style="background:#5865F2">M</div>
+        <div class="db-settings-user-text">
+          <div id="db-settings-sidebar-name" class="db-settings-name">User</div>
+          <div class="db-settings-sub">Edit Profiles ✏️</div>
+        </div>
+      </div>
+      <div class="db-settings-search">
+        <input type="text" placeholder="Search" class="db-settings-search-input">
+      </div>
+      <div class="db-settings-group-label">USER SETTINGS</div>
+      <button type="button" class="db-settings-nav-btn active" data-tab="profile">
+        <span>👤</span> <span>My Profile</span>
+      </button>
+      <button type="button" class="db-settings-nav-btn" data-tab="voice">
+        <span>🎙️</span> <span>Voice &amp; Video</span>
+      </button>
+      <button type="button" class="db-settings-nav-btn" data-tab="appearance">
+        <span>🎨</span> <span>Appearance</span>
+      </button>
+      <button type="button" class="db-settings-nav-btn" data-tab="notifications">
+        <span>🔔</span> <span>Notifications</span>
+      </button>
+      <div class="db-settings-sep"></div>
+      <!-- Prominent Log Out button styled in red matching Image 2 -->
+      <button type="button" class="db-settings-nav-btn logout" id="db-btn-settings-logout">
+        <span>🚪</span> <span>Log Out</span>
+      </button>
+    </div>
+
+    <!-- Right Content Pane -->
+    <div class="db-settings-content">
+      <div class="db-settings-close-btn" id="db-settings-close" title="Close (ESC)">
+        <div class="db-esc-circle">✕</div>
+        <span class="db-esc-label">ESC</span>
+      </div>
+
+      <!-- Profile Pane -->
+      <div id="db-tab-content-profile" class="db-settings-pane active">
+        <h2 class="db-settings-title">My Profile</h2>
+        <div class="db-profile-banner" id="db-settings-banner">
+          <div class="db-profile-avatar-wrap">
+            <div id="db-settings-avatar-preview" class="db-avatar large" style="background:#5865F2">🚀</div>
+          </div>
+        </div>
+        <div style="margin-top:34px">
+          <label class="db-auth-label">AVATAR COLOR</label>
+          <div class="db-color-dots" id="db-settings-color-dots"></div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="db-auth-label">AVATAR ICON</label>
+          <div class="db-emoji-chips" id="db-settings-emoji-chips"></div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="db-upload-btn">
+            <span>📁 Upload Custom Avatar Image</span>
+            <input type="file" id="db-settings-file-input" accept="image/*" style="display:none">
+          </label>
+        </div>
+        <div style="margin-top:16px">
+          <label class="db-auth-label">ABOUT ME / BIO</label>
+          <textarea id="db-settings-bio-input" class="db-auth-input" style="height:65px;resize:none" placeholder="ex go go"></textarea>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:10px">
+          <button type="button" class="db-auth-btn" id="db-settings-save-btn" style="width:auto;padding:8px 24px">Save Changes</button>
+          <button type="button" class="db-guest-btn" id="db-settings-cancel-btn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Voice Pane -->
+      <div id="db-tab-content-voice" class="db-settings-pane" style="display:none">
+        <h2 class="db-settings-title">Voice &amp; Audio</h2>
+        <p style="color:#949ba4;font-size:13.5px">Microphone and audio are calibrated for live peer conversations.</p>
+        <div style="margin-top:18px">
+          <label class="db-auth-label">OUTPUT VOLUME</label>
+          <input type="range" min="0" max="100" value="85" style="width:100%;accent-color:#5865F2">
+        </div>
+      </div>
+
+      <!-- Appearance Pane -->
+      <div id="db-tab-content-appearance" class="db-settings-pane" style="display:none">
+        <h2 class="db-settings-title">Appearance</h2>
+        <p style="color:#949ba4;font-size:13.5px">Discord Dark Theme is currently active.</p>
+      </div>
+
+      <!-- Notifications Pane -->
+      <div id="db-tab-content-notifications" class="db-settings-pane" style="display:none">
+        <h2 class="db-settings-title">Notifications</h2>
+        <p style="color:#949ba4;font-size:13.5px">Direct Message &amp; Channel sound alerts are enabled.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DISCORD USER PROFILE POPOVER (IMAGE 4) ============ -->
+<div id="db-profile-popover" class="db-profile-popover" hidden>
+  <div class="db-popover-banner" id="db-pop-banner">
+    <button class="db-popover-close" id="db-pop-close">✕</button>
+  </div>
+  <div class="db-popover-avatar-wrap">
+    <div class="db-avatar large" id="db-pop-avatar" style="background:#5865F2">🤖</div>
+    <span class="db-status-dot online"></span>
+  </div>
+  <div class="db-popover-body">
+    <div class="db-popover-header">
+      <div class="db-popover-name" id="db-pop-name">DocBot</div>
+      <span class="db-bot-tag" id="db-pop-tag-badge">BOT</span>
+    </div>
+    <div class="db-popover-tag" id="db-pop-handle">DocBot#0001</div>
+    <div class="db-popover-actions">
+      <button type="button" class="db-popover-btn primary" id="db-pop-btn-msg">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <span>Message</span>
+      </button>
+      <button type="button" class="db-popover-btn secondary" id="db-pop-btn-friend">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Add Friend</span>
+      </button>
+    </div>
+    <div class="db-popover-sep"></div>
+    <div class="db-popover-section-title">ABOUT ME</div>
+    <div class="db-popover-bio" id="db-pop-bio">ex go go</div>
+    <div class="db-popover-sep"></div>
+    <div class="db-popover-section-title">ROLES</div>
+    <div class="db-popover-roles">
+      <span class="db-role-pill">Docwright Member</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NEW DM / ADD FRIEND MODAL ============ -->
+<div id="db-new-dm-modal" class="doc-modal-overlay" hidden>
+  <div class="db-auth-card" style="max-width:400px">
+    <div class="db-auth-header" style="text-align:left;margin-bottom:14px">
+      <h3 style="margin:0 0 4px;font-size:18px">Select Friends or Start a DM</h3>
+      <p style="font-size:12.5px;color:#949ba4;margin:0">Choose an online user or type a username to start a private conversation.</p>
+    </div>
+    <div style="margin-bottom:12px">
+      <input type="text" id="db-dm-search-inp" class="db-auth-input" placeholder="Type username or pick below...">
+    </div>
+    <div class="db-dm-users-list" id="db-dm-picker-list" style="max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:4px">
+      <!-- DM candidate users -->
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+      <button type="button" class="db-guest-btn" id="db-btn-close-dm-modal">Cancel</button>
+      <button type="button" class="db-auth-btn" id="db-btn-confirm-dm" style="width:auto;padding:8px 18px">Open DM</button>
     </div>
   </div>
 </div>
@@ -3422,7 +4060,7 @@ function renderHome(){
     on('.cb',()=>openDoc(d.id));on('[data-c=o]',()=>openDoc(d.id));
     on('[data-c=r]',()=>{const n=prompt('Rename document',d.title);if(n&&n.trim()){d.title=n.trim();persist();renderHome()}});
     on('[data-c=c]',()=>{mk(d.html,'Copy of '+d.title,d.size);renderHome()});
-    on('[data-c=d]',()=>{if(confirm(`Remove "${d.title}"? This can't be undone.`)){delete docs[d.id];persist();renderHome()}});
+    on('[data-c=d]',()=>{if(confirm(`Remove "${d.title}"? This can't be undone.`)){try{localStorage.removeItem('docwright:ai_mem:'+d.id);localStorage.removeItem('doc_comments_'+d.id)}catch(e){}delete docs[d.id];persist();renderHome()}});
     l.append(c);
   });
 }
@@ -3441,7 +4079,7 @@ function openDoc(id){
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
   ti.value=d.title;document.title=d.title+' – Docwright';
   $('#home').hidden=true;$('#app').hidden=false;
-  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();setSt('Saved');page.focus();
+  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();if(typeof loadDocAiMemory==='function')loadDocAiMemory(cur);setSt('Saved');page.focus();
 }
 function fit(){setZoom(Math.max(50,Math.min(100,Math.floor((innerWidth-32)/(page.classList.contains('a4')?794:816)*100))))}
 function setZoom(v){$('#zm').value=v;$('#zv').textContent=v+'%';$('#sheet').style.zoom=v/100;const z=$('#zsel');if(![...z.options].some(o=>+o.value===v))z.add(new Option(v+'%',v));z.value=v}
@@ -5964,7 +6602,51 @@ $('#comments-toggle-resolved')?.addEventListener('click', () => {
   renderDocComments();
 });
 
-/* ============ FEATURE 1: DOC Q&A (CHAT WITH DOCUMENT) ============ */
+/* ============ FEATURE 1: DOC Q&A (CHAT WITH DOCUMENT - FRESH MEMORY PER DOC) ============ */
+function getDocAiMemory(docId) {
+  if (!docId) return [];
+  try {
+    const raw = localStorage.getItem('docwright:ai_mem:' + docId);
+    if (raw) return JSON.parse(raw);
+  } catch(e){}
+  return [];
+}
+
+function saveDocAiMemory(docId, history) {
+  if (!docId) return;
+  try {
+    localStorage.setItem('docwright:ai_mem:' + docId, JSON.stringify(history));
+  } catch(e){}
+}
+
+function loadDocAiMemory(docId) {
+  const thread = $('#ai-chat-thread');
+  if (!thread) return;
+  const history = getDocAiMemory(docId);
+  const welcomeHtml = `
+    <div class="ai-chat-msg system">
+      <div class="ai-chat-bubble">
+        Hello! I have indexed this document. Ask me any question, request an executive summary, or let me challenge your arguments.
+      </div>
+    </div>
+  `;
+  if (!history || history.length === 0) {
+    thread.innerHTML = welcomeHtml;
+    return;
+  }
+
+  let html = welcomeHtml;
+  history.forEach(m => {
+    if (m.role === 'user') {
+      html += `<div class="ai-chat-msg user"><div class="ai-chat-bubble">${esc(m.text)}</div></div>`;
+    } else if (m.role === 'assistant') {
+      html += `<div class="ai-chat-msg assistant"><div class="ai-chat-bubble">${mdToHtml(m.text)}</div></div>`;
+    }
+  });
+  thread.innerHTML = html;
+  thread.scrollTop = thread.scrollHeight;
+}
+
 async function sendAiChatMessage(customPrompt) {
   const input = $('#ai-chat-input');
   const question = (customPrompt || (input ? input.value : '')).trim();
@@ -5973,6 +6655,11 @@ async function sendAiChatMessage(customPrompt) {
 
   const thread = $('#ai-chat-thread');
   if (!thread) return;
+
+  const currentDocId = cur;
+  const history = getDocAiMemory(currentDocId);
+  history.push({ role: 'user', text: question });
+  saveDocAiMemory(currentDocId, history);
 
   const userDiv = document.createElement('div');
   userDiv.className = 'ai-chat-msg user';
@@ -5989,13 +6676,21 @@ async function sendAiChatMessage(customPrompt) {
   thread.scrollTop = thread.scrollHeight;
 
   const docText = (page.innerText || '').slice(0, 18000);
+
+  let priorMemoryStr = '';
+  if (history.length > 1) {
+    const priorTurns = history.slice(-7, -1);
+    priorMemoryStr = '\n\nPRIOR CONVERSATION ABOUT THIS DOCUMENT:\n' +
+      priorTurns.map(t => `${t.role.toUpperCase()}: ${t.text}`).join('\n');
+  }
+
   const systemPrompt = `YOU ARE AN ELITE DOCUMENT RESEARCH ASSISTANT POWERED BY DEEPSEEK-FLASH.
 The author is writing and reviewing this document. Answer their questions, provide rigorous analysis, or audit their content.
 
 ACTIVE DOCUMENT CONTENT:
 """
 ${docText || '(The document currently has no text.)'}
-"""
+"""${priorMemoryStr}
 
 STRICT RULES:
 1. Base your answer directly and accurately on the document text provided above.
@@ -6019,6 +6714,8 @@ STRICT RULES:
       }
     });
     asstBubble.innerHTML = mdToHtml(fullText);
+    history.push({ role: 'assistant', text: fullText });
+    saveDocAiMemory(currentDocId, history);
   } catch (err) {
     asstBubble.textContent = 'Error: ' + err.message;
   }
@@ -6033,16 +6730,8 @@ $('#ai-chat-input')?.addEventListener('keydown', (e) => {
   }
 });
 $('#ai-chat-clear')?.addEventListener('click', () => {
-  const thread = $('#ai-chat-thread');
-  if (thread) {
-    thread.innerHTML = `
-      <div class="ai-chat-msg system">
-        <div class="ai-chat-bubble">
-          Hello! I have indexed your document. Ask me any question, request an executive summary, or let me challenge your arguments.
-        </div>
-      </div>
-    `;
-  }
+  if (cur) saveDocAiMemory(cur, []);
+  loadDocAiMemory(cur);
 });
 
 document.querySelectorAll('#pane-chat .aip-chip').forEach(chip => {
@@ -6057,15 +6746,84 @@ document.querySelectorAll('#pane-chat .aip-chip').forEach(chip => {
 const DB_ACCOUNTS_KEY = 'disboard:accounts:v1';
 const DB_SESSION_KEY = 'disboard:session:v1';
 const DB_MSGS_PREFIX = 'disboard:messages:v1:';
+const DB_DMS_PREFIX = 'disboard:dms:v1:';
 
+let activeDisboardView = 'dms'; // 'dms' or 'guild'
 let activeDisboardChannel = 'general';
 let activeDisboardServer = 'docwright';
+let activeDmRecipient = 'DocBot';
 let disboardPeer = null;
 let disboardConns = new Set();
 let disboardHostConn = null;
 let isDisboardHost = false;
 let disboardRemoteUsers = new Map(); // peerId -> { username, avatar, tag, isOnline }
 let disboardClaimedUsernames = new Set(); // Global registry of usernames claimed across peers
+
+function getDbDmContacts() {
+  const session = getDbSession();
+  if (!session) return ['DocBot'];
+  try {
+    const raw = localStorage.getItem('disboard:contacts:' + session.username.toLowerCase());
+    if (raw) {
+      const list = JSON.parse(raw);
+      if (!list.includes('DocBot')) list.unshift('DocBot');
+      return list;
+    }
+  } catch(e){}
+  return ['DocBot'];
+}
+
+function addDmContact(name) {
+  if (!name) return;
+  const session = getDbSession();
+  if (!session) return;
+  const list = getDbDmContacts();
+  if (!list.map(x => x.toLowerCase()).includes(name.toLowerCase())) {
+    list.push(name);
+    try {
+      localStorage.setItem('disboard:contacts:' + session.username.toLowerCase(), JSON.stringify(list));
+    } catch(e){}
+  }
+}
+
+function getDmMessages(targetUser) {
+  const session = getDbSession();
+  if (!session || !targetUser) return [];
+  const key = DB_DMS_PREFIX + session.username.toLowerCase() + ':' + targetUser.toLowerCase();
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        parsed.forEach(m => m.reactions = normalizeReactions(m.reactions));
+        return parsed;
+      }
+    }
+  } catch(e){}
+
+  if (targetUser.toLowerCase() === 'docbot') {
+    return [
+      {
+        id: 'dm_bot_welcome',
+        user: 'DocBot',
+        tag: '#0001',
+        isBot: true,
+        avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+        text: `👋 Hey **${session.username}**! This is our private Direct Message channel. You can message me privately anytime for writing advice, editorial ideas, or feedback!`,
+        timestamp: Date.now() - 3600000,
+        reactions: { '👋': ['DocBot'] }
+      }
+    ];
+  }
+  return [];
+}
+
+function saveDmMessages(targetUser, msgs) {
+  const session = getDbSession();
+  if (!session || !targetUser) return;
+  const key = DB_DMS_PREFIX + session.username.toLowerCase() + ':' + targetUser.toLowerCase();
+  try { localStorage.setItem(key, JSON.stringify(msgs)); } catch(e){}
+}
 
 function isUsernameClaimed(name) {
   if (!name) return false;
@@ -6216,22 +6974,146 @@ function saveChannelMessages(ch, msgs) {
   try { localStorage.setItem(DB_MSGS_PREFIX + ch, JSON.stringify(msgs)); } catch(e){}
 }
 
+function renderDbDmsContacts() {
+  const container = $('#db-dms-contacts-list');
+  if (!container) return;
+  const contacts = getDbDmContacts();
+
+  container.innerHTML = contacts.map(c => {
+    const isBot = c.toLowerCase() === 'docbot';
+    let avatar = { type: 'icon', color: '#5865F2', icon: '🤖' };
+    if (!isBot) {
+      for (const u of disboardRemoteUsers.values()) {
+        if (u && u.user && u.user.toLowerCase() === c.toLowerCase()) {
+          avatar = u.avatar;
+          break;
+        }
+      }
+      const accs = getDbAccounts();
+      if (accs[c.toLowerCase()]) {
+        avatar = accs[c.toLowerCase()].avatar || avatar;
+      }
+    }
+    const isActive = activeDisboardView === 'dms' && activeDmRecipient.toLowerCase() === c.toLowerCase();
+    return `
+      <button class="db-dm-header-btn ${isActive ? 'active' : ''}" data-dm-user="${esc(c)}">
+        <div style="position:relative">
+          ${renderDbAvatarHtml(avatar, 'small')}
+          <span class="db-status-dot online"></span>
+        </div>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis">${esc(c)}</span>
+        ${isBot ? '<span class="db-bot-tag">BOT</span>' : ''}
+      </button>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.db-dm-header-btn').forEach(btn => {
+    btn.onclick = () => {
+      const user = btn.dataset.dmUser;
+      if (user) openDirectMessageWith(user);
+    };
+  });
+}
+
+function openDirectMessageWith(user, avatar) {
+  if (!user) return;
+  addDmContact(user);
+  activeDisboardView = 'dms';
+  activeDmRecipient = user;
+
+  switchDisboardView('dms');
+  renderDbDmsContacts();
+
+  const titleEl = $('#db-chat-title');
+  const descEl = $('#db-chat-desc');
+  const hashEl = $('#db-chat-hash');
+  const inp = $('#db-chat-input');
+
+  if (titleEl) titleEl.textContent = user;
+  if (descEl) descEl.textContent = `Direct message history with ${user}.`;
+  if (hashEl) hashEl.textContent = '@';
+  if (inp) inp.placeholder = `Message @${user}...`;
+
+  renderDbMessages();
+}
+
+function switchDisboardView(view, serverId) {
+  activeDisboardView = view || 'dms';
+  const guildChannels = $('#db-guild-channels');
+  const dmsChannels = $('#db-dms-channels');
+  const dmsBtn = $('#db-btn-server-dms');
+
+  if (activeDisboardView === 'dms') {
+    if (guildChannels) guildChannels.style.display = 'none';
+    if (dmsChannels) dmsChannels.style.display = 'flex';
+    document.querySelectorAll('.db-server-btn[data-server]').forEach(b => b.classList.remove('active'));
+    if (dmsBtn) dmsBtn.classList.add('active');
+
+    const hashEl = $('#db-chat-hash');
+    const titleEl = $('#db-chat-title');
+    const descEl = $('#db-chat-desc');
+    const inp = $('#db-chat-input');
+
+    if (hashEl) hashEl.textContent = '@';
+    if (titleEl) titleEl.textContent = activeDmRecipient;
+    if (descEl) descEl.textContent = `Direct message history with ${activeDmRecipient}.`;
+    if (inp) inp.placeholder = `Message @${activeDmRecipient}...`;
+
+    renderDbDmsContacts();
+    renderDbMessages();
+  } else {
+    activeDisboardServer = serverId || 'docwright';
+    if (dmsChannels) dmsChannels.style.display = 'none';
+    if (guildChannels) guildChannels.style.display = 'flex';
+    document.querySelectorAll('.db-server-btn[data-server]').forEach(b => {
+      b.classList.toggle('active', b.dataset.server === activeDisboardServer);
+    });
+
+    const info = DB_CHANNEL_INFO[activeDisboardChannel] || { title: activeDisboardChannel, desc: '' };
+    const hashEl = $('#db-chat-hash');
+    const titleEl = $('#db-chat-title');
+    const descEl = $('#db-chat-desc');
+    const inp = $('#db-chat-input');
+
+    if (hashEl) hashEl.textContent = '#';
+    if (titleEl) titleEl.textContent = info.title;
+    if (descEl) descEl.textContent = info.desc;
+    if (inp) inp.placeholder = `Message #${info.title} (Enter to send)...`;
+
+    renderDbMessages();
+  }
+}
+
 function renderDbMessages() {
   const feed = $('#db-messages-feed');
   if (!feed) return;
-  const msgs = getChannelMessages(activeDisboardChannel);
+  const isDm = activeDisboardView === 'dms';
+  const msgs = isDm ? getDmMessages(activeDmRecipient) : getChannelMessages(activeDisboardChannel);
   const session = getDbSession();
   const currentUsername = session ? session.username : null;
 
-  const info = DB_CHANNEL_INFO[activeDisboardChannel] || { title: activeDisboardChannel, desc: '' };
-
-  let html = `
-    <div class="db-channel-welcome-banner">
-      <div class="db-channel-welcome-circle">#</div>
-      <h2 class="db-channel-welcome-title">Welcome to #${esc(info.title)}!</h2>
-      <p class="db-channel-welcome-sub">${esc(info.desc || 'This is the start of the channel.')}</p>
-    </div>
-  `;
+  let html = '';
+  if (isDm) {
+    const isBot = activeDmRecipient.toLowerCase() === 'docbot';
+    html = `
+      <div class="db-channel-welcome-banner">
+        <div class="db-avatar large" style="margin:0 auto 12px;width:72px;height:72px;font-size:32px;background:#5865F2">
+          ${isBot ? '🤖' : '👤'}
+        </div>
+        <h2 class="db-channel-welcome-title">${esc(activeDmRecipient)}</h2>
+        <p class="db-channel-welcome-sub">This is the beginning of your direct message history with <b>${esc(activeDmRecipient)}</b>.</p>
+      </div>
+    `;
+  } else {
+    const info = DB_CHANNEL_INFO[activeDisboardChannel] || { title: activeDisboardChannel, desc: '' };
+    html = `
+      <div class="db-channel-welcome-banner">
+        <div class="db-channel-welcome-circle">#</div>
+        <h2 class="db-channel-welcome-title">Welcome to #${esc(info.title)}!</h2>
+        <p class="db-channel-welcome-sub">${esc(info.desc || 'This is the start of the channel.')}</p>
+      </div>
+    `;
+  }
 
   msgs.forEach(m => {
     const avatarHtml = renderDbAvatarHtml(m.avatar);
@@ -6250,7 +7132,7 @@ function renderDbMessages() {
     }).join('');
 
     html += `
-      <div class="db-message" id="msg-${m.id}">
+      <div class="db-message" id="msg-${m.id}" data-author="${esc(m.user || 'Unknown')}">
         <div class="db-message-actions">
           <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="👍" title="React 👍">👍</button>
           <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="❤️" title="React ❤️">❤️</button>
@@ -6258,10 +7140,10 @@ function renderDbMessages() {
           <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="😂" title="React 😂">😂</button>
           <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="🚀" title="React 🚀">🚀</button>
         </div>
-        ${avatarHtml}
+        <div class="db-msg-avatar-click" style="cursor:pointer">${avatarHtml}</div>
         <div class="db-message-body">
           <div class="db-message-header">
-            <span class="db-message-author" style="color:${esc(m.avatar?.color || '#5865F2')}">${esc(m.user || 'Unknown')}</span>
+            <span class="db-message-author" style="color:${esc(m.avatar?.color || '#5865F2')};cursor:pointer">${esc(m.user || 'Unknown')}</span>
             ${m.isBot ? '<span class="db-bot-tag">BOT</span>' : ''}
             <span class="db-message-time">${formatDiscordTime(m.timestamp)}</span>
           </div>
@@ -6275,11 +7157,13 @@ function renderDbMessages() {
   feed.innerHTML = html;
   feed.scrollTop = feed.scrollHeight;
 
+  const activeChannelOrDm = isDm ? activeDmRecipient : activeDisboardChannel;
+
   feed.querySelectorAll('.db-reaction-chip').forEach(chip => {
     chip.onclick = () => {
       const mid = chip.dataset.mid;
       const emoji = chip.dataset.emoji;
-      toggleReactionOnMessage(activeDisboardChannel, mid, emoji);
+      toggleReactionOnMessage(activeChannelOrDm, mid, emoji);
     };
   });
 
@@ -6287,7 +7171,25 @@ function renderDbMessages() {
     btn.onclick = () => {
       const mid = btn.dataset.mid;
       const emoji = btn.dataset.emoji;
-      toggleReactionOnMessage(activeDisboardChannel, mid, emoji);
+      toggleReactionOnMessage(activeChannelOrDm, mid, emoji);
+    };
+  });
+
+  // Profile popover on author / avatar click (matching Image 4)
+  feed.querySelectorAll('.db-message-author, .db-msg-avatar-click').forEach(el => {
+    el.onclick = (e) => {
+      const parent = el.closest('.db-message');
+      const authorName = parent?.dataset.author;
+      const msgObj = msgs.find(x => x.user === authorName);
+      if (msgObj) {
+        showUserProfilePopover({
+          user: msgObj.user,
+          avatar: msgObj.avatar,
+          tag: msgObj.tag,
+          isBot: msgObj.isBot,
+          bio: msgObj.bio || (msgObj.isBot ? 'Official Docwright AI assistant.' : 'ex go go')
+        }, e.currentTarget);
+      }
     };
   });
 }
@@ -6309,7 +7211,9 @@ function toggleReactionOnMessage(ch, mid, emoji) {
     return;
   }
   const myName = session.username;
-  const msgs = getChannelMessages(ch);
+  const isDm = activeDisboardView === 'dms';
+  const targetChannelOrRecipient = isDm ? (activeDmRecipient || 'DocBot') : ch;
+  const msgs = isDm ? getDmMessages(targetChannelOrRecipient) : getChannelMessages(ch);
   const target = msgs.find(m => m.id === mid);
   if (!target) return;
 
@@ -6318,7 +7222,6 @@ function toggleReactionOnMessage(ch, mid, emoji) {
 
   const existingIdx = userList.indexOf(myName);
   if (existingIdx !== -1) {
-    // 1 person can react 1once: clicking again toggles reaction off
     userList.splice(existingIdx, 1);
     if (userList.length === 0) {
       delete target.reactions[emoji];
@@ -6326,14 +7229,29 @@ function toggleReactionOnMessage(ch, mid, emoji) {
       target.reactions[emoji] = userList;
     }
   } else {
-    // Add user's single reaction
+    // Only 1 person can react once per message (remove any existing reaction by this user on other emojis)
+    for (const otherEmoji in target.reactions) {
+      if (Array.isArray(target.reactions[otherEmoji])) {
+        const idx = target.reactions[otherEmoji].indexOf(myName);
+        if (idx !== -1) {
+          target.reactions[otherEmoji].splice(idx, 1);
+          if (target.reactions[otherEmoji].length === 0) {
+            delete target.reactions[otherEmoji];
+          }
+        }
+      }
+    }
     userList.push(myName);
     target.reactions[emoji] = userList;
   }
 
-  saveChannelMessages(ch, msgs);
+  if (isDm) {
+    saveDmMessages(targetChannelOrRecipient, msgs);
+  } else {
+    saveChannelMessages(ch, msgs);
+    broadcastDbReaction(ch, mid, emoji, target.reactions[emoji] || [], target.reactions);
+  }
   renderDbMessages();
-  broadcastDbReaction(ch, mid, emoji, target.reactions[emoji] || []);
 }
 
 function renderDbMembers() {
@@ -6347,8 +7265,10 @@ function renderDbMembers() {
   if (session) {
     members.push({
       user: session.username + ' (You)',
+      username: session.username,
       tag: session.tag || '#1337',
       avatar: session.avatar,
+      bio: session.bio || 'ex go go',
       isOnline: true
     });
   }
@@ -6357,8 +7277,10 @@ function renderDbMembers() {
     if (peerUser && peerUser.user) {
       members.push({
         user: peerUser.user,
+        username: peerUser.user,
         tag: peerUser.tag || '#0000',
         avatar: peerUser.avatar,
+        bio: peerUser.bio || 'ex go go',
         isOnline: true
       });
     }
@@ -6366,16 +7288,18 @@ function renderDbMembers() {
 
   members.push({
     user: 'DocBot',
+    username: 'DocBot',
     tag: '#0001',
     avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
     isBot: true,
+    bio: 'Official Docwright AI assistant. Mention me @DocBot or DM me anytime!',
     isOnline: true
   });
 
   if (countEl) countEl.textContent = `ONLINE — ${members.length}`;
 
   list.innerHTML = members.map(m => `
-    <div class="db-member-card">
+    <div class="db-member-card" data-username="${esc(m.username)}">
       <div style="position:relative">
         ${renderDbAvatarHtml(m.avatar)}
         <span class="db-status-dot online"></span>
@@ -6388,6 +7312,16 @@ function renderDbMembers() {
       </div>
     </div>
   `).join('');
+
+  list.querySelectorAll('.db-member-card').forEach(card => {
+    card.onclick = (e) => {
+      const uName = card.dataset.username;
+      const targetMember = members.find(x => x.username === uName);
+      if (targetMember) {
+        showUserProfilePopover(targetMember, e.currentTarget);
+      }
+    };
+  });
 }
 
 function updateDbUserDock() {
@@ -6438,21 +7372,64 @@ function sendDisboardMessage() {
     user: session.username,
     tag: session.tag || '#1337',
     avatar: session.avatar,
+    bio: session.bio || 'ex go go',
     text,
     channel: activeDisboardChannel,
     timestamp: Date.now()
   };
 
-  const msgs = getChannelMessages(activeDisboardChannel);
-  msgs.push(msgObj);
-  saveChannelMessages(activeDisboardChannel, msgs);
-  renderDbMessages();
-  playDiscordPop();
+  if (activeDisboardView === 'dms') {
+    // Send in Private DM
+    const dms = getDmMessages(activeDmRecipient);
+    dms.push(msgObj);
+    saveDmMessages(activeDmRecipient, dms);
+    addDmContact(activeDmRecipient);
+    renderDbMessages();
+    playDiscordPop();
 
-  broadcastDbMessage(msgObj);
+    if (activeDmRecipient.toLowerCase() === 'docbot') {
+      setTimeout(() => {
+        let reply = `🤖 **@DocBot:** Got your direct message! Happy to review, proofread, or discuss your document drafts privately.`;
+        const lower = text.toLowerCase();
+        if (lower.includes('hello') || lower.includes('hi')) {
+          reply = `🤖 **@DocBot:** Hey there! How are your writing projects going today?`;
+        } else if (lower.includes('help')) {
+          reply = `🤖 **@DocBot:** This is our private 1-on-1 direct message space! Whatever you send here is private between us.`;
+        }
+        const botReply = {
+          id: 'dm_bot_' + Date.now(),
+          user: 'DocBot',
+          tag: '#0001',
+          isBot: true,
+          avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+          text: reply,
+          timestamp: Date.now()
+        };
+        const currentDms = getDmMessages('DocBot');
+        currentDms.push(botReply);
+        saveDmMessages('DocBot', currentDms);
+        if (activeDisboardView === 'dms' && activeDmRecipient.toLowerCase() === 'docbot') {
+          renderDbMessages();
+          playDiscordPop();
+        }
+      }, 700);
+    } else {
+      // Broadcast DM to connected peers
+      broadcastDbDm(activeDmRecipient, msgObj);
+    }
+  } else {
+    // Send in Public Channel
+    const msgs = getChannelMessages(activeDisboardChannel);
+    msgs.push(msgObj);
+    saveChannelMessages(activeDisboardChannel, msgs);
+    renderDbMessages();
+    playDiscordPop();
 
-  if (text.toLowerCase().includes('@docbot') || activeDisboardChannel === 'doc-collab') {
-    simulateDocBotReply(text, activeDisboardChannel);
+    broadcastDbMessage(msgObj);
+
+    if (text.toLowerCase().includes('@docbot') || activeDisboardChannel === 'doc-collab') {
+      simulateDocBotReply(text, activeDisboardChannel);
+    }
   }
 }
 
@@ -6582,19 +7559,48 @@ function setupDbConn(conn) {
           }
         }
       }
+    } else if (data.type === 'db_dm' && data.msg) {
+      const session = getDbSession();
+      if (session && data.to && data.to.toLowerCase() === session.username.toLowerCase()) {
+        const fromUser = data.from;
+        const dms = getDmMessages(fromUser);
+        if (!dms.some(m => m.id === data.msg.id)) {
+          dms.push(data.msg);
+          saveDmMessages(fromUser, dms);
+          addDmContact(fromUser);
+          if (activeDisboardView === 'dms' && activeDmRecipient.toLowerCase() === fromUser.toLowerCase()) {
+            renderDbMessages();
+          } else {
+            renderDbDmsContacts();
+          }
+          playDiscordPop();
+        }
+      }
+
+      if (isDisboardHost) {
+        for (const other of disboardConns) {
+          if (other !== conn && other.open) {
+            try { other.send(data); } catch(e){}
+          }
+        }
+      }
     } else if (data.type === 'db_reaction') {
       const ch = data.channel || 'general';
       const msgs = getChannelMessages(ch);
       const target = msgs.find(m => m.id === data.mid);
       if (target) {
-        target.reactions = normalizeReactions(target.reactions);
-        if (Array.isArray(data.users) && data.users.length > 0) {
-          target.reactions[data.emoji] = data.users;
+        if (data.reactions && typeof data.reactions === 'object') {
+          target.reactions = normalizeReactions(data.reactions);
         } else {
-          delete target.reactions[data.emoji];
+          target.reactions = normalizeReactions(target.reactions);
+          if (Array.isArray(data.users) && data.users.length > 0) {
+            target.reactions[data.emoji] = [...new Set(data.users)];
+          } else {
+            delete target.reactions[data.emoji];
+          }
         }
         saveChannelMessages(ch, msgs);
-        if (activeDisboardChannel === ch) {
+        if (activeDisboardView === 'channels' && activeDisboardChannel === ch) {
           renderDbMessages();
         }
       }
@@ -6621,9 +7627,11 @@ function setupDbConn(conn) {
           user: data.user,
           tag: data.tag || '#0000',
           avatar: data.avatar,
+          bio: data.bio || 'ex go go',
           isOnline: true
         });
         renderDbMembers();
+        renderDbDmsContacts();
       }
 
       if (isDisboardHost) {
@@ -6651,12 +7659,14 @@ function setupDbConn(conn) {
     disboardConns.delete(conn);
     disboardRemoteUsers.delete(conn.peer);
     renderDbMembers();
+    renderDbDmsContacts();
   });
 
   conn.on('error', () => {
     disboardConns.delete(conn);
     disboardRemoteUsers.delete(conn.peer);
     renderDbMembers();
+    renderDbDmsContacts();
   });
 }
 
@@ -6673,13 +7683,34 @@ function broadcastDbMessage(msgObj) {
   }
 }
 
-function broadcastDbReaction(channel, mid, emoji, users) {
+function broadcastDbDm(toUser, msgObj) {
+  const session = getDbSession();
+  if (!session) return;
+  const payload = {
+    type: 'db_dm',
+    from: session.username,
+    to: toUser,
+    msg: msgObj
+  };
+  if (isDisboardHost) {
+    for (const conn of disboardConns) {
+      if (conn.open) {
+        try { conn.send(payload); } catch(e){}
+      }
+    }
+  } else if (disboardHostConn && disboardHostConn.open) {
+    try { disboardHostConn.send(payload); } catch(e){}
+  }
+}
+
+function broadcastDbReaction(channel, mid, emoji, users, fullReactions) {
   const payload = {
     type: 'db_reaction',
     channel,
     mid,
     emoji,
-    users
+    users,
+    reactions: fullReactions || null
   };
   if (isDisboardHost) {
     for (const conn of disboardConns) {
@@ -6875,6 +7906,7 @@ $('#db-auth-submit')?.addEventListener('click', () => {
       email: email || '',
       tag,
       avatar: { ...dbAvatarConfig },
+      bio: 'ex go go',
       createdAt: Date.now()
     };
 
@@ -6892,16 +7924,6 @@ $('#db-auth-submit')?.addEventListener('click', () => {
     // Login mode
     const acc = accounts[user.toLowerCase()];
     if (acc) {
-      const isAlreadyOnline = Array.from(disboardRemoteUsers.values()).some(
-        u => u && u.user && u.user.toLowerCase() === user.toLowerCase()
-      );
-      if (isAlreadyOnline) {
-        if (errBox) {
-          errBox.hidden = false;
-          errBox.textContent = `User "${user}" is already logged in on another screen or device.`;
-        }
-        return;
-      }
       if (acc.password !== pw) {
         if (errBox) {
           errBox.hidden = false;
@@ -6915,13 +7937,13 @@ $('#db-auth-submit')?.addEventListener('click', () => {
       if (isUsernameClaimed(user)) {
         if (errBox) {
           errBox.hidden = false;
-          errBox.textContent = `Username "${user}" is already owned by another user across the network.`;
+          errBox.textContent = `Username "${user}" is owned by another user across the network.`;
         }
         return;
       }
       if (errBox) {
         errBox.hidden = false;
-        errBox.textContent = `Account "${user}" not found. Please click the "Register" tab to create this account.`;
+        errBox.textContent = `Account "${user}" not found. Please click the "Create Account" tab above to register.`;
       }
       return;
     }
@@ -6954,6 +7976,7 @@ $('#db-auth-guest')?.addEventListener('click', () => {
       icon: DB_EMOJIS[Math.floor(Math.random() * DB_EMOJIS.length)],
       imgData: null
     },
+    bio: 'ex go go',
     createdAt: Date.now()
   };
 
@@ -6970,6 +7993,470 @@ $('#db-auth-guest')?.addEventListener('click', () => {
   renderDbMessages();
 });
 
+/* ============ DISCORD EMOJI PICKER (IMAGE 3) ============ */
+const DB_FULL_EMOJIS = [
+  { c: '😀', n: 'grinning', cat: 'smileys' },
+  { c: '😃', n: 'smiley', cat: 'smileys' },
+  { c: '😄', n: 'smile', cat: 'smileys' },
+  { c: '😁', n: 'grin', cat: 'smileys' },
+  { c: '😆', n: 'laughing', cat: 'smileys' },
+  { c: '😅', n: 'sweat_smile', cat: 'smileys' },
+  { c: '😂', n: 'joy', cat: 'smileys' },
+  { c: '🤣', n: 'rofl', cat: 'smileys' },
+  { c: '😊', n: 'blush', cat: 'smileys' },
+  { c: '😇', n: 'innocent', cat: 'smileys' },
+  { c: '🙂', n: 'slightly_smiling', cat: 'smileys' },
+  { c: '🙃', n: 'upside_down', cat: 'smileys' },
+  { c: '😉', n: 'wink', cat: 'smileys' },
+  { c: '😌', n: 'relieved', cat: 'smileys' },
+  { c: '😍', n: 'heart_eyes', cat: 'smileys' },
+  { c: '🥰', n: 'smiling_face_with_3_hearts', cat: 'smileys' },
+  { c: '😘', n: 'kissing_heart', cat: 'smileys' },
+  { c: '😋', n: 'yum', cat: 'smileys' },
+  { c: '😛', n: 'stuck_out_tongue', cat: 'smileys' },
+  { c: '😜', n: 'stuck_out_tongue_winking_eye', cat: 'smileys' },
+  { c: '🤪', n: 'zany_face', cat: 'smileys' },
+  { c: '😎', n: 'sunglasses', cat: 'smileys' },
+  { c: '🤩', n: 'star_struck', cat: 'smileys' },
+  { c: '🥳', n: 'partying_face', cat: 'smileys' },
+  { c: '🥺', n: 'pleading_face', cat: 'smileys' },
+  { c: '😴', n: 'sleeping', cat: 'smileys' },
+  { c: '🤯', n: 'exploding_head', cat: 'smileys' },
+  { c: '👍', n: 'thumbsup', cat: 'gestures' },
+  { c: '👎', n: 'thumbsdown', cat: 'gestures' },
+  { c: '👏', n: 'clap', cat: 'gestures' },
+  { c: '🙌', n: 'raised_hands', cat: 'gestures' },
+  { c: '👐', n: 'open_hands', cat: 'gestures' },
+  { c: '🤝', n: 'handshake', cat: 'gestures' },
+  { c: '✍️', n: 'writing_hand', cat: 'gestures' },
+  { c: '💅', n: 'nail_care', cat: 'gestures' },
+  { c: '🙏', n: 'pray', cat: 'gestures' },
+  { c: '✌️', n: 'v', cat: 'gestures' },
+  { c: '🤞', n: 'crossed_fingers', cat: 'gestures' },
+  { c: '🤙', n: 'call_me', cat: 'gestures' },
+  { c: '👈', n: 'point_left', cat: 'gestures' },
+  { c: '👉', n: 'point_right', cat: 'gestures' },
+  { c: '👆', n: 'point_up', cat: 'gestures' },
+  { c: '👇', n: 'point_down', cat: 'gestures' },
+  { c: '👊', n: 'fist', cat: 'gestures' },
+  { c: '👋', n: 'wave', cat: 'gestures' },
+  { c: '🫶', n: 'heart_hands', cat: 'gestures' },
+  { c: '🚀', n: 'rocket', cat: 'fun' },
+  { c: '🔥', n: 'fire', cat: 'fun' },
+  { c: '✨', n: 'sparkles', cat: 'fun' },
+  { c: '🎉', n: 'tada', cat: 'fun' },
+  { c: '💻', n: 'laptop', cat: 'fun' },
+  { c: '🎮', n: 'video_game', cat: 'fun' },
+  { c: '👾', n: 'space_invader', cat: 'fun' },
+  { c: '🎧', n: 'headphones', cat: 'fun' },
+  { c: '🎨', n: 'art', cat: 'fun' },
+  { c: '📝', n: 'pencil', cat: 'fun' },
+  { c: '💎', n: 'gem', cat: 'fun' },
+  { c: '👑', n: 'crown', cat: 'fun' },
+  { c: '⚡', n: 'zap', cat: 'fun' },
+  { c: '🦊', n: 'fox', cat: 'fun' },
+  { c: '🐱', n: 'cat', cat: 'fun' },
+  { c: '🐶', n: 'dog', cat: 'fun' },
+  { c: '🤖', n: 'robot', cat: 'fun' },
+  { c: '🍿', n: 'popcorn', cat: 'fun' },
+  { c: '☕', n: 'coffee', cat: 'fun' },
+  { c: '🍕', n: 'pizza', cat: 'fun' },
+  { c: '📌', n: 'pushpin', cat: 'objects' },
+  { c: '📎', n: 'paperclip', cat: 'objects' },
+  { c: '📁', n: 'file_folder', cat: 'objects' },
+  { c: '📖', n: 'book', cat: 'objects' },
+  { c: '💡', n: 'bulb', cat: 'objects' },
+  { c: '🔍', n: 'mag', cat: 'objects' },
+  { c: '🔒', n: 'lock', cat: 'objects' },
+  { c: '⚙️', n: 'gear', cat: 'objects' },
+  { c: '✉️', n: 'email', cat: 'objects' },
+  { c: '🏆', n: 'trophy', cat: 'objects' },
+  { c: '🎯', n: 'dart', cat: 'objects' },
+  { c: '❤️', n: 'heart', cat: 'symbols' },
+  { c: '🧡', n: 'orange_heart', cat: 'symbols' },
+  { c: '💛', n: 'yellow_heart', cat: 'symbols' },
+  { c: '💚', n: 'green_heart', cat: 'symbols' },
+  { c: '💙', n: 'blue_heart', cat: 'symbols' },
+  { c: '💜', n: 'purple_heart', cat: 'symbols' },
+  { c: '🖤', n: 'black_heart', cat: 'symbols' },
+  { c: '🤍', n: 'white_heart', cat: 'symbols' },
+  { c: '💯', n: '100', cat: 'symbols' },
+  { c: '💥', n: 'boom', cat: 'symbols' },
+  { c: '💬', n: 'speech_balloon', cat: 'symbols' },
+  { c: '💭', n: 'thought_balloon', cat: 'symbols' },
+  { c: '✅', n: 'white_check_mark', cat: 'symbols' },
+  { c: '❌', n: 'x', cat: 'symbols' }
+];
+
+function initDiscordEmojiPicker() {
+  const grid = $('#db-emoji-grid');
+  const search = $('#db-emoji-search-input');
+  const previewChar = $('#db-emoji-preview-char');
+  const previewName = $('#db-emoji-preview-name');
+  if (!grid) return;
+
+  let activeCat = 'all';
+
+  function renderGrid(filterText = '') {
+    const q = filterText.toLowerCase().trim();
+    const filtered = DB_FULL_EMOJIS.filter(e => {
+      const matchCat = activeCat === 'all' || e.cat === activeCat;
+      const matchQuery = !q || e.n.includes(q) || e.c.includes(q);
+      return matchCat && matchQuery;
+    });
+
+    grid.innerHTML = filtered.map(e => `
+      <div class="db-emoji-item" data-emoji="${e.c}" data-name="${e.n}" title=":${e.n}:">
+        ${e.c}
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.db-emoji-item').forEach(item => {
+      item.onmouseenter = () => {
+        if (previewChar) previewChar.textContent = item.dataset.emoji;
+        if (previewName) previewName.textContent = ':' + item.dataset.name + ':';
+      };
+      item.onclick = () => {
+        const inp = $('#db-chat-input');
+        if (inp) {
+          const emoji = item.dataset.emoji;
+          const start = inp.selectionStart || inp.value.length;
+          const end = inp.selectionEnd || inp.value.length;
+          inp.value = inp.value.substring(0, start) + emoji + inp.value.substring(end);
+          inp.selectionStart = inp.selectionEnd = start + emoji.length;
+          inp.focus();
+        }
+        const picker = $('#db-emoji-picker');
+        if (picker) picker.hidden = true;
+      };
+    });
+  }
+
+  renderGrid();
+
+  if (search) {
+    search.oninput = () => renderGrid(search.value);
+  }
+
+  document.querySelectorAll('.db-emoji-cat-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.db-emoji-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat || 'all';
+      renderGrid(search ? search.value : '');
+    };
+  });
+}
+
+/* ============ DISCORD USER SETTINGS MODAL (IMAGE 2) ============ */
+function openDbUserSettings() {
+  const session = getDbSession();
+  if (!session) {
+    openDbAuthModal('login');
+    return;
+  }
+  const modal = $('#db-settings-modal');
+  if (!modal) return;
+  modal.hidden = false;
+
+  const sName = $('#db-settings-sidebar-name');
+  const sAvatar = $('#db-settings-sidebar-avatar');
+  const pAvatar = $('#db-settings-avatar-preview');
+  const bioInput = $('#db-settings-bio-input');
+
+  if (sName) sName.textContent = session.username;
+  if (sAvatar) {
+    sAvatar.style.background = session.avatar?.color || '#5865F2';
+    sAvatar.innerHTML = session.avatar?.type === 'image' && session.avatar.imgData
+      ? `<img src="${esc(session.avatar.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+      : (session.avatar?.icon || '🚀');
+  }
+  if (pAvatar) {
+    pAvatar.style.background = session.avatar?.color || '#5865F2';
+    pAvatar.innerHTML = session.avatar?.type === 'image' && session.avatar.imgData
+      ? `<img src="${esc(session.avatar.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+      : (session.avatar?.icon || '🚀');
+  }
+  if (bioInput) {
+    bioInput.value = session.bio || 'ex go go';
+  }
+
+  initSettingsAvatarCustomizer();
+}
+
+function closeDbUserSettings() {
+  const modal = $('#db-settings-modal');
+  if (modal) modal.hidden = true;
+}
+
+function handleDbUserLogout() {
+  localStorage.removeItem(DB_SESSION_KEY);
+  closeDbUserSettings();
+  updateDbUserDock();
+  renderDbMembers();
+  broadcastDbPresence();
+  openDbAuthModal('login');
+}
+
+function initSettingsAvatarCustomizer() {
+  const session = getDbSession();
+  const dots = $('#db-settings-color-dots');
+  const chips = $('#db-settings-emoji-chips');
+  const preview = $('#db-settings-avatar-preview');
+  if (!dots || !chips) return;
+
+  const currentCfg = { ...(session?.avatar || dbAvatarConfig) };
+
+  dots.innerHTML = DB_COLORS.map(c => `
+    <div class="db-color-dot ${c === currentCfg.color ? 'active' : ''}" data-color="${c}" style="background:${c}"></div>
+  `).join('');
+
+  chips.innerHTML = DB_EMOJIS.map(e => `
+    <button type="button" class="db-emoji-chip ${e === currentCfg.icon ? 'active' : ''}" data-emoji="${e}">${e}</button>
+  `).join('');
+
+  function refreshSettingsPreview() {
+    if (!preview) return;
+    if (currentCfg.type === 'image' && currentCfg.imgData) {
+      preview.style.background = '#5865F2';
+      preview.innerHTML = `<img src="${esc(currentCfg.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    } else {
+      preview.style.background = currentCfg.color || '#5865F2';
+      preview.innerHTML = esc(currentCfg.icon || '🚀');
+    }
+  }
+
+  dots.querySelectorAll('.db-color-dot').forEach(d => {
+    d.onclick = () => {
+      dots.querySelectorAll('.db-color-dot').forEach(el => el.classList.remove('active'));
+      d.classList.add('active');
+      currentCfg.color = d.dataset.color;
+      currentCfg.type = 'icon';
+      currentCfg.imgData = null;
+      refreshSettingsPreview();
+    };
+  });
+
+  chips.querySelectorAll('.db-emoji-chip').forEach(c => {
+    c.onclick = () => {
+      chips.querySelectorAll('.db-emoji-chip').forEach(el => el.classList.remove('active'));
+      c.classList.add('active');
+      currentCfg.icon = c.dataset.emoji;
+      currentCfg.type = 'icon';
+      currentCfg.imgData = null;
+      refreshSettingsPreview();
+    };
+  });
+
+  const fileInp = $('#db-settings-file-input');
+  if (fileInp) {
+    fileInp.onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 128;
+          canvas.height = 128;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, 128, 128);
+          currentCfg.type = 'image';
+          currentCfg.imgData = canvas.toDataURL('image/jpeg', 0.85);
+          refreshSettingsPreview();
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+
+  $('#db-settings-save-btn').onclick = () => {
+    const s = getDbSession();
+    if (!s) return;
+    s.avatar = { ...currentCfg };
+    s.bio = ($('#db-settings-bio-input')?.value || '').trim() || 'ex go go';
+    setDbSession(s);
+
+    const accounts = getDbAccounts();
+    if (accounts[s.username.toLowerCase()]) {
+      accounts[s.username.toLowerCase()].avatar = s.avatar;
+      accounts[s.username.toLowerCase()].bio = s.bio;
+      saveDbAccounts(accounts);
+    }
+
+    closeDbUserSettings();
+    updateDbUserDock();
+    renderDbMembers();
+    broadcastDbPresence();
+    renderDbMessages();
+  };
+
+  $('#db-settings-cancel-btn').onclick = closeDbUserSettings;
+  $('#db-settings-close').onclick = closeDbUserSettings;
+  $('#db-btn-settings-logout').onclick = handleDbUserLogout;
+
+  // Settings tabs
+  document.querySelectorAll('.db-settings-nav-btn[data-tab]').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.db-settings-nav-btn[data-tab]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.db-settings-pane').forEach(p => p.style.display = 'none');
+      const targetPane = $('#db-tab-content-' + tab);
+      if (targetPane) targetPane.style.display = 'block';
+    };
+  });
+}
+
+/* ============ DISCORD USER PROFILE POPOVER (IMAGE 4) ============ */
+function showUserProfilePopover(userObj, anchorEl) {
+  const popover = $('#db-profile-popover');
+  if (!popover || !userObj) return;
+
+  const nameEl = $('#db-pop-name');
+  const handleEl = $('#db-pop-handle');
+  const avatarEl = $('#db-pop-avatar');
+  const badgeEl = $('#db-pop-tag-badge');
+  const bioEl = $('#db-pop-bio');
+  const msgBtn = $('#db-pop-btn-msg');
+  const friendBtn = $('#db-pop-btn-friend');
+
+  const name = userObj.user || userObj.username || 'User';
+  const tag = userObj.tag || '#1337';
+  const isBot = !!userObj.isBot || name.toLowerCase() === 'docbot';
+  const bio = userObj.bio || (isBot ? 'Official Docwright AI assistant.' : 'ex go go');
+
+  if (nameEl) nameEl.textContent = name;
+  if (handleEl) handleEl.textContent = name + tag;
+  if (badgeEl) badgeEl.style.display = isBot ? 'inline-block' : 'none';
+  if (bioEl) bioEl.textContent = bio;
+  if (avatarEl) {
+    avatarEl.style.background = userObj.avatar?.color || '#5865F2';
+    avatarEl.innerHTML = userObj.avatar?.type === 'image' && userObj.avatar.imgData
+      ? `<img src="${esc(userObj.avatar.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+      : (userObj.avatar?.icon || (isBot ? '🤖' : '👤'));
+  }
+
+  if (msgBtn) {
+    msgBtn.onclick = () => {
+      closeUserProfilePopover();
+      openDirectMessageWith(name, userObj.avatar);
+    };
+  }
+  if (friendBtn) {
+    friendBtn.onclick = () => {
+      addDmContact(name);
+      renderDbDmsContacts();
+      friendBtn.textContent = 'Friend Added!';
+      setTimeout(() => { friendBtn.textContent = 'Add Friend'; }, 1500);
+    };
+  }
+
+  if (anchorEl) {
+    const rect = anchorEl.getBoundingClientRect();
+    let top = rect.top;
+    let left = rect.right + 12;
+    if (left + 330 > window.innerWidth) {
+      left = Math.max(10, rect.left - 330);
+    }
+    if (top + 340 > window.innerHeight) {
+      top = Math.max(10, window.innerHeight - 350);
+    }
+    popover.style.top = top + 'px';
+    popover.style.left = left + 'px';
+  } else {
+    popover.style.top = '50%';
+    popover.style.left = '50%';
+    popover.style.transform = 'translate(-50%, -50%)';
+  }
+
+  popover.hidden = false;
+}
+
+function closeUserProfilePopover() {
+  const popover = $('#db-profile-popover');
+  if (popover) popover.hidden = true;
+}
+
+$('#db-pop-close')?.addEventListener('click', closeUserProfilePopover);
+
+/* ============ NEW DM / ADD FRIEND MODAL ============ */
+function openNewDmModal() {
+  const modal = $('#db-new-dm-modal');
+  const listEl = $('#db-dm-picker-list');
+  const searchInp = $('#db-dm-search-inp');
+  if (!modal || !listEl) return;
+
+  const users = [
+    { username: 'DocBot', tag: '#0001', isBot: true, avatar: { type: 'icon', color: '#5865F2', icon: '🤖' } }
+  ];
+
+  for (const peerUser of disboardRemoteUsers.values()) {
+    if (peerUser && peerUser.user) {
+      users.push({
+        username: peerUser.user,
+        tag: peerUser.tag || '#0000',
+        avatar: peerUser.avatar
+      });
+    }
+  }
+
+  function renderList(filter = '') {
+    const q = filter.toLowerCase().trim();
+    const filtered = users.filter(u => !q || u.username.toLowerCase().includes(q));
+
+    listEl.innerHTML = filtered.map(u => `
+      <button type="button" class="db-dm-header-btn" data-username="${esc(u.username)}">
+        <div style="position:relative">
+          ${renderDbAvatarHtml(u.avatar, 'small')}
+          <span class="db-status-dot online"></span>
+        </div>
+        <span style="flex:1">${esc(u.username)}</span>
+        ${u.isBot ? '<span class="db-bot-tag">BOT</span>' : ''}
+      </button>
+    `).join('');
+
+    listEl.querySelectorAll('.db-dm-header-btn').forEach(btn => {
+      btn.onclick = () => {
+        const uName = btn.dataset.username;
+        if (uName) {
+          closeNewDmModal();
+          openDirectMessageWith(uName);
+        }
+      };
+    });
+  }
+
+  renderList();
+
+  if (searchInp) {
+    searchInp.value = '';
+    searchInp.oninput = () => renderList(searchInp.value);
+    setTimeout(() => searchInp.focus(), 100);
+  }
+
+  $('#db-btn-confirm-dm').onclick = () => {
+    const customUser = (searchInp?.value || '').trim();
+    if (customUser) {
+      closeNewDmModal();
+      openDirectMessageWith(customUser);
+    }
+  };
+
+  modal.hidden = false;
+}
+
+function closeNewDmModal() {
+  const modal = $('#db-new-dm-modal');
+  if (modal) modal.hidden = true;
+}
+
+$('#db-btn-close-dm-modal')?.addEventListener('click', closeNewDmModal);
+$('#db-btn-add-dm')?.addEventListener('click', openNewDmModal);
+$('#db-btn-start-search-dm')?.addEventListener('click', openNewDmModal);
+
 /* ============ OPEN / CLOSE DISBOARD ============ */
 function openDisboard() {
   saveNow();
@@ -6985,7 +8472,9 @@ function openDisboard() {
     openDbAuthModal('login');
   }
 
+  initDiscordEmojiPicker();
   updateDbUserDock();
+  renderDbDmsContacts();
   renderDbMessages();
   renderDbMembers();
   initDisboardP2P();
@@ -7060,17 +8549,42 @@ $('#db-btn-toggle-members')?.addEventListener('click', () => {
   if (rail) rail.hidden = !rail.hidden;
 });
 
-// User settings / avatar edit button
-$('#db-btn-settings')?.addEventListener('click', () => openDbAuthModal('register'));
-$('#db-dock-avatar-btn')?.addEventListener('click', () => openDbAuthModal('register'));
-$('#db-dock-info-btn')?.addEventListener('click', () => openDbAuthModal('register'));
+// User settings / profile dock clicks (Opens Settings with Log Out matching Image 2!)
+$('#db-btn-settings')?.addEventListener('click', openDbUserSettings);
+$('#db-dock-avatar-btn')?.addEventListener('click', openDbUserSettings);
+$('#db-dock-info-btn')?.addEventListener('click', openDbUserSettings);
 
-// Quick emoji picker
-$('#db-chat-emoji')?.addEventListener('click', () => {
-  const inp = $('#db-chat-input');
-  if (inp) {
-    inp.value += ' ' + DB_EMOJIS[Math.floor(Math.random() * DB_EMOJIS.length)] + ' ';
-    inp.focus();
+// Discord emoji picker popup toggle (matching Image 3!)
+$('#db-chat-emoji')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const picker = $('#db-emoji-picker');
+  if (picker) {
+    picker.hidden = !picker.hidden;
+    if (!picker.hidden) {
+      $('#db-emoji-search-input')?.focus();
+    }
+  }
+});
+
+// Close popups on click outside
+document.addEventListener('click', (e) => {
+  const picker = $('#db-emoji-picker');
+  if (picker && !picker.hidden && !e.target.closest('#db-emoji-picker') && !e.target.closest('#db-chat-emoji')) {
+    picker.hidden = true;
+  }
+  const popover = $('#db-profile-popover');
+  if (popover && !popover.hidden && !e.target.closest('#db-profile-popover') && !e.target.closest('.db-message-author') && !e.target.closest('.db-msg-avatar-click') && !e.target.closest('.db-member-card')) {
+    popover.hidden = true;
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeDbUserSettings();
+    closeUserProfilePopover();
+    closeNewDmModal();
+    const picker = $('#db-emoji-picker');
+    if (picker) picker.hidden = true;
   }
 });
 
@@ -7085,14 +8599,27 @@ $('#db-btn-mic')?.addEventListener('click', () => {
   }
 });
 
-// Server button switches
+// Server buttons & Direct Messages top logo switch
+$('#db-btn-server-dms')?.addEventListener('click', () => {
+  switchDisboardView('dms');
+  playDiscordPop();
+});
+
+$('#db-btn-friends')?.addEventListener('click', () => {
+  switchDisboardView('dms');
+});
+
 document.querySelectorAll('.db-server-btn[data-server]').forEach(btn => {
   btn.onclick = () => {
-    document.querySelectorAll('.db-server-btn[data-server]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const sName = btn.title || 'Docwright Community';
-    const headerTitle = $('#db-server-name');
-    if (headerTitle) headerTitle.textContent = sName;
+    const sId = btn.dataset.server;
+    if (sId === 'dms') {
+      switchDisboardView('dms');
+    } else {
+      switchDisboardView('guild', sId);
+      const sName = btn.title || 'Docwright Community';
+      const headerTitle = $('#db-server-name');
+      if (headerTitle) headerTitle.textContent = sName;
+    }
     playDiscordPop();
   };
 });
