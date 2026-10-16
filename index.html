@@ -151,6 +151,23 @@ html.pd #page h3{color:inherit}
 .pp{width:816px;padding:48px 72px;zoom:.17;color:#000;font:11pt/1.15 Arial,sans-serif;pointer-events:none;overflow:hidden}
 .pp h1{font-size:20pt;margin:16pt 0 6pt;font-weight:400}.pp h2{font-size:16pt;margin:14pt 0 4pt;font-weight:400}.pp p,.pp ul,.pp ol{margin:0}.pp ul,.pp ol{padding-left:36px}.pp .title{font-size:26pt}.pp img{max-width:100%}.pp table{width:100%;border-collapse:collapse}.pp td{border:1px solid #999}
 .rh{display:flex;align-items:center;gap:8px;margin-bottom:12px}.rh h2{flex:1;margin:0}
+.home-tab-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;border-bottom:1px solid var(--bd);padding-bottom:10px}
+.home-tabs{display:flex;align-items:center;gap:8px}
+.home-tab-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:20px;border:1px solid transparent;background:transparent;color:var(--mut);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s ease;user-select:none}
+.home-tab-btn:hover{background:var(--hov);color:var(--tx)}
+.home-tab-btn.active{background:#e8f0fe;color:#1a73e8;font-weight:600}
+html.dark .home-tab-btn.active{background:rgba(66,133,244,.2);color:#8ab4f8}
+.home-tab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;border-radius:10px;font-size:11px;font-weight:700;background:#1a73e8;color:#fff;line-height:1}
+html.dark .home-tab-badge{background:#8ab4f8;color:#1e1f22}
+.home-tab-actions{display:flex;align-items:center;gap:8px}
+.home-action-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
+.home-action-btn:hover{background:var(--hov)}
+.home-shared-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#1a73e8;background:rgba(26,115,232,.1);padding:2px 6px;border-radius:4px;margin-top:2px}
+html.dark .home-shared-chip{color:#8ab4f8;background:rgba(138,180,248,.15)}
+.empty-tab-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;color:var(--mut);background:var(--bg);border:1px dashed var(--bd);border-radius:12px;margin:12px 0 32px}
+.empty-tab-state svg{margin-bottom:12px;opacity:.7}
+.empty-tab-state h3{margin:0 0 6px;font-size:16px;font-weight:600;color:var(--tx)}
+.empty-tab-state p{margin:0 0 16px;max-width:440px;font-size:13px;line-height:1.5}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,190px);gap:20px 16px}
 .card{position:relative;width:190px}.card .th,.card .cb{width:190px}.card .th{height:250px}.card .pp{zoom:.233}
 .cf{display:flex;align-items:center;gap:4px;padding-top:6px}.cf>span{flex:1;min-width:0}.cf b,.cf small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cf small{color:var(--mut);font-size:12px}
@@ -3382,7 +3399,28 @@ html.dark mark.doc-comment-mark.active-comment {
   <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
   <button class="dk" data-a="dark" title="Dark mode on / off">◐</button></header>
  <section class="band"><div class="wrap"><h2>Start a new document</h2><div class="tpl" id="tpl"></div></div></section>
- <section class="wrap"><div class="rh"><h2>Recent documents</h2><select id="hsort" aria-label="Sort by"><option value="updated">Last modified</option><option value="title">Title</option></select><button data-a="open" style="border:1px solid var(--bd)">Open file…</button></div>
+ <section class="wrap">
+  <div class="home-tab-bar rh">
+   <div class="home-tabs" role="tablist" aria-label="Document views">
+    <button class="home-tab-btn active" id="home-tab-recent" data-home-tab="recent" role="tab" aria-selected="true" title="View all recent documents">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+     <span>Recent documents</span>
+    </button>
+    <button class="home-tab-btn" id="home-tab-shared" data-home-tab="shared" role="tab" aria-selected="false" title="View shared documents">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+     <span>Shared documents</span>
+     <span id="home-shared-badge" class="home-tab-badge" style="display:none">0</span>
+    </button>
+   </div>
+   <div class="home-tab-actions">
+    <select id="hsort" aria-label="Sort by"><option value="updated">Last modified</option><option value="title">Title</option></select>
+    <button type="button" id="home-open-link-btn" class="home-action-btn" title="Open a shared document URL or code">
+     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+     <span>Open link…</span>
+    </button>
+    <button type="button" data-a="open" class="home-action-btn">Open file…</button>
+   </div>
+  </div>
   <p id="warn" hidden style="color:#c5221f">Browser storage is unavailable. Download your work to keep it.</p><div id="list" class="grid"></div></section>
 </div>
 
@@ -3864,6 +3902,28 @@ html.dark mark.doc-comment-mark.active-comment {
   </div>
   <div class="doc-modal-footer">
    <button class="doc-modal-btn" id="readability-modal-ok">Done</button>
+  </div>
+ </div>
+</div>
+
+<!-- Open Shared Link Modal -->
+<div id="doc-open-link-modal" class="doc-modal-overlay" hidden>
+ <div class="doc-modal-box" style="max-width:440px">
+  <div class="doc-modal-title" style="display:flex;align-items:center;justify-content:space-between">
+   <span style="display:flex;align-items:center;gap:8px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    Open Shared Document
+   </span>
+   <button id="doc-open-link-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--mut)">✕</button>
+  </div>
+  <div class="doc-modal-body">
+   <p style="font-size:13px;color:var(--mut);margin:0 0 12px;line-height:1.4">Paste a Docwright share URL or code to open and add it to your Shared Documents:</p>
+   <textarea id="doc-open-link-input" rows="3" placeholder="https://.../#/d/12345678#c:... or #e:..." style="width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;font-size:13px;box-sizing:border-box;background:var(--bg);color:var(--tx);resize:vertical;font-family:monospace"></textarea>
+   <div id="doc-open-link-err" class="aip-status error" style="margin-top:8px" hidden></div>
+   <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
+    <button type="button" id="doc-open-link-cancel" class="doc-share-btn" style="background:var(--tb);color:var(--tx);border:1px solid var(--bd)">Cancel</button>
+    <button type="button" id="doc-open-link-submit" class="doc-modal-btn">Open Document</button>
+   </div>
   </div>
  </div>
 </div>
@@ -4451,22 +4511,111 @@ setInterval(()=>{if(dirty)saveNow()},3000);
 addEventListener('beforeunload',()=>{if(dirty)saveNow()});
 
 /* ---------- home / documents ---------- */
+let homeActiveTab = 'recent';
+
 function renderHome(){
   $('#warn').hidden=storeOK;
   $('#tpl').innerHTML=Object.entries(T).map(([k,v])=>`<button class="tc" data-t="${k}">${thumb(v[1],1)}<span>${v[0]}</span></button>`).join('');
   document.querySelectorAll('.tc').forEach(b=>b.onclick=()=>{const t=T[b.dataset.t];newDoc(t[1],b.dataset.t==='blank'?'':t[0])});
-  const l=$('#list'),q=$('#hq').value.toLowerCase(),by=$('#hsort').value;l.innerHTML='';
-  const a=Object.values(docs).filter(d=>d.title.toLowerCase().includes(q)).sort((x,y)=>by==='title'?x.title.localeCompare(y.title):y.updated-x.updated);
-  if(!a.length)l.innerHTML=`<p class="mut">${q?'No documents match your search.':'No documents yet. Start one from a template above.'}</p>`;
+  const l=$('#list'),q=($('#hq')?.value||'').toLowerCase(),by=$('#hsort')?.value||'updated';l.innerHTML='';
+
+  // Update tabs active state
+  document.querySelectorAll('.home-tab-btn').forEach(btn=>{
+    const isTab=btn.dataset.homeTab===homeActiveTab;
+    btn.classList.toggle('active',isTab);
+    btn.setAttribute('aria-selected',isTab?'true':'false');
+  });
+
+  // Calculate shared documents count for the badge
+  const allDocs=Object.values(docs);
+  const sharedDocs=allDocs.filter(d=>!!d.isShared);
+  const badge=$('#home-shared-badge');
+  if(badge){
+    if(sharedDocs.length>0){
+      badge.textContent=sharedDocs.length;
+      badge.style.display='inline-flex';
+    }else{
+      badge.style.display='none';
+    }
+  }
+
+  // Filter docs according to active tab
+  let a=(homeActiveTab==='shared')?sharedDocs:allDocs;
+  a=a.filter(d=>(d.title||'').toLowerCase().includes(q))
+     .sort((x,y)=>by==='title'?(x.title||'').localeCompare(y.title||''):(y.updated||0)-(x.updated||0));
+
+  if(!a.length){
+    if(homeActiveTab==='shared'){
+      l.innerHTML=`
+        <div class="empty-tab-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <h3>${q?'No matching shared documents':'No shared documents yet'}</h3>
+          <p>${q?'Try a different search term or check Recent documents.':'When someone shares a document link with you or you open an encrypted link, it will appear here for easy one-click access.'}</p>
+          ${q?'':'<button type="button" id="empty-open-link-btn" class="doc-share-btn" style="background:#1a73e8;display:inline-flex;align-items:center;gap:6px"><span>🔗 Open a shared link</span></button>'}
+        </div>`;
+      const emptyBtn=$('#empty-open-link-btn');
+      if(emptyBtn)emptyBtn.onclick=()=>openDocLinkModal();
+    }else{
+      l.innerHTML=`<p class="mut">${q?'No documents match your search.':'No documents yet. Start one from a template above.'}</p>`;
+    }
+    return;
+  }
+
   a.forEach(d=>{
     const c=document.createElement('div');c.className='card';
-    c.innerHTML=`<button class="cb">${thumb(d.html)}</button><div class="cf"><span><b></b><small>Edited ${new Date(d.updated).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}</small></span><button class="mb" aria-haspopup="true" aria-expanded="false">⋮</button><div class="dd cm" role="menu" hidden><button role="menuitem" data-c="o">Open</button><button role="menuitem" data-c="r">Rename</button><button role="menuitem" data-c="c">Make a copy</button><button role="menuitem" data-c="d">Remove</button></div></div>`;
-    c.querySelector('b').textContent=d.title;c.querySelector('.mb').setAttribute('aria-label','More actions for '+d.title);
-    const on=(k,f)=>c.querySelector(k).onclick=f;
-    on('.cb',()=>openDoc(d.id));on('[data-c=o]',()=>openDoc(d.id));
+    const isShared=!!d.isShared;
+    const dateStr=isShared&&d.sharedAt
+      ?`Shared ${new Date(d.sharedAt).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`
+      :`Edited ${new Date(d.updated||Date.now()).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`;
+
+    c.innerHTML=`
+      <button class="cb" title="Click to open ${esc(d.title||'Untitled document')}">${thumb(d.html)}</button>
+      <div class="cf">
+        <span>
+          <b></b>
+          <small>${dateStr}</small>
+          ${isShared?'<span class="home-shared-chip" title="Shared with you"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Shared</span>':''}
+        </span>
+        <button class="mb" aria-haspopup="true" aria-expanded="false" aria-label="More actions">⋮</button>
+        <div class="dd cm" role="menu" hidden>
+          <button role="menuitem" data-c="o">Open</button>
+          <button role="menuitem" data-c="r">Rename</button>
+          <button role="menuitem" data-c="c">Make a copy</button>
+          ${isShared&&d.sharePkg?'<button role="menuitem" data-c="l">Copy share link</button>':''}
+          <button role="menuitem" data-c="d">${isShared?'Remove from shared':'Remove'}</button>
+        </div>
+      </div>`;
+
+    c.querySelector('b').textContent=d.title||'Untitled document';
+    c.querySelector('.mb').setAttribute('aria-label','More actions for '+(d.title||'document'));
+    const on=(k,f)=>{const el=c.querySelector(k);if(el)el.onclick=f;};
+    on('.cb',()=>openDoc(d.id));
+    on('[data-c=o]',()=>openDoc(d.id));
     on('[data-c=r]',()=>{const n=prompt('Rename document',d.title);if(n&&n.trim()){d.title=n.trim();persist();renderHome()}});
     on('[data-c=c]',()=>{mk(d.html,'Copy of '+d.title,d.size);renderHome()});
-    on('[data-c=d]',()=>{if(confirm(`Remove "${d.title}"? This can't be undone.`)){try{localStorage.removeItem('docwright:ai_mem:'+d.id);localStorage.removeItem('doc_comments_'+d.id)}catch(e){}delete docs[d.id];persist();renderHome()}});
+    on('[data-c=l]',()=>{
+      if(d.sharePkg){
+        const link=`${window.location.origin}${window.location.pathname}#/d/${d.shareDocId||d.id}#${d.sharePkg}`;
+        navigator.clipboard.writeText(link).then(()=>{
+          alert('Shared document link copied to clipboard!');
+        }).catch(()=>{
+          prompt('Copy this link:',link);
+        });
+      }
+    });
+    on('[data-c=d]',()=>{
+      const msg=isShared
+        ?`Remove "${d.title}" from your shared documents?`
+        :`Remove "${d.title}"? This can't be undone.`;
+      if(confirm(msg)){
+        try{localStorage.removeItem('docwright:ai_mem:'+d.id);localStorage.removeItem('doc_comments_'+d.id)}catch(e){}
+        delete docs[d.id];
+        persist();
+        renderHome();
+      }
+    });
     l.append(c);
   });
 }
@@ -4814,6 +4963,7 @@ document.addEventListener('keydown',e=>{
     const pill=$('#ai-inline-pill');if(pill&&!pill.hidden){hideInlinePill();return}
     const sm=$('#doc-share-modal');if(sm&&!sm.hidden){closeShareModal();return}
     const um=$('#doc-unlock-modal');if(um&&!um.hidden){um.hidden=true;return}
+    const olm=$('#doc-open-link-modal');if(olm&&!olm.hidden){closeDocLinkModal();return}
     const rm=$('#readability-modal');if(rm&&!rm.hidden){rm.hidden=true;return}
   }
   if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&page.contains(document.activeElement)&&edit){
@@ -4986,6 +5136,12 @@ $('#ls').onchange=e=>{
   page.querySelectorAll('p,h1,h2,h3,li,blockquote').forEach(b=>{if(!r||r.intersectsNode(b))b.style.lineHeight=e.target.value});edited();
 };
 $('#hq').oninput=renderHome;$('#hsort').onchange=renderHome;
+document.querySelectorAll('.home-tab-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    homeActiveTab=btn.dataset.homeTab;
+    renderHome();
+  };
+});
 /* ---------- boot ---------- */
 document.execCommand('defaultParagraphSeparator',false,'p');
 applyTheme();load();renderHome();checkSharedUrl();
@@ -6319,10 +6475,30 @@ async function checkSharedUrl() {
       if (data && data.html) {
         const db = $('#disboard'); if (db) db.hidden = true;
         $('#home').hidden = true;
-        newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
-        if (cur && docs[cur] && data.comments) {
-          docs[cur].comments = data.comments;
-          renderDocComments();
+        const sharedDocTitle = data.title || 'Shared Document';
+        
+        let targetId = Object.keys(docs).find(k => (sharedDocId && docs[k].shareDocId == sharedDocId) || (docs[k].sharePkg === pkg));
+        if (targetId && docs[targetId]) {
+          docs[targetId].html = data.html;
+          docs[targetId].title = sharedDocTitle;
+          docs[targetId].size = data.size || docs[targetId].size || 'letter';
+          docs[targetId].updated = Date.now();
+          docs[targetId].isShared = true;
+          docs[targetId].sharedAt = docs[targetId].sharedAt || Date.now();
+          docs[targetId].sharePkg = pkg;
+          if (sharedDocId) docs[targetId].shareDocId = sharedDocId;
+          if (data.comments) docs[targetId].comments = data.comments;
+          persist();
+          openDoc(targetId);
+        } else {
+          targetId = mk(data.html, sharedDocTitle, data.size || 'letter');
+          docs[targetId].isShared = true;
+          docs[targetId].sharedAt = Date.now();
+          docs[targetId].sharePkg = pkg;
+          if (sharedDocId) docs[targetId].shareDocId = sharedDocId;
+          if (data.comments) docs[targetId].comments = data.comments;
+          persist();
+          openDoc(targetId);
         }
         setSt('Shared document loaded');
         if (sharedDocId && typeof initCollab === 'function') {
@@ -6364,14 +6540,34 @@ async function unlockSharedDoc() {
       $('#doc-unlock-modal').hidden = true;
       const db = $('#disboard'); if (db) db.hidden = true;
       $('#home').hidden = true;
-      newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
-      if (cur && docs[cur] && data.comments) {
-        docs[cur].comments = data.comments;
-        renderDocComments();
-      }
-      setSt('Document unlocked and loaded');
+      const sharedDocTitle = data.title || 'Shared Document';
       const match = (window.location.hash || '').match(/\/d\/([a-zA-Z0-9_-]+)/);
       const sharedDocId = match ? match[1] : null;
+
+      let targetId = Object.keys(docs).find(k => (sharedDocId && docs[k].shareDocId == sharedDocId) || (docs[k].sharePkg === pendingSharedPackage));
+      if (targetId && docs[targetId]) {
+        docs[targetId].html = data.html;
+        docs[targetId].title = sharedDocTitle;
+        docs[targetId].size = data.size || docs[targetId].size || 'letter';
+        docs[targetId].updated = Date.now();
+        docs[targetId].isShared = true;
+        docs[targetId].sharedAt = docs[targetId].sharedAt || Date.now();
+        docs[targetId].sharePkg = pendingSharedPackage;
+        if (sharedDocId) docs[targetId].shareDocId = sharedDocId;
+        if (data.comments) docs[targetId].comments = data.comments;
+        persist();
+        openDoc(targetId);
+      } else {
+        targetId = mk(data.html, sharedDocTitle, data.size || 'letter');
+        docs[targetId].isShared = true;
+        docs[targetId].sharedAt = Date.now();
+        docs[targetId].sharePkg = pendingSharedPackage;
+        if (sharedDocId) docs[targetId].shareDocId = sharedDocId;
+        if (data.comments) docs[targetId].comments = data.comments;
+        persist();
+        openDoc(targetId);
+      }
+      setSt('Document unlocked and loaded');
       if (sharedDocId && typeof initCollab === 'function') {
         currentShareDocId = sharedDocId;
         initCollab(sharedDocId);
@@ -6394,6 +6590,55 @@ $('#doc-unlock-pw').onkeydown = (e) => {
   }
 };
 window.addEventListener('hashchange', checkSharedUrl);
+
+// Open shared link modal handlers
+function openDocLinkModal() {
+  const m = $('#doc-open-link-modal');
+  if (m) {
+    m.hidden = false;
+    $('#doc-open-link-err').hidden = true;
+    $('#doc-open-link-input').value = '';
+    setTimeout(() => $('#doc-open-link-input').focus(), 120);
+  }
+}
+function closeDocLinkModal() {
+  const m = $('#doc-open-link-modal');
+  if (m) m.hidden = true;
+}
+$('#home-open-link-btn')?.addEventListener('click', openDocLinkModal);
+$('#doc-open-link-close')?.addEventListener('click', closeDocLinkModal);
+$('#doc-open-link-cancel')?.addEventListener('click', closeDocLinkModal);
+$('#doc-open-link-modal')?.addEventListener('click', (e) => {
+  if (e.target === $('#doc-open-link-modal')) closeDocLinkModal();
+});
+$('#doc-open-link-submit')?.addEventListener('click', async () => {
+  const raw = ($('#doc-open-link-input')?.value || '').trim();
+  const errBox = $('#doc-open-link-err');
+  if (!raw) {
+    if (errBox) { errBox.hidden = false; errBox.textContent = 'Please enter a document share link or hash code.'; }
+    return;
+  }
+  let hash = raw;
+  const hashIdx = raw.indexOf('#');
+  if (hashIdx !== -1) {
+    hash = raw.slice(hashIdx);
+  } else if (!raw.startsWith('#')) {
+    hash = '#' + raw;
+  }
+  if (!hash.includes('c:') && !hash.includes('e:') && !hash.includes('/d/')) {
+    if (errBox) { errBox.hidden = false; errBox.textContent = 'Invalid link. Expected a link with /d/ or #c: or #e:'; }
+    return;
+  }
+  closeDocLinkModal();
+  window.location.hash = hash;
+  await checkSharedUrl();
+});
+$('#doc-open-link-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey || !e.shiftKey)) {
+    e.preventDefault();
+    $('#doc-open-link-submit').click();
+  }
+});
 
 /* ============ WEBRTC REAL-TIME LIVE SYNC & COLLABORATION ============ */
 let collabPeer = null;
