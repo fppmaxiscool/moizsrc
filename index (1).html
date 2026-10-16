@@ -3870,12 +3870,15 @@ html.dark mark.doc-comment-mark.active-comment {
 
 <!-- Password Unlock Modal for Shared Links -->
 <div id="doc-unlock-modal" class="doc-modal-overlay" hidden>
- <div class="doc-modal-box" style="max-width:380px;text-align:center">
+ <div class="doc-modal-box" style="max-width:390px;text-align:center">
   <div style="font-size:36px;margin:8px 0">🔒</div>
   <div class="doc-modal-title" style="margin-bottom:6px;border:none;padding-top:0">Protected Document</div>
   <div class="doc-modal-body" style="padding-top:0">
    <p class="mut" style="font-size:13.5px;margin:0 0 16px;line-height:1.4">This document is encrypted and password-protected. Enter the password set by the author to unlock it:</p>
-   <input type="password" id="doc-unlock-pw" placeholder="Enter document password" style="width:100%;padding:10px 14px;border:1px solid var(--bd);border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:12px;background:var(--bg);color:var(--tx)">
+   <div style="display:flex;gap:6px;margin-bottom:12px">
+     <input type="password" id="doc-unlock-pw" placeholder="Enter document password" style="flex:1;padding:10px 14px;border:1px solid var(--bd);border-radius:8px;font-size:14px;box-sizing:border-box;background:var(--bg);color:var(--tx)">
+     <button type="button" id="doc-unlock-pw-toggle" style="padding:0 12px;height:42px;border:1px solid var(--bd);border-radius:8px;background:var(--tb);color:var(--tx);cursor:pointer;font-size:14px" title="Show/Hide password">👁️</button>
+   </div>
    <div id="doc-unlock-err" class="aip-status error" style="margin-bottom:12px" hidden></div>
    <button id="doc-unlock-submit" class="doc-modal-btn" style="width:100%;height:38px;font-size:14px">Unlock &amp; Open Document</button>
   </div>
@@ -3895,7 +3898,11 @@ html.dark mark.doc-comment-mark.active-comment {
     <input type="checkbox" id="doc-share-pw-enable"> Protect with Password
    </label>
    <div id="doc-share-pw-box" style="margin-bottom:14px" hidden>
-    <input type="password" id="doc-share-pw" placeholder="Enter a password for recipients" style="width:100%;padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:13.5px;box-sizing:border-box;background:var(--bg);color:var(--tx)">
+    <div style="display:flex;gap:6px;align-items:center">
+      <input type="password" id="doc-share-pw" placeholder="Enter a password for recipients" style="flex:1;padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:13.5px;box-sizing:border-box;background:var(--bg);color:var(--tx)">
+      <button type="button" id="doc-share-pw-toggle" style="padding:0 10px;height:35px;border:1px solid var(--bd);border-radius:6px;background:var(--tb);color:var(--tx);cursor:pointer;font-size:13px" title="Show/Hide password">👁️</button>
+    </div>
+    <div id="doc-share-pw-hint" style="font-size:11.5px;color:var(--mut);margin-top:4px">Recipients will be prompted for this password to decrypt the document.</div>
    </div>
    <div style="font-size:12px;font-weight:600;text-transform:uppercase;color:var(--mut);margin-bottom:6px">Share Link</div>
    <div style="display:flex;gap:8px;align-items:center">
@@ -6156,14 +6163,31 @@ async function unpackageDoc(payloadStr, password) {
 }
 
 let currentShareDocId = null;
+let shareDebounceTimer = null;
+let shareUpdateSeq = 0;
 
 async function updateShareLink() {
   if (!cur || !docs[cur]) return;
   saveNow();
   const copyBtn = $('#doc-share-copy');
   const urlInp = $('#doc-share-url');
-  if (urlInp && !urlInp.value) urlInp.value = 'Generating share link...';
+  const isPw = $('#doc-share-pw-enable')?.checked;
+  const pw = ($('#doc-share-pw')?.value || '').trim();
+
+  // If password protection is enabled but no password has been entered yet
+  if (isPw && !pw) {
+    if (urlInp) {
+      urlInp.value = '';
+      urlInp.placeholder = 'Enter a password above to generate encrypted link...';
+    }
+    if (copyBtn) copyBtn.disabled = true;
+    return;
+  }
+
+  if (urlInp) urlInp.placeholder = 'Generating secure share link...';
   if (copyBtn) copyBtn.disabled = true;
+
+  const thisSeq = ++shareUpdateSeq;
 
   const d = docs[cur];
   const docData = {
@@ -6174,22 +6198,35 @@ async function updateShareLink() {
     created: Date.now()
   };
 
-  const isPw = $('#doc-share-pw-enable').checked;
-  const pw = isPw ? $('#doc-share-pw').value : '';
-
   try {
-    const pkg = await packageDoc(docData, pw);
+    const pkg = await packageDoc(docData, isPw ? pw : '');
+    if (thisSeq !== shareUpdateSeq) return; // Discard superseded derivation
+
     if (!currentShareDocId) {
       currentShareDocId = Math.floor(10000000 + Math.random() * 90000000);
     }
     const fullUrl = `${window.location.origin}${window.location.pathname}#/d/${currentShareDocId}#${pkg}`;
-    if (urlInp) urlInp.value = fullUrl;
+    if (urlInp) {
+      urlInp.value = fullUrl;
+      urlInp.placeholder = '';
+    }
+    if (copyBtn) copyBtn.disabled = false;
   } catch (err) {
     console.error('Failed to create share link:', err);
-    if (urlInp) urlInp.value = 'Error generating link';
-  } finally {
-    if (copyBtn) copyBtn.disabled = false;
+    if (thisSeq === shareUpdateSeq && urlInp) {
+      urlInp.value = 'Error generating link';
+      if (copyBtn) copyBtn.disabled = true;
+    }
   }
+}
+
+function debouncedUpdateShareLink() {
+  if (shareDebounceTimer) clearTimeout(shareDebounceTimer);
+  const copyBtn = $('#doc-share-copy');
+  const urlInp = $('#doc-share-url');
+  if (urlInp && !urlInp.value) urlInp.placeholder = 'Updating link...';
+  if (copyBtn) copyBtn.disabled = true;
+  shareDebounceTimer = setTimeout(updateShareLink, 180);
 }
 
 async function openShareModal() {
@@ -6206,6 +6243,7 @@ async function openShareModal() {
   $('#doc-share-pw-enable').checked = false;
   $('#doc-share-pw-box').hidden = true;
   $('#doc-share-pw').value = '';
+  $('#doc-share-pw').type = 'password';
   $('#doc-share-msg').hidden = true;
   $('#doc-share-modal').hidden = false;
   await updateShareLink();
@@ -6224,15 +6262,34 @@ $('#doc-share-pw-enable').onchange = (e) => {
   if (e.target.checked) $('#doc-share-pw').focus();
   updateShareLink();
 };
-$('#doc-share-pw').oninput = updateShareLink;
+$('#doc-share-pw').oninput = debouncedUpdateShareLink;
+
+// Show/hide password in share modal
+$('#doc-share-pw-toggle')?.addEventListener('click', () => {
+  const inp = $('#doc-share-pw');
+  if (inp) {
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+});
+
+// Show/hide password in unlock modal
+$('#doc-unlock-pw-toggle')?.addEventListener('click', () => {
+  const inp = $('#doc-unlock-pw');
+  if (inp) {
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+});
+
 $('#doc-share-copy').onclick = async () => {
   const url = $('#doc-share-url').value;
   if (url) {
     await copyText(url);
     const msg = $('#doc-share-msg');
-    msg.hidden = false;
-    msg.textContent = 'Share link copied to clipboard!';
-    setTimeout(() => { msg.hidden = true; }, 3000);
+    if (msg) {
+      msg.hidden = false;
+      msg.textContent = 'Share link copied to clipboard!';
+      setTimeout(() => { msg.hidden = true; }, 3000);
+    }
   }
 };
 
@@ -6260,6 +6317,8 @@ async function checkSharedUrl() {
     try {
       const data = await unpackageDoc(pkg);
       if (data && data.html) {
+        const db = $('#disboard'); if (db) db.hidden = true;
+        $('#home').hidden = true;
         newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
         if (cur && docs[cur] && data.comments) {
           docs[cur].comments = data.comments;
@@ -6281,6 +6340,7 @@ async function checkSharedUrl() {
       unlockModal.hidden = false;
       $('#doc-unlock-err').hidden = true;
       $('#doc-unlock-pw').value = '';
+      $('#doc-unlock-pw').type = 'password';
       setTimeout(() => $('#doc-unlock-pw').focus(), 150);
     }
   }
@@ -6288,11 +6348,13 @@ async function checkSharedUrl() {
 
 async function unlockSharedDoc() {
   if (!pendingSharedPackage) return;
-  const pw = $('#doc-unlock-pw').value;
+  const pw = ($('#doc-unlock-pw')?.value || '').trim();
   const errBox = $('#doc-unlock-err');
   if (!pw) {
-    errBox.hidden = false;
-    errBox.textContent = 'Please enter the document password.';
+    if (errBox) {
+      errBox.hidden = false;
+      errBox.textContent = 'Please enter the document password.';
+    }
     return;
   }
 
@@ -6300,6 +6362,8 @@ async function unlockSharedDoc() {
     const data = await unpackageDoc(pendingSharedPackage, pw);
     if (data && data.html) {
       $('#doc-unlock-modal').hidden = true;
+      const db = $('#disboard'); if (db) db.hidden = true;
+      $('#home').hidden = true;
       newDoc(data.html, (data.title || 'Shared Document'), data.size || 'letter');
       if (cur && docs[cur] && data.comments) {
         docs[cur].comments = data.comments;
@@ -6315,8 +6379,10 @@ async function unlockSharedDoc() {
       pendingSharedPackage = null;
     }
   } catch (err) {
-    errBox.hidden = false;
-    errBox.textContent = 'Incorrect password. Please try again.';
+    if (errBox) {
+      errBox.hidden = false;
+      errBox.textContent = 'Incorrect password. Please try again.';
+    }
   }
 }
 
@@ -6327,6 +6393,7 @@ $('#doc-unlock-pw').onkeydown = (e) => {
     unlockSharedDoc();
   }
 };
+window.addEventListener('hashchange', checkSharedUrl);
 
 /* ============ WEBRTC REAL-TIME LIVE SYNC & COLLABORATION ============ */
 let collabPeer = null;
@@ -7268,11 +7335,29 @@ function saveDbAccounts(accs) {
   try { localStorage.setItem(DB_ACCOUNTS_KEY, JSON.stringify(accs)); } catch(e){}
 }
 function getDbSession() {
-  try { return JSON.parse(localStorage.getItem(DB_SESSION_KEY) || 'null'); }
-  catch(e) { return null; }
+  try {
+    const raw = localStorage.getItem(DB_SESSION_KEY);
+    if (raw === '__logged_out__') return null;
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  const defaultUser = {
+    username: 'User',
+    tag: '#1337',
+    bio: 'ex go go',
+    avatar: { type: 'icon', color: '#5865F2', icon: '🚀' },
+    banner: null
+  };
+  try { localStorage.setItem(DB_SESSION_KEY, JSON.stringify(defaultUser)); } catch(e){}
+  return defaultUser;
 }
 function setDbSession(user) {
-  try { localStorage.setItem(DB_SESSION_KEY, JSON.stringify(user)); } catch(e){}
+  try {
+    if (!user) {
+      localStorage.setItem(DB_SESSION_KEY, '__logged_out__');
+    } else {
+      localStorage.setItem(DB_SESSION_KEY, JSON.stringify(user));
+    }
+  } catch(e){}
 }
 
 function playDiscordPop() {
@@ -9295,8 +9380,9 @@ function closeDbUserSettings() {
 }
 
 function handleDbUserLogout() {
-  localStorage.removeItem(DB_SESSION_KEY);
+  setDbSession(null);
   closeDbUserSettings();
+  closeUserProfilePopover();
   updateDbUserDock();
   renderDbMembers();
   broadcastDbPresence();
@@ -9389,6 +9475,14 @@ function initSettingsAvatarCustomizer() {
             currentCfg.type = 'image';
             currentCfg.imgData = croppedDataUrl;
             refreshSettingsPreview();
+            const s = getDbSession();
+            if (s) {
+              s.avatar = { ...currentCfg };
+              setDbSession(s);
+              updateDbUserDock();
+              renderDbMembers();
+              broadcastDbPresence();
+            }
           });
         };
         img.src = event.target.result;
@@ -9414,6 +9508,14 @@ function initSettingsAvatarCustomizer() {
     removeBannerBtn.onclick = () => {
       currentBanner = null;
       refreshBannerPreview();
+      const s = getDbSession();
+      if (s) {
+        s.banner = null;
+        setDbSession(s);
+        updateDbUserDock();
+        renderDbMembers();
+        broadcastDbPresence();
+      }
     };
   }
 
@@ -9428,6 +9530,14 @@ function initSettingsAvatarCustomizer() {
           openImageEditor(img, 'banner', (croppedDataUrl) => {
             currentBanner = croppedDataUrl;
             refreshBannerPreview();
+            const s = getDbSession();
+            if (s) {
+              s.banner = currentBanner;
+              setDbSession(s);
+              updateDbUserDock();
+              renderDbMembers();
+              broadcastDbPresence();
+            }
           });
         };
         img.src = event.target.result;
@@ -9453,7 +9563,12 @@ function initSettingsAvatarCustomizer() {
       saveDbAccounts(accounts);
     }
 
-    closeDbUserSettings();
+    const saveBtn = $('#db-settings-save-btn');
+    if (saveBtn) {
+      saveBtn.textContent = 'Saved! ✓';
+      setTimeout(() => { saveBtn.textContent = 'Save Changes'; }, 1500);
+    }
+    setTimeout(closeDbUserSettings, 300);
     updateDbUserDock();
     renderDbMembers();
     broadcastDbPresence();
@@ -9859,22 +9974,36 @@ $('#db-btn-settings')?.addEventListener('click', (e) => {
 
 $('#db-dock-avatar-btn')?.addEventListener('click', (e) => {
   e.stopPropagation();
-  const session = getDbSession();
-  if (session) {
-    showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
-  } else {
-    openDbAuthModal('login');
+  let session = getDbSession();
+  if (!session) {
+    session = {
+      username: 'User',
+      tag: '#1337',
+      bio: 'ex go go',
+      avatar: { type: 'icon', color: '#5865F2', icon: '🚀' },
+      banner: null
+    };
+    setDbSession(session);
+    updateDbUserDock();
   }
+  showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
 });
 
 $('#db-dock-info-btn')?.addEventListener('click', (e) => {
   e.stopPropagation();
-  const session = getDbSession();
-  if (session) {
-    showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
-  } else {
-    openDbAuthModal('login');
+  let session = getDbSession();
+  if (!session) {
+    session = {
+      username: 'User',
+      tag: '#1337',
+      bio: 'ex go go',
+      avatar: { type: 'icon', color: '#5865F2', icon: '🚀' },
+      banner: null
+    };
+    setDbSession(session);
+    updateDbUserDock();
   }
+  showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
 });
 
 // DM chat header title click opens recipient profile
