@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
 <!-- ============ STYLES ============ -->
 <style>
@@ -93,6 +94,12 @@ body{font-family:Roboto,system-ui,-apple-system,"Segoe UI",sans-serif}
 .menus{grid-column:2;width:auto;padding:0;margin-left:-4px;flex-wrap:wrap}
 .mb{height:24px;font-size:13px;padding:0 7px;border-radius:4px}
 .top-right-actions{grid-column:3;grid-row:1/3;display:flex;align-items:center;gap:10px}
+.collab-badge{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:17px;background:var(--tb);border:1px solid var(--bd);font-size:12.5px;font-weight:500;color:var(--tx);transition:all .2s ease;user-select:none}
+.collab-badge.active{background:color-mix(in srgb,#34a853 14%,var(--bg));border-color:#34a853;color:#1e7e34}
+html.dark .collab-badge.active{background:color-mix(in srgb,#34a853 22%,var(--bg));border-color:#34a853;color:#81c995}
+.collab-dot{width:8px;height:8px;border-radius:50%;background:#9aa0a6;flex:none}
+.collab-badge.active .collab-dot{background:#34a853;box-shadow:0 0 0 0 rgba(52,168,83,.7);animation:collabPulse 2s infinite}
+@keyframes collabPulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(52,168,83,.7)}70%{transform:scale(1.05);box-shadow:0 0 0 6px rgba(52,168,83,0)}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(52,168,83,0)}}
 .doc-share-btn{height:36px;border-radius:18px;padding:0 16px;background:var(--acc);color:#fff;border:0;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:500;cursor:pointer;transition:all 0.15s;box-shadow:0 1px 2px rgba(0,0,0,0.12)}
 .doc-share-btn:hover{background:var(--acc-hover);box-shadow:0 2px 6px rgba(26,115,232,0.35)}
 .doc-share-btn svg{flex:none}
@@ -1844,6 +1851,10 @@ html.dark mark.doc-comment-mark.active-comment {
    <nav class="menus" id="menus" aria-label="Menu"></nav>
   </div>
   <div class="top-right-actions">
+   <div id="collab-badge" class="collab-badge" hidden title="Live collaborative editing">
+    <span class="collab-dot"></span>
+    <span id="collab-text">Live ready</span>
+   </div>
    <button id="doc-share-btn" class="doc-share-btn" data-a="share" title="Share document">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
     <span>Share</span>
@@ -2359,7 +2370,7 @@ function saveNow(){
   Object.assign(docs[cur],{html:c.innerHTML,updated:Date.now()});dirty=false;
   setSt(persist()?'Saved':'Not saved (storage unavailable or full)');
 }
-function edited(){dirty=true;setSt('Saving…');stats();clearTimeout(edited.t);edited.t=setTimeout(outline,400)}
+function edited(){dirty=true;setSt('Saving…');stats();clearTimeout(edited.t);edited.t=setTimeout(outline,400);if(!isRemoteUpdate&&typeof triggerCollabBroadcast==='function')triggerCollabBroadcast();}
 setInterval(()=>{if(dirty)saveNow()},3000);
 addEventListener('beforeunload',()=>{if(dirty)saveNow()});
 
@@ -2392,7 +2403,9 @@ function thumb(h,trusted){let x=h||'';if(!trusted){const d=new DOMParser().parse
 function mk(html,title,size){const id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);docs[id]={id,title:title||'Untitled document',html:html||'<p><br></p>',updated:Date.now(),size:size||'letter'};persist();return id}
 function newDoc(html,title,size){openDoc(mk(html,title,size))}
 function openDoc(id){
-  const d=docs[id];if(!d)return;cur=id;
+  const d=docs[id];if(!d)return;
+  if(cur!==id&&typeof closeCollab==='function')closeCollab();
+  cur=id;
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
   ti.value=d.title;document.title=d.title+' – Docwright';
   $('#home').hidden=true;$('#app').hidden=false;
@@ -2539,7 +2552,7 @@ function htmlToMarkdown(html){
 }
 
 const A={
-  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()},
+  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()},
   save:()=>{saveNow()}, open:()=>$('#fi').click(), size:()=>{if(!cur)return;page.classList.toggle('a4');docs[cur].size=page.classList.contains('a4')?'a4':'letter';fit();edited()},
   print:()=>{
     clearMarks();
@@ -4112,7 +4125,12 @@ async function openShareModal() {
     alert('Please open or create a document first before sharing.');
     return;
   }
-  currentShareDocId = Math.floor(10000000 + Math.random() * 90000000);
+  if (!currentShareDocId) {
+    currentShareDocId = Math.floor(10000000 + Math.random() * 90000000);
+  }
+  if (typeof initCollab === 'function') {
+    initCollab(currentShareDocId);
+  }
   $('#doc-share-pw-enable').checked = false;
   $('#doc-share-pw-box').hidden = true;
   $('#doc-share-pw').value = '';
@@ -4152,6 +4170,9 @@ async function checkSharedUrl() {
   const hash = window.location.hash || '';
   if (!hash.includes('/d/')) return;
 
+  const match = hash.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  const sharedDocId = match ? match[1] : null;
+
   const parts = hash.split('#');
   let pkg = '';
   for (let i = 1; i < parts.length; i++) {
@@ -4173,6 +4194,10 @@ async function checkSharedUrl() {
           renderDocComments();
         }
         setSt('Shared document loaded');
+        if (sharedDocId && typeof initCollab === 'function') {
+          currentShareDocId = sharedDocId;
+          initCollab(sharedDocId);
+        }
       }
     } catch (err) {
       alert('Could not open shared document: ' + err.message);
@@ -4209,6 +4234,12 @@ async function unlockSharedDoc() {
         renderDocComments();
       }
       setSt('Document unlocked and loaded');
+      const match = (window.location.hash || '').match(/\/d\/([a-zA-Z0-9_-]+)/);
+      const sharedDocId = match ? match[1] : null;
+      if (sharedDocId && typeof initCollab === 'function') {
+        currentShareDocId = sharedDocId;
+        initCollab(sharedDocId);
+      }
       pendingSharedPackage = null;
     }
   } catch (err) {
@@ -4224,6 +4255,330 @@ $('#doc-unlock-pw').onkeydown = (e) => {
     unlockSharedDoc();
   }
 };
+
+/* ============ WEBRTC REAL-TIME LIVE SYNC & COLLABORATION ============ */
+let collabPeer = null;
+let collabConnections = new Set();
+let collabHostConn = null;
+let isCollabHost = false;
+let activeCollabDocId = null;
+let isRemoteUpdate = false;
+let collabDebounceTimer = null;
+let myCollabPeerId = null;
+
+function getCaretCharOffset(element) {
+  let caretOffset = 0;
+  try {
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      const range = sel.getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(element);
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+      caretOffset = preCaretRange.toString().length;
+    }
+  } catch (e) {}
+  return caretOffset;
+}
+
+function setCaretCharOffset(element, offset) {
+  if (offset < 0) return;
+  try {
+    const sel = window.getSelection();
+    if (!sel) return;
+    const createRange = (node, chars, range) => {
+      if (!range) {
+        range = document.createRange();
+        range.selectNode(node);
+        range.setStart(node, 0);
+      }
+      if (chars.count === 0) {
+        range.setEnd(node, chars.count);
+      } else if (node && chars.count > 0) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          if (node.textContent.length < chars.count) {
+            chars.count -= node.textContent.length;
+          } else {
+            range.setEnd(node, chars.count);
+            chars.count = 0;
+          }
+        } else {
+          for (let lp = 0; lp < node.childNodes.length; lp++) {
+            range = createRange(node.childNodes[lp], chars, range);
+            if (chars.count === 0) break;
+          }
+        }
+      }
+      return range;
+    };
+
+    const range = createRange(element, { count: offset });
+    if (range) {
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  } catch (err) {}
+}
+
+function updateCollabUI(count) {
+  const badge = $('#collab-badge');
+  const txt = $('#collab-text');
+  if (!badge || !txt) return;
+
+  if (!activeCollabDocId) {
+    badge.hidden = true;
+    return;
+  }
+
+  badge.hidden = false;
+  const num = (typeof count === 'number' && count > 0) 
+    ? count 
+    : (isCollabHost ? collabConnections.size + 1 : (collabHostConn && collabHostConn.open ? 2 : 1));
+
+  if (num > 1) {
+    badge.classList.add('active');
+    txt.textContent = `${num} online`;
+    badge.title = `${num} people currently editing this document together live in real-time`;
+  } else {
+    badge.classList.remove('active');
+    txt.textContent = 'Live ready';
+    badge.title = 'Live sync active. Share link with others to collaborate live.';
+  }
+}
+
+function broadcastPresence() {
+  if (!isCollabHost) return;
+  const count = collabConnections.size + 1;
+  const payload = { type: 'presence', count };
+  for (const conn of collabConnections) {
+    if (conn.open) {
+      try { conn.send(payload); } catch(e) {}
+    }
+  }
+}
+
+function initCollab(docId) {
+  if (!docId) return;
+  if (activeCollabDocId === docId && collabPeer && !collabPeer.destroyed) {
+    return;
+  }
+  closeCollab();
+  activeCollabDocId = docId;
+  updateCollabUI(1);
+
+  if (typeof Peer === 'undefined') {
+    console.warn('PeerJS library not available.');
+    return;
+  }
+
+  const hostId = 'dwdoc-' + docId + '-h';
+
+  try {
+    const p = new Peer(hostId, { debug: 0 });
+
+    p.on('open', (id) => {
+      collabPeer = p;
+      myCollabPeerId = id;
+      isCollabHost = true;
+      updateCollabUI(1);
+
+      p.on('connection', (conn) => {
+        handleIncomingPeerConn(conn);
+      });
+    });
+
+    p.on('error', (err) => {
+      if (err.type === 'unavailable-id') {
+        p.destroy();
+        joinAsGuest(docId, hostId);
+      } else {
+        console.warn('PeerJS host note:', err.type || err);
+      }
+    });
+  } catch (e) {
+    console.warn('Collab init error:', e);
+  }
+}
+
+function joinAsGuest(docId, hostId) {
+  const guestId = 'dwdoc-' + docId + '-g' + Math.random().toString(36).substring(2, 8);
+  try {
+    const p = new Peer(guestId, { debug: 0 });
+    p.on('open', (id) => {
+      collabPeer = p;
+      myCollabPeerId = id;
+      isCollabHost = false;
+
+      const conn = p.connect(hostId, { reliable: true });
+      collabHostConn = conn;
+
+      conn.on('open', () => {
+        updateCollabUI(2);
+        setSt('Connected to live session');
+      });
+
+      conn.on('data', (data) => {
+        handleCollabMessage(data, conn);
+      });
+
+      conn.on('close', () => {
+        collabHostConn = null;
+        updateCollabUI(1);
+        setSt('Host disconnected');
+        setTimeout(() => {
+          if (activeCollabDocId === docId) initCollab(docId);
+        }, 1500);
+      });
+
+      conn.on('error', (err) => {
+        console.warn('Collab guest conn error:', err);
+      });
+    });
+
+    p.on('error', (err) => {
+      console.warn('PeerJS guest note:', err.type || err);
+    });
+  } catch (e) {
+    console.warn('Collab guest error:', e);
+  }
+}
+
+function handleIncomingPeerConn(conn) {
+  conn.on('open', () => {
+    collabConnections.add(conn);
+    updateCollabUI(collabConnections.size + 1);
+    broadcastPresence();
+
+    conn.send({
+      type: 'full_sync',
+      html: page.innerHTML,
+      title: ti.value,
+      comments: (cur && docs[cur] && docs[cur].comments) ? docs[cur].comments : []
+    });
+    setSt('Collaborator connected live');
+  });
+
+  conn.on('data', (data) => {
+    handleCollabMessage(data, conn);
+    if (data && data.type === 'edit') {
+      for (const other of collabConnections) {
+        if (other !== conn && other.open) {
+          try { other.send(data); } catch(e){}
+        }
+      }
+    }
+  });
+
+  conn.on('close', () => {
+    collabConnections.delete(conn);
+    updateCollabUI(collabConnections.size + 1);
+    broadcastPresence();
+  });
+
+  conn.on('error', () => {
+    collabConnections.delete(conn);
+    updateCollabUI(collabConnections.size + 1);
+    broadcastPresence();
+  });
+}
+
+function handleCollabMessage(data, senderConn) {
+  if (!data) return;
+  if (data.type === 'presence') {
+    if (typeof data.count === 'number') {
+      updateCollabUI(data.count);
+    }
+  } else if (data.type === 'full_sync' || data.type === 'edit') {
+    applyCollabUpdate(data);
+  }
+}
+
+function applyCollabUpdate(data) {
+  if (!data || typeof data.html !== 'string') return;
+  if (page.innerHTML === data.html && (!data.title || ti.value === data.title)) {
+    return;
+  }
+
+  isRemoteUpdate = true;
+  const isEditing = (document.activeElement === page || page.contains(document.activeElement));
+  const caret = isEditing ? getCaretCharOffset(page) : -1;
+
+  page.innerHTML = data.html;
+
+  if (data.title && ti.value !== data.title) {
+    ti.value = data.title;
+    document.title = data.title + ' – Docwright';
+  }
+
+  if (cur && docs[cur]) {
+    docs[cur].html = data.html;
+    if (data.title) docs[cur].title = data.title;
+    if (Array.isArray(data.comments)) {
+      docs[cur].comments = data.comments;
+      renderDocComments();
+    }
+    docs[cur].updated = Date.now();
+    persist();
+  }
+
+  if (isEditing && caret >= 0) {
+    setCaretCharOffset(page, caret);
+  }
+
+  stats();
+  outline();
+  setSt('Live synced');
+  isRemoteUpdate = false;
+}
+
+function triggerCollabBroadcast() {
+  if (!activeCollabDocId) return;
+  clearTimeout(collabDebounceTimer);
+  collabDebounceTimer = setTimeout(() => {
+    sendCollabBroadcast();
+  }, 100);
+}
+
+function sendCollabBroadcast() {
+  if (!activeCollabDocId) return;
+  const payload = {
+    type: 'edit',
+    html: page.innerHTML,
+    title: ti.value,
+    comments: (cur && docs[cur] && docs[cur].comments) ? docs[cur].comments : [],
+    timestamp: Date.now()
+  };
+
+  if (isCollabHost) {
+    for (const conn of collabConnections) {
+      if (conn.open) {
+        try { conn.send(payload); } catch(e){}
+      }
+    }
+  } else if (collabHostConn && collabHostConn.open) {
+    try { collabHostConn.send(payload); } catch(e){}
+  }
+}
+
+function closeCollab() {
+  if (collabDebounceTimer) clearTimeout(collabDebounceTimer);
+  if (collabHostConn) {
+    try { collabHostConn.close(); } catch(e){}
+    collabHostConn = null;
+  }
+  for (const conn of collabConnections) {
+    try { conn.close(); } catch(e){}
+  }
+  collabConnections.clear();
+  if (collabPeer) {
+    try { collabPeer.destroy(); } catch(e){}
+    collabPeer = null;
+  }
+  activeCollabDocId = null;
+  isCollabHost = false;
+  updateCollabUI(0);
+}
 
 /* ============ FEATURE 2: READABILITY RADAR & METRICS ============ */
 function countSyllables(word) {

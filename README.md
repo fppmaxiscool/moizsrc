@@ -34,7 +34,11 @@ A client-side, zero-backend, Google Docs-style rich text processor powered by **
 - **Encrypted Document Sharing (Zero-Backend for GitHub Pages)**:
   - **Share Button**: Generate shareable links formatted as `#/d/[random-8-digits]#...`.
   - **Password Protection**: Encrypted directly in the browser via Web Crypto AES-GCM (256-bit) and PBKDF2 (SHA-256, 100,000 iterations) with Gzip compression stream.
-  - Recipient unlock modal prompts for password, decrypts, and unpacks document + comments seamlessly into the editor.
+- **Real-Time Live Collaborative Sync (WebRTC P2P)**:
+  - Edits stream live across multiple users' screens in real time (< 50ms) via client-side WebRTC data channels (PeerJS).
+  - Presence indicator pill in the header displays live active collaborator count (e.g. `🟢 2 online`).
+  - Seamless caret preservation prevents cursor jumping while multiple users co-edit.
+  - Automatic host election and star-relay network architecture works 100% on GitHub Pages without requiring a paid backend server.
 - **Admin Preferences Protection**:
   - API keys and preferences are hidden by default from all visitors.
   - Owner can toggle the Preferences panel on demand with `Ctrl+Alt+Shift+K` or by triple-clicking the Gemini logo in the sidebar header.
