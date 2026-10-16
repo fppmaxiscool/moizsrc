@@ -7575,7 +7575,7 @@ function renderFriendsScreen(tab) {
             }
           }
           return `
-            <div class="db-friend-card">
+            <div class="db-friend-card" data-friend-name="${esc(f)}" style="cursor:pointer">
               <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">
                 <div style="position:relative">
                   ${renderDbAvatarHtml(avatar, 'medium')}
@@ -7602,15 +7602,29 @@ function renderFriendsScreen(tab) {
           `;
         }).join('');
 
+        allListEl.querySelectorAll('.db-friend-card').forEach(card => {
+          card.onclick = (e) => {
+            if (e.target.closest('.db-friend-action-btn')) return;
+            e.stopPropagation();
+            const name = card.dataset.friendName;
+            const targetUser = getDisboardUser(name);
+            if (targetUser) {
+              showUserProfilePopover(targetUser, card);
+            }
+          };
+        });
+
         allListEl.querySelectorAll('.db-friend-msg-btn').forEach(b => {
-          b.onclick = () => {
+          b.onclick = (e) => {
+            e.stopPropagation();
             const name = b.dataset.friendName;
             if (name) openDirectMessageWith(name);
           };
         });
 
         allListEl.querySelectorAll('.db-friend-remove-btn').forEach(b => {
-          b.onclick = () => {
+          b.onclick = (e) => {
+            e.stopPropagation();
             const name = b.dataset.friendName;
             if (name && confirm(`Remove ${name} from your friends?`)) {
               removeDbFriend(name);
@@ -7805,9 +7819,13 @@ function renderFriendsActiveRail() {
   `).join('');
 
   railEl.querySelectorAll('[data-active-user]').forEach(el => {
-    el.onclick = () => {
+    el.onclick = (e) => {
+      e.stopPropagation();
       const u = el.dataset.activeUser;
-      if (u) openDirectMessageWith(u);
+      const targetUser = getDisboardUser(u);
+      if (targetUser) {
+        showUserProfilePopover(targetUser, el);
+      }
     };
   });
 }
@@ -7994,17 +8012,12 @@ function renderDbMessages() {
   // Profile popover on author / avatar click (matching Image 4)
   feed.querySelectorAll('.db-message-author, .db-msg-avatar-click').forEach(el => {
     el.onclick = (e) => {
+      e.stopPropagation();
       const parent = el.closest('.db-message');
       const authorName = parent?.dataset.author;
-      const msgObj = msgs.find(x => x.user === authorName);
-      if (msgObj) {
-        showUserProfilePopover({
-          user: msgObj.user,
-          avatar: msgObj.avatar,
-          tag: msgObj.tag,
-          isBot: msgObj.isBot,
-          bio: msgObj.bio || (msgObj.isBot ? 'Official Docwright AI assistant.' : 'ex go go')
-        }, e.currentTarget);
+      const targetUser = getDisboardUser(authorName);
+      if (targetUser) {
+        showUserProfilePopover(targetUser, el);
       }
     };
   });
@@ -8131,10 +8144,11 @@ function renderDbMembers() {
 
   list.querySelectorAll('.db-member-card').forEach(card => {
     card.onclick = (e) => {
+      e.stopPropagation();
       const uName = card.dataset.username;
-      const targetMember = members.find(x => x.username === uName);
+      const targetMember = getDisboardUser(uName);
       if (targetMember) {
-        showUserProfilePopover(targetMember, e.currentTarget);
+        showUserProfilePopover(targetMember, card);
       }
     };
   });
@@ -9464,6 +9478,71 @@ function initSettingsAvatarCustomizer() {
 }
 
 /* ============ DISCORD USER PROFILE POPOVER (IMAGE 4) ============ */
+function getDisboardUser(rawName) {
+  if (!rawName) return null;
+  const cleanName = typeof rawName === 'string' ? rawName.replace(/\s*\(You\)$/i, '').trim() : '';
+  const session = getDbSession();
+  if (session && cleanName.toLowerCase() === session.username.toLowerCase()) {
+    return {
+      user: session.username,
+      username: session.username,
+      tag: session.tag || '#1337',
+      avatar: session.avatar || { type: 'icon', color: '#5865F2', icon: '🚀' },
+      banner: session.banner || null,
+      bio: session.bio || 'ex go go',
+      isSelf: true,
+      isOnline: true
+    };
+  }
+  if (cleanName.toLowerCase() === 'docbot') {
+    return {
+      user: 'DocBot',
+      username: 'DocBot',
+      tag: '#0001',
+      avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+      banner: null,
+      bio: 'Official Docwright AI assistant. Mention me @DocBot or DM me anytime!',
+      isBot: true,
+      isOnline: true
+    };
+  }
+  for (const u of disboardRemoteUsers.values()) {
+    if (u && u.user && u.user.toLowerCase() === cleanName.toLowerCase()) {
+      return {
+        user: u.user,
+        username: u.user,
+        tag: u.tag || '#0000',
+        avatar: u.avatar || { type: 'icon', color: '#5865F2', icon: '👤' },
+        banner: u.banner || null,
+        bio: u.bio || 'ex go go',
+        isOnline: true
+      };
+    }
+  }
+  const accounts = getDbAccounts();
+  if (accounts[cleanName.toLowerCase()]) {
+    const acc = accounts[cleanName.toLowerCase()];
+    return {
+      user: acc.username,
+      username: acc.username,
+      tag: acc.tag || '#1337',
+      avatar: acc.avatar || { type: 'icon', color: '#5865F2', icon: '👤' },
+      banner: acc.banner || null,
+      bio: acc.bio || 'ex go go',
+      isOnline: false
+    };
+  }
+  return {
+    user: cleanName,
+    username: cleanName,
+    tag: '#1337',
+    avatar: { type: 'icon', color: '#5865F2', icon: '👤' },
+    banner: null,
+    bio: 'ex go go',
+    isOnline: false
+  };
+}
+
 function showUserProfilePopover(userObj, anchorEl) {
   const popover = $('#db-profile-popover');
   if (!popover || !userObj) return;
@@ -9480,7 +9559,7 @@ function showUserProfilePopover(userObj, anchorEl) {
   const session = getDbSession();
   const rawUsername = userObj.username || userObj.user || '';
   const cleanName = rawUsername.replace(/\s*\(You\)$/i, '').trim();
-  const isSelf = session && cleanName.toLowerCase() === session.username.toLowerCase();
+  const isSelf = !!userObj.isSelf || (session && cleanName.toLowerCase() === session.username.toLowerCase());
 
   const name = cleanName || 'User';
   const tag = userObj.tag || '#1337';
@@ -9507,49 +9586,88 @@ function showUserProfilePopover(userObj, anchorEl) {
 
   if (isSelf) {
     if (msgBtn) {
-      msgBtn.textContent = 'Edit Profile';
+      msgBtn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Edit Profile</span>
+      `;
       msgBtn.style.display = 'inline-flex';
-      msgBtn.onclick = () => {
+      msgBtn.onclick = (e) => {
+        e.stopPropagation();
         closeUserProfilePopover();
         openDbUserSettings();
       };
     }
     if (friendBtn) {
-      friendBtn.style.display = 'none';
+      friendBtn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Log Out</span>
+      `;
+      friendBtn.style.display = 'inline-flex';
+      friendBtn.style.color = '#f23f43';
+      friendBtn.style.borderColor = 'rgba(242,63,67,0.3)';
+      friendBtn.onclick = (e) => {
+        e.stopPropagation();
+        closeUserProfilePopover();
+        handleDbUserLogout();
+      };
     }
   } else {
     if (msgBtn) {
-      msgBtn.textContent = 'Message';
+      msgBtn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <span>Message</span>
+      `;
       msgBtn.style.display = 'inline-flex';
-      msgBtn.onclick = () => {
+      msgBtn.onclick = (e) => {
+        e.stopPropagation();
         closeUserProfilePopover();
         openDirectMessageWith(name, userObj.avatar);
       };
     }
     if (friendBtn) {
       friendBtn.style.display = 'inline-flex';
-      friendBtn.textContent = 'Add Friend';
-      friendBtn.onclick = () => {
+      friendBtn.style.color = '';
+      friendBtn.style.borderColor = '';
+      friendBtn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Add Friend</span>
+      `;
+      friendBtn.onclick = (e) => {
+        e.stopPropagation();
+        addDbFriend(name);
         addDmContact(name);
         renderDbDmsContacts();
-        friendBtn.textContent = 'Friend Added!';
-        setTimeout(() => { friendBtn.textContent = 'Add Friend'; }, 1500);
+        friendBtn.innerHTML = `<span>Friend Added!</span>`;
+        setTimeout(() => {
+          friendBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span>Add Friend</span>
+          `;
+        }, 1500);
       };
     }
   }
 
+  // Positioning
+  popover.style.transform = '';
   if (anchorEl) {
     const rect = anchorEl.getBoundingClientRect();
     let top = rect.top;
     let left = rect.right + 12;
-    if (left + 330 > window.innerWidth) {
-      left = Math.max(10, rect.left - 330);
+    // If anchored from bottom dock
+    if (anchorEl.closest('.db-user-dock') || anchorEl.id === 'db-dock-avatar-btn' || anchorEl.id === 'db-dock-info-btn') {
+      top = Math.max(10, rect.top - 330);
+      left = Math.max(10, Math.min(window.innerWidth - 340, rect.left));
+    } else {
+      if (left + 330 > window.innerWidth) {
+        left = Math.max(10, rect.left - 330);
+      }
+      if (top + 340 > window.innerHeight) {
+        top = Math.max(10, window.innerHeight - 350);
+      }
     }
-    if (top + 340 > window.innerHeight) {
-      top = Math.max(10, window.innerHeight - 350);
-    }
-    popover.style.top = top + 'px';
-    popover.style.left = left + 'px';
+    popover.style.top = Math.max(10, top) + 'px';
+    popover.style.left = Math.max(10, left) + 'px';
   } else {
     popover.style.top = '50%';
     popover.style.left = '50%';
@@ -9733,10 +9851,42 @@ $('#db-btn-toggle-members')?.addEventListener('click', () => {
   if (rail) rail.hidden = !rail.hidden;
 });
 
-// User settings / profile dock clicks (Opens Settings with Log Out matching Image 2!)
-$('#db-btn-settings')?.addEventListener('click', openDbUserSettings);
-$('#db-dock-avatar-btn')?.addEventListener('click', openDbUserSettings);
-$('#db-dock-info-btn')?.addEventListener('click', openDbUserSettings);
+// User settings / profile dock clicks
+$('#db-btn-settings')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  openDbUserSettings();
+});
+
+$('#db-dock-avatar-btn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const session = getDbSession();
+  if (session) {
+    showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
+  } else {
+    openDbAuthModal('login');
+  }
+});
+
+$('#db-dock-info-btn')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const session = getDbSession();
+  if (session) {
+    showUserProfilePopover(getDisboardUser(session.username), e.currentTarget);
+  } else {
+    openDbAuthModal('login');
+  }
+});
+
+// DM chat header title click opens recipient profile
+$('#db-chat-title')?.addEventListener('click', (e) => {
+  if (activeDisboardView === 'dms' && activeDmRecipient) {
+    e.stopPropagation();
+    const user = getDisboardUser(activeDmRecipient);
+    if (user) {
+      showUserProfilePopover(user, e.currentTarget);
+    }
+  }
+});
 
 // Discord emoji picker popup toggle (matching Image 3!)
 $('#db-chat-emoji')?.addEventListener('click', (e) => {
@@ -9757,8 +9907,17 @@ document.addEventListener('click', (e) => {
     picker.hidden = true;
   }
   const popover = $('#db-profile-popover');
-  if (popover && !popover.hidden && !e.target.closest('#db-profile-popover') && !e.target.closest('.db-message-author') && !e.target.closest('.db-msg-avatar-click') && !e.target.closest('.db-member-card')) {
-    popover.hidden = true;
+  if (popover && !popover.hidden) {
+    if (!e.target.closest('#db-profile-popover') &&
+        !e.target.closest('.db-message-author') &&
+        !e.target.closest('.db-msg-avatar-click') &&
+        !e.target.closest('.db-member-card') &&
+        !e.target.closest('#db-dock-avatar-btn') &&
+        !e.target.closest('#db-dock-info-btn') &&
+        !e.target.closest('.db-friend-card') &&
+        !e.target.closest('#db-chat-title')) {
+      popover.hidden = true;
+    }
   }
 });
 
