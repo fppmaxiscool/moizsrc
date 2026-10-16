@@ -1816,6 +1816,807 @@ html.dark mark.doc-comment-mark.active-comment {
 }
 
 
+/* ============ DISBOARD (DISCORD INTERFACE) STYLES ============ */
+.disboard-container {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  background: #313338;
+  color: #dbdee1;
+  font-family: 'gg sans', 'Noto Sans', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+.db-servers-rail {
+  width: 72px;
+  background: #1e1f22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 8px;
+  flex: none;
+  z-index: 10;
+}
+.db-server-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: #313338;
+  color: #dbdee1;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  position: relative;
+  padding: 0;
+}
+.db-server-btn:hover {
+  border-radius: 16px;
+  background: #5865F2;
+  color: #fff;
+}
+.db-server-btn.active {
+  border-radius: 16px;
+  background: #5865F2;
+  color: #fff;
+}
+.db-server-btn.active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: #fff;
+}
+.db-server-btn.db-logo-btn {
+  background: #5865F2;
+  color: #fff;
+}
+.db-server-btn.db-add-btn {
+  color: #23a55a;
+  font-size: 24px;
+}
+.db-server-btn.db-add-btn:hover {
+  background: #23a55a;
+  color: #fff;
+}
+.db-server-btn.db-exit-btn {
+  color: #949ba4;
+}
+.db-server-btn.db-exit-btn:hover {
+  background: #da373c;
+  color: #fff;
+}
+.db-rail-sep {
+  width: 32px;
+  height: 2px;
+  background: #35363c;
+  border-radius: 1px;
+  margin: 4px 0;
+}
+
+/* Channels Rail */
+.db-channels-rail {
+  width: 240px;
+  background: #2b2d31;
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  border-top-left-radius: 8px;
+  overflow: hidden;
+}
+.db-server-header {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 15px;
+  color: #f2f3f5;
+  border-bottom: 1px solid #1f2023;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.db-server-header:hover {
+  background: rgba(255,255,255,0.04);
+}
+.db-channels-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.db-channel-category {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #949ba4;
+  letter-spacing: 0.02em;
+}
+.db-channel-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: transparent;
+  border: 0;
+  color: #949ba4;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.db-channel-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #dbdee1;
+}
+.db-channel-btn.active {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: 600;
+}
+.db-hash {
+  font-size: 18px;
+  color: #80848e;
+  font-weight: 400;
+}
+.db-ch-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-unread-pill {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  flex: none;
+}
+
+/* User Profile Dock */
+.db-user-dock {
+  height: 52px;
+  background: #232428;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 8px;
+}
+.db-user-avatar-wrap {
+  position: relative;
+  cursor: pointer;
+}
+.db-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #5865F2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  flex: none;
+}
+.db-avatar.large {
+  width: 64px;
+  height: 64px;
+  font-size: 28px;
+  border-radius: 50%;
+}
+.db-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.db-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #232428;
+  background: #23a55a;
+}
+.db-user-info {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.db-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #f2f3f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-user-tag {
+  font-size: 11px;
+  color: #949ba4;
+}
+.db-user-actions {
+  display: flex;
+  align-items: center;
+}
+.db-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: transparent;
+  border: 0;
+  color: #b5bac1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.db-icon-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #dbdee1;
+}
+
+/* Chat Main View */
+.db-chat-main {
+  flex: 1;
+  background: #313338;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.db-chat-topbar {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1f2023;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  flex: none;
+}
+.db-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.db-topbar-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #f2f3f5;
+}
+.db-topbar-divider {
+  width: 1px;
+  height: 16px;
+  background: #4e5058;
+  margin: 0 8px;
+}
+.db-topbar-desc {
+  font-size: 13px;
+  color: #949ba4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+.db-topbar-btn {
+  background: transparent;
+  border: 0;
+  color: #b5bac1;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+.db-topbar-btn:hover {
+  color: #dbdee1;
+}
+.db-back-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: #4e5058;
+  color: #f2f3f5;
+  border: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.db-back-pill-btn:hover {
+  background: #5865F2;
+}
+
+/* Messages Feed */
+.db-messages-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  user-select: text;
+}
+.db-channel-welcome-banner {
+  margin: 24px 0 12px;
+}
+.db-channel-welcome-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #404249;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.db-channel-welcome-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f2f3f5;
+  margin: 0 0 6px;
+}
+.db-channel-welcome-sub {
+  font-size: 14.5px;
+  color: #949ba4;
+  margin: 0;
+}
+.db-message {
+  display: flex;
+  gap: 14px;
+  position: relative;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+.db-message:hover {
+  background: #2e3035;
+}
+.db-message-body {
+  flex: 1;
+  min-width: 0;
+}
+.db-message-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.db-message-author {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: #f2f3f5;
+  cursor: pointer;
+}
+.db-message-author:hover {
+  text-decoration: underline;
+}
+.db-bot-tag {
+  background: #5865F2;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.db-message-time {
+  font-size: 11.5px;
+  color: #949ba4;
+}
+.db-message-text {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #dbdee1;
+  word-break: break-word;
+}
+.db-message-reactions {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+.db-reaction-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: #2b2d31;
+  border: 1px solid #383a40;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #b5bac1;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.db-reaction-chip:hover {
+  background: #35373c;
+}
+.db-reaction-chip.active {
+  background: rgba(88, 101, 242, 0.2) !important;
+  border-color: #5865F2 !important;
+  color: #c9cdfb !important;
+  font-weight: 600;
+}
+.db-message-actions {
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  background: #313338;
+  border: 1px solid #232428;
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+.db-message:hover .db-message-actions {
+  display: flex;
+}
+.db-quick-react-btn {
+  background: transparent;
+  border: 0;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.db-quick-react-btn:hover {
+  background: #383a40;
+}
+
+/* Chat Input Bar */
+.db-chat-input-wrap {
+  padding: 0 16px 20px;
+  flex: none;
+}
+.db-chat-input-box {
+  background: #383a40;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 2px 14px;
+  gap: 12px;
+}
+.db-chat-attach-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #4e5058;
+  color: #dbdee1;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.db-chat-attach-btn:hover {
+  background: #dbdee1;
+  color: #313338;
+}
+#db-chat-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: #f2f3f5;
+  font-size: 14.5px;
+  height: 44px;
+  outline: none;
+}
+#db-chat-input::placeholder {
+  color: #80848e;
+}
+.db-chat-emoji-btn, .db-chat-send-btn {
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  color: #b5bac1;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.db-chat-emoji-btn:hover, .db-chat-send-btn:hover {
+  color: #f2f3f5;
+}
+
+/* Right Members Rail */
+.db-members-rail {
+  width: 240px;
+  background: #2b2d31;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 8px;
+  overflow-y: auto;
+  flex: none;
+}
+.db-members-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: #949ba4;
+  letter-spacing: 0.02em;
+  padding: 0 8px 8px;
+}
+.db-member-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.db-member-card:hover {
+  background: rgba(255,255,255,0.06);
+}
+.db-member-info {
+  line-height: 1.2;
+  min-width: 0;
+}
+.db-member-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #949ba4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-member-card:hover .db-member-name {
+  color: #dbdee1;
+}
+
+/* Auth Modal Card */
+.db-auth-card {
+  background: #313338;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  color: #f2f3f5;
+  box-sizing: border-box;
+}
+.db-auth-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.db-auth-logo {
+  margin-bottom: 8px;
+}
+.db-auth-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #f2f3f5;
+}
+.db-auth-subtitle {
+  font-size: 13.5px;
+  color: #949ba4;
+  margin: 0;
+}
+.db-auth-tabs {
+  display: flex;
+  border-bottom: 1px solid #3f4147;
+  margin-bottom: 18px;
+}
+.db-auth-tab {
+  flex: 1;
+  height: 36px;
+  background: transparent;
+  border: 0;
+  color: #949ba4;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+.db-auth-tab.active {
+  color: #fff;
+}
+.db-auth-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: #5865F2;
+}
+.db-auth-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b5bac1;
+  margin: 0 0 6px;
+  letter-spacing: 0.02em;
+}
+.db-req {
+  color: #f23f43;
+}
+.db-opt {
+  color: #949ba4;
+  font-weight: 400;
+}
+.db-auth-input {
+  width: 100%;
+  height: 40px;
+  background: #1e1f22;
+  border: 1px solid #111214;
+  border-radius: 4px;
+  color: #dbdee1;
+  font-size: 14.5px;
+  padding: 0 12px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+.db-auth-input:focus {
+  border-color: #5865F2;
+}
+.db-avatar-customizer {
+  display: flex;
+  gap: 14px;
+  background: #2b2d31;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.db-avatar-preview-wrap {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.db-avatar-controls {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.db-micro-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #949ba4;
+  display: block;
+  margin-bottom: 4px;
+}
+.db-color-dots {
+  display: flex;
+  gap: 6px;
+}
+.db-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.1s;
+}
+.db-color-dot:hover {
+  transform: scale(1.15);
+}
+.db-color-dot.active {
+  border-color: #fff;
+  transform: scale(1.15);
+}
+.db-emoji-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.db-emoji-chip {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: #383a40;
+  border: 0;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.db-emoji-chip:hover {
+  background: #5865F2;
+}
+.db-emoji-chip.active {
+  background: #5865F2;
+}
+.db-upload-btn {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #383a40;
+  border-radius: 4px;
+  font-size: 11.5px;
+  color: #dbdee1;
+  cursor: pointer;
+}
+.db-upload-btn:hover {
+  background: #4e5058;
+}
+.db-auth-error {
+  background: rgba(242, 63, 67, 0.15);
+  border: 1px solid #f23f43;
+  color: #f23f43;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.db-auth-btn {
+  width: 100%;
+  height: 42px;
+  background: #5865F2;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.db-auth-btn:hover {
+  background: #4752c4;
+}
+.db-auth-footer {
+  display: flex;
+  margin-top: 14px;
+}
+.db-guest-btn {
+  background: transparent;
+  border: 0;
+  color: #00a8fc;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+.db-guest-btn:hover {
+  text-decoration: underline;
+}
+
 </style>
 </head>
 <body>
@@ -1824,6 +2625,7 @@ html.dark mark.doc-comment-mark.active-comment {
 <div id="home">
  <header class="hh"><span class="hl"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="2" width="18" height="24" rx="3" fill="#1a73e8"/><path d="M9 9h10M9 13h10M9 17h6" stroke="#fff" stroke-width="2"/></svg><span>Docwright</span></span>
   <label class="hs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input type="search" id="hq" placeholder="Search" aria-label="Search documents"></label>
+  <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
   <button class="dk" data-a="dark" title="Dark mode on / off">◐</button></header>
  <section class="band"><div class="wrap"><h2>Start a new document</h2><div class="tpl" id="tpl"></div></div></section>
  <section class="wrap"><div class="rh"><h2>Recent documents</h2><select id="hsort" aria-label="Sort by"><option value="updated">Last modified</option><option value="title">Title</option></select><button data-a="open" style="border:1px solid var(--bd)">Open file…</button></div>
@@ -2351,6 +3153,236 @@ html.dark mark.doc-comment-mark.active-comment {
  </div>
 </div>
 
+<!-- ============ DISBOARD (DISCORD INTERFACE) ============ -->
+<div id="disboard" class="disboard-container" hidden>
+  <!-- Servers Left Rail (72px) -->
+  <div class="db-servers-rail">
+    <button class="db-server-btn db-logo-btn active" data-server="docwright" title="Docwright HQ">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.01.02.04.03.07.02 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.03-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/>
+      </svg>
+    </button>
+    <div class="db-rail-sep"></div>
+    <button class="db-server-btn" data-server="lounge" title="Global Writer Lounge">
+      <span>GW</span>
+    </button>
+    <button class="db-server-btn" data-server="coding" title="Dev &amp; AI Guild">
+      <span>AI</span>
+    </button>
+    <button class="db-server-btn db-add-btn" id="db-btn-add-server" title="Add a Server">
+      <span>+</span>
+    </button>
+    <div style="flex:1"></div>
+    <!-- Back to Docs Button -->
+    <button class="db-server-btn db-exit-btn" id="db-btn-back-docs" title="Back to Document Editor">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Channels Left Sidebar (240px) -->
+  <div class="db-channels-rail">
+    <!-- Server Title Header -->
+    <div class="db-server-header">
+      <span id="db-server-name">Docwright HQ</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <!-- Channels Scrollable List -->
+    <div class="db-channels-list">
+      <div class="db-channel-category">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+        <span>TEXT CHANNELS</span>
+      </div>
+      <button class="db-channel-btn active" data-ch="general">
+        <span class="db-hash">#</span>
+        <span class="db-ch-title">general</span>
+      </button>
+      <button class="db-channel-btn" data-ch="doc-collab">
+        <span class="db-hash">#</span>
+        <span class="db-ch-title">doc-collab</span>
+        <span class="db-unread-pill" hidden></span>
+      </button>
+      <button class="db-channel-btn" data-ch="random">
+        <span class="db-hash">#</span>
+        <span class="db-ch-title">random</span>
+        <span class="db-unread-pill" hidden></span>
+      </button>
+      <button class="db-channel-btn" data-ch="showcase">
+        <span class="db-hash">#</span>
+        <span class="db-ch-title">showcase</span>
+        <span class="db-unread-pill" hidden></span>
+      </button>
+
+      <div class="db-channel-category" style="margin-top:16px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+        <span>VOICE CHANNELS</span>
+      </div>
+      <button class="db-channel-btn" data-ch="voice-lounge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        <span class="db-ch-title">Lounge (Live Voice)</span>
+      </button>
+      <button class="db-channel-btn" data-ch="voice-focus">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        <span class="db-ch-title">Focus &amp; Writing</span>
+      </button>
+    </div>
+
+    <!-- Active User Dock at Bottom -->
+    <div class="db-user-dock">
+      <div class="db-user-avatar-wrap" id="db-dock-avatar-btn" title="Edit Avatar &amp; Profile">
+        <div class="db-avatar" id="db-dock-avatar" style="background:#5865F2">M</div>
+        <span class="db-status-dot online"></span>
+      </div>
+      <div class="db-user-info" id="db-dock-info-btn" title="Edit Profile">
+        <div class="db-user-name" id="db-dock-name">User</div>
+        <div class="db-user-tag" id="db-dock-tag">#1337</div>
+      </div>
+      <div class="db-user-actions">
+        <button class="db-icon-btn" id="db-btn-mic" title="Mute Microphone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        </button>
+        <button class="db-icon-btn" id="db-btn-settings" title="Profile &amp; Avatar Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Center Window -->
+  <div class="db-chat-main">
+    <!-- Channel Top Bar -->
+    <div class="db-chat-topbar">
+      <div class="db-topbar-left">
+        <span class="db-hash">#</span>
+        <span class="db-topbar-title" id="db-chat-title">general</span>
+        <div class="db-topbar-divider"></div>
+        <span class="db-topbar-desc" id="db-chat-desc">Welcome to the general chat! Chat live with other writers and friends.</span>
+      </div>
+      <div class="db-topbar-right">
+        <button class="db-topbar-btn" id="db-btn-toggle-members" title="Toggle Member List">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </button>
+        <button class="db-back-pill-btn" id="db-btn-back-pill" title="Return to Document">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span>Back to Docs</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Message Feed -->
+    <div class="db-messages-feed" id="db-messages-feed">
+      <!-- Dynamic Messages rendered here -->
+    </div>
+
+    <!-- Chat Input Form -->
+    <div class="db-chat-input-wrap">
+      <div class="db-chat-input-box">
+        <button class="db-chat-attach-btn" id="db-chat-attach" title="Upload Image / Attachment">+</button>
+        <input type="text" id="db-chat-input" placeholder="Message #general (Enter to send)..." autocomplete="off">
+        <button class="db-chat-emoji-btn" id="db-chat-emoji" title="Select Emoji">😀</button>
+        <button class="db-chat-send-btn" id="db-chat-send" title="Send Message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Members Sidebar (240px) -->
+  <div class="db-members-rail" id="db-members-rail">
+    <div class="db-members-header" id="db-members-count">ONLINE — 1</div>
+    <div class="db-members-list" id="db-members-list">
+      <!-- Member cards rendered here -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ DISBOARD AUTH MODAL (LOGIN / REGISTER / EDIT AVATAR) ============ -->
+<div id="db-auth-modal" class="doc-modal-overlay" hidden>
+  <div class="db-auth-card">
+    <div class="db-auth-header">
+      <div class="db-auth-logo">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="#5865F2">
+          <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33-.01 0-.02.01-.03.02-2.72 4.07-3.47 8.03-3.1 11.95 0 .02.01.04.03.05 1.8 1.32 3.53 2.12 5.24 2.65.03.01.06 0 .07-.02.4-.55.76-1.13 1.07-1.74.02-.04 0-.08-.04-.09-.57-.22-1.11-.48-1.64-.78-.04-.02-.04-.08-.01-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05-.01.07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.52.31-1.07.56-1.64.78-.04.01-.05.06-.04.09.32.61.68 1.19 1.07 1.74.01.02.04.03.07.02 1.72-.53 3.45-1.33 5.25-2.65.02-.01.03-.03.03-.05.44-4.53-.73-8.46-3.1-11.95-.01-.01-.02-.02-.03-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12 0 1.17-.83 2.12-1.89 2.12z"/>
+        </svg>
+      </div>
+      <h2 id="db-auth-title">Welcome to Disboard!</h2>
+      <p class="db-auth-subtitle" id="db-auth-subtitle">Chat live with different users across Docwright.</p>
+    </div>
+
+    <!-- Tabs: Login vs Register -->
+    <div class="db-auth-tabs" id="db-auth-tabs">
+      <button type="button" class="db-auth-tab active" id="db-tab-login">Log In</button>
+      <button type="button" class="db-auth-tab" id="db-tab-register">Create Account</button>
+    </div>
+
+    <form id="db-auth-form" onsubmit="return false;">
+      <!-- Username -->
+      <label class="db-auth-label">
+        USERNAME <span class="db-req">*</span>
+      </label>
+      <input type="text" id="db-auth-user" class="db-auth-input" placeholder="Choose your username" required autocomplete="username">
+
+      <!-- Password -->
+      <label class="db-auth-label">
+        PASSWORD <span class="db-req">*</span>
+      </label>
+      <input type="password" id="db-auth-pw" class="db-auth-input" placeholder="Enter password" required autocomplete="current-password">
+
+      <!-- Email (Optional) -->
+      <div id="db-auth-email-wrap" hidden>
+        <label class="db-auth-label">
+          EMAIL <span class="db-opt">(Optional)</span>
+        </label>
+        <input type="email" id="db-auth-email" class="db-auth-input" placeholder="email@example.com (optional)" autocomplete="email">
+      </div>
+
+      <!-- Avatar Customization Section (Shown during Register / Profile Edit) -->
+      <div id="db-auth-avatar-section" hidden>
+        <label class="db-auth-label">AVATAR CUSTOMIZATION</label>
+        <div class="db-avatar-customizer">
+          <!-- Live Preview -->
+          <div class="db-avatar-preview-wrap">
+            <div id="db-avatar-preview" class="db-avatar large" style="background:#5865F2">
+              <span id="db-avatar-preview-content">🚀</span>
+            </div>
+          </div>
+          <!-- Color & Emoji Pickers -->
+          <div class="db-avatar-controls">
+            <div>
+              <span class="db-micro-label">COLOR:</span>
+              <div class="db-color-dots" id="db-color-dots"></div>
+            </div>
+            <div>
+              <span class="db-micro-label">AVATAR ICON / EMOJI:</span>
+              <div class="db-emoji-chips" id="db-emoji-chips"></div>
+            </div>
+            <div style="margin-top:4px">
+              <label class="db-upload-btn">
+                <span>📁 Upload Custom Avatar Image</span>
+                <input type="file" id="db-avatar-file-input" accept="image/*" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="db-auth-err" class="db-auth-error" hidden></div>
+
+      <button type="submit" id="db-auth-submit" class="db-auth-btn">Log In</button>
+
+      <div class="db-auth-footer">
+        <button type="button" class="db-guest-btn" id="db-auth-guest">Quick Guest Login</button>
+        <button type="button" class="db-guest-btn" id="db-auth-cancel" style="margin-left:auto">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- ============ SCRIPT ============ -->
 <script>
 "use strict";
@@ -2552,7 +3584,7 @@ function htmlToMarkdown(html){
 }
 
 const A={
-  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()}, disboarder:()=>{A.home()},
+  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()}, disboarder:()=>{if(typeof openDisboard==='function')openDisboard();else A.home()},
   save:()=>{saveNow()}, open:()=>$('#fi').click(), size:()=>{if(!cur)return;page.classList.toggle('a4');docs[cur].size=page.classList.contains('a4')?'a4':'letter';fit();edited()},
   print:()=>{
     clearMarks();
@@ -2613,7 +3645,7 @@ function dl(name,type,data){const a=document.createElement('a');a.href=URL.creat
 
 /* ---------- menu bar ---------- */
 const M={
- File:[['New document','new'],['Share document…','share'],['Disboarder','home'],['Open file…','open'],['Make a copy','dup'],['Rename','rename'],['Save','save','Ctrl+S'],['Download as .html','dlhtml'],['Download as .txt','dltxt'],['Download as Markdown (.md)','dlmd'],['Switch Letter / A4','size'],['Print / Save as PDF','print','Ctrl+P']],
+ File:[['New document','new'],['Share document…','share'],['Disboard (Discord Chat)','disboarder'],['Open file…','open'],['Make a copy','dup'],['Rename','rename'],['Save','save','Ctrl+S'],['Download as .html','dlhtml'],['Download as .txt','dltxt'],['Download as Markdown (.md)','dlmd'],['Switch Letter / A4','size'],['Print / Save as PDF','print','Ctrl+P']],
  Edit:[['Undo','undo','Ctrl+Z'],['Redo','redo','Ctrl+Y'],['Cut','cut','Ctrl+X'],['Copy','copy','Ctrl+C'],['Select all','all','Ctrl+A'],['Find','find','Ctrl+F'],['Find and replace','replace','Ctrl+H']],
  View:[['Editing / viewing mode','mode'],['Show / hide ruler','ruler'],['Show / hide outline','outline'],['Dark mode on / off','dark'],['Full screen','fullscreen']],
  Insert:[['Image','image'],['Table','table'],['Link','link','Ctrl+K'],['Comment','comment','Ctrl+Alt+M'],['Horizontal line','hr'],['Date','date'],['Page break','pbrk','Ctrl+Enter']],
@@ -2626,7 +3658,7 @@ for(const k in M){
   $('#menus').append(d);
 }
 const disboarderMenu=document.createElement('div');disboarderMenu.className='menu';
-disboarderMenu.innerHTML=`<button class="mb" data-a="home" title="Go to Documents Dashboard (Disboarder)">Disboarder</button>`;
+disboarderMenu.innerHTML=`<button class="mb" data-a="disboarder" title="Open Disboard (Discord-Style Chat)">Disboarder</button>`;
 $('#menus').append(disboarderMenu);
 function closeMenus(){document.querySelectorAll('.dd').forEach(d=>{d.hidden=true;d.previousElementSibling?.setAttribute('aria-expanded','false')})}
 document.addEventListener('click',e=>{
@@ -5021,6 +6053,1060 @@ document.querySelectorAll('#pane-chat .aip-chip').forEach(chip => {
 });
 
 
+/* ============ FEATURE: DISBOARD (DISCORD INTERFACE & REAL-TIME CHAT) ============ */
+const DB_ACCOUNTS_KEY = 'disboard:accounts:v1';
+const DB_SESSION_KEY = 'disboard:session:v1';
+const DB_MSGS_PREFIX = 'disboard:messages:v1:';
+
+let activeDisboardChannel = 'general';
+let activeDisboardServer = 'docwright';
+let disboardPeer = null;
+let disboardConns = new Set();
+let disboardHostConn = null;
+let isDisboardHost = false;
+let disboardRemoteUsers = new Map(); // peerId -> { username, avatar, tag, isOnline }
+let disboardClaimedUsernames = new Set(); // Global registry of usernames claimed across peers
+
+function isUsernameClaimed(name) {
+  if (!name) return false;
+  const n = name.trim().toLowerCase();
+  const accounts = getDbAccounts();
+  if (accounts[n]) return true;
+  if (disboardClaimedUsernames.has(n)) return true;
+  for (const u of disboardRemoteUsers.values()) {
+    if (u && u.user && u.user.toLowerCase() === n) return true;
+  }
+  return false;
+}
+
+let dbAvatarConfig = {
+  type: 'icon',
+  color: '#5865F2',
+  icon: '🚀',
+  imgData: null
+};
+
+const DB_COLORS = ['#5865F2', '#57F287', '#FEE75C', '#EB459E', '#ED4245', '#00b0f4', '#4E5058'];
+const DB_EMOJIS = ['🚀', '🎮', '👾', '💻', '🦊', '⚡', '👑', '🎧', '🎨', '📝', '💎', '🐱'];
+
+const DB_CHANNEL_INFO = {
+  general: { title: 'general', desc: 'Welcome to the general chat! Chat live with other writers and friends.' },
+  'doc-collab': { title: 'doc-collab', desc: 'Discuss your documents, collaborate in real time, and share editorial drafts.' },
+  random: { title: 'random', desc: 'Casual chatter, jokes, off-topic discussions, and fun.' },
+  showcase: { title: 'showcase', desc: 'Share your favorite excerpts, articles, and writing achievements.' },
+  'voice-lounge': { title: 'Lounge (Live Voice)', desc: 'Voice room connected. Speak freely with other writers.' },
+  'voice-focus': { title: 'Focus & Writing', desc: 'Quiet focus session. Ambient coworking room.' }
+};
+
+function getDbAccounts() {
+  try { return JSON.parse(localStorage.getItem(DB_ACCOUNTS_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+function saveDbAccounts(accs) {
+  try { localStorage.setItem(DB_ACCOUNTS_KEY, JSON.stringify(accs)); } catch(e){}
+}
+function getDbSession() {
+  try { return JSON.parse(localStorage.getItem(DB_SESSION_KEY) || 'null'); }
+  catch(e) { return null; }
+}
+function setDbSession(user) {
+  try { localStorage.setItem(DB_SESSION_KEY, JSON.stringify(user)); } catch(e){}
+}
+
+function playDiscordPop() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(480, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(960, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+function formatDiscordTime(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const timeStr = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  if (d.toDateString() === now.toDateString()) {
+    return 'Today at ' + timeStr;
+  }
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  if (d.toDateString() === yesterday.toDateString()) {
+    return 'Yesterday at ' + timeStr;
+  }
+  return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' at ' + timeStr;
+}
+
+function renderDbAvatarHtml(avatar, sizeClass = '') {
+  avatar = avatar || { type: 'icon', color: '#5865F2', icon: '👤' };
+  if (avatar.type === 'image' && avatar.imgData) {
+    return `<div class="db-avatar ${sizeClass}"><img src="${esc(avatar.imgData)}" alt=""></div>`;
+  }
+  const bg = esc(avatar.color || '#5865F2');
+  const icon = esc(avatar.icon || '👤');
+  return `<div class="db-avatar ${sizeClass}" style="background:${bg}">${icon}</div>`;
+}
+
+function normalizeReactions(reactions) {
+  if (!reactions || typeof reactions !== 'object') return {};
+  const normalized = {};
+  for (const [emoji, val] of Object.entries(reactions)) {
+    if (Array.isArray(val)) {
+      normalized[emoji] = val;
+    } else if (typeof val === 'number') {
+      const dummy = [];
+      for (let i = 0; i < val; i++) dummy.push(i === 0 ? 'DocBot' : 'Writer_' + (i + 1));
+      normalized[emoji] = dummy;
+    }
+  }
+  return normalized;
+}
+
+function getChannelMessages(ch) {
+  try {
+    const raw = localStorage.getItem(DB_MSGS_PREFIX + ch);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        parsed.forEach(m => {
+          m.reactions = normalizeReactions(m.reactions);
+        });
+        return parsed;
+      }
+    }
+  } catch(e){}
+
+  const starter = [
+    {
+      id: 'm_init_1',
+      user: 'DocBot',
+      tag: '#0001',
+      isBot: true,
+      avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+      text: `👋 Welcome to **#${ch}** on Disboard! This is the live real-time Discord community for Docwright. Send messages, share ideas, or mention me \`@DocBot\` anytime!`,
+      timestamp: Date.now() - 3600000,
+      reactions: { '👋': ['DocBot', 'Antigravity'], '🚀': ['DocBot'] }
+    }
+  ];
+  if (ch === 'general') {
+    starter.push({
+      id: 'm_init_2',
+      user: 'Antigravity',
+      tag: '#0042',
+      avatar: { type: 'icon', color: '#57F287', icon: '⚡' },
+      text: `Live real-time WebRTC chat is running! Anyone opening Disboard will connect peer-to-peer and can chat instantly across screens.`,
+      timestamp: Date.now() - 1800000,
+      reactions: { '🔥': ['DocBot', 'Antigravity'] }
+    });
+  }
+  return starter;
+}
+
+function saveChannelMessages(ch, msgs) {
+  try { localStorage.setItem(DB_MSGS_PREFIX + ch, JSON.stringify(msgs)); } catch(e){}
+}
+
+function renderDbMessages() {
+  const feed = $('#db-messages-feed');
+  if (!feed) return;
+  const msgs = getChannelMessages(activeDisboardChannel);
+  const session = getDbSession();
+  const currentUsername = session ? session.username : null;
+
+  const info = DB_CHANNEL_INFO[activeDisboardChannel] || { title: activeDisboardChannel, desc: '' };
+
+  let html = `
+    <div class="db-channel-welcome-banner">
+      <div class="db-channel-welcome-circle">#</div>
+      <h2 class="db-channel-welcome-title">Welcome to #${esc(info.title)}!</h2>
+      <p class="db-channel-welcome-sub">${esc(info.desc || 'This is the start of the channel.')}</p>
+    </div>
+  `;
+
+  msgs.forEach(m => {
+    const avatarHtml = renderDbAvatarHtml(m.avatar);
+    m.reactions = normalizeReactions(m.reactions);
+    const reactionChips = Object.entries(m.reactions).map(([emoji, users]) => {
+      const userList = Array.isArray(users) ? users : [];
+      if (userList.length === 0) return '';
+      const hasReacted = currentUsername && userList.includes(currentUsername);
+      const title = userList.join(', ');
+      return `
+        <button class="db-reaction-chip ${hasReacted ? 'active' : ''}" data-mid="${m.id}" data-emoji="${esc(emoji)}" title="${esc(title)} reacted">
+          <span>${emoji}</span>
+          <span>${userList.length}</span>
+        </button>
+      `;
+    }).join('');
+
+    html += `
+      <div class="db-message" id="msg-${m.id}">
+        <div class="db-message-actions">
+          <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="👍" title="React 👍">👍</button>
+          <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="❤️" title="React ❤️">❤️</button>
+          <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="🔥" title="React 🔥">🔥</button>
+          <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="😂" title="React 😂">😂</button>
+          <button class="db-quick-react-btn" data-mid="${m.id}" data-emoji="🚀" title="React 🚀">🚀</button>
+        </div>
+        ${avatarHtml}
+        <div class="db-message-body">
+          <div class="db-message-header">
+            <span class="db-message-author" style="color:${esc(m.avatar?.color || '#5865F2')}">${esc(m.user || 'Unknown')}</span>
+            ${m.isBot ? '<span class="db-bot-tag">BOT</span>' : ''}
+            <span class="db-message-time">${formatDiscordTime(m.timestamp)}</span>
+          </div>
+          <div class="db-message-text">${formatDbMessageContent(m.text)}</div>
+          ${reactionChips ? `<div class="db-message-reactions">${reactionChips}</div>` : ''}
+        </div>
+      </div>
+    `;
+  });
+
+  feed.innerHTML = html;
+  feed.scrollTop = feed.scrollHeight;
+
+  feed.querySelectorAll('.db-reaction-chip').forEach(chip => {
+    chip.onclick = () => {
+      const mid = chip.dataset.mid;
+      const emoji = chip.dataset.emoji;
+      toggleReactionOnMessage(activeDisboardChannel, mid, emoji);
+    };
+  });
+
+  feed.querySelectorAll('.db-quick-react-btn').forEach(btn => {
+    btn.onclick = () => {
+      const mid = btn.dataset.mid;
+      const emoji = btn.dataset.emoji;
+      toggleReactionOnMessage(activeDisboardChannel, mid, emoji);
+    };
+  });
+}
+
+function formatDbMessageContent(text) {
+  if (!text) return '';
+  let str = esc(text);
+  str = str.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  str = str.replace(/\*([^*]+)\*/g, '<i>$1</i>');
+  str = str.replace(/`([^`]+)`/g, '<code style="background:#2b2d31;padding:2px 4px;border-radius:3px;font-family:monospace">$1</code>');
+  str = str.replace(/@DocBot\b/gi, '<span style="background:rgba(88,101,242,0.3);color:#c9cdfb;padding:1px 4px;border-radius:3px;font-weight:600">@DocBot</span>');
+  return str;
+}
+
+function toggleReactionOnMessage(ch, mid, emoji) {
+  const session = getDbSession();
+  if (!session) {
+    openDbAuthModal('login');
+    return;
+  }
+  const myName = session.username;
+  const msgs = getChannelMessages(ch);
+  const target = msgs.find(m => m.id === mid);
+  if (!target) return;
+
+  target.reactions = normalizeReactions(target.reactions);
+  let userList = target.reactions[emoji] || [];
+
+  const existingIdx = userList.indexOf(myName);
+  if (existingIdx !== -1) {
+    // 1 person can react 1once: clicking again toggles reaction off
+    userList.splice(existingIdx, 1);
+    if (userList.length === 0) {
+      delete target.reactions[emoji];
+    } else {
+      target.reactions[emoji] = userList;
+    }
+  } else {
+    // Add user's single reaction
+    userList.push(myName);
+    target.reactions[emoji] = userList;
+  }
+
+  saveChannelMessages(ch, msgs);
+  renderDbMessages();
+  broadcastDbReaction(ch, mid, emoji, target.reactions[emoji] || []);
+}
+
+function renderDbMembers() {
+  const list = $('#db-members-list');
+  const countEl = $('#db-members-count');
+  if (!list) return;
+
+  const session = getDbSession();
+  const members = [];
+
+  if (session) {
+    members.push({
+      user: session.username + ' (You)',
+      tag: session.tag || '#1337',
+      avatar: session.avatar,
+      isOnline: true
+    });
+  }
+
+  for (const [peerId, peerUser] of disboardRemoteUsers.entries()) {
+    if (peerUser && peerUser.user) {
+      members.push({
+        user: peerUser.user,
+        tag: peerUser.tag || '#0000',
+        avatar: peerUser.avatar,
+        isOnline: true
+      });
+    }
+  }
+
+  members.push({
+    user: 'DocBot',
+    tag: '#0001',
+    avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+    isBot: true,
+    isOnline: true
+  });
+
+  if (countEl) countEl.textContent = `ONLINE — ${members.length}`;
+
+  list.innerHTML = members.map(m => `
+    <div class="db-member-card">
+      <div style="position:relative">
+        ${renderDbAvatarHtml(m.avatar)}
+        <span class="db-status-dot online"></span>
+      </div>
+      <div class="db-member-info">
+        <div class="db-member-name" style="color:${esc(m.avatar?.color || '#dbdee1')}">
+          ${esc(m.user)} ${m.isBot ? '<span class="db-bot-tag" style="margin-left:4px">BOT</span>' : ''}
+        </div>
+        <div style="font-size:11px;color:#949ba4">${esc(m.tag || '')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateDbUserDock() {
+  const session = getDbSession();
+  const avatarEl = $('#db-dock-avatar');
+  const nameEl = $('#db-dock-name');
+  const tagEl = $('#db-dock-tag');
+
+  if (!session) {
+    if (nameEl) nameEl.textContent = 'Not Logged In';
+    if (tagEl) tagEl.textContent = 'Click to log in';
+    if (avatarEl) {
+      avatarEl.style.background = '#4e5058';
+      avatarEl.innerHTML = '?';
+    }
+    return;
+  }
+
+  if (nameEl) nameEl.textContent = session.username;
+  if (tagEl) tagEl.textContent = session.tag || '#1337';
+  if (avatarEl) {
+    if (session.avatar?.type === 'image' && session.avatar.imgData) {
+      avatarEl.style.background = '#5865F2';
+      avatarEl.innerHTML = `<img src="${esc(session.avatar.imgData)}" alt="">`;
+    } else {
+      avatarEl.style.background = session.avatar?.color || '#5865F2';
+      avatarEl.innerHTML = session.avatar?.icon || '🚀';
+    }
+  }
+}
+
+function sendDisboardMessage() {
+  const input = $('#db-chat-input');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  const session = getDbSession();
+  if (!session) {
+    openDbAuthModal('login');
+    return;
+  }
+
+  const msgId = 'm_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  const msgObj = {
+    id: msgId,
+    user: session.username,
+    tag: session.tag || '#1337',
+    avatar: session.avatar,
+    text,
+    channel: activeDisboardChannel,
+    timestamp: Date.now()
+  };
+
+  const msgs = getChannelMessages(activeDisboardChannel);
+  msgs.push(msgObj);
+  saveChannelMessages(activeDisboardChannel, msgs);
+  renderDbMessages();
+  playDiscordPop();
+
+  broadcastDbMessage(msgObj);
+
+  if (text.toLowerCase().includes('@docbot') || activeDisboardChannel === 'doc-collab') {
+    simulateDocBotReply(text, activeDisboardChannel);
+  }
+}
+
+function simulateDocBotReply(userPrompt, ch) {
+  setTimeout(() => {
+    let reply = `🤖 **@DocBot:** Got your message! I'm monitoring **#${ch}** live. Need editorial polish or collaborative audit? Let me know!`;
+    const lower = userPrompt.toLowerCase();
+    if (lower.includes('hello') || lower.includes('hi')) {
+      reply = `🤖 **@DocBot:** Hey there! Great to see you in **#${ch}**. Feel free to share your latest drafts or ideas!`;
+    } else if (lower.includes('help')) {
+      reply = `🤖 **@DocBot:** You can chat with other writers in real-time, switch channels on the left, customize your avatar with the settings gear, or return to your documents anytime using the **Back to Docs** button!`;
+    }
+
+    const botMsg = {
+      id: 'm_bot_' + Date.now(),
+      user: 'DocBot',
+      tag: '#0001',
+      isBot: true,
+      avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+      text: reply,
+      channel: ch,
+      timestamp: Date.now()
+    };
+
+    const msgs = getChannelMessages(ch);
+    msgs.push(botMsg);
+    saveChannelMessages(ch, msgs);
+    if (activeDisboardChannel === ch) {
+      renderDbMessages();
+      playDiscordPop();
+    }
+    broadcastDbMessage(botMsg);
+  }, 900);
+}
+
+/* ============ WEBRTC REAL-TIME CHAT SYNC ENGINE ============ */
+function initDisboardP2P() {
+  if (typeof Peer === 'undefined') return;
+  if (disboardPeer && !disboardPeer.destroyed) return;
+
+  const session = getDbSession();
+  const hostId = 'disboard-p2p-mesh-host';
+
+  try {
+    const p = new Peer(hostId, { debug: 0 });
+
+    p.on('open', () => {
+      disboardPeer = p;
+      isDisboardHost = true;
+      p.on('connection', (conn) => {
+        setupDbConn(conn);
+      });
+    });
+
+    p.on('error', (err) => {
+      if (err.type === 'unavailable-id') {
+        p.destroy();
+        joinDbAsGuest(hostId);
+      }
+    });
+  } catch(e) {
+    console.warn('Disboard P2P host error:', e);
+  }
+}
+
+function joinDbAsGuest(hostId) {
+  const guestId = 'disboard-g-' + Math.random().toString(36).slice(2, 9);
+  try {
+    const p = new Peer(guestId, { debug: 0 });
+    p.on('open', () => {
+      disboardPeer = p;
+      isDisboardHost = false;
+      const conn = p.connect(hostId, { reliable: true });
+      disboardHostConn = conn;
+      setupDbConn(conn);
+    });
+  } catch(e) {
+    console.warn('Disboard guest error:', e);
+  }
+}
+
+function setupDbConn(conn) {
+  conn.on('open', () => {
+    disboardConns.add(conn);
+    const session = getDbSession();
+    const accounts = getDbAccounts();
+    const localNames = Object.keys(accounts);
+    if (session) {
+      localNames.push(session.username.toLowerCase());
+      conn.send({
+        type: 'db_presence',
+        user: session.username,
+        tag: session.tag || '#1337',
+        avatar: session.avatar,
+        claimedNames: localNames
+      });
+    } else {
+      conn.send({
+        type: 'db_presence_sync',
+        claimedNames: localNames
+      });
+    }
+    renderDbMembers();
+  });
+
+  conn.on('data', (data) => {
+    if (!data) return;
+    if (data.type === 'db_msg' && data.msg) {
+      const ch = data.msg.channel || 'general';
+      const msgs = getChannelMessages(ch);
+      if (!msgs.some(m => m.id === data.msg.id)) {
+        msgs.push(data.msg);
+        saveChannelMessages(ch, msgs);
+        if (activeDisboardChannel === ch) {
+          renderDbMessages();
+        } else {
+          const btn = document.querySelector(`.db-channel-btn[data-ch="${ch}"] .db-unread-pill`);
+          if (btn) btn.hidden = false;
+        }
+        playDiscordPop();
+      }
+
+      if (isDisboardHost) {
+        for (const other of disboardConns) {
+          if (other !== conn && other.open) {
+            try { other.send(data); } catch(e){}
+          }
+        }
+      }
+    } else if (data.type === 'db_reaction') {
+      const ch = data.channel || 'general';
+      const msgs = getChannelMessages(ch);
+      const target = msgs.find(m => m.id === data.mid);
+      if (target) {
+        target.reactions = normalizeReactions(target.reactions);
+        if (Array.isArray(data.users) && data.users.length > 0) {
+          target.reactions[data.emoji] = data.users;
+        } else {
+          delete target.reactions[data.emoji];
+        }
+        saveChannelMessages(ch, msgs);
+        if (activeDisboardChannel === ch) {
+          renderDbMessages();
+        }
+      }
+
+      if (isDisboardHost) {
+        for (const other of disboardConns) {
+          if (other !== conn && other.open) {
+            try { other.send(data); } catch(e){}
+          }
+        }
+      }
+    } else if (data.type === 'db_presence' || data.type === 'db_presence_sync') {
+      if (Array.isArray(data.claimedNames)) {
+        data.claimedNames.forEach(n => {
+          if (typeof n === 'string' && n.trim()) {
+            disboardClaimedUsernames.add(n.trim().toLowerCase());
+          }
+        });
+      }
+
+      if (data.type === 'db_presence' && data.user) {
+        disboardClaimedUsernames.add(data.user.trim().toLowerCase());
+        disboardRemoteUsers.set(conn.peer, {
+          user: data.user,
+          tag: data.tag || '#0000',
+          avatar: data.avatar,
+          isOnline: true
+        });
+        renderDbMembers();
+      }
+
+      if (isDisboardHost) {
+        const allKnown = Array.from(disboardClaimedUsernames);
+        Object.keys(getDbAccounts()).forEach(k => allKnown.push(k.toLowerCase()));
+        const mySession = getDbSession();
+        if (mySession) allKnown.push(mySession.username.toLowerCase());
+        try {
+          conn.send({
+            type: 'db_presence_sync',
+            claimedNames: allKnown
+          });
+        } catch(e){}
+
+        for (const other of disboardConns) {
+          if (other !== conn && other.open) {
+            try { other.send(data); } catch(e){}
+          }
+        }
+      }
+    }
+  });
+
+  conn.on('close', () => {
+    disboardConns.delete(conn);
+    disboardRemoteUsers.delete(conn.peer);
+    renderDbMembers();
+  });
+
+  conn.on('error', () => {
+    disboardConns.delete(conn);
+    disboardRemoteUsers.delete(conn.peer);
+    renderDbMembers();
+  });
+}
+
+function broadcastDbMessage(msgObj) {
+  const payload = { type: 'db_msg', msg: msgObj };
+  if (isDisboardHost) {
+    for (const conn of disboardConns) {
+      if (conn.open) {
+        try { conn.send(payload); } catch(e){}
+      }
+    }
+  } else if (disboardHostConn && disboardHostConn.open) {
+    try { disboardHostConn.send(payload); } catch(e){}
+  }
+}
+
+function broadcastDbReaction(channel, mid, emoji, users) {
+  const payload = {
+    type: 'db_reaction',
+    channel,
+    mid,
+    emoji,
+    users
+  };
+  if (isDisboardHost) {
+    for (const conn of disboardConns) {
+      if (conn.open) {
+        try { conn.send(payload); } catch(e){}
+      }
+    }
+  } else if (disboardHostConn && disboardHostConn.open) {
+    try { disboardHostConn.send(payload); } catch(e){}
+  }
+}
+
+function broadcastDbPresence() {
+  const session = getDbSession();
+  if (!session) return;
+  const accounts = getDbAccounts();
+  const localNames = Object.keys(accounts);
+  localNames.push(session.username.toLowerCase());
+  const payload = {
+    type: 'db_presence',
+    user: session.username,
+    tag: session.tag || '#1337',
+    avatar: session.avatar,
+    claimedNames: localNames
+  };
+  if (isDisboardHost) {
+    for (const conn of disboardConns) {
+      if (conn.open) {
+        try { conn.send(payload); } catch(e){}
+      }
+    }
+  } else if (disboardHostConn && disboardHostConn.open) {
+    try { disboardHostConn.send(payload); } catch(e){}
+  }
+}
+
+/* ============ AVATAR CUSTOMIZER & AUTH UI ============ */
+let dbAuthMode = 'login'; // 'login' or 'register'
+
+function initAvatarCustomizer() {
+  const dots = $('#db-color-dots');
+  const chips = $('#db-emoji-chips');
+  if (!dots || !chips) return;
+
+  dots.innerHTML = DB_COLORS.map(c => `
+    <div class="db-color-dot ${c === dbAvatarConfig.color ? 'active' : ''}" data-color="${c}" style="background:${c}"></div>
+  `).join('');
+
+  chips.innerHTML = DB_EMOJIS.map(e => `
+    <button type="button" class="db-emoji-chip ${e === dbAvatarConfig.icon ? 'active' : ''}" data-emoji="${e}">${e}</button>
+  `).join('');
+
+  dots.querySelectorAll('.db-color-dot').forEach(d => {
+    d.onclick = () => {
+      dots.querySelectorAll('.db-color-dot').forEach(el => el.classList.remove('active'));
+      d.classList.add('active');
+      dbAvatarConfig.color = d.dataset.color;
+      dbAvatarConfig.type = 'icon';
+      dbAvatarConfig.imgData = null;
+      updateAvatarPreview();
+    };
+  });
+
+  chips.querySelectorAll('.db-emoji-chip').forEach(c => {
+    c.onclick = () => {
+      chips.querySelectorAll('.db-emoji-chip').forEach(el => el.classList.remove('active'));
+      c.classList.add('active');
+      dbAvatarConfig.icon = c.dataset.emoji;
+      dbAvatarConfig.type = 'icon';
+      dbAvatarConfig.imgData = null;
+      updateAvatarPreview();
+    };
+  });
+
+  const fileInp = $('#db-avatar-file-input');
+  if (fileInp) {
+    fileInp.onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 128;
+          canvas.height = 128;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, 128, 128);
+          dbAvatarConfig.type = 'image';
+          dbAvatarConfig.imgData = canvas.toDataURL('image/jpeg', 0.85);
+          updateAvatarPreview();
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+
+  updateAvatarPreview();
+}
+
+function updateAvatarPreview() {
+  const preview = $('#db-avatar-preview');
+  const content = $('#db-avatar-preview-content');
+  if (!preview) return;
+
+  if (dbAvatarConfig.type === 'image' && dbAvatarConfig.imgData) {
+    preview.style.background = '#5865F2';
+    preview.innerHTML = `<img src="${esc(dbAvatarConfig.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" alt="">`;
+  } else {
+    preview.style.background = dbAvatarConfig.color || '#5865F2';
+    preview.innerHTML = `<span id="db-avatar-preview-content">${esc(dbAvatarConfig.icon || '🚀')}</span>`;
+  }
+}
+
+function openDbAuthModal(mode = 'login') {
+  dbAuthMode = mode;
+  const modal = $('#db-auth-modal');
+  if (!modal) return;
+  modal.hidden = false;
+
+  const tabLogin = $('#db-tab-login');
+  const tabReg = $('#db-tab-register');
+  const title = $('#db-auth-title');
+  const emailWrap = $('#db-auth-email-wrap');
+  const avatarSec = $('#db-auth-avatar-section');
+  const submitBtn = $('#db-auth-submit');
+  const errBox = $('#db-auth-err');
+
+  if (errBox) errBox.hidden = true;
+
+  if (mode === 'login') {
+    if (tabLogin) tabLogin.classList.add('active');
+    if (tabReg) tabReg.classList.remove('active');
+    if (title) title.textContent = 'Welcome Back!';
+    if (emailWrap) emailWrap.hidden = true;
+    if (avatarSec) avatarSec.hidden = true;
+    if (submitBtn) submitBtn.textContent = 'Log In';
+  } else {
+    if (tabLogin) tabLogin.classList.remove('active');
+    if (tabReg) tabReg.classList.add('active');
+    if (title) title.textContent = 'Create an Account';
+    if (emailWrap) emailWrap.hidden = false;
+    if (avatarSec) avatarSec.hidden = false;
+    if (submitBtn) submitBtn.textContent = 'Register & Join Chat';
+    initAvatarCustomizer();
+  }
+
+  const userInp = $('#db-auth-user');
+  if (userInp) {
+    setTimeout(() => userInp.focus(), 100);
+  }
+}
+
+function closeDbAuthModal() {
+  const modal = $('#db-auth-modal');
+  if (modal) modal.hidden = true;
+}
+
+$('#db-tab-login')?.addEventListener('click', () => openDbAuthModal('login'));
+$('#db-tab-register')?.addEventListener('click', () => openDbAuthModal('register'));
+$('#db-auth-cancel')?.addEventListener('click', closeDbAuthModal);
+
+$('#db-auth-submit')?.addEventListener('click', () => {
+  const user = ($('#db-auth-user')?.value || '').trim();
+  const pw = ($('#db-auth-pw')?.value || '').trim();
+  const email = ($('#db-auth-email')?.value || '').trim();
+  const errBox = $('#db-auth-err');
+
+  if (!user || !pw) {
+    if (errBox) {
+      errBox.hidden = false;
+      errBox.textContent = 'Please enter both a username and password.';
+    }
+    return;
+  }
+
+  const accounts = getDbAccounts();
+
+  if (dbAuthMode === 'register') {
+    if (isUsernameClaimed(user)) {
+      if (errBox) {
+        errBox.hidden = false;
+        errBox.textContent = `Username "${user}" is already taken by another user. Please choose a different username.`;
+      }
+      return;
+    }
+
+    const tag = '#' + Math.floor(1000 + Math.random() * 9000);
+    const newAccount = {
+      username: user,
+      password: pw,
+      email: email || '',
+      tag,
+      avatar: { ...dbAvatarConfig },
+      createdAt: Date.now()
+    };
+
+    accounts[user.toLowerCase()] = newAccount;
+    saveDbAccounts(accounts);
+    disboardClaimedUsernames.add(user.toLowerCase());
+    setDbSession(newAccount);
+
+    closeDbAuthModal();
+    updateDbUserDock();
+    renderDbMembers();
+    broadcastDbPresence();
+    renderDbMessages();
+  } else {
+    // Login mode
+    const acc = accounts[user.toLowerCase()];
+    if (acc) {
+      const isAlreadyOnline = Array.from(disboardRemoteUsers.values()).some(
+        u => u && u.user && u.user.toLowerCase() === user.toLowerCase()
+      );
+      if (isAlreadyOnline) {
+        if (errBox) {
+          errBox.hidden = false;
+          errBox.textContent = `User "${user}" is already logged in on another screen or device.`;
+        }
+        return;
+      }
+      if (acc.password !== pw) {
+        if (errBox) {
+          errBox.hidden = false;
+          errBox.textContent = 'Incorrect password. Please try again.';
+        }
+        return;
+      }
+      setDbSession(acc);
+      disboardClaimedUsernames.add(user.toLowerCase());
+    } else {
+      if (isUsernameClaimed(user)) {
+        if (errBox) {
+          errBox.hidden = false;
+          errBox.textContent = `Username "${user}" is already owned by another user across the network.`;
+        }
+        return;
+      }
+      if (errBox) {
+        errBox.hidden = false;
+        errBox.textContent = `Account "${user}" not found. Please click the "Register" tab to create this account.`;
+      }
+      return;
+    }
+
+    closeDbAuthModal();
+    updateDbUserDock();
+    renderDbMembers();
+    broadcastDbPresence();
+    renderDbMessages();
+  }
+});
+
+$('#db-auth-guest')?.addEventListener('click', () => {
+  let randNum = Math.floor(1000 + Math.random() * 9000);
+  let guestName = 'Writer_' + randNum;
+  let attempts = 0;
+  while (isUsernameClaimed(guestName) && attempts < 50) {
+    randNum = Math.floor(1000 + Math.random() * 9000);
+    guestName = 'Writer_' + randNum;
+    attempts++;
+  }
+
+  const guestUser = {
+    username: guestName,
+    password: 'guest',
+    tag: '#' + randNum,
+    avatar: {
+      type: 'icon',
+      color: DB_COLORS[Math.floor(Math.random() * DB_COLORS.length)],
+      icon: DB_EMOJIS[Math.floor(Math.random() * DB_EMOJIS.length)],
+      imgData: null
+    },
+    createdAt: Date.now()
+  };
+
+  const accounts = getDbAccounts();
+  accounts[guestUser.username.toLowerCase()] = guestUser;
+  saveDbAccounts(accounts);
+  disboardClaimedUsernames.add(guestUser.username.toLowerCase());
+  setDbSession(guestUser);
+
+  closeDbAuthModal();
+  updateDbUserDock();
+  renderDbMembers();
+  broadcastDbPresence();
+  renderDbMessages();
+});
+
+/* ============ OPEN / CLOSE DISBOARD ============ */
+function openDisboard() {
+  saveNow();
+  $('#home').hidden = true;
+  $('#app').hidden = true;
+  const db = $('#disboard');
+  if (db) db.hidden = false;
+
+  document.title = 'Disboard – Docwright Community';
+
+  const session = getDbSession();
+  if (!session) {
+    openDbAuthModal('login');
+  }
+
+  updateDbUserDock();
+  renderDbMessages();
+  renderDbMembers();
+  initDisboardP2P();
+}
+
+function closeDisboard() {
+  const db = $('#disboard');
+  if (db) db.hidden = true;
+
+  if (cur && docs[cur]) {
+    $('#app').hidden = false;
+    document.title = (docs[cur].title || 'Untitled') + ' – Docwright';
+  } else {
+    $('#home').hidden = false;
+    document.title = 'Docwright';
+    renderHome();
+  }
+}
+
+// Navigation button bindings
+$('#db-btn-back-docs')?.addEventListener('click', closeDisboard);
+$('#db-btn-back-pill')?.addEventListener('click', closeDisboard);
+$('#home-disboard-btn')?.addEventListener('click', openDisboard);
+
+// Channel button switching
+document.querySelectorAll('.db-channel-btn').forEach(btn => {
+  btn.onclick = () => {
+    const ch = btn.dataset.ch;
+    if (!ch) return;
+
+    if (ch.startsWith('voice-')) {
+      const avatarWrap = $('#db-dock-avatar-btn');
+      if (avatarWrap) {
+        avatarWrap.style.boxShadow = '0 0 0 3px #23a55a';
+        setTimeout(() => { avatarWrap.style.boxShadow = 'none'; }, 4000);
+      }
+      playDiscordPop();
+      return;
+    }
+
+    document.querySelectorAll('.db-channel-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const unread = btn.querySelector('.db-unread-pill');
+    if (unread) unread.hidden = true;
+
+    activeDisboardChannel = ch;
+    const info = DB_CHANNEL_INFO[ch] || { title: ch, desc: '' };
+    const titleEl = $('#db-chat-title');
+    const descEl = $('#db-chat-desc');
+    const inp = $('#db-chat-input');
+
+    if (titleEl) titleEl.textContent = info.title;
+    if (descEl) descEl.textContent = info.desc;
+    if (inp) inp.placeholder = `Message #${info.title} (Enter to send)...`;
+
+    renderDbMessages();
+  };
+});
+
+// Chat input listeners
+$('#db-chat-send')?.addEventListener('click', sendDisboardMessage);
+$('#db-chat-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendDisboardMessage();
+  }
+});
+
+// Member list toggle
+$('#db-btn-toggle-members')?.addEventListener('click', () => {
+  const rail = $('#db-members-rail');
+  if (rail) rail.hidden = !rail.hidden;
+});
+
+// User settings / avatar edit button
+$('#db-btn-settings')?.addEventListener('click', () => openDbAuthModal('register'));
+$('#db-dock-avatar-btn')?.addEventListener('click', () => openDbAuthModal('register'));
+$('#db-dock-info-btn')?.addEventListener('click', () => openDbAuthModal('register'));
+
+// Quick emoji picker
+$('#db-chat-emoji')?.addEventListener('click', () => {
+  const inp = $('#db-chat-input');
+  if (inp) {
+    inp.value += ' ' + DB_EMOJIS[Math.floor(Math.random() * DB_EMOJIS.length)] + ' ';
+    inp.focus();
+  }
+});
+
+// Mic toggle
+let isMicMuted = false;
+$('#db-btn-mic')?.addEventListener('click', () => {
+  isMicMuted = !isMicMuted;
+  const btn = $('#db-btn-mic');
+  if (btn) {
+    btn.style.color = isMicMuted ? '#f23f43' : '#b5bac1';
+    btn.title = isMicMuted ? 'Unmute Microphone' : 'Mute Microphone';
+  }
+});
+
+// Server button switches
+document.querySelectorAll('.db-server-btn[data-server]').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.db-server-btn[data-server]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const sName = btn.title || 'Docwright Community';
+    const headerTitle = $('#db-server-name');
+    if (headerTitle) headerTitle.textContent = sName;
+    playDiscordPop();
+  };
+});
+
+// Add Server button
+$('#db-btn-add-server')?.addEventListener('click', () => {
+  const sName = prompt('Enter a name for your custom community server:', 'Writers Guild');
+  if (sName && sName.trim()) {
+    alert(`Server "${sName.trim()}" created! You can now invite friends to this server.`);
+  }
+});
+
+
 </script>
 </body>
 </html>
+
