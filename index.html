@@ -2552,7 +2552,7 @@ function htmlToMarkdown(html){
 }
 
 const A={
-  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()},
+  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()}, disboarder:()=>{A.home()},
   save:()=>{saveNow()}, open:()=>$('#fi').click(), size:()=>{if(!cur)return;page.classList.toggle('a4');docs[cur].size=page.classList.contains('a4')?'a4':'letter';fit();edited()},
   print:()=>{
     clearMarks();
@@ -2613,7 +2613,7 @@ function dl(name,type,data){const a=document.createElement('a');a.href=URL.creat
 
 /* ---------- menu bar ---------- */
 const M={
- File:[['New document','new'],['Share document…','share'],['My documents','home'],['Open file…','open'],['Make a copy','dup'],['Rename','rename'],['Save','save','Ctrl+S'],['Download as .html','dlhtml'],['Download as .txt','dltxt'],['Download as Markdown (.md)','dlmd'],['Switch Letter / A4','size'],['Print / Save as PDF','print','Ctrl+P']],
+ File:[['New document','new'],['Share document…','share'],['Disboarder','home'],['Open file…','open'],['Make a copy','dup'],['Rename','rename'],['Save','save','Ctrl+S'],['Download as .html','dlhtml'],['Download as .txt','dltxt'],['Download as Markdown (.md)','dlmd'],['Switch Letter / A4','size'],['Print / Save as PDF','print','Ctrl+P']],
  Edit:[['Undo','undo','Ctrl+Z'],['Redo','redo','Ctrl+Y'],['Cut','cut','Ctrl+X'],['Copy','copy','Ctrl+C'],['Select all','all','Ctrl+A'],['Find','find','Ctrl+F'],['Find and replace','replace','Ctrl+H']],
  View:[['Editing / viewing mode','mode'],['Show / hide ruler','ruler'],['Show / hide outline','outline'],['Dark mode on / off','dark'],['Full screen','fullscreen']],
  Insert:[['Image','image'],['Table','table'],['Link','link','Ctrl+K'],['Comment','comment','Ctrl+Alt+M'],['Horizontal line','hr'],['Date','date'],['Page break','pbrk','Ctrl+Enter']],
@@ -2625,10 +2625,13 @@ for(const k in M){
   d.innerHTML=`<button class="mb" aria-haspopup="true" aria-expanded="false">${k}</button><div class="dd" role="menu" hidden>${M[k].map(i=>`<button role="menuitem" data-a="${i[1]}">${i[0]}<span class="k">${i[2]||''}</span></button>`).join('')}</div>`;
   $('#menus').append(d);
 }
+const disboarderMenu=document.createElement('div');disboarderMenu.className='menu';
+disboarderMenu.innerHTML=`<button class="mb" data-a="home" title="Go to Documents Dashboard (Disboarder)">Disboarder</button>`;
+$('#menus').append(disboarderMenu);
 function closeMenus(){document.querySelectorAll('.dd').forEach(d=>{d.hidden=true;d.previousElementSibling?.setAttribute('aria-expanded','false')})}
 document.addEventListener('click',e=>{
   const mb=e.target.closest('.mb');
-  if(mb){const d=mb.nextElementSibling,was=!d.hidden;closeMenus();d.hidden=was;mb.setAttribute('aria-expanded',!was);return}
+  if(mb){const d=mb.nextElementSibling;if(d&&d.classList.contains('dd')){const was=!d.hidden;closeMenus();d.hidden=was;mb.setAttribute('aria-expanded',!was);return}}
   closeMenus();const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a]();
 });
 
