@@ -3077,6 +3077,300 @@ html.dark mark.doc-comment-mark.active-comment {
   background: #35373c;
 }
 
+/* ============ DISCORD EDIT IMAGE MODAL (IMAGE 1) ============ */
+.db-image-editor-window {
+  width: 580px;
+  max-width: 95vw;
+  background: #313338;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.85);
+  border: 1px solid #232428;
+  display: flex;
+  flex-direction: column;
+  animation: dbFadeIn 0.15s ease-out;
+}
+.db-image-editor-header {
+  padding: 18px 24px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.db-image-editor-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f2f3f5;
+}
+.db-crop-close-icon {
+  background: transparent;
+  border: 0;
+  color: #949ba4;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+.db-crop-close-icon:hover {
+  color: #fff;
+  background: #3f4147;
+}
+.db-image-editor-body {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.db-crop-canvas-wrap {
+  width: 100%;
+  height: 300px;
+  background: #1e1f22;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+  user-select: none;
+}
+.db-crop-canvas-wrap:active {
+  cursor: grabbing;
+}
+.db-crop-canvas-wrap canvas {
+  width: 532px;
+  height: 300px;
+  display: block;
+}
+.db-crop-controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 8px 10px;
+  box-sizing: border-box;
+}
+.db-crop-slider {
+  flex: 1;
+  height: 6px;
+  accent-color: #5865F2;
+  cursor: pointer;
+}
+.db-crop-icon-btn {
+  background: transparent;
+  border: 0;
+  color: #b5bac1;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.db-crop-icon-btn:hover {
+  background: #3f4147;
+  color: #fff;
+}
+.db-image-editor-footer {
+  padding: 16px 24px;
+  background: #2b2d31;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.db-crop-reset-btn {
+  background: transparent;
+  border: 0;
+  color: #dbdee1;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+.db-crop-reset-btn:hover {
+  text-decoration: underline;
+}
+.db-crop-cancel-btn {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 4px;
+}
+.db-crop-cancel-btn:hover {
+  text-decoration: underline;
+}
+.db-crop-apply-btn {
+  background: #5865F2;
+  color: #fff;
+  border: 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px 24px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.db-crop-apply-btn:hover {
+  background: #4752c4;
+}
+
+/* Banner Controls & Avatar Overlay Hint */
+.db-banner-change-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(0,0,0,0.65);
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+  transition: all 0.15s;
+}
+.db-banner-change-btn:hover {
+  background: rgba(0,0,0,0.85);
+  transform: translateY(-1px);
+}
+.db-banner-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 136px;
+  background: rgba(237, 66, 69, 0.7);
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.db-banner-remove-btn:hover {
+  background: #ED4245;
+}
+.db-avatar-overlay-hint {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.db-profile-avatar-wrap:hover .db-avatar-overlay-hint {
+  opacity: 1;
+}
+
+/* Friends View (Images 2 & 3) */
+.db-friends-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.db-friend-tab-btn {
+  background: transparent;
+  border: 0;
+  color: #b5bac1;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.db-friend-tab-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #dbdee1;
+}
+.db-friend-tab-btn.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+.db-friend-tab-btn.add {
+  background: #248046;
+  color: #fff;
+}
+.db-friend-tab-btn.add.active {
+  background: #1a6334;
+}
+.db-friend-pill-badge {
+  background: #ED4245;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 11px;
+  padding: 1px 6px;
+  margin-left: 6px;
+}
+.db-friends-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.db-friends-main-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  overflow-y: auto;
+}
+.db-friends-active-rail {
+  width: 320px;
+  border-left: 1px solid #232428;
+  padding: 16px 20px;
+  overflow-y: auto;
+}
+.db-friend-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.15s;
+}
+.db-friend-card:hover {
+  background: rgba(255,255,255,0.05);
+}
+.db-friend-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 0;
+  background: #2b2d31;
+  color: #b5bac1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.db-friend-action-btn:hover {
+  background: #35373c;
+  color: #fff;
+}
+.db-friend-action-btn.accept:hover {
+  background: #248046;
+  color: #fff;
+}
+.db-friend-action-btn.decline:hover {
+  background: #ED4245;
+  color: #fff;
+}
 </style>
 </head>
 <body>
@@ -3748,8 +4042,16 @@ html.dark mark.doc-comment-mark.active-comment {
       <div class="db-topbar-left">
         <span class="db-hash" id="db-chat-hash">#</span>
         <span class="db-topbar-title" id="db-chat-title">general</span>
-        <div class="db-topbar-divider"></div>
+        <div class="db-topbar-divider" id="db-topbar-sep"></div>
         <span class="db-topbar-desc" id="db-chat-desc">Welcome to the general chat! Chat live with other writers and friends.</span>
+        <!-- Friends Nav Tabs (Images 2 & 3) -->
+        <div class="db-friends-nav-tabs" id="db-friends-nav-tabs" style="display:none">
+          <button type="button" class="db-friend-tab-btn active" data-tab="all">All</button>
+          <button type="button" class="db-friend-tab-btn" data-tab="pending">
+            Pending <span class="db-friend-pill-badge" id="db-pending-req-count" style="display:none">0</span>
+          </button>
+          <button type="button" class="db-friend-tab-btn add" data-tab="add">Add Friend</button>
+        </div>
       </div>
       <div class="db-topbar-right">
         <button class="db-topbar-btn" id="db-btn-toggle-members" title="Toggle Member List">
@@ -3759,6 +4061,38 @@ html.dark mark.doc-comment-mark.active-comment {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
           <span>Back to Docs</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Friends Screen (Images 2 & 3) -->
+    <div id="db-friends-screen" class="db-friends-layout" style="display:none;flex:1;min-height:0">
+      <div class="db-friends-main-col">
+        <div style="margin-bottom:16px">
+          <input type="text" id="db-friends-search" placeholder="Search friends..." class="db-settings-search-input" style="height:36px;font-size:13.5px;padding:8px 12px">
+        </div>
+        <div id="db-friends-subview-all">
+          <div style="font-size:12px;font-weight:700;color:#949ba4;margin-bottom:12px" id="db-friends-count-title">ALL FRIENDS — 0</div>
+          <div id="db-friends-all-list" style="display:flex;flex-direction:column;gap:4px"></div>
+        </div>
+        <div id="db-friends-subview-pending" style="display:none">
+          <div style="font-size:12px;font-weight:700;color:#949ba4;margin-bottom:12px" id="db-friends-pending-title">PENDING REQUESTS — 0</div>
+          <div id="db-friends-pending-list" style="display:flex;flex-direction:column;gap:4px"></div>
+        </div>
+        <div id="db-friends-subview-add" style="display:none">
+          <h3 style="color:#fff;margin:0 0 8px;font-size:16px">ADD FRIEND</h3>
+          <p style="color:#949ba4;font-size:13px;margin:0 0 16px">You can add friends with their Disboard username.</p>
+          <div style="display:flex;gap:10px;background:#1e1f22;padding:12px;border-radius:8px;border:1px solid #2b2d31">
+            <input type="text" id="db-add-friend-input" placeholder="Enter a Username#0000" style="flex:1;background:transparent;border:0;color:#fff;outline:none;font-size:14px">
+            <button type="button" id="db-btn-send-friend-req" class="db-auth-btn" style="width:auto;padding:8px 18px;font-size:13px">Send Friend Request</button>
+          </div>
+          <div id="db-add-friend-status" style="margin-top:10px;font-size:13px;display:none"></div>
+        </div>
+      </div>
+      <div class="db-friends-active-rail">
+        <h3 style="color:#fff;font-size:16px;margin:0 0 16px">Active Now</h3>
+        <div id="db-friends-active-now-list" style="display:flex;flex-direction:column;gap:10px">
+          <!-- Active peer cards -->
+        </div>
       </div>
     </div>
 
@@ -3857,10 +4191,17 @@ html.dark mark.doc-comment-mark.active-comment {
       <div id="db-tab-content-profile" class="db-settings-pane active">
         <h2 class="db-settings-title">My Profile</h2>
         <div class="db-profile-banner" id="db-settings-banner">
-          <div class="db-profile-avatar-wrap">
+          <div class="db-profile-avatar-wrap" id="db-settings-avatar-wrap" title="Click to Change & Edit Avatar">
             <div id="db-settings-avatar-preview" class="db-avatar large" style="background:#5865F2">🚀</div>
+            <div class="db-avatar-overlay-hint">Change<br>Avatar</div>
           </div>
+          <button type="button" class="db-banner-change-btn" id="db-btn-change-banner" title="Change & Edit Profile Banner">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>Change Banner</span>
+          </button>
+          <button type="button" class="db-banner-remove-btn" id="db-btn-remove-banner" title="Reset to default banner" style="display:none">✕ Remove</button>
         </div>
+        <input type="file" id="db-settings-banner-file" accept="image/*" style="display:none">
         <div style="margin-top:34px">
           <label class="db-auth-label">AVATAR COLOR</label>
           <div class="db-color-dots" id="db-settings-color-dots"></div>
@@ -3869,11 +4210,14 @@ html.dark mark.doc-comment-mark.active-comment {
           <label class="db-auth-label">AVATAR ICON</label>
           <div class="db-emoji-chips" id="db-settings-emoji-chips"></div>
         </div>
-        <div style="margin-top:14px">
-          <label class="db-upload-btn">
-            <span>📁 Upload Custom Avatar Image</span>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <label class="db-upload-btn" id="db-settings-avatar-upload-label" style="cursor:pointer">
+            <span>📁 Upload &amp; Edit Custom Avatar</span>
             <input type="file" id="db-settings-file-input" accept="image/*" style="display:none">
           </label>
+          <button type="button" class="db-upload-btn" id="db-settings-banner-btn-secondary" style="cursor:pointer;border:0;background:#2b2d31">
+            <span>🖼️ Upload &amp; Edit Banner Image</span>
+          </button>
         </div>
         <div style="margin-top:16px">
           <label class="db-auth-label">ABOUT ME / BIO</label>
@@ -3906,6 +4250,34 @@ html.dark mark.doc-comment-mark.active-comment {
         <h2 class="db-settings-title">Notifications</h2>
         <p style="color:#949ba4;font-size:13.5px">Direct Message &amp; Channel sound alerts are enabled.</p>
       </div>
+    </div>
+</div>
+
+<!-- ============ DISCORD EDIT IMAGE MODAL (IMAGE 1) ============ -->
+<div id="db-image-editor-modal" class="db-settings-overlay" style="z-index:3000" hidden>
+  <div class="db-image-editor-window">
+    <div class="db-image-editor-header">
+      <h3 id="db-crop-title" class="db-image-editor-title">Edit Image</h3>
+      <button type="button" class="db-crop-close-icon" id="db-crop-close-btn" title="Cancel &amp; Close">✕</button>
+    </div>
+    <div class="db-image-editor-body">
+      <div class="db-crop-canvas-wrap" id="db-crop-canvas-wrap" title="Drag to reposition, scroll to zoom">
+        <canvas id="db-crop-canvas" width="532" height="300"></canvas>
+      </div>
+      <div class="db-crop-controls">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#949ba4" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <input type="range" id="db-crop-zoom-slider" min="1" max="3" step="0.01" value="1" class="db-crop-slider" title="Zoom">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#949ba4" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <button type="button" class="db-crop-icon-btn" id="db-crop-rotate-btn" title="Rotate 90°">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="db-image-editor-footer">
+      <button type="button" class="db-crop-reset-btn" id="db-crop-reset-btn">Reset</button>
+      <div style="flex:1"></div>
+      <button type="button" class="db-crop-cancel-btn" id="db-crop-cancel-btn">Cancel</button>
+      <button type="button" class="db-crop-apply-btn" id="db-crop-apply-btn">Apply</button>
     </div>
   </div>
 </div>
@@ -7075,11 +7447,420 @@ function openDirectMessageWith(user, avatar) {
   renderDbMessages();
 }
 
+/* ============ DISBOARD FRIENDS DASHBOARD (IMAGES 2 & 3) ============ */
+let currentFriendsTab = 'all';
+const DB_FRIENDS_PREFIX = 'disboard_friends_';
+const DB_FRIEND_REQS_PREFIX = 'disboard_freqs_';
+
+function getDbFriends() {
+  const session = getDbSession();
+  const u = session ? session.username.toLowerCase() : 'guest';
+  try {
+    const raw = localStorage.getItem(DB_FRIENDS_PREFIX + u);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return ['DocBot'];
+}
+
+function saveDbFriends(list) {
+  const session = getDbSession();
+  const u = session ? session.username.toLowerCase() : 'guest';
+  try {
+    localStorage.setItem(DB_FRIENDS_PREFIX + u, JSON.stringify(list));
+  } catch(e) {}
+}
+
+function addDbFriend(name) {
+  if (!name) return;
+  const list = getDbFriends();
+  if (!list.some(f => f.toLowerCase() === name.toLowerCase())) {
+    list.push(name);
+    saveDbFriends(list);
+  }
+}
+
+function removeDbFriend(name) {
+  if (!name) return;
+  const list = getDbFriends().filter(f => f.toLowerCase() !== name.toLowerCase());
+  saveDbFriends(list);
+  renderFriendsScreen(currentFriendsTab);
+}
+
+function getDbFriendRequests() {
+  const session = getDbSession();
+  const u = session ? session.username.toLowerCase() : 'guest';
+  try {
+    const raw = localStorage.getItem(DB_FRIEND_REQS_PREFIX + u);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return { incoming: [], outgoing: [] };
+}
+
+function saveDbFriendRequests(reqs) {
+  const session = getDbSession();
+  const u = session ? session.username.toLowerCase() : 'guest';
+  try {
+    localStorage.setItem(DB_FRIEND_REQS_PREFIX + u, JSON.stringify(reqs));
+  } catch(e) {}
+}
+
+function updatePendingBadge() {
+  const reqs = getDbFriendRequests();
+  const badge = $('#db-pending-req-count');
+  if (badge) {
+    const count = (reqs.incoming || []).length;
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = 'inline-flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+function setFriendsTab(tab) {
+  currentFriendsTab = tab || 'all';
+  document.querySelectorAll('.db-friend-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === currentFriendsTab);
+  });
+  const subAll = $('#db-friends-subview-all');
+  const subPending = $('#db-friends-subview-pending');
+  const subAdd = $('#db-friends-subview-add');
+  if (subAll) subAll.style.display = currentFriendsTab === 'all' ? 'block' : 'none';
+  if (subPending) subPending.style.display = currentFriendsTab === 'pending' ? 'block' : 'none';
+  if (subAdd) subAdd.style.display = currentFriendsTab === 'add' ? 'block' : 'none';
+  renderFriendsScreen(currentFriendsTab);
+}
+
+function renderFriendsScreen(tab) {
+  updatePendingBadge();
+  const activeTab = tab || currentFriendsTab || 'all';
+  const query = ($('#db-friends-search')?.value || '').trim().toLowerCase();
+
+  // 1. ALL FRIENDS TAB
+  if (activeTab === 'all') {
+    const allListEl = $('#db-friends-all-list');
+    const countTitle = $('#db-friends-count-title');
+    const friends = getDbFriends();
+    const filtered = query ? friends.filter(f => f.toLowerCase().includes(query)) : friends;
+    if (countTitle) countTitle.textContent = `ALL FRIENDS — ${filtered.length}`;
+
+    if (allListEl) {
+      if (filtered.length === 0) {
+        allListEl.innerHTML = `
+          <div style="text-align:center;padding:48px 16px;color:#949ba4">
+            <div style="font-size:36px;margin-bottom:8px">👥</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">${query ? 'No friends match your search.' : 'No friends yet!'}</div>
+            <div style="font-size:12px;margin-top:4px">${query ? 'Try a different username.' : 'Add your friends using their username to chat and collaborate.'}</div>
+          </div>
+        `;
+      } else {
+        allListEl.innerHTML = filtered.map(f => {
+          const isBot = f.toLowerCase() === 'docbot';
+          let avatar = { type: 'icon', color: '#5865F2', icon: '👤' };
+          let isOnline = isBot;
+          if (isBot) {
+            avatar = { type: 'icon', color: '#5865F2', icon: '🤖' };
+          } else {
+            for (const u of disboardRemoteUsers.values()) {
+              if (u && u.user && u.user.toLowerCase() === f.toLowerCase()) {
+                avatar = u.avatar || avatar;
+                isOnline = true;
+                break;
+              }
+            }
+            const accs = getDbAccounts();
+            if (accs[f.toLowerCase()]) {
+              avatar = accs[f.toLowerCase()].avatar || avatar;
+            }
+          }
+          return `
+            <div class="db-friend-card">
+              <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">
+                <div style="position:relative">
+                  ${renderDbAvatarHtml(avatar, 'medium')}
+                  <span class="db-status-dot ${isOnline ? 'online' : 'offline'}"></span>
+                </div>
+                <div style="overflow:hidden">
+                  <div style="font-weight:600;color:#fff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                    ${esc(f)} ${isBot ? '<span class="db-bot-tag" style="margin-left:4px">BOT</span>' : ''}
+                  </div>
+                  <div style="font-size:12px;color:#949ba4">${isOnline ? 'Online' : 'Offline'}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button type="button" class="db-friend-action-btn db-friend-msg-btn" data-friend-name="${esc(f)}" title="Message">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                </button>
+                ${!isBot ? `
+                  <button type="button" class="db-friend-action-btn db-friend-remove-btn" data-friend-name="${esc(f)}" title="Remove Friend">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        allListEl.querySelectorAll('.db-friend-msg-btn').forEach(b => {
+          b.onclick = () => {
+            const name = b.dataset.friendName;
+            if (name) openDirectMessageWith(name);
+          };
+        });
+
+        allListEl.querySelectorAll('.db-friend-remove-btn').forEach(b => {
+          b.onclick = () => {
+            const name = b.dataset.friendName;
+            if (name && confirm(`Remove ${name} from your friends?`)) {
+              removeDbFriend(name);
+            }
+          };
+        });
+      }
+    }
+  }
+
+  // 2. PENDING REQUESTS TAB
+  if (activeTab === 'pending') {
+    const pendingListEl = $('#db-friends-pending-list');
+    const pendingTitle = $('#db-friends-pending-title');
+    const reqs = getDbFriendRequests();
+    const inc = reqs.incoming || [];
+    const out = reqs.outgoing || [];
+    const total = inc.length + out.length;
+    if (pendingTitle) pendingTitle.textContent = `PENDING REQUESTS — ${total}`;
+
+    if (pendingListEl) {
+      if (total === 0) {
+        pendingListEl.innerHTML = `
+          <div style="text-align:center;padding:48px 16px;color:#949ba4">
+            <div style="font-size:36px;margin-bottom:8px">📬</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">There are no pending friend requests.</div>
+            <div style="font-size:12px;margin-top:4px">Incoming and outgoing requests will appear here.</div>
+          </div>
+        `;
+      } else {
+        let itemsHtml = '';
+        inc.forEach(name => {
+          itemsHtml += `
+            <div class="db-friend-card">
+              <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">
+                <div class="db-avatar medium" style="background:#5865F2">👤</div>
+                <div>
+                  <div style="font-weight:600;color:#fff;font-size:14px">${esc(name)}</div>
+                  <div style="font-size:12px;color:#23a55a">Incoming Friend Request</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button type="button" class="db-friend-action-btn db-btn-accept-freq" data-freq-user="${esc(name)}" title="Accept" style="background:#23a55a;color:#fff">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+                <button type="button" class="db-friend-action-btn db-btn-ignore-freq" data-freq-user="${esc(name)}" title="Ignore" style="background:#da373c;color:#fff">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        out.forEach(name => {
+          itemsHtml += `
+            <div class="db-friend-card">
+              <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">
+                <div class="db-avatar medium" style="background:#5865F2">👤</div>
+                <div>
+                  <div style="font-weight:600;color:#fff;font-size:14px">${esc(name)}</div>
+                  <div style="font-size:12px;color:#949ba4">Outgoing Friend Request</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button type="button" class="db-friend-action-btn db-btn-cancel-freq" data-freq-user="${esc(name)}" title="Cancel" style="background:#2b2d31;color:#f23f43">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        pendingListEl.innerHTML = itemsHtml;
+
+        pendingListEl.querySelectorAll('.db-btn-accept-freq').forEach(b => {
+          b.onclick = () => {
+            const name = b.dataset.freqUser;
+            if (name) {
+              addDbFriend(name);
+              addDmContact(name);
+              const r = getDbFriendRequests();
+              r.incoming = (r.incoming || []).filter(u => u.toLowerCase() !== name.toLowerCase());
+              saveDbFriendRequests(r);
+              renderFriendsScreen('pending');
+              renderDbDmsContacts();
+            }
+          };
+        });
+
+        pendingListEl.querySelectorAll('.db-btn-ignore-freq').forEach(b => {
+          b.onclick = () => {
+            const name = b.dataset.freqUser;
+            if (name) {
+              const r = getDbFriendRequests();
+              r.incoming = (r.incoming || []).filter(u => u.toLowerCase() !== name.toLowerCase());
+              saveDbFriendRequests(r);
+              renderFriendsScreen('pending');
+            }
+          };
+        });
+
+        pendingListEl.querySelectorAll('.db-btn-cancel-freq').forEach(b => {
+          b.onclick = () => {
+            const name = b.dataset.freqUser;
+            if (name) {
+              const r = getDbFriendRequests();
+              r.outgoing = (r.outgoing || []).filter(u => u.toLowerCase() !== name.toLowerCase());
+              saveDbFriendRequests(r);
+              renderFriendsScreen('pending');
+            }
+          };
+        });
+      }
+    }
+  }
+
+  // Active Now Rail
+  renderFriendsActiveRail();
+}
+
+function handleSendFriendRequest() {
+  const inp = $('#db-add-friend-input');
+  const statusEl = $('#db-add-friend-status');
+  if (!inp || !statusEl) return;
+  let target = inp.value.trim();
+  if (target.includes('#')) {
+    target = target.split('#')[0].trim();
+  }
+  if (!target) {
+    statusEl.textContent = 'Please enter a valid username.';
+    statusEl.style.color = '#f23f43';
+    statusEl.style.display = 'block';
+    return;
+  }
+  const session = getDbSession();
+  if (session && target.toLowerCase() === session.username.toLowerCase()) {
+    statusEl.textContent = 'You cannot add yourself as a friend!';
+    statusEl.style.color = '#f23f43';
+    statusEl.style.display = 'block';
+    return;
+  }
+  const friends = getDbFriends();
+  if (friends.some(f => f.toLowerCase() === target.toLowerCase())) {
+    statusEl.textContent = `You are already friends with ${target}!`;
+    statusEl.style.color = '#23a55a';
+    statusEl.style.display = 'block';
+    return;
+  }
+
+  // Add friend directly and mark outgoing
+  addDbFriend(target);
+  addDmContact(target);
+  inp.value = '';
+  statusEl.textContent = `Success! Friend request sent to ${target}.`;
+  statusEl.style.color = '#23a55a';
+  statusEl.style.display = 'block';
+  renderFriendsScreen('all');
+}
+
+function renderFriendsActiveRail() {
+  const railEl = $('#db-friends-active-now-list');
+  if (!railEl) return;
+  const cards = [];
+
+  // Add remote peers
+  for (const [peerId, u] of disboardRemoteUsers.entries()) {
+    if (u && u.user) {
+      cards.push({
+        name: u.user,
+        avatar: u.avatar || { type: 'icon', color: '#5865F2', icon: '👤' },
+        activity: 'Online • Disboard Community'
+      });
+    }
+  }
+
+  // Add DocBot
+  cards.push({
+    name: 'DocBot',
+    avatar: { type: 'icon', color: '#5865F2', icon: '🤖' },
+    activity: 'Official AI Assistant • Always ready'
+  });
+
+  railEl.innerHTML = cards.map(c => `
+    <div class="db-friend-card" style="cursor:pointer;background:#2b2d31;padding:12px;border-radius:8px" data-active-user="${esc(c.name)}">
+      <div style="position:relative">
+        ${renderDbAvatarHtml(c.avatar, 'medium')}
+        <span class="db-status-dot online"></span>
+      </div>
+      <div style="overflow:hidden;flex:1">
+        <div style="font-weight:600;color:#fff;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.name)}</div>
+        <div style="font-size:11.5px;color:#949ba4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.activity)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  railEl.querySelectorAll('[data-active-user]').forEach(el => {
+    el.onclick = () => {
+      const u = el.dataset.activeUser;
+      if (u) openDirectMessageWith(u);
+    };
+  });
+}
+
 function switchDisboardView(view, serverId) {
   activeDisboardView = view || 'dms';
   const guildChannels = $('#db-guild-channels');
   const dmsChannels = $('#db-dms-channels');
   const dmsBtn = $('#db-btn-server-dms');
+  const friendsNav = $('#db-friends-nav-tabs');
+  const friendsScreen = $('#db-friends-screen');
+  const messagesFeed = $('#db-messages-feed');
+  const chatInputWrap = document.querySelector('.db-chat-input-wrap');
+  const membersRail = $('#db-members-rail');
+  const hashEl = $('#db-chat-hash');
+  const titleEl = $('#db-chat-title');
+  const descEl = $('#db-chat-desc');
+  const topbarSep = $('#db-topbar-sep');
+  const friendsBtn = $('#db-btn-friends');
+
+  if (activeDisboardView === 'friends') {
+    if (guildChannels) guildChannels.style.display = 'none';
+    if (dmsChannels) dmsChannels.style.display = 'flex';
+    document.querySelectorAll('.db-server-btn[data-server]').forEach(b => b.classList.remove('active'));
+    if (dmsBtn) dmsBtn.classList.add('active');
+    if (friendsBtn) friendsBtn.classList.add('active');
+
+    if (hashEl) hashEl.style.display = 'none';
+    if (titleEl) titleEl.textContent = 'Friends';
+    if (topbarSep) topbarSep.style.display = 'block';
+    if (descEl) descEl.style.display = 'none';
+    if (friendsNav) friendsNav.style.display = 'flex';
+
+    if (friendsScreen) friendsScreen.style.display = 'flex';
+    if (messagesFeed) messagesFeed.style.display = 'none';
+    if (chatInputWrap) chatInputWrap.style.display = 'none';
+    if (membersRail) membersRail.style.display = 'none';
+
+    renderDbDmsContacts();
+    renderFriendsScreen(currentFriendsTab || 'all');
+    return;
+  }
+
+  // Restore normal view visibility
+  if (hashEl) hashEl.style.display = '';
+  if (descEl) descEl.style.display = '';
+  if (topbarSep) topbarSep.style.display = '';
+  if (friendsNav) friendsNav.style.display = 'none';
+  if (friendsScreen) friendsScreen.style.display = 'none';
+  if (messagesFeed) messagesFeed.style.display = 'flex';
+  if (chatInputWrap) chatInputWrap.style.display = 'block';
+  if (friendsBtn) friendsBtn.classList.remove('active');
+  if (membersRail) membersRail.style.display = '';
 
   if (activeDisboardView === 'dms') {
     const session = getDbSession();
@@ -7092,11 +7873,7 @@ function switchDisboardView(view, serverId) {
     document.querySelectorAll('.db-server-btn[data-server]').forEach(b => b.classList.remove('active'));
     if (dmsBtn) dmsBtn.classList.add('active');
 
-    const hashEl = $('#db-chat-hash');
-    const titleEl = $('#db-chat-title');
-    const descEl = $('#db-chat-desc');
     const inp = $('#db-chat-input');
-
     if (hashEl) hashEl.textContent = '@';
     if (titleEl) titleEl.textContent = activeDmRecipient;
     if (descEl) descEl.textContent = `Direct message history with ${activeDmRecipient}.`;
@@ -7113,11 +7890,7 @@ function switchDisboardView(view, serverId) {
     });
 
     const info = DB_CHANNEL_INFO[activeDisboardChannel] || { title: activeDisboardChannel, desc: '' };
-    const hashEl = $('#db-chat-hash');
-    const titleEl = $('#db-chat-title');
-    const descEl = $('#db-chat-desc');
     const inp = $('#db-chat-input');
-
     if (hashEl) hashEl.textContent = '#';
     if (titleEl) titleEl.textContent = info.title;
     if (descEl) descEl.textContent = info.desc;
@@ -7673,6 +8446,7 @@ function setupDbConn(conn) {
             username: data.user,
             tag: data.tag || '#0000',
             avatar: data.avatar,
+            banner: data.banner || null,
             bio: data.bio || 'ex go go',
             isOnline: true
           });
@@ -7781,6 +8555,8 @@ function broadcastDbPresence() {
     user: session.username,
     tag: session.tag || '#1337',
     avatar: session.avatar,
+    banner: session.banner || null,
+    bio: session.bio || 'ex go go',
     claimedNames: localNames
   };
   if (isDisboardHost) {
@@ -8195,6 +8971,263 @@ function initDiscordEmojiPicker() {
   });
 }
 
+/* ============ DISCORD EDIT IMAGE MODAL (IMAGE 1) ============ */
+let imageEditorState = {
+  mode: 'avatar', // 'avatar' (circle) or 'banner' (rectangle)
+  img: null,
+  zoom: 1,
+  rotation: 0,
+  panX: 0,
+  panY: 0,
+  isDragging: false,
+  dragStartX: 0,
+  dragStartY: 0,
+  origPanX: 0,
+  origPanY: 0,
+  baseScale: 1,
+  onApply: null
+};
+
+function openImageEditor(img, mode = 'avatar', onApply = null) {
+  imageEditorState.img = img;
+  imageEditorState.mode = mode;
+  imageEditorState.rotation = 0;
+  imageEditorState.panX = 0;
+  imageEditorState.panY = 0;
+  imageEditorState.zoom = 1;
+  imageEditorState.isDragging = false;
+  imageEditorState.onApply = onApply;
+
+  const slider = $('#db-crop-zoom-slider');
+  const title = $('#db-crop-title');
+  const modal = $('#db-image-editor-modal');
+
+  if (title) title.textContent = mode === 'banner' ? 'Edit Banner' : 'Edit Image';
+  if (slider) slider.value = 1;
+
+  const nw = img.naturalWidth || img.width || 400;
+  const nh = img.naturalHeight || img.height || 400;
+  if (mode === 'avatar') {
+    imageEditorState.baseScale = Math.max(190 / nw, 190 / nh) * 1.05;
+  } else {
+    imageEditorState.baseScale = Math.max(440 / nw, 146 / nh) * 1.05;
+  }
+
+  if (modal) modal.hidden = false;
+  drawCropCanvas();
+}
+
+function closeImageEditor() {
+  const modal = $('#db-image-editor-modal');
+  if (modal) modal.hidden = true;
+  imageEditorState.img = null;
+  imageEditorState.onApply = null;
+}
+
+function drawRoundRectPath(ctx, x, y, w, h, r, counterClockwise = false) {
+  if (ctx.roundRect && !counterClockwise) {
+    ctx.roundRect(x, y, w, h, r);
+  } else {
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+}
+
+function drawCropCanvas() {
+  const canvas = $('#db-crop-canvas');
+  if (!canvas || !imageEditorState.img) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // 1. Draw Image with translation, rotation, and scaling
+  ctx.save();
+  ctx.translate(cx + imageEditorState.panX, cy + imageEditorState.panY);
+  ctx.rotate((imageEditorState.rotation * Math.PI) / 180);
+  const scale = imageEditorState.baseScale * imageEditorState.zoom;
+  ctx.scale(scale, scale);
+  const img = imageEditorState.img;
+  const nw = img.naturalWidth || img.width;
+  const nh = img.naturalHeight || img.height;
+  ctx.drawImage(img, -nw / 2, -nh / 2);
+  ctx.restore();
+
+  // 2. Draw Vignette Overlay with Cutout
+  ctx.save();
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+  ctx.beginPath();
+  ctx.rect(0, 0, w, h);
+
+  if (imageEditorState.mode === 'avatar') {
+    ctx.arc(cx, cy, 95, 0, Math.PI * 2, true);
+    ctx.fill();
+
+    // White circle border
+    ctx.beginPath();
+    ctx.arc(cx, cy, 95, 0, Math.PI * 2);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  } else {
+    // Banner rectangle 440 x 146
+    const rx = cx - 220;
+    const ry = cy - 73;
+    drawRoundRectPath(ctx, rx, ry, 440, 146, 8, true);
+    ctx.fill();
+
+    // White rectangle border
+    ctx.beginPath();
+    drawRoundRectPath(ctx, rx, ry, 440, 146, 8, false);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function initImageEditor() {
+  if (initImageEditor.initialized) return;
+  initImageEditor.initialized = true;
+  const canvas = $('#db-crop-canvas');
+  const wrap = $('#db-crop-canvas-wrap');
+  const slider = $('#db-crop-zoom-slider');
+  const rotateBtn = $('#db-crop-rotate-btn');
+  const resetBtn = $('#db-crop-reset-btn');
+  const cancelBtn = $('#db-crop-cancel-btn');
+  const closeBtn = $('#db-crop-close-btn');
+  const applyBtn = $('#db-crop-apply-btn');
+
+  if (!canvas || !wrap) return;
+
+  function handleStart(clientX, clientY) {
+    imageEditorState.isDragging = true;
+    imageEditorState.dragStartX = clientX;
+    imageEditorState.dragStartY = clientY;
+    imageEditorState.origPanX = imageEditorState.panX;
+    imageEditorState.origPanY = imageEditorState.panY;
+  }
+
+  function handleMove(clientX, clientY) {
+    if (!imageEditorState.isDragging) return;
+    imageEditorState.panX = imageEditorState.origPanX + (clientX - imageEditorState.dragStartX);
+    imageEditorState.panY = imageEditorState.origPanY + (clientY - imageEditorState.dragStartY);
+    drawCropCanvas();
+  }
+
+  function handleEnd() {
+    imageEditorState.isDragging = false;
+  }
+
+  wrap.onmousedown = (e) => handleStart(e.clientX, e.clientY);
+  window.addEventListener('mousemove', (e) => {
+    if (imageEditorState.isDragging) handleMove(e.clientX, e.clientY);
+  });
+  window.addEventListener('mouseup', handleEnd);
+
+  wrap.ontouchstart = (e) => {
+    if (e.touches.length === 1) {
+      handleStart(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+  wrap.ontouchmove = (e) => {
+    if (e.touches.length === 1 && imageEditorState.isDragging) {
+      handleMove(e.touches[0].clientX, e.touches[0].clientY);
+      e.preventDefault();
+    }
+  };
+  wrap.ontouchend = handleEnd;
+
+  wrap.onwheel = (e) => {
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 0.08 : -0.08;
+    let nextZoom = Math.max(1, Math.min(3, imageEditorState.zoom + delta));
+    imageEditorState.zoom = nextZoom;
+    if (slider) slider.value = nextZoom;
+    drawCropCanvas();
+  };
+
+  if (slider) {
+    slider.oninput = () => {
+      imageEditorState.zoom = parseFloat(slider.value) || 1;
+      drawCropCanvas();
+    };
+  }
+
+  if (rotateBtn) {
+    rotateBtn.onclick = () => {
+      imageEditorState.rotation = (imageEditorState.rotation + 90) % 360;
+      drawCropCanvas();
+    };
+  }
+
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      imageEditorState.zoom = 1;
+      imageEditorState.rotation = 0;
+      imageEditorState.panX = 0;
+      imageEditorState.panY = 0;
+      if (slider) slider.value = 1;
+      drawCropCanvas();
+    };
+  }
+
+  if (cancelBtn) cancelBtn.onclick = closeImageEditor;
+  if (closeBtn) closeBtn.onclick = closeImageEditor;
+
+  if (applyBtn) {
+    applyBtn.onclick = () => {
+      if (!imageEditorState.img || !imageEditorState.onApply) {
+        closeImageEditor();
+        return;
+      }
+      const out = document.createElement('canvas');
+      const oCtx = out.getContext('2d');
+      const isAvatar = imageEditorState.mode === 'avatar';
+
+      if (isAvatar) {
+        out.width = 256;
+        out.height = 256;
+        const ratio = 256 / 190;
+        oCtx.translate(128 + imageEditorState.panX * ratio, 128 + imageEditorState.panY * ratio);
+        oCtx.rotate((imageEditorState.rotation * Math.PI) / 180);
+        const s = imageEditorState.baseScale * imageEditorState.zoom * ratio;
+        oCtx.scale(s, s);
+        const nw = imageEditorState.img.naturalWidth || imageEditorState.img.width;
+        const nh = imageEditorState.img.naturalHeight || imageEditorState.img.height;
+        oCtx.drawImage(imageEditorState.img, -nw / 2, -nh / 2);
+      } else {
+        out.width = 960;
+        out.height = 320;
+        const ratio = 960 / 440;
+        oCtx.translate(480 + imageEditorState.panX * ratio, 160 + imageEditorState.panY * ratio);
+        oCtx.rotate((imageEditorState.rotation * Math.PI) / 180);
+        const s = imageEditorState.baseScale * imageEditorState.zoom * ratio;
+        oCtx.scale(s, s);
+        const nw = imageEditorState.img.naturalWidth || imageEditorState.img.width;
+        const nh = imageEditorState.img.naturalHeight || imageEditorState.img.height;
+        oCtx.drawImage(imageEditorState.img, -nw / 2, -nh / 2);
+      }
+
+      const dataUrl = out.toDataURL('image/jpeg', 0.88);
+      const applyCb = imageEditorState.onApply;
+      closeImageEditor();
+      if (typeof applyCb === 'function') applyCb(dataUrl);
+    };
+  }
+}
+
 /* ============ DISCORD USER SETTINGS MODAL (IMAGE 2) ============ */
 function openDbUserSettings() {
   const session = getDbSession();
@@ -8210,6 +9243,8 @@ function openDbUserSettings() {
   const sAvatar = $('#db-settings-sidebar-avatar');
   const pAvatar = $('#db-settings-avatar-preview');
   const bioInput = $('#db-settings-bio-input');
+  const bannerEl = $('#db-settings-banner');
+  const removeBannerBtn = $('#db-btn-remove-banner');
 
   if (sName) sName.textContent = session.username;
   if (sAvatar) {
@@ -8223,6 +9258,15 @@ function openDbUserSettings() {
     pAvatar.innerHTML = session.avatar?.type === 'image' && session.avatar.imgData
       ? `<img src="${esc(session.avatar.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
       : (session.avatar?.icon || '🚀');
+  }
+  if (bannerEl) {
+    if (session.banner) {
+      bannerEl.style.background = `url("${session.banner}") center/cover no-repeat`;
+      if (removeBannerBtn) removeBannerBtn.style.display = 'block';
+    } else {
+      bannerEl.style.background = 'linear-gradient(135deg, #5865F2, #2c337d)';
+      if (removeBannerBtn) removeBannerBtn.style.display = 'none';
+    }
   }
   if (bioInput) {
     bioInput.value = session.bio || 'ex go go';
@@ -8250,9 +9294,25 @@ function initSettingsAvatarCustomizer() {
   const dots = $('#db-settings-color-dots');
   const chips = $('#db-settings-emoji-chips');
   const preview = $('#db-settings-avatar-preview');
+  const bannerEl = $('#db-settings-banner');
+  const removeBannerBtn = $('#db-btn-remove-banner');
   if (!dots || !chips) return;
 
   const currentCfg = { ...(session?.avatar || dbAvatarConfig) };
+  let currentBanner = session?.banner || null;
+
+  function refreshBannerPreview() {
+    if (!bannerEl) return;
+    if (currentBanner) {
+      bannerEl.style.background = `url("${currentBanner}") center/cover no-repeat`;
+      if (removeBannerBtn) removeBannerBtn.style.display = 'block';
+    } else {
+      bannerEl.style.background = 'linear-gradient(135deg, #5865F2, #2c337d)';
+      if (removeBannerBtn) removeBannerBtn.style.display = 'none';
+    }
+  }
+
+  refreshBannerPreview();
 
   dots.innerHTML = DB_COLORS.map(c => `
     <div class="db-color-dot ${c === currentCfg.color ? 'active' : ''}" data-color="${c}" style="background:${c}"></div>
@@ -8295,7 +9355,14 @@ function initSettingsAvatarCustomizer() {
     };
   });
 
+  // Avatar Upload with Edit Image Cropper Modal (Image 1)
   const fileInp = $('#db-settings-file-input');
+  const avatarWrap = $('#db-settings-avatar-wrap');
+
+  if (avatarWrap) {
+    avatarWrap.onclick = () => fileInp?.click();
+  }
+
   if (fileInp) {
     fileInp.onchange = (e) => {
       const file = e.target.files?.[0];
@@ -8304,18 +9371,55 @@ function initSettingsAvatarCustomizer() {
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = 128;
-          canvas.height = 128;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, 128, 128);
-          currentCfg.type = 'image';
-          currentCfg.imgData = canvas.toDataURL('image/jpeg', 0.85);
-          refreshSettingsPreview();
+          openImageEditor(img, 'avatar', (croppedDataUrl) => {
+            currentCfg.type = 'image';
+            currentCfg.imgData = croppedDataUrl;
+            refreshSettingsPreview();
+          });
         };
         img.src = event.target.result;
       };
       reader.readAsDataURL(file);
+      fileInp.value = '';
+    };
+  }
+
+  // Banner Upload with Edit Image Cropper Modal (Banner settings matching Image 1)
+  const bannerFileInp = $('#db-settings-banner-file');
+  const changeBannerBtn = $('#db-btn-change-banner');
+  const bannerSecBtn = $('#db-settings-banner-btn-secondary');
+
+  function triggerBannerSelect() {
+    bannerFileInp?.click();
+  }
+
+  if (changeBannerBtn) changeBannerBtn.onclick = triggerBannerSelect;
+  if (bannerSecBtn) bannerSecBtn.onclick = triggerBannerSelect;
+
+  if (removeBannerBtn) {
+    removeBannerBtn.onclick = () => {
+      currentBanner = null;
+      refreshBannerPreview();
+    };
+  }
+
+  if (bannerFileInp) {
+    bannerFileInp.onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          openImageEditor(img, 'banner', (croppedDataUrl) => {
+            currentBanner = croppedDataUrl;
+            refreshBannerPreview();
+          });
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+      bannerFileInp.value = '';
     };
   }
 
@@ -8323,12 +9427,14 @@ function initSettingsAvatarCustomizer() {
     const s = getDbSession();
     if (!s) return;
     s.avatar = { ...currentCfg };
+    s.banner = currentBanner;
     s.bio = ($('#db-settings-bio-input')?.value || '').trim() || 'ex go go';
     setDbSession(s);
 
     const accounts = getDbAccounts();
     if (accounts[s.username.toLowerCase()]) {
       accounts[s.username.toLowerCase()].avatar = s.avatar;
+      accounts[s.username.toLowerCase()].banner = s.banner;
       accounts[s.username.toLowerCase()].bio = s.bio;
       saveDbAccounts(accounts);
     }
@@ -8369,6 +9475,7 @@ function showUserProfilePopover(userObj, anchorEl) {
   const bioEl = $('#db-pop-bio');
   const msgBtn = $('#db-pop-btn-msg');
   const friendBtn = $('#db-pop-btn-friend');
+  const popBanner = $('#db-pop-banner');
 
   const session = getDbSession();
   const rawUsername = userObj.username || userObj.user || '';
@@ -8389,6 +9496,13 @@ function showUserProfilePopover(userObj, anchorEl) {
     avatarEl.innerHTML = userObj.avatar?.type === 'image' && userObj.avatar.imgData
       ? `<img src="${esc(userObj.avatar.imgData)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
       : (userObj.avatar?.icon || (isBot ? '🤖' : '👤'));
+  }
+  if (popBanner) {
+    if (userObj.banner) {
+      popBanner.style.background = `url("${userObj.banner}") center/cover no-repeat`;
+    } else {
+      popBanner.style.background = userObj.avatar?.color || 'linear-gradient(135deg, #5865F2, #2c337d)';
+    }
   }
 
   if (isSelf) {
@@ -8543,6 +9657,7 @@ function openDisboard() {
   }
 
   initDiscordEmojiPicker();
+  initImageEditor();
   updateDbUserDock();
   switchDisboardView(activeDisboardView);
   renderDbMembers();
@@ -8670,19 +9785,37 @@ $('#db-btn-mic')?.addEventListener('click', () => {
 
 // Server buttons & Direct Messages top logo switch
 $('#db-btn-server-dms')?.addEventListener('click', () => {
-  switchDisboardView('dms');
+  switchDisboardView('friends');
   playDiscordPop();
 });
 
 $('#db-btn-friends')?.addEventListener('click', () => {
-  switchDisboardView('dms');
+  switchDisboardView('friends');
+  playDiscordPop();
 });
+
+// Friends tabs & search handlers
+document.querySelectorAll('.db-friend-tab-btn').forEach(btn => {
+  btn.onclick = () => {
+    setFriendsTab(btn.dataset.tab);
+  };
+});
+$('#db-friends-search')?.addEventListener('input', () => {
+  renderFriendsScreen(currentFriendsTab);
+});
+$('#db-btn-send-friend-req')?.addEventListener('click', handleSendFriendRequest);
+$('#db-add-friend-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleSendFriendRequest();
+});
+
+// Initialize image cropper editor
+initImageEditor();
 
 document.querySelectorAll('.db-server-btn[data-server]').forEach(btn => {
   btn.onclick = () => {
     const sId = btn.dataset.server;
     if (sId === 'dms') {
-      switchDisboardView('dms');
+      switchDisboardView('friends');
     } else {
       switchDisboardView('guild', sId);
       const sName = btn.title || 'Docwright Community';
