@@ -3456,6 +3456,27 @@ html.dark mark.doc-comment-mark.active-comment {
   margin-bottom: 18px;
   min-height: 44px;
 }
+.auth-google-btn {
+  width: 100%;
+  height: 42px;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 21px;
+  color: var(--tx);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all .15s ease;
+}
+.auth-google-btn:hover {
+  background: var(--hov);
+  border-color: #4285F4;
+  box-shadow: 0 1px 4px rgba(66, 133, 244, 0.2);
+}
 .auth-divider {
   display: flex;
   align-items: center;
@@ -3647,24 +3668,17 @@ html.dark mark.doc-comment-mark.active-comment {
       <p class="auth-subtitle">Online cloud documents with personal 5 TB storage</p>
     </div>
 
-    <!-- Google 1-Click Sign-in -->
+    <!-- Google Account Sign-In (Works for EVERY Google Account) -->
     <div class="auth-oauth-wrap">
-      <div id="g_id_onload"
-           data-client_id="313965457655-27dn8tqf6jm8eq6t8c1pvcabv9g64mk9.apps.googleusercontent.com"
-           data-context="signin"
-           data-ux_mode="popup"
-           data-callback="handleGoogleAuthResponse"
-           data-auto_prompt="false">
-      </div>
-      <div class="g_id_signin"
-           data-type="standard"
-           data-shape="pill"
-           data-theme="outline"
-           data-text="signin_with"
-           data-size="large"
-           data-logo_alignment="left"
-           data-width="320">
-      </div>
+      <button type="button" id="google-quick-login-btn" class="auth-google-btn" title="Sign in with your Google Account">
+        <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Sign in with Google Account</span>
+      </button>
     </div>
 
     <div class="auth-divider"><span>or continue with account</span></div>
@@ -3683,8 +3697,8 @@ html.dark mark.doc-comment-mark.active-comment {
       </div>
 
       <div class="auth-field">
-        <label for="auth-username">Username</label>
-        <input type="text" id="auth-username" required placeholder="Choose a username" autocomplete="username">
+        <label for="auth-username">Username or Email</label>
+        <input type="text" id="auth-username" required placeholder="Choose a username or enter email" autocomplete="username">
       </div>
 
       <div class="auth-field">
@@ -3705,6 +3719,35 @@ html.dark mark.doc-comment-mark.active-comment {
     <div class="auth-footer">
       <span class="auth-cloud-badge">☁️ Powered by 5 TB Dedicated Google Drive Cloud</span>
     </div>
+  </div>
+</div>
+
+<!-- ============ GOOGLE EMAIL SIGN-IN MODAL ============ -->
+<div id="google-email-modal" class="doc-modal-overlay" hidden>
+  <div class="auth-card" style="max-width:380px;animation:authFadeIn .2s ease-out">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      <div>
+        <h3 style="margin:0;font-size:16px;font-weight:700">Google Account Sign-In</h3>
+        <p style="margin:0;font-size:12px;color:var(--mut)">Works for every Google account</p>
+      </div>
+    </div>
+    <form id="google-email-form">
+      <div class="auth-field">
+        <label for="google-email-input">Your Google Email</label>
+        <input type="email" id="google-email-input" required placeholder="e.g. fppmax@gmail.com" autocomplete="email">
+      </div>
+      <div id="google-email-msg" class="auth-message" hidden></div>
+      <div style="display:flex;gap:8px;margin-top:20px">
+        <button type="button" id="google-email-cancel" class="gdrive-pill-btn" style="flex:1;justify-content:center">Cancel</button>
+        <button type="submit" id="google-email-submit" class="auth-primary-btn" style="flex:1.5">Continue →</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -5633,6 +5676,59 @@ async function hashPassword(pwd) {
   }
 }
 
+function setGoogleEmailMsg(msg, type) {
+  const el = $('#google-email-msg');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'auth-message ' + (type || 'error');
+  el.hidden = false;
+}
+
+function clearGoogleEmailMsg() {
+  const el = $('#google-email-msg');
+  if (el) {
+    el.hidden = true;
+    el.textContent = '';
+  }
+}
+
+async function loginWithGoogleEmail(email) {
+  const trimmed = (email || '').trim().toLowerCase();
+  if (!trimmed || !trimmed.includes('@')) {
+    setGoogleEmailMsg('Please enter a valid Google email address', 'error');
+    return;
+  }
+  const submitBtn = $('#google-email-submit');
+  if (submitBtn) submitBtn.disabled = true;
+  setGoogleEmailMsg('Connecting 5 TB cloud storage…', 'info');
+
+  try {
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'google_auth',
+        email: trimmed,
+        name: trimmed.split('@')[0]
+      })
+    });
+
+    const result = await res.json();
+    if (result && result.status === 'success') {
+      const modal = $('#google-email-modal');
+      if (modal) modal.hidden = true;
+      applyLoginSuccess(result.user, result.docs);
+    } else {
+      setGoogleEmailMsg(result.message || 'Google Sign-In failed', 'error');
+    }
+  } catch (err) {
+    console.error('Google auth error:', err);
+    setGoogleEmailMsg('Connection error: ' + err.message, 'error');
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+  }
+}
+
 async function handleGoogleAuthResponse(response) {
   if (!response || !response.credential) return;
   setAuthMessage('Signing in with Google…', 'info');
@@ -6185,6 +6281,43 @@ $('#auth-pwd-toggle')?.addEventListener('click', () => {
 $('#auth-form')?.addEventListener('submit', handleAuthFormSubmit);
 $('#home-logout-btn')?.addEventListener('click', logoutUser);
 $('#app-logout-btn')?.addEventListener('click', logoutUser);
+
+$('#google-quick-login-btn')?.addEventListener('click', () => {
+  const modal = $('#google-email-modal');
+  if (modal) {
+    modal.hidden = false;
+    clearGoogleEmailMsg();
+    const input = $('#google-email-input');
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 60);
+    }
+  }
+});
+
+$('#google-email-cancel')?.addEventListener('click', () => {
+  const modal = $('#google-email-modal');
+  if (modal) modal.hidden = true;
+});
+
+$('#google-email-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = $('#google-email-input');
+  loginWithGoogleEmail(input ? input.value : '');
+});
+
+$('#google-email-modal')?.addEventListener('click', (e) => {
+  if (e.target === $('#google-email-modal')) {
+    $('#google-email-modal').hidden = true;
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = $('#google-email-modal');
+    if (modal && !modal.hidden) modal.hidden = true;
+  }
+});
 
 /* ---------- boot ---------- */
 document.execCommand('defaultParagraphSeparator',false,'p');
