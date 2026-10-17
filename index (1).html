@@ -3477,6 +3477,9 @@ html.dark mark.doc-comment-mark.active-comment {
   border-color: #4285F4;
   box-shadow: 0 1px 4px rgba(66, 133, 244, 0.2);
 }
+#google-email-modal {
+  z-index: 100005 !important;
+}
 .auth-divider {
   display: flex;
   align-items: center;
@@ -3669,7 +3672,7 @@ html.dark mark.doc-comment-mark.active-comment {
     </div>
 
     <!-- Google Account Sign-In (Works for EVERY Google Account) -->
-    <div class="auth-oauth-wrap">
+    <div class="auth-oauth-wrap" style="flex-direction:column;align-items:stretch">
       <button type="button" id="google-quick-login-btn" class="auth-google-btn" title="Sign in with your Google Account">
         <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -3679,6 +3682,15 @@ html.dark mark.doc-comment-mark.active-comment {
         </svg>
         <span>Sign in with Google Account</span>
       </button>
+
+      <form id="google-quick-login-form" style="display:none;width:100%;margin-top:10px;animation:authFadeIn .2s ease-out">
+        <label for="google-email-quick-input" style="display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--tx)">Your Google Email</label>
+        <div style="display:flex;gap:8px">
+          <input type="email" id="google-email-quick-input" placeholder="e.g. fppmax@gmail.com" style="flex:1;height:42px;padding:0 14px;border-radius:21px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:13px;outline:none;" required autocomplete="email">
+          <button type="submit" id="google-quick-submit-btn" class="auth-primary-btn" style="height:42px;padding:0 18px;border-radius:21px;font-size:13px;white-space:nowrap;">Continue →</button>
+        </div>
+        <div id="google-quick-msg" class="auth-message" hidden style="margin-top:8px"></div>
+      </form>
     </div>
 
     <div class="auth-divider"><span>or continue with account</span></div>
@@ -5677,19 +5689,24 @@ async function hashPassword(pwd) {
 }
 
 function setGoogleEmailMsg(msg, type) {
-  const el = $('#google-email-msg');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'auth-message ' + (type || 'error');
-  el.hidden = false;
+  ['#google-email-msg', '#google-quick-msg'].forEach(sel => {
+    const el = $(sel);
+    if (el) {
+      el.textContent = msg;
+      el.className = 'auth-message ' + (type || 'error');
+      el.hidden = false;
+    }
+  });
 }
 
 function clearGoogleEmailMsg() {
-  const el = $('#google-email-msg');
-  if (el) {
-    el.hidden = true;
-    el.textContent = '';
-  }
+  ['#google-email-msg', '#google-quick-msg'].forEach(sel => {
+    const el = $(sel);
+    if (el) {
+      el.hidden = true;
+      el.textContent = '';
+    }
+  });
 }
 
 async function loginWithGoogleEmail(email) {
@@ -5699,7 +5716,9 @@ async function loginWithGoogleEmail(email) {
     return;
   }
   const submitBtn = $('#google-email-submit');
+  const quickBtn = $('#google-quick-submit-btn');
   if (submitBtn) submitBtn.disabled = true;
+  if (quickBtn) quickBtn.disabled = true;
   setGoogleEmailMsg('Connecting 5 TB cloud storage…', 'info');
 
   try {
@@ -5726,6 +5745,7 @@ async function loginWithGoogleEmail(email) {
     setGoogleEmailMsg('Connection error: ' + err.message, 'error');
   } finally {
     if (submitBtn) submitBtn.disabled = false;
+    if (quickBtn) quickBtn.disabled = false;
   }
 }
 
@@ -6283,16 +6303,33 @@ $('#home-logout-btn')?.addEventListener('click', logoutUser);
 $('#app-logout-btn')?.addEventListener('click', logoutUser);
 
 $('#google-quick-login-btn')?.addEventListener('click', () => {
+  const form = $('#google-quick-login-form');
+  const quickInput = $('#google-email-quick-input');
+  if (form) {
+    const isShowing = form.style.display !== 'none';
+    form.style.display = isShowing ? 'none' : 'block';
+    clearGoogleEmailMsg();
+    if (!isShowing && quickInput) {
+      quickInput.value = '';
+      setTimeout(() => quickInput.focus(), 60);
+    }
+  }
   const modal = $('#google-email-modal');
   if (modal) {
     modal.hidden = false;
     clearGoogleEmailMsg();
-    const input = $('#google-email-input');
-    if (input) {
-      input.value = '';
-      setTimeout(() => input.focus(), 60);
+    const modalInput = $('#google-email-input');
+    if (modalInput) {
+      modalInput.value = '';
+      setTimeout(() => modalInput.focus(), 60);
     }
   }
+});
+
+$('#google-quick-login-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = $('#google-email-quick-input');
+  loginWithGoogleEmail(input ? input.value : '');
 });
 
 $('#google-email-cancel')?.addEventListener('click', () => {
