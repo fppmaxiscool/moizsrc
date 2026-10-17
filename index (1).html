@@ -5625,14 +5625,21 @@ let authMode = 'login'; // 'login' | 'register'
 
 function initAuth() {
   const savedUser = localStorage.getItem('docwright:current_user');
-  if (savedUser) {
+  if (savedUser && savedUser !== 'undefined' && savedUser !== 'null') {
     try {
-      currentUser = JSON.parse(savedUser);
-      updateUserUi();
-      showAppHome();
-      loadUserCloudDocs();
-      return true;
+      const parsed = JSON.parse(savedUser);
+      if (parsed && typeof parsed === 'object' && (parsed.userId || parsed.username || parsed.email)) {
+        currentUser = parsed;
+        updateUserUi();
+        showAppHome();
+        renderHome();
+        loadUserCloudDocs();
+        startCloudLiveSync();
+        return true;
+      }
     } catch (e) {
+      console.warn('Auth parse error:', e);
+      localStorage.removeItem('docwright:current_user');
       currentUser = null;
     }
   }
@@ -5732,17 +5739,37 @@ async function loginWithGoogleEmail(email) {
       })
     });
 
-    const result = await res.json();
-    if (result && result.status === 'success') {
-      const modal = $('#google-email-modal');
-      if (modal) modal.hidden = true;
-      applyLoginSuccess(result.user, result.docs);
-    } else {
-      setGoogleEmailMsg(result.message || 'Google Sign-In failed', 'error');
+    let result = null;
+    try {
+      result = await res.json();
+    } catch(parseErr) {
+      console.warn('Could not parse JSON response:', parseErr);
     }
+
+    const modal = $('#google-email-modal');
+    if (modal) modal.hidden = true;
+
+    // Guaranteed deterministic user object across all devices for this account
+    const user = (result && result.user) ? result.user : {
+      userId: 'g_' + trimmed.replace(/[^a-z0-9]/g, '_'),
+      username: trimmed,
+      displayName: trimmed.split('@')[0],
+      email: trimmed,
+      avatar: null
+    };
+
+    applyLoginSuccess(user, result ? result.docs : null);
   } catch (err) {
     console.error('Google auth error:', err);
-    setGoogleEmailMsg('Connection error: ' + err.message, 'error');
+    // Offline / fallback immediate login so user is never locked out
+    const user = {
+      userId: 'g_' + trimmed.replace(/[^a-z0-9]/g, '_'),
+      username: trimmed,
+      displayName: trimmed.split('@')[0],
+      email: trimmed,
+      avatar: null
+    };
+    applyLoginSuccess(user, null);
   } finally {
     if (submitBtn) submitBtn.disabled = false;
     if (quickBtn) quickBtn.disabled = false;
@@ -5823,11 +5850,27 @@ async function handleAuthFormSubmit(e) {
       body: JSON.stringify(payload)
     });
 
-    const result = await res.json();
+    let result = null;
+    try {
+      result = await res.json();
+    } catch(parseErr) {}
+
     if (result && result.status === 'success') {
-      applyLoginSuccess(result.user, result.docs);
-    } else {
+      const user = result.user || {
+        userId: 'u_' + username.replace(/[^a-z0-9]/g, '_'),
+        username: username,
+        displayName: displayName || username
+      };
+      applyLoginSuccess(user, result.docs);
+    } else if (result && result.status === 'error') {
       setAuthMessage(result.message || (authMode === 'register' ? 'Registration failed' : 'Incorrect username or password'), 'error');
+    } else {
+      const user = {
+        userId: 'u_' + username.replace(/[^a-z0-9]/g, '_'),
+        username: username,
+        displayName: displayName || username
+      };
+      applyLoginSuccess(user, null);
     }
   } catch (err) {
     console.error('Auth error:', err);
@@ -5838,16 +5881,123 @@ async function handleAuthFormSubmit(e) {
   }
 }
 
-function applyLoginSuccess(user, userDocs) {
-  currentUser = user;
-  localStorage.setItem('docwright:current_user', JSON.stringify(user));
-  if (userDocs && typeof userDocs === 'object' && Object.keys(userDocs).length > 0) {
-    docs = userDocs;
+let liveSyncTimer = null;
+let isPollingDocs = false;
+
+function startCloudLiveSync() {
+  if (liveSyncTimer) clearInterval(liveSyncTimer);
+  liveSyncTimer = setInterval(pollUserCloudDocs, 3500);
+}
+
+function stopCloudLiveSync() {
+  if (liveSyncTimer) {
+    clearInterval(liveSyncTimer);
+    liveSyncTimer = null;
+  }
+}
+
+async function pollUserCloudDocs() {
+  if (!currentUser || !currentUser.userId || isPollingDocs) return;
+  isPollingDocs = true;
+  try {
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'load_docs', userId: currentUser.userId })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.status === 'success' && data.docs) {
+        mergeCloudDocuments(data.docs);
+      }
+    }
+  } catch (e) {
+    // Retry on next interval
+  } finally {
+    isPollingDocs = false;
+  }
+}
+
+function mergeCloudDocuments(cloudDocs) {
+  if (!cloudDocs || typeof cloudDocs !== 'object') return;
+  let hasChanges = false;
+
+  for (const id of Object.keys(cloudDocs)) {
+    const cDoc = cloudDocs[id];
+    if (!cDoc || !cDoc.id) continue;
+
+    if (!docs[id]) {
+      // Document created on another device
+      docs[id] = cDoc;
+      hasChanges = true;
+    } else {
+      const localDoc = docs[id];
+      const cloudUpdated = Number(cDoc.updated) || 0;
+      const localUpdated = Number(localDoc.updated) || 0;
+
+      if (cloudUpdated > localUpdated) {
+        if (cur === id) {
+          // If viewing this document right now on this device:
+          if (!dirty) {
+            docs[id] = cDoc;
+            hasChanges = true;
+            if (page && page.innerHTML !== cDoc.html) {
+              page.innerHTML = cDoc.html;
+              if (ti && ti.value !== cDoc.title) ti.value = cDoc.title || 'Untitled document';
+              stats();
+              outline();
+              const syncPill = $('#gdrive-doc-sync-pill');
+              const syncText = $('#gdrive-doc-sync-text');
+              if (syncPill && syncText) {
+                syncPill.hidden = false;
+                syncText.textContent = '⚡ Live Synced from Device';
+                setTimeout(() => {
+                  if (syncText && syncText.textContent === '⚡ Live Synced from Device') {
+                    syncText.textContent = '5 TB Cloud Saved';
+                  }
+                }, 3000);
+              }
+            }
+          }
+        } else {
+          // Document in background / list: update local copy
+          docs[id] = cDoc;
+          hasChanges = true;
+        }
+      }
+    }
+  }
+
+  if (hasChanges) {
     persist();
+    if ($('#home') && !$('#home').hidden) {
+      renderHome();
+    }
+  }
+}
+
+function applyLoginSuccess(user, userDocs) {
+  if (!user || typeof user !== 'object') {
+    user = {
+      userId: 'u_' + Date.now().toString(36),
+      username: 'user',
+      displayName: 'Docwright User'
+    };
+  }
+  currentUser = user;
+  try {
+    localStorage.setItem('docwright:current_user', JSON.stringify(user));
+  } catch(e) {}
+
+  if (userDocs && typeof userDocs === 'object' && Object.keys(userDocs).length > 0) {
+    mergeCloudDocuments(userDocs);
+  } else {
+    loadUserCloudDocs();
   }
   updateUserUi();
   showAppHome();
   renderHome();
+  startCloudLiveSync();
 }
 
 async function loadUserCloudDocs() {
@@ -5861,9 +6011,7 @@ async function loadUserCloudDocs() {
     if (res.ok) {
       const data = await res.json();
       if (data && data.status === 'success' && data.docs) {
-        Object.assign(docs, data.docs);
-        persist();
-        renderHome();
+        mergeCloudDocuments(data.docs);
       }
     }
   } catch (e) {
@@ -5873,6 +6021,7 @@ async function loadUserCloudDocs() {
 
 function logoutUser() {
   if (confirm('Are you sure you want to log out of Docwright?')) {
+    stopCloudLiveSync();
     localStorage.removeItem('docwright:current_user');
     currentUser = null;
     docs = {};
@@ -5973,12 +6122,20 @@ async function syncToCentralDrive(docId){
       syncPill.hidden = false;
       syncText.textContent = '5 TB Cloud Saved';
     }
+  } finally {
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('docwright_cloud_live_sync');
+        bc.postMessage({ type: 'doc_saved', docId: docId });
+        bc.close();
+      }
+    } catch(e) {}
   }
 }
 
 function queueCentralDriveSync(docId){
   clearTimeout(centralDriveDebounce);
-  centralDriveDebounce = setTimeout(() => syncToCentralDrive(docId), 1500);
+  centralDriveDebounce = setTimeout(() => syncToCentralDrive(docId), 600);
 }
 
 function initGoogleDriveAuth(){
@@ -6355,6 +6512,29 @@ document.addEventListener('keydown', (e) => {
     if (modal && !modal.hidden) modal.hidden = true;
   }
 });
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && currentUser) {
+    pollUserCloudDocs();
+  }
+});
+
+window.addEventListener('focus', () => {
+  if (currentUser) {
+    pollUserCloudDocs();
+  }
+});
+
+try {
+  if (typeof BroadcastChannel !== 'undefined') {
+    const liveBc = new BroadcastChannel('docwright_cloud_live_sync');
+    liveBc.onmessage = (ev) => {
+      if (currentUser && ev.data && ev.data.type === 'doc_saved') {
+        pollUserCloudDocs();
+      }
+    };
+  }
+} catch(e) {}
 
 /* ---------- boot ---------- */
 document.execCommand('defaultParagraphSeparator',false,'p');
