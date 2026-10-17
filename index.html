@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <!-- ============ STYLES ============ -->
 <style>
@@ -164,6 +165,18 @@ html.dark .home-tab-badge{background:#8ab4f8;color:#1e1f22}
 .home-action-btn:hover{background:var(--hov)}
 .home-shared-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#1a73e8;background:rgba(26,115,232,.1);padding:2px 6px;border-radius:4px;margin-top:2px}
 html.dark .home-shared-chip{color:#8ab4f8;background:rgba(138,180,248,.15)}
+.gdrive-pill-btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:17px;font-size:12.5px;font-weight:600;border:1px solid var(--bd);background:var(--bg);color:var(--tx);cursor:pointer;transition:all .15s ease}
+.gdrive-pill-btn:hover{background:var(--hov);border-color:#34a853}
+.gdrive-connected-pill{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px 0 8px;border-radius:17px;background:rgba(52,168,83,.12);border:1px solid rgba(52,168,83,.3);color:var(--tx);font-size:12px;font-weight:600}
+html.dark .gdrive-connected-pill{background:rgba(52,168,83,.2);border-color:rgba(52,168,83,.4);color:#81c995}
+.gdrive-avatar{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.gdrive-status-dot{width:8px;height:8px;border-radius:50%;background:#34a853;box-shadow:0 0 6px rgba(52,168,83,.6);flex-shrink:0}
+.gdrive-sub-btn{width:20px;height:20px;min-width:20px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:none;background:transparent;color:var(--mut);cursor:pointer;font-size:11px}
+.gdrive-sub-btn:hover{background:rgba(0,0,0,.1);color:var(--tx)}
+.gdrive-sync-pill{background:rgba(52,168,83,.1);border-color:rgba(52,168,83,.3);color:#34a853}
+html.dark .gdrive-sync-pill{color:#81c995}
+.gdrive-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#34a853;background:rgba(52,168,83,.12);padding:2px 6px;border-radius:4px;margin-top:2px}
+html.dark .gdrive-chip{color:#81c995;background:rgba(52,168,83,.2)}
 .empty-tab-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;color:var(--mut);background:var(--bg);border:1px dashed var(--bd);border-radius:12px;margin:12px 0 32px}
 .empty-tab-state svg{margin-bottom:12px;opacity:.7}
 .empty-tab-state h3{margin:0 0 6px;font-size:16px;font-weight:600;color:var(--tx)}
@@ -3397,6 +3410,18 @@ html.dark mark.doc-comment-mark.active-comment {
  <header class="hh"><span class="hl"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="2" width="18" height="24" rx="3" fill="#1a73e8"/><path d="M9 9h10M9 13h10M9 17h6" stroke="#fff" stroke-width="2"/></svg><span>Docwright</span></span>
   <label class="hs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input type="search" id="hq" placeholder="Search" aria-label="Search documents"></label>
   <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
+  <div id="home-gdrive-wrap" style="display:flex;align-items:center;margin-left:auto;margin-right:8px">
+   <button type="button" id="gdrive-connect-btn" class="gdrive-pill-btn" title="Connect your 5 TB Google Drive">
+    <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+    <span id="gdrive-connect-text">Connect Drive</span>
+   </button>
+   <div id="gdrive-connected-pill" class="gdrive-connected-pill" hidden>
+    <img id="gdrive-avatar" class="gdrive-avatar" src="" alt="Google Drive Account" style="display:none">
+    <span id="gdrive-user-label">5 TB Drive</span>
+    <span class="gdrive-status-dot" title="Cloud Sync Active"></span>
+    <button type="button" id="gdrive-logout-btn" class="gdrive-sub-btn" title="Disconnect Google Drive">✕</button>
+   </div>
+  </div>
   <button class="dk" data-a="dark" title="Dark mode on / off">◐</button></header>
  <section class="band"><div class="wrap"><h2>Start a new document</h2><div class="tpl" id="tpl"></div></div></section>
  <section class="wrap">
@@ -3410,6 +3435,11 @@ html.dark mark.doc-comment-mark.active-comment {
      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
      <span>Shared documents</span>
      <span id="home-shared-badge" class="home-tab-badge" style="display:none">0</span>
+    </button>
+    <button class="home-tab-btn" id="home-tab-gdrive" data-home-tab="gdrive" role="tab" aria-selected="false" title="View documents synced to your 5 TB Google Drive">
+     <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true" style="margin-right:2px"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+     <span>Google Drive</span>
+     <span id="home-gdrive-badge" class="home-tab-badge" style="display:none;background:#34a853">0</span>
     </button>
    </div>
    <div class="home-tab-actions">
@@ -3440,6 +3470,10 @@ html.dark mark.doc-comment-mark.active-comment {
     <span class="doc-status-pill" title="Saved to local storage">
      <svg class="doc-status-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3.5-3.5 1.41-1.41L10 14.17 15.59 8.59 17 10l-7 7z"/></svg>
      <span id="st" role="status" aria-live="polite">Saved</span>
+    </span>
+    <span id="gdrive-doc-sync-pill" class="doc-status-pill gdrive-sync-pill" hidden title="Cloud synced with your 5 TB Google Drive">
+     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 18a4 4 0 0 0 .5-7.9A6 6 0 0 0 8 9a4 4 0 0 0-4 4 4 4 0 0 0 4 4h11z"/></svg>
+     <span id="gdrive-doc-sync-text">Drive Synced</span>
     </span>
    </div>
    <nav class="menus" id="menus" aria-label="Menu"></nav>
@@ -4505,6 +4539,7 @@ function saveNow(){
   const c=page.cloneNode(true);c.querySelectorAll('mark.fm').forEach(m=>m.replaceWith(...m.childNodes));
   Object.assign(docs[cur],{html:c.innerHTML,updated:Date.now()});dirty=false;
   setSt(persist()?'Saved':'Not saved (storage unavailable or full)');
+  if(typeof gDriveAccessToken!=='undefined'&&gDriveAccessToken&&typeof queueGDriveSync==='function')queueGDriveSync(cur);
 }
 function edited(){dirty=true;setSt('Saving…');stats();clearTimeout(edited.t);edited.t=setTimeout(outline,400);if(!isRemoteUpdate&&typeof triggerCollabBroadcast==='function')triggerCollabBroadcast();}
 setInterval(()=>{if(dirty)saveNow()},3000);
@@ -4538,9 +4573,17 @@ function renderHome(){
       badge.style.display='none';
     }
   }
+  if(typeof updateGDriveBadge==='function')updateGDriveBadge();
 
   // Filter docs according to active tab
-  let a=(homeActiveTab==='shared')?sharedDocs:allDocs;
+  let a;
+  if(homeActiveTab==='shared'){
+    a=sharedDocs;
+  }else if(homeActiveTab==='gdrive'){
+    a=allDocs.filter(d=>!!d.gdriveFileId);
+  }else{
+    a=allDocs;
+  }
   a=a.filter(d=>(d.title||'').toLowerCase().includes(q))
      .sort((x,y)=>by==='title'?(x.title||'').localeCompare(y.title||''):(y.updated||0)-(x.updated||0));
 
@@ -4557,6 +4600,28 @@ function renderHome(){
         </div>`;
       const emptyBtn=$('#empty-open-link-btn');
       if(emptyBtn)emptyBtn.onclick=()=>openDocLinkModal();
+    }else if(homeActiveTab==='gdrive'){
+      if(!gDriveAccessToken){
+        l.innerHTML=`
+          <div class="empty-tab-state">
+            <svg viewBox="0 0 87.3 78" width="54" height="48" style="margin-bottom:14px" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+            <h3>Connect your 5 TB Google Drive</h3>
+            <p>Store unlimited documents, large images, and revision histories directly inside your personal Google Drive account.</p>
+            <button type="button" id="gdrive-empty-connect-btn" class="gdrive-pill-btn" style="background:#1a73e8;color:#fff;border-color:#1a73e8;height:38px;padding:0 20px;border-radius:19px;font-size:13.5px"><span>Connect Google Drive</span></button>
+          </div>`;
+        const cBtn=$('#gdrive-empty-connect-btn');
+        if(cBtn)cBtn.onclick=()=>connectGoogleDrive();
+      }else{
+        l.innerHTML=`
+          <div class="empty-tab-state">
+            <svg viewBox="0 0 87.3 78" width="54" height="48" style="margin-bottom:14px" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+            <h3>Google Drive is connected</h3>
+            <p>Sync your existing documents now or start a new document to automatically save it into your 5 TB Google Drive folder.</p>
+            <button type="button" id="gdrive-sync-all-btn" class="gdrive-pill-btn" style="background:#34a853;color:#fff;border-color:#34a853;height:38px;padding:0 20px;border-radius:19px;font-size:13.5px"><span>☁️ Sync all documents to Drive</span></button>
+          </div>`;
+        const syncAllBtn=$('#gdrive-sync-all-btn');
+        if(syncAllBtn)syncAllBtn.onclick=()=>syncAllDocsToDrive();
+      }
     }else{
       l.innerHTML=`<p class="mut">${q?'No documents match your search.':'No documents yet. Start one from a template above.'}</p>`;
     }
@@ -4566,6 +4631,7 @@ function renderHome(){
   a.forEach(d=>{
     const c=document.createElement('div');c.className='card';
     const isShared=!!d.isShared;
+    const isDrive=!!d.gdriveFileId;
     const dateStr=isShared&&d.sharedAt
       ?`Shared ${new Date(d.sharedAt).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`
       :`Edited ${new Date(d.updated||Date.now()).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`;
@@ -4577,6 +4643,7 @@ function renderHome(){
           <b></b>
           <small>${dateStr}</small>
           ${isShared?'<span class="home-shared-chip" title="Shared with you"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Shared</span>':''}
+          ${isDrive?'<span class="gdrive-chip" title="Synced with 5 TB Google Drive"><svg viewBox="0 0 87.3 78" width="11" height="10" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg> 5 TB Drive</span>':''}
         </span>
         <button class="mb" aria-haspopup="true" aria-expanded="false" aria-label="More actions">⋮</button>
         <div class="dd cm" role="menu" hidden>
@@ -4584,6 +4651,8 @@ function renderHome(){
           <button role="menuitem" data-c="r">Rename</button>
           <button role="menuitem" data-c="c">Make a copy</button>
           ${isShared&&d.sharePkg?'<button role="menuitem" data-c="l">Copy share link</button>':''}
+          ${gDriveAccessToken?'<button role="menuitem" data-c="gdsync">Sync to Google Drive</button>':''}
+          ${d.gdriveFileId?'<button role="menuitem" data-c="gdopen">View in Google Drive</button>':''}
           <button role="menuitem" data-c="d">${isShared?'Remove from shared':'Remove'}</button>
         </div>
       </div>`;
@@ -4603,6 +4672,15 @@ function renderHome(){
         }).catch(()=>{
           prompt('Copy this link:',link);
         });
+      }
+    });
+    on('[data-c=gdsync]',async ()=>{
+      await syncDocToDrive(d.id);
+      renderHome();
+    });
+    on('[data-c=gdopen]',()=>{
+      if(d.gdriveFileId){
+        window.open(`https://drive.google.com/file/d/${d.gdriveFileId}/view`,'_blank');
       }
     });
     on('[data-c=d]',()=>{
@@ -4634,7 +4712,7 @@ function openDoc(id){
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
   ti.value=d.title;document.title=d.title+' – Docwright';
   $('#home').hidden=true;$('#app').hidden=false;
-  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();if(typeof loadDocAiMemory==='function')loadDocAiMemory(cur);setSt('Saved');page.focus();
+  setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();if(typeof loadDocAiMemory==='function')loadDocAiMemory(cur);setSt('Saved');if(typeof updateGDriveDocPill==='function')updateGDriveDocPill(cur);page.focus();
 }
 function fit(){setZoom(Math.max(50,Math.min(100,Math.floor((innerWidth-32)/(page.classList.contains('a4')?794:816)*100))))}
 function setZoom(v){$('#zm').value=v;$('#zv').textContent=v+'%';$('#sheet').style.zoom=v/100;const z=$('#zsel');if(![...z.options].some(o=>+o.value===v))z.add(new Option(v+'%',v));z.value=v}
@@ -5142,9 +5220,309 @@ document.querySelectorAll('.home-tab-btn').forEach(btn=>{
     renderHome();
   };
 });
+/* ============ GOOGLE DRIVE 5TB CLOUD STORAGE INTEGRATION ============ */
+const GDRIVE_CLIENT_ID = '313965457655-27dn8tqf6jm8eq6t8c1pvcabv9g64mk9.apps.googleusercontent.com';
+const GDRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+const KEY_GDRIVE_TOKEN = 'docwright:gdrive_token';
+const KEY_GDRIVE_EXP = 'docwright:gdrive_token_exp';
+const KEY_GDRIVE_USER = 'docwright:gdrive_user';
+const KEY_GDRIVE_FOLDER = 'docwright:gdrive_folder_id';
+
+let gDriveTokenClient = null;
+let gDriveAccessToken = null;
+let gDriveUser = null;
+let gDriveFolderId = null;
+let gDriveSyncDebounce = null;
+
+function initGoogleDriveAuth(){
+  try {
+    const savedToken = localStorage.getItem(KEY_GDRIVE_TOKEN);
+    const savedExp = parseInt(localStorage.getItem(KEY_GDRIVE_EXP) || '0', 10);
+    const savedUser = localStorage.getItem(KEY_GDRIVE_USER);
+    if (savedToken && Date.now() < savedExp) {
+      gDriveAccessToken = savedToken;
+      if (savedUser) {
+        try { gDriveUser = JSON.parse(savedUser); } catch(e) {}
+      }
+      gDriveFolderId = localStorage.getItem(KEY_GDRIVE_FOLDER) || null;
+      updateGDriveUiState(true);
+      ensureGDriveFolder();
+    } else {
+      updateGDriveUiState(false);
+    }
+  } catch(e) {
+    console.warn('GDrive init load failed', e);
+  }
+}
+
+function updateGDriveUiState(isConnected){
+  const connBtn = $('#gdrive-connect-btn');
+  const userPill = $('#gdrive-connected-pill');
+  const userLabel = $('#gdrive-user-label');
+  const userAvatar = $('#gdrive-avatar');
+  const syncPill = $('#gdrive-doc-sync-pill');
+  
+  if (isConnected) {
+    if (connBtn) connBtn.hidden = true;
+    if (userPill) userPill.hidden = false;
+    if (userLabel) {
+      userLabel.textContent = gDriveUser?.name || gDriveUser?.email || '5 TB Drive Connected';
+      userLabel.title = (gDriveUser?.email ? gDriveUser.email + ' • ' : '') + 'Connected to 5 TB Google Drive';
+    }
+    if (userAvatar) {
+      if (gDriveUser?.picture) {
+        userAvatar.src = gDriveUser.picture;
+        userAvatar.style.display = 'block';
+      } else {
+        userAvatar.style.display = 'none';
+      }
+    }
+    if (syncPill && cur) {
+      syncPill.hidden = false;
+    }
+  } else {
+    if (connBtn) connBtn.hidden = false;
+    if (userPill) userPill.hidden = true;
+    if (syncPill) syncPill.hidden = true;
+  }
+  updateGDriveBadge();
+}
+
+function updateGDriveBadge(){
+  const badge = $('#home-gdrive-badge');
+  if (badge) {
+    const driveDocs = Object.values(docs).filter(d => !!d.gdriveFileId);
+    if (driveDocs.length > 0) {
+      badge.textContent = driveDocs.length;
+      badge.style.display = 'inline-flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+function updateGDriveDocPill(docId){
+  const syncPill = $('#gdrive-doc-sync-pill');
+  const syncText = $('#gdrive-doc-sync-text');
+  if (!syncPill || !syncText) return;
+  if (!gDriveAccessToken) {
+    syncPill.hidden = true;
+    return;
+  }
+  syncPill.hidden = false;
+  if (docs[docId]?.gdriveFileId) {
+    syncText.textContent = 'Drive Synced';
+  } else {
+    syncText.textContent = 'Ready to sync';
+  }
+}
+
+function connectGoogleDrive(){
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
+    alert('Google Identity Services is loading. Please verify internet access and try again in a few moments.');
+    return;
+  }
+  
+  if (!gDriveTokenClient) {
+    gDriveTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GDRIVE_CLIENT_ID,
+      scope: GDRIVE_SCOPES,
+      callback: async (resp) => {
+        if (resp.error) {
+          console.error('Google Drive Auth error:', resp);
+          alert('Google Drive connection failed: ' + (resp.error_description || resp.error));
+          return;
+        }
+        if (resp.access_token) {
+          gDriveAccessToken = resp.access_token;
+          const expiresIn = (parseInt(resp.expires_in, 10) || 3500) * 1000;
+          localStorage.setItem(KEY_GDRIVE_TOKEN, gDriveAccessToken);
+          localStorage.setItem(KEY_GDRIVE_EXP, String(Date.now() + expiresIn - 60000));
+          
+          await fetchGDriveUserInfo();
+          updateGDriveUiState(true);
+          await ensureGDriveFolder();
+          await syncAllDocsToDrive();
+          renderHome();
+        }
+      }
+    });
+  }
+  
+  gDriveTokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+function disconnectGoogleDrive(){
+  if (confirm('Disconnect your 5 TB Google Drive from Docwright? Your files will remain safe in Google Drive.')) {
+    if (gDriveAccessToken && typeof google !== 'undefined' && google.accounts?.oauth2?.revoke) {
+      try { google.accounts.oauth2.revoke(gDriveAccessToken, () => {}); } catch(e) {}
+    }
+    gDriveAccessToken = null;
+    gDriveUser = null;
+    localStorage.removeItem(KEY_GDRIVE_TOKEN);
+    localStorage.removeItem(KEY_GDRIVE_EXP);
+    localStorage.removeItem(KEY_GDRIVE_USER);
+    updateGDriveUiState(false);
+    renderHome();
+  }
+}
+
+async function fetchGDriveUserInfo(){
+  if (!gDriveAccessToken) return;
+  try {
+    const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${gDriveAccessToken}` }
+    });
+    if (res.ok) {
+      gDriveUser = await res.json();
+      localStorage.setItem(KEY_GDRIVE_USER, JSON.stringify(gDriveUser));
+    }
+  } catch(e) {
+    console.warn('Failed to fetch Google userinfo', e);
+  }
+}
+
+async function ensureGDriveFolder(){
+  if (!gDriveAccessToken) return null;
+  if (gDriveFolderId) return gDriveFolderId;
+  try {
+    const q = encodeURIComponent("name = 'Docwright' and mimeType = 'application/vnd.google-apps.folder' and trashed = false");
+    const res = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)`, {
+      headers: { Authorization: `Bearer ${gDriveAccessToken}` }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.files && data.files.length > 0) {
+        gDriveFolderId = data.files[0].id;
+        localStorage.setItem(KEY_GDRIVE_FOLDER, gDriveFolderId);
+        return gDriveFolderId;
+      }
+    }
+    const createRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${gDriveAccessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Docwright',
+        mimeType: 'application/vnd.google-apps.folder',
+        description: 'Docwright cloud documents and assets (5 TB storage)'
+      })
+    });
+    if (createRes.ok) {
+      const folder = await createRes.json();
+      gDriveFolderId = folder.id;
+      localStorage.setItem(KEY_GDRIVE_FOLDER, gDriveFolderId);
+      return gDriveFolderId;
+    }
+  } catch(e) {
+    console.error('Error creating/finding Docwright folder in Drive:', e);
+  }
+  return null;
+}
+
+async function syncDocToDrive(docId){
+  if (!gDriveAccessToken || !docId || !docs[docId]) return;
+  const d = docs[docId];
+  const folderId = await ensureGDriveFolder();
+  
+  const syncPill = $('#gdrive-doc-sync-pill');
+  const syncText = $('#gdrive-doc-sync-text');
+  if (cur === docId && syncPill && syncText) {
+    syncPill.hidden = false;
+    syncText.textContent = 'Syncing to Drive…';
+  }
+
+  const filePayload = JSON.stringify({
+    schema: 'docwright:v1',
+    id: d.id,
+    title: d.title || 'Untitled document',
+    html: d.html || '<p><br></p>',
+    size: d.size || 'letter',
+    updated: d.updated || Date.now(),
+    isShared: !!d.isShared,
+    comments: d.comments || [],
+    aiMemory: localStorage.getItem('docwright:ai_mem:' + d.id) || null
+  }, null, 2);
+
+  const metadata = {
+    name: `${d.title || 'Untitled document'}.docw`,
+    mimeType: 'application/json',
+    description: 'Docwright document'
+  };
+  if (!d.gdriveFileId && folderId) {
+    metadata.parents = [folderId];
+  }
+
+  const boundary = '-------314159265358979323846';
+  const delimiter = "\r\n--" + boundary + "\r\n";
+  const closeDelimiter = "\r\n--" + boundary + "--";
+
+  const multipartRequestBody =
+    delimiter +
+    'Content-Type: application/json; charset=UTF-8\r\n\r\n' +
+    JSON.stringify(metadata) +
+    delimiter +
+    'Content-Type: application/json\r\n\r\n' +
+    filePayload +
+    closeDelimiter;
+
+  try {
+    let url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+    let method = 'POST';
+    if (d.gdriveFileId) {
+      url = `https://www.googleapis.com/upload/drive/v3/files/${d.gdriveFileId}?uploadType=multipart`;
+      method = 'PATCH';
+    }
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        Authorization: `Bearer ${gDriveAccessToken}`,
+        'Content-Type': `multipart/related; boundary=${boundary}`
+      },
+      body: multipartRequestBody
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      d.gdriveFileId = data.id;
+      d.gdriveSyncedAt = Date.now();
+      persist();
+      if (cur === docId && syncPill && syncText) {
+        syncPill.hidden = false;
+        syncText.textContent = 'Drive Synced';
+      }
+      updateGDriveBadge();
+    } else {
+      console.warn('Failed to sync document to Google Drive', await res.text());
+    }
+  } catch(err) {
+    console.error('Google Drive sync error:', err);
+  }
+}
+
+function queueGDriveSync(docId){
+  if (!gDriveAccessToken) return;
+  clearTimeout(gDriveSyncDebounce);
+  gDriveSyncDebounce = setTimeout(() => syncDocToDrive(docId), 1200);
+}
+
+async function syncAllDocsToDrive(){
+  if (!gDriveAccessToken) return;
+  const allIds = Object.keys(docs);
+  for (const id of allIds) {
+    await syncDocToDrive(id);
+  }
+}
+
+$('#gdrive-connect-btn')?.addEventListener('click', connectGoogleDrive);
+$('#gdrive-logout-btn')?.addEventListener('click', disconnectGoogleDrive);
+
 /* ---------- boot ---------- */
 document.execCommand('defaultParagraphSeparator',false,'p');
-applyTheme();load();renderHome();checkSharedUrl();
+applyTheme();load();renderHome();checkSharedUrl();initGoogleDriveAuth();
 
 /* ============ DOCWRIGHT AI ENGINE (DeepSeek Multi-Agent & Anti-AI Slop Filter) ============ */
 const _dk = s => { try { return atob(s); } catch (e) { return ''; } };
