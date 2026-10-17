@@ -5094,8 +5094,8 @@ function openDoc(id){
   if(cur!==id&&typeof closeCollab==='function')closeCollab();
   cur=id;
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
-  ti.value=d.title;document.title=d.title+' – Docwright';
-  $('#home').hidden=true;$('#app').hidden=false;
+  const ap = $('#auth-page'); if(ap){ ap.hidden=true; ap.style.display='none'; }
+  $('#home').hidden=true;$('#home').style.display='none';$('#app').hidden=false;$('#app').style.display='';
   setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();if(typeof loadDocAiMemory==='function')loadDocAiMemory(cur);setSt('Saved');if(typeof updateGDriveDocPill==='function')updateGDriveDocPill(cur);page.focus();
 }
 function fit(){setZoom(Math.max(50,Math.min(100,Math.floor((innerWidth-32)/(page.classList.contains('a4')?794:816)*100))))}
@@ -5239,7 +5239,7 @@ function htmlToMarkdown(html){
 }
 
 const A={
-  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;$('#app').hidden=true;$('#home').hidden=false;document.title='Docwright';renderHome()}, disboarder:()=>{if(typeof openDisboard==='function')openDisboard();else A.home()},
+  new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;showAppHome();document.title='Docwright';renderHome()}, disboarder:()=>{if(typeof openDisboard==='function')openDisboard();else A.home()},
   save:()=>{saveNow()}, open:()=>$('#fi').click(), size:()=>{if(!cur)return;page.classList.toggle('a4');docs[cur].size=page.classList.contains('a4')?'a4':'letter';fit();edited()},
   print:()=>{
     clearMarks();
@@ -5651,9 +5651,18 @@ function showAuthPage() {
   const authEl = $('#auth-page');
   const homeEl = $('#home');
   const appEl = $('#app');
-  if (authEl) authEl.hidden = false;
-  if (homeEl) homeEl.hidden = true;
-  if (appEl) appEl.hidden = true;
+  if (authEl) {
+    authEl.hidden = false;
+    authEl.style.display = 'flex';
+  }
+  if (homeEl) {
+    homeEl.hidden = true;
+    homeEl.style.display = 'none';
+  }
+  if (appEl) {
+    appEl.hidden = true;
+    appEl.style.display = 'none';
+  }
   clearAuthMessage();
 }
 
@@ -5661,9 +5670,18 @@ function showAppHome() {
   const authEl = $('#auth-page');
   const homeEl = $('#home');
   const appEl = $('#app');
-  if (authEl) authEl.hidden = true;
-  if (homeEl) homeEl.hidden = false;
-  if (appEl) appEl.hidden = true;
+  if (authEl) {
+    authEl.hidden = true;
+    authEl.style.display = 'none';
+  }
+  if (homeEl) {
+    homeEl.hidden = false;
+    homeEl.style.display = '';
+  }
+  if (appEl) {
+    appEl.hidden = true;
+    appEl.style.display = 'none';
+  }
 }
 
 function setAuthMessage(msg, type) {
