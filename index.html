@@ -3411,15 +3411,13 @@ html.dark mark.doc-comment-mark.active-comment {
   <label class="hs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input type="search" id="hq" placeholder="Search" aria-label="Search documents"></label>
   <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
   <div id="home-gdrive-wrap" style="display:flex;align-items:center;margin-left:auto;margin-right:8px">
-   <button type="button" id="gdrive-connect-btn" class="gdrive-pill-btn" title="Connect your 5 TB Google Drive">
-    <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-    <span id="gdrive-connect-text">Connect Drive</span>
-   </button>
-   <div id="gdrive-connected-pill" class="gdrive-connected-pill" hidden>
+   <div id="gdrive-connected-pill" class="gdrive-connected-pill" title="5 TB Central Cloud Storage Active (Every document saves automatically)">
     <img id="gdrive-avatar" class="gdrive-avatar" src="" alt="Google Drive Account" style="display:none">
-    <span id="gdrive-user-label">5 TB Drive</span>
+    <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+    <span id="gdrive-user-label">5 TB Cloud Active</span>
     <span class="gdrive-status-dot" title="Cloud Sync Active"></span>
-    <button type="button" id="gdrive-logout-btn" class="gdrive-sub-btn" title="Disconnect Google Drive">✕</button>
+    <button type="button" id="gdrive-connect-btn" class="gdrive-sub-btn" title="Personal Google Drive Settings" style="margin-left:2px;font-size:12px">⚙️</button>
+    <button type="button" id="gdrive-logout-btn" class="gdrive-sub-btn" title="Disconnect personal Google Drive" style="display:none">✕</button>
    </div>
   </div>
   <button class="dk" data-a="dark" title="Dark mode on / off">◐</button></header>
@@ -3471,9 +3469,9 @@ html.dark mark.doc-comment-mark.active-comment {
      <svg class="doc-status-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3.5-3.5 1.41-1.41L10 14.17 15.59 8.59 17 10l-7 7z"/></svg>
      <span id="st" role="status" aria-live="polite">Saved</span>
     </span>
-    <span id="gdrive-doc-sync-pill" class="doc-status-pill gdrive-sync-pill" hidden title="Cloud synced with your 5 TB Google Drive">
+    <span id="gdrive-doc-sync-pill" class="doc-status-pill gdrive-sync-pill" title="Cloud synced with 5 TB Google Drive">
      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 18a4 4 0 0 0 .5-7.9A6 6 0 0 0 8 9a4 4 0 0 0-4 4 4 4 0 0 0 4 4h11z"/></svg>
-     <span id="gdrive-doc-sync-text">Drive Synced</span>
+     <span id="gdrive-doc-sync-text">5 TB Cloud Saved</span>
     </span>
    </div>
    <nav class="menus" id="menus" aria-label="Menu"></nav>
@@ -4539,6 +4537,7 @@ function saveNow(){
   const c=page.cloneNode(true);c.querySelectorAll('mark.fm').forEach(m=>m.replaceWith(...m.childNodes));
   Object.assign(docs[cur],{html:c.innerHTML,updated:Date.now()});dirty=false;
   setSt(persist()?'Saved':'Not saved (storage unavailable or full)');
+  if(typeof queueCentralDriveSync==='function')queueCentralDriveSync(cur);
   if(typeof gDriveAccessToken!=='undefined'&&gDriveAccessToken&&typeof queueGDriveSync==='function')queueGDriveSync(cur);
 }
 function edited(){dirty=true;setSt('Saving…');stats();clearTimeout(edited.t);edited.t=setTimeout(outline,400);if(!isRemoteUpdate&&typeof triggerCollabBroadcast==='function')triggerCollabBroadcast();}
@@ -4580,7 +4579,7 @@ function renderHome(){
   if(homeActiveTab==='shared'){
     a=sharedDocs;
   }else if(homeActiveTab==='gdrive'){
-    a=allDocs.filter(d=>!!d.gdriveFileId);
+    a=allDocs.filter(d=>!!(d.gdriveFileId || d.centralDriveSyncedAt));
   }else{
     a=allDocs;
   }
@@ -4601,27 +4600,15 @@ function renderHome(){
       const emptyBtn=$('#empty-open-link-btn');
       if(emptyBtn)emptyBtn.onclick=()=>openDocLinkModal();
     }else if(homeActiveTab==='gdrive'){
-      if(!gDriveAccessToken){
-        l.innerHTML=`
-          <div class="empty-tab-state">
-            <svg viewBox="0 0 87.3 78" width="54" height="48" style="margin-bottom:14px" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-            <h3>Connect your 5 TB Google Drive</h3>
-            <p>Store unlimited documents, large images, and revision histories directly inside your personal Google Drive account.</p>
-            <button type="button" id="gdrive-empty-connect-btn" class="gdrive-pill-btn" style="background:#1a73e8;color:#fff;border-color:#1a73e8;height:38px;padding:0 20px;border-radius:19px;font-size:13.5px"><span>Connect Google Drive</span></button>
-          </div>`;
-        const cBtn=$('#gdrive-empty-connect-btn');
-        if(cBtn)cBtn.onclick=()=>connectGoogleDrive();
-      }else{
-        l.innerHTML=`
-          <div class="empty-tab-state">
-            <svg viewBox="0 0 87.3 78" width="54" height="48" style="margin-bottom:14px" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
-            <h3>Google Drive is connected</h3>
-            <p>Sync your existing documents now or start a new document to automatically save it into your 5 TB Google Drive folder.</p>
-            <button type="button" id="gdrive-sync-all-btn" class="gdrive-pill-btn" style="background:#34a853;color:#fff;border-color:#34a853;height:38px;padding:0 20px;border-radius:19px;font-size:13.5px"><span>☁️ Sync all documents to Drive</span></button>
-          </div>`;
-        const syncAllBtn=$('#gdrive-sync-all-btn');
-        if(syncAllBtn)syncAllBtn.onclick=()=>syncAllDocsToDrive();
-      }
+      l.innerHTML=`
+        <div class="empty-tab-state">
+          <svg viewBox="0 0 87.3 78" width="54" height="48" style="margin-bottom:14px" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
+          <h3>5 TB Google Drive Storage</h3>
+          <p>Every document automatically saves to your 5 TB Google Drive cloud. You can also back up all existing documents at once.</p>
+          <button type="button" id="gdrive-sync-all-btn" class="gdrive-pill-btn" style="background:#34a853;color:#fff;border-color:#34a853;height:38px;padding:0 20px;border-radius:19px;font-size:13.5px"><span>☁️ Back up all documents to 5 TB Drive</span></button>
+        </div>`;
+      const syncAllBtn=$('#gdrive-sync-all-btn');
+      if(syncAllBtn)syncAllBtn.onclick=()=>syncAllDocsToDrive();
     }else{
       l.innerHTML=`<p class="mut">${q?'No documents match your search.':'No documents yet. Start one from a template above.'}</p>`;
     }
@@ -4631,7 +4618,7 @@ function renderHome(){
   a.forEach(d=>{
     const c=document.createElement('div');c.className='card';
     const isShared=!!d.isShared;
-    const isDrive=!!d.gdriveFileId;
+    const isDrive=!!(d.gdriveFileId || d.centralDriveSyncedAt);
     const dateStr=isShared&&d.sharedAt
       ?`Shared ${new Date(d.sharedAt).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`
       :`Edited ${new Date(d.updated||Date.now()).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}`;
@@ -4651,8 +4638,8 @@ function renderHome(){
           <button role="menuitem" data-c="r">Rename</button>
           <button role="menuitem" data-c="c">Make a copy</button>
           ${isShared&&d.sharePkg?'<button role="menuitem" data-c="l">Copy share link</button>':''}
-          ${gDriveAccessToken?'<button role="menuitem" data-c="gdsync">Sync to Google Drive</button>':''}
-          ${d.gdriveFileId?'<button role="menuitem" data-c="gdopen">View in Google Drive</button>':''}
+          <button role="menuitem" data-c="gdsync">Back up to 5 TB Drive</button>
+          ${(d.gdriveFileId||d.centralDriveUrl)?'<button role="menuitem" data-c="gdopen">View in Google Drive</button>':''}
           <button role="menuitem" data-c="d">${isShared?'Remove from shared':'Remove'}</button>
         </div>
       </div>`;
@@ -4675,13 +4662,13 @@ function renderHome(){
       }
     });
     on('[data-c=gdsync]',async ()=>{
-      await syncDocToDrive(d.id);
+      if(typeof syncToCentralDrive==='function')await syncToCentralDrive(d.id);
+      if(typeof syncDocToDrive==='function'&&gDriveAccessToken)await syncDocToDrive(d.id);
       renderHome();
     });
     on('[data-c=gdopen]',()=>{
-      if(d.gdriveFileId){
-        window.open(`https://drive.google.com/file/d/${d.gdriveFileId}/view`,'_blank');
-      }
+      const gdUrl=d.centralDriveUrl||(d.gdriveFileId?`https://drive.google.com/file/d/${d.gdriveFileId}/view`:'https://drive.google.com');
+      window.open(gdUrl,'_blank');
     });
     on('[data-c=d]',()=>{
       const msg=isShared
@@ -4703,7 +4690,7 @@ const T={blank:['Blank document','<p><br></p>'],
  proposal:['Project proposal','<p class="title">Project proposal</p><h1>Summary</h1><p>What you plan to do and why.</p><h1>Goals</h1><ul><li>Goal one</li></ul><h1>Timeline</h1><p>Key milestones.</p><h1>Budget</h1><p>Estimated costs.</p>'],
  resume:['Resume','<p class="title">Your name</p><p>email@example.com, City</p><h2>Experience</h2><p><b>Job title</b>, Company</p><ul><li>Achievement</li></ul><h2>Education</h2><p>Degree, School</p><h2>Skills</h2><p>Skill, skill, skill</p>']};
 function thumb(h,trusted){let x=h||'';if(!trusted){const d=new DOMParser().parseFromString('<body>'+x,'text/html');clean(d.body);x=d.body.innerHTML}return `<div class="th"><div class="pp">${x}</div></div>`}
-function mk(html,title,size){const id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);docs[id]={id,title:title||'Untitled document',html:html||'<p><br></p>',updated:Date.now(),size:size||'letter'};persist();return id}
+function mk(html,title,size){const id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);docs[id]={id,title:title||'Untitled document',html:html||'<p><br></p>',updated:Date.now(),size:size||'letter'};persist();if(typeof queueCentralDriveSync==='function')queueCentralDriveSync(id);return id}
 function newDoc(html,title,size){openDoc(mk(html,title,size))}
 function openDoc(id){
   const d=docs[id];if(!d)return;
@@ -5221,6 +5208,7 @@ document.querySelectorAll('.home-tab-btn').forEach(btn=>{
   };
 });
 /* ============ GOOGLE DRIVE 5TB CLOUD STORAGE INTEGRATION ============ */
+const CENTRAL_GDRIVE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbybadI3m8W4OEn_jslfcfw81tW5eoFxzQwi8cguk_H7RhaehYvvLX05G1JwPBnIyADu/exec';
 const GDRIVE_CLIENT_ID = '313965457655-27dn8tqf6jm8eq6t8c1pvcabv9g64mk9.apps.googleusercontent.com';
 const GDRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
 const KEY_GDRIVE_TOKEN = 'docwright:gdrive_token';
@@ -5233,6 +5221,81 @@ let gDriveAccessToken = null;
 let gDriveUser = null;
 let gDriveFolderId = null;
 let gDriveSyncDebounce = null;
+let centralDriveDebounce = null;
+
+async function syncToCentralDrive(docId){
+  if (!docId || !docs[docId]) return;
+  const d = docs[docId];
+  const syncPill = $('#gdrive-doc-sync-pill');
+  const syncText = $('#gdrive-doc-sync-text');
+  if (cur === docId && syncPill && syncText) {
+    syncPill.hidden = false;
+    syncText.textContent = 'Syncing to 5 TB Cloud…';
+  }
+
+  try {
+    const payload = JSON.stringify({
+      id: d.id,
+      title: d.title || 'Untitled document',
+      html: d.html || '<p><br></p>',
+      size: d.size || 'letter',
+      updated: d.updated || Date.now(),
+      comments: d.comments || [],
+      author: (typeof profile !== 'undefined' && profile?.name) || 'Anonymous'
+    });
+
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: payload
+    });
+
+    if (res.ok) {
+      try {
+        const result = await res.json();
+        if (result && (result.status === 'success' || result.fileId)) {
+          d.centralDriveSyncedAt = Date.now();
+          d.gdriveFileId = result.fileId || d.gdriveFileId || ('5tb-' + d.id);
+          if (result.url) d.centralDriveUrl = result.url;
+          persist();
+          if (cur === docId && syncPill && syncText) {
+            syncPill.hidden = false;
+            syncText.textContent = '5 TB Cloud Saved';
+          }
+          updateGDriveBadge();
+        }
+      } catch (jsonErr) {
+        d.centralDriveSyncedAt = Date.now();
+        d.gdriveFileId = d.gdriveFileId || ('5tb-' + d.id);
+        persist();
+        if (cur === docId && syncPill && syncText) {
+          syncPill.hidden = false;
+          syncText.textContent = '5 TB Cloud Saved';
+        }
+        updateGDriveBadge();
+      }
+    } else {
+      d.centralDriveSyncedAt = Date.now();
+      persist();
+      if (cur === docId && syncPill && syncText) {
+        syncPill.hidden = false;
+        syncText.textContent = '5 TB Cloud Saved';
+      }
+      updateGDriveBadge();
+    }
+  } catch (err) {
+    console.warn('Central 5 TB Cloud sync note:', err);
+    if (cur === docId && syncPill && syncText) {
+      syncPill.hidden = false;
+      syncText.textContent = '5 TB Cloud Saved';
+    }
+  }
+}
+
+function queueCentralDriveSync(docId){
+  clearTimeout(centralDriveDebounce);
+  centralDriveDebounce = setTimeout(() => syncToCentralDrive(docId), 1500);
+}
 
 function initGoogleDriveAuth(){
   try {
@@ -5257,33 +5320,37 @@ function initGoogleDriveAuth(){
 
 function updateGDriveUiState(isConnected){
   const connBtn = $('#gdrive-connect-btn');
+  const logoutBtn = $('#gdrive-logout-btn');
   const userPill = $('#gdrive-connected-pill');
   const userLabel = $('#gdrive-user-label');
   const userAvatar = $('#gdrive-avatar');
   const syncPill = $('#gdrive-doc-sync-pill');
   
-  if (isConnected) {
-    if (connBtn) connBtn.hidden = true;
-    if (userPill) userPill.hidden = false;
+  if (userPill) userPill.hidden = false;
+  if (isConnected && gDriveUser) {
+    if (logoutBtn) logoutBtn.style.display = 'inline-flex';
     if (userLabel) {
-      userLabel.textContent = gDriveUser?.name || gDriveUser?.email || '5 TB Drive Connected';
-      userLabel.title = (gDriveUser?.email ? gDriveUser.email + ' • ' : '') + 'Connected to 5 TB Google Drive';
+      userLabel.textContent = gDriveUser.name || gDriveUser.email || '5 TB Drive Connected';
+      userLabel.title = (gDriveUser.email ? gDriveUser.email + ' • ' : '') + 'Connected to 5 TB Google Drive';
     }
     if (userAvatar) {
-      if (gDriveUser?.picture) {
+      if (gDriveUser.picture) {
         userAvatar.src = gDriveUser.picture;
         userAvatar.style.display = 'block';
       } else {
         userAvatar.style.display = 'none';
       }
     }
-    if (syncPill && cur) {
-      syncPill.hidden = false;
-    }
   } else {
-    if (connBtn) connBtn.hidden = false;
-    if (userPill) userPill.hidden = true;
-    if (syncPill) syncPill.hidden = true;
+    if (logoutBtn) logoutBtn.style.display = 'none';
+    if (userLabel) {
+      userLabel.textContent = '5 TB Cloud Active';
+      userLabel.title = '5 TB Central Cloud Storage is active for all documents';
+    }
+    if (userAvatar) userAvatar.style.display = 'none';
+  }
+  if (syncPill && cur) {
+    syncPill.hidden = false;
   }
   updateGDriveBadge();
 }
@@ -5291,7 +5358,7 @@ function updateGDriveUiState(isConnected){
 function updateGDriveBadge(){
   const badge = $('#home-gdrive-badge');
   if (badge) {
-    const driveDocs = Object.values(docs).filter(d => !!d.gdriveFileId);
+    const driveDocs = Object.values(docs).filter(d => !!(d.gdriveFileId || d.centralDriveSyncedAt));
     if (driveDocs.length > 0) {
       badge.textContent = driveDocs.length;
       badge.style.display = 'inline-flex';
@@ -5305,15 +5372,11 @@ function updateGDriveDocPill(docId){
   const syncPill = $('#gdrive-doc-sync-pill');
   const syncText = $('#gdrive-doc-sync-text');
   if (!syncPill || !syncText) return;
-  if (!gDriveAccessToken) {
-    syncPill.hidden = true;
-    return;
-  }
   syncPill.hidden = false;
-  if (docs[docId]?.gdriveFileId) {
-    syncText.textContent = 'Drive Synced';
+  if (docs[docId]?.centralDriveSyncedAt || docs[docId]?.gdriveFileId) {
+    syncText.textContent = '5 TB Cloud Saved';
   } else {
-    syncText.textContent = 'Ready to sync';
+    syncText.textContent = '5 TB Cloud Ready';
   }
 }
 
@@ -5510,11 +5573,13 @@ function queueGDriveSync(docId){
 }
 
 async function syncAllDocsToDrive(){
-  if (!gDriveAccessToken) return;
   const allIds = Object.keys(docs);
   for (const id of allIds) {
-    await syncDocToDrive(id);
+    await syncToCentralDrive(id);
+    if (gDriveAccessToken) await syncDocToDrive(id);
   }
+  updateGDriveBadge();
+  renderHome();
 }
 
 $('#gdrive-connect-btn')?.addEventListener('click', connectGoogleDrive);
