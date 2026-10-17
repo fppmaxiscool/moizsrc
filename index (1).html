@@ -3401,23 +3401,329 @@ html.dark mark.doc-comment-mark.active-comment {
   background: #ED4245;
   color: #fff;
 }
+
+/* ============ AUTHENTICATION SCREEN ============ */
+.auth-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  background-image: radial-gradient(circle at top right, rgba(66, 133, 244, 0.08), transparent 60%), radial-gradient(circle at bottom left, rgba(52, 168, 83, 0.08), transparent 60%);
+  z-index: 99999;
+  padding: 20px;
+  overflow-y: auto;
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  color: var(--tx);
+  animation: authFadeIn .25s ease-out;
+}
+@keyframes authFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.auth-brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.auth-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.auth-title {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--tx);
+}
+.auth-subtitle {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--mut);
+  line-height: 1.45;
+}
+.auth-oauth-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+  min-height: 44px;
+}
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: var(--mut);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--bd);
+}
+.auth-divider span {
+  padding: 0 12px;
+}
+.auth-tabs {
+  display: flex;
+  background: var(--hov);
+  border-radius: 24px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+.auth-tab-btn {
+  flex: 1;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: var(--mut);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.auth-tab-btn.active {
+  background: var(--pg);
+  color: var(--acc);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.auth-field {
+  margin-bottom: 16px;
+  text-align: left;
+}
+.auth-field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tx);
+  margin-bottom: 6px;
+}
+.auth-field input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--tx);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.auth-field input:focus {
+  border-color: var(--acc);
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.18);
+}
+.auth-pwd-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.auth-pwd-eye {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+  opacity: .7;
+}
+.auth-pwd-eye:hover { opacity: 1; }
+.auth-message {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.auth-message.error {
+  background: rgba(217,48,37,0.1);
+  color: #d93025;
+  border: 1px solid rgba(217,48,37,0.25);
+}
+.auth-message.success {
+  background: rgba(52,168,83,0.1);
+  color: #1e8e3e;
+  border: 1px solid rgba(52,168,83,0.25);
+}
+.auth-primary-btn {
+  width: 100%;
+  height: 42px;
+  background: var(--acc);
+  color: #fff;
+  border: none;
+  border-radius: 21px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .15s, transform .05s;
+  box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+}
+.auth-primary-btn:hover { background: var(--acc-hover); }
+.auth-primary-btn:active { transform: scale(0.99); }
+.auth-primary-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bd);
+}
+.auth-cloud-badge {
+  font-size: 12px;
+  color: var(--mut);
+  font-weight: 500;
+}
+.auth-user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px 0 6px;
+  border-radius: 17px;
+  background: var(--hov);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.auth-user-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--acc);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.auth-logout-btn {
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  background: var(--bg);
+  color: var(--tx);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.auth-logout-btn:hover {
+  background: rgba(217,48,37,0.1);
+  color: #d93025;
+  border-color: rgba(217,48,37,0.3);
+}
 </style>
 </head>
 <body>
 
+<!-- ============ AUTHENTICATION SCREEN (LOGIN & REGISTER) ============ -->
+<div id="auth-page" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-logo-wrap">
+        <svg width="46" height="46" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="2" width="18" height="24" rx="3" fill="#1a73e8"/><path d="M9 9h10M9 13h10M9 17h6" stroke="#fff" stroke-width="2"/></svg>
+      </div>
+      <h1 class="auth-title">Docwright</h1>
+      <p class="auth-subtitle">Online cloud documents with personal 5 TB storage</p>
+    </div>
+
+    <!-- Google 1-Click Sign-in -->
+    <div class="auth-oauth-wrap">
+      <div id="g_id_onload"
+           data-client_id="313965457655-27dn8tqf6jm8eq6t8c1pvcabv9g64mk9.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleGoogleAuthResponse"
+           data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="outline"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left"
+           data-width="320">
+      </div>
+    </div>
+
+    <div class="auth-divider"><span>or continue with account</span></div>
+
+    <!-- Tabs: Sign In / Create Account -->
+    <div class="auth-tabs" role="tablist">
+      <button type="button" class="auth-tab-btn active" id="auth-tab-login">Sign In</button>
+      <button type="button" class="auth-tab-btn" id="auth-tab-register">Create Account</button>
+    </div>
+
+    <!-- Login / Register Form -->
+    <form id="auth-form" autocomplete="on">
+      <div class="auth-field" id="auth-name-field" style="display:none">
+        <label for="auth-display-name">Display Name</label>
+        <input type="text" id="auth-display-name" placeholder="Your name (e.g. Alex)" autocomplete="name">
+      </div>
+
+      <div class="auth-field">
+        <label for="auth-username">Username</label>
+        <input type="text" id="auth-username" required placeholder="Choose a username" autocomplete="username">
+      </div>
+
+      <div class="auth-field">
+        <label for="auth-password">Password</label>
+        <div class="auth-pwd-wrap">
+          <input type="password" id="auth-password" required placeholder="Enter password" autocomplete="current-password">
+          <button type="button" id="auth-pwd-toggle" class="auth-pwd-eye" title="Show/hide password">👁️</button>
+        </div>
+      </div>
+
+      <div id="auth-msg" class="auth-message" hidden></div>
+
+      <button type="submit" id="auth-submit-btn" class="auth-primary-btn">
+        <span id="auth-submit-text">Sign In to Docwright</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <span class="auth-cloud-badge">☁️ Powered by 5 TB Dedicated Google Drive Cloud</span>
+    </div>
+  </div>
+</div>
+
 <!-- ============ HOME SCREEN ============ -->
-<div id="home">
+<div id="home" hidden>
  <header class="hh"><span class="hl"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="2" width="18" height="24" rx="3" fill="#1a73e8"/><path d="M9 9h10M9 13h10M9 17h6" stroke="#fff" stroke-width="2"/></svg><span>Docwright</span></span>
   <label class="hs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input type="search" id="hq" placeholder="Search" aria-label="Search documents"></label>
-  <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
-  <div id="home-gdrive-wrap" style="display:flex;align-items:center;margin-left:auto;margin-right:8px">
+   <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
+  <div id="home-gdrive-wrap" style="display:flex;align-items:center;margin-left:auto;margin-right:8px;gap:8px">
    <div id="gdrive-connected-pill" class="gdrive-connected-pill" title="5 TB Central Cloud Storage Active (Every document saves automatically)">
-    <img id="gdrive-avatar" class="gdrive-avatar" src="" alt="Google Drive Account" style="display:none">
     <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
     <span id="gdrive-user-label">5 TB Cloud Active</span>
     <span class="gdrive-status-dot" title="Cloud Sync Active"></span>
-    <button type="button" id="gdrive-connect-btn" class="gdrive-sub-btn" title="Personal Google Drive Settings" style="margin-left:2px;font-size:12px">⚙️</button>
-    <button type="button" id="gdrive-logout-btn" class="gdrive-sub-btn" title="Disconnect personal Google Drive" style="display:none">✕</button>
+   </div>
+   <div id="home-user-pill" class="auth-user-chip" title="Account Profile">
+    <img id="home-user-avatar" class="auth-user-avatar" src="" alt="Avatar" style="display:none">
+    <span id="home-user-avatar-initial" class="auth-user-avatar">U</span>
+    <span id="home-user-name">User</span>
+    <button type="button" id="home-logout-btn" class="auth-logout-btn" title="Log out of Docwright">Log out</button>
    </div>
   </div>
   <button class="dk" data-a="dark" title="Dark mode on / off">◐</button></header>
@@ -3485,6 +3791,12 @@ html.dark mark.doc-comment-mark.active-comment {
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
     <span>Share</span>
    </button>
+   <div id="app-user-pill" class="auth-user-chip" title="Account Profile">
+    <img id="app-user-avatar" class="auth-user-avatar" src="" alt="Avatar" style="display:none">
+    <span id="app-user-avatar-initial" class="auth-user-avatar">U</span>
+    <span id="app-user-name">User</span>
+    <button type="button" id="app-logout-btn" class="auth-logout-btn" title="Log out of Docwright">Log out</button>
+   </div>
    <button class="dk" data-a="dark" title="Toggle dark mode">◐</button>
   </div>
  </header>
@@ -4699,6 +5011,13 @@ function renderHome(){
         :`Remove "${d.title}"? This can't be undone.`;
       if(confirm(msg)){
         try{localStorage.removeItem('docwright:ai_mem:'+d.id);localStorage.removeItem('doc_comments_'+d.id)}catch(e){}
+        if(currentUser && typeof CENTRAL_GDRIVE_ENDPOINT !== 'undefined'){
+          fetch(CENTRAL_GDRIVE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'delete_doc', userId: currentUser.userId, docId: d.id })
+          }).catch(()=>{});
+        }
         delete docs[d.id];
         persist();
         renderHome();
@@ -5230,7 +5549,7 @@ document.querySelectorAll('.home-tab-btn').forEach(btn=>{
     renderHome();
   };
 });
-/* ============ GOOGLE DRIVE 5TB CLOUD STORAGE INTEGRATION ============ */
+/* ============ GOOGLE DRIVE 5TB CLOUD STORAGE & AUTHENTICATION ============ */
 const CENTRAL_GDRIVE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbybadI3m8W4OEn_jslfcfw81tW5eoFxzQwi8cguk_H7RhaehYvvLX05G1JwPBnIyADu/exec';
 const GDRIVE_CLIENT_ID = '313965457655-27dn8tqf6jm8eq6t8c1pvcabv9g64mk9.apps.googleusercontent.com';
 const GDRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
@@ -5246,6 +5565,228 @@ let gDriveFolderId = null;
 let gDriveSyncDebounce = null;
 let centralDriveDebounce = null;
 
+let currentUser = null;
+let authMode = 'login'; // 'login' | 'register'
+
+function initAuth() {
+  const savedUser = localStorage.getItem('docwright:current_user');
+  if (savedUser) {
+    try {
+      currentUser = JSON.parse(savedUser);
+      updateUserUi();
+      showAppHome();
+      loadUserCloudDocs();
+      return true;
+    } catch (e) {
+      currentUser = null;
+    }
+  }
+  showAuthPage();
+  return false;
+}
+
+function showAuthPage() {
+  const authEl = $('#auth-page');
+  const homeEl = $('#home');
+  const appEl = $('#app');
+  if (authEl) authEl.hidden = false;
+  if (homeEl) homeEl.hidden = true;
+  if (appEl) appEl.hidden = true;
+  clearAuthMessage();
+}
+
+function showAppHome() {
+  const authEl = $('#auth-page');
+  const homeEl = $('#home');
+  const appEl = $('#app');
+  if (authEl) authEl.hidden = true;
+  if (homeEl) homeEl.hidden = false;
+  if (appEl) appEl.hidden = true;
+}
+
+function setAuthMessage(msg, type) {
+  const el = $('#auth-msg');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'auth-message ' + (type || 'error');
+  el.hidden = false;
+}
+
+function clearAuthMessage() {
+  const el = $('#auth-msg');
+  if (el) {
+    el.hidden = true;
+    el.textContent = '';
+  }
+}
+
+async function hashPassword(pwd) {
+  try {
+    const enc = new TextEncoder();
+    const data = enc.encode(pwd + ':docwright_salt_2026');
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+  } catch (e) {
+    let h = 0;
+    for (let i = 0; i < pwd.length; i++) h = ((h << 5) - h) + pwd.charCodeAt(i) | 0;
+    return 'h_' + Math.abs(h);
+  }
+}
+
+async function handleGoogleAuthResponse(response) {
+  if (!response || !response.credential) return;
+  setAuthMessage('Signing in with Google…', 'info');
+  try {
+    const parts = response.credential.split('.');
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'google_auth',
+        googleId: payload.sub,
+        email: payload.email,
+        name: payload.name,
+        picture: payload.picture
+      })
+    });
+
+    const result = await res.json();
+    if (result && result.status === 'success') {
+      applyLoginSuccess(result.user, result.docs);
+    } else {
+      setAuthMessage(result.message || 'Google Sign-In failed', 'error');
+    }
+  } catch (err) {
+    console.error('Google auth error:', err);
+    setAuthMessage('Sign in failed: ' + err.message, 'error');
+  }
+}
+
+async function handleAuthFormSubmit(e) {
+  if (e) e.preventDefault();
+  clearAuthMessage();
+  const usernameInput = $('#auth-username');
+  const passwordInput = $('#auth-password');
+  const nameInput = $('#auth-display-name');
+  const submitBtn = $('#auth-submit-btn');
+  const submitText = $('#auth-submit-text');
+
+  const username = usernameInput ? usernameInput.value.trim() : '';
+  const password = passwordInput ? passwordInput.value : '';
+  const displayName = nameInput ? nameInput.value.trim() : '';
+
+  if (!username) {
+    setAuthMessage('Please enter a username or email', 'error');
+    return;
+  }
+  if (!password || password.length < 4) {
+    setAuthMessage('Password must be at least 4 characters', 'error');
+    return;
+  }
+
+  if (submitBtn) submitBtn.disabled = true;
+  const originalText = submitText ? submitText.textContent : 'Submit';
+  if (submitText) submitText.textContent = authMode === 'register' ? 'Creating account…' : 'Signing in…';
+
+  try {
+    const passwordHash = await hashPassword(password);
+    const payload = {
+      action: authMode,
+      username: username,
+      passwordHash: passwordHash
+    };
+    if (authMode === 'register') {
+      payload.displayName = displayName || username;
+    }
+
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await res.json();
+    if (result && result.status === 'success') {
+      applyLoginSuccess(result.user, result.docs);
+    } else {
+      setAuthMessage(result.message || (authMode === 'register' ? 'Registration failed' : 'Incorrect username or password'), 'error');
+    }
+  } catch (err) {
+    console.error('Auth error:', err);
+    setAuthMessage('Connection error: ' + err.message, 'error');
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+    if (submitText) submitText.textContent = originalText;
+  }
+}
+
+function applyLoginSuccess(user, userDocs) {
+  currentUser = user;
+  localStorage.setItem('docwright:current_user', JSON.stringify(user));
+  if (userDocs && typeof userDocs === 'object' && Object.keys(userDocs).length > 0) {
+    docs = userDocs;
+    persist();
+  }
+  updateUserUi();
+  showAppHome();
+  renderHome();
+}
+
+async function loadUserCloudDocs() {
+  if (!currentUser || !currentUser.userId) return;
+  try {
+    const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'load_docs', userId: currentUser.userId })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.status === 'success' && data.docs) {
+        Object.assign(docs, data.docs);
+        persist();
+        renderHome();
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load cloud docs:', e);
+  }
+}
+
+function logoutUser() {
+  if (confirm('Are you sure you want to log out of Docwright?')) {
+    localStorage.removeItem('docwright:current_user');
+    currentUser = null;
+    docs = {};
+    persist();
+    showAuthPage();
+  }
+}
+
+function updateUserUi() {
+  const name = currentUser ? (currentUser.displayName || currentUser.username || 'User') : 'User';
+  const initial = name.charAt(0).toUpperCase();
+  const avatar = currentUser ? currentUser.avatar : null;
+
+  ['home', 'app'].forEach(prefix => {
+    const nameEl = $('#' + prefix + '-user-name');
+    const avatarEl = $('#' + prefix + '-user-avatar');
+    const initialEl = $('#' + prefix + '-user-avatar-initial');
+    if (nameEl) nameEl.textContent = name;
+    if (avatar && avatarEl && initialEl) {
+      avatarEl.src = avatar;
+      avatarEl.style.display = 'block';
+      initialEl.style.display = 'none';
+    } else if (avatarEl && initialEl) {
+      avatarEl.style.display = 'none';
+      initialEl.style.display = 'inline-flex';
+      initialEl.textContent = initial;
+    }
+  });
+}
+
 async function syncToCentralDrive(docId){
   if (!docId || !docs[docId]) return;
   const d = docs[docId];
@@ -5258,13 +5799,17 @@ async function syncToCentralDrive(docId){
 
   try {
     const payload = JSON.stringify({
-      id: d.id,
-      title: d.title || 'Untitled document',
-      html: d.html || '<p><br></p>',
-      size: d.size || 'letter',
-      updated: d.updated || Date.now(),
-      comments: d.comments || [],
-      author: (typeof profile !== 'undefined' && profile?.name) || 'Anonymous'
+      action: 'sync_doc',
+      userId: currentUser ? currentUser.userId : 'guest',
+      doc: {
+        id: d.id,
+        title: d.title || 'Untitled document',
+        html: d.html || '<p><br></p>',
+        size: d.size || 'letter',
+        updated: d.updated || Date.now(),
+        comments: d.comments || [],
+        author: currentUser ? (currentUser.displayName || currentUser.username) : 'Docwright User'
+      }
     });
 
     const res = await fetch(CENTRAL_GDRIVE_ENDPOINT, {
@@ -5608,9 +6153,42 @@ async function syncAllDocsToDrive(){
 $('#gdrive-connect-btn')?.addEventListener('click', connectGoogleDrive);
 $('#gdrive-logout-btn')?.addEventListener('click', disconnectGoogleDrive);
 
+$('#auth-tab-login')?.addEventListener('click', () => {
+  authMode = 'login';
+  $('#auth-tab-login')?.classList.add('active');
+  $('#auth-tab-register')?.classList.remove('active');
+  const nameField = $('#auth-name-field');
+  if (nameField) nameField.style.display = 'none';
+  const submitText = $('#auth-submit-text');
+  if (submitText) submitText.textContent = 'Sign In to Docwright';
+  clearAuthMessage();
+});
+
+$('#auth-tab-register')?.addEventListener('click', () => {
+  authMode = 'register';
+  $('#auth-tab-register')?.classList.add('active');
+  $('#auth-tab-login')?.classList.remove('active');
+  const nameField = $('#auth-name-field');
+  if (nameField) nameField.style.display = 'block';
+  const submitText = $('#auth-submit-text');
+  if (submitText) submitText.textContent = 'Create 5 TB Cloud Account';
+  clearAuthMessage();
+});
+
+$('#auth-pwd-toggle')?.addEventListener('click', () => {
+  const pwdInput = $('#auth-password');
+  if (pwdInput) {
+    pwdInput.type = pwdInput.type === 'password' ? 'text' : 'password';
+  }
+});
+
+$('#auth-form')?.addEventListener('submit', handleAuthFormSubmit);
+$('#home-logout-btn')?.addEventListener('click', logoutUser);
+$('#app-logout-btn')?.addEventListener('click', logoutUser);
+
 /* ---------- boot ---------- */
 document.execCommand('defaultParagraphSeparator',false,'p');
-applyTheme();load();renderHome();checkSharedUrl();initGoogleDriveAuth();
+applyTheme();load();initAuth();checkSharedUrl();initGoogleDriveAuth();
 
 /* ============ DOCWRIGHT AI ENGINE (DeepSeek Multi-Agent & Anti-AI Slop Filter) ============ */
 const _dk = s => { try { return atob(s); } catch (e) { return ''; } };
