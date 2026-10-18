@@ -5127,6 +5127,10 @@ html.dark .doogle-res-title {
           <span>My Documents</span>
           <span id="doogle-docs-badge" class="doogle-tab-count" style="display:none">0</span>
         </button>
+        <button type="button" class="doogle-serp-tab" data-tab="browser">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Web Viewer</span>
+        </button>
       </div>
 
       <!-- Results Body Scroll Area -->
@@ -5172,6 +5176,33 @@ html.dark .doogle-res-title {
             <li>Try different keywords or more general terms.</li>
             <li>Try searching on Google.com directly.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 3: Doogle Web Browser View (In-App Web Pop-up for Domains & Links) -->
+    <div id="doogle-browser-view" class="doogle-browser-container" style="display:none;flex:1;flex-direction:column;min-height:0;background:var(--bg)">
+      <div class="doogle-browser-bar" style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--pg);border-bottom:1px solid var(--bd);flex-shrink:0;">
+        <button type="button" class="doogle-action-icon-btn" id="doogle-web-back-btn" title="Back to Search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Search Results</span>
+        </button>
+        <button type="button" class="doogle-action-icon-btn" id="doogle-web-reload-btn" title="Reload Web Page">🔄</button>
+        <div style="flex:1;display:flex;align-items:center;background:var(--bg);border:1px solid var(--bd);border-radius:18px;padding:0 12px;height:34px;gap:6px;">
+          <span style="font-size:12px;color:var(--mut);">🔒</span>
+          <input type="text" id="doogle-web-address" style="flex:1;border:none;background:transparent;color:var(--tx);font-size:13px;outline:none;" placeholder="Enter website address (e.g. https://wikipedia.org)">
+          <button type="button" id="doogle-web-go-btn" style="border:none;background:none;color:#1a73e8;cursor:pointer;font-weight:600;font-size:12px;padding:2px 6px;">Go</button>
+        </div>
+        <button type="button" class="doogle-action-icon-btn" id="doogle-web-popout-btn" title="Open in dedicated pop-up window" style="color:#1a73e8;border-color:#1a73e8;font-weight:600;">
+          <span>🚀 Pop-out Window ↗</span>
+        </button>
+        <button type="button" class="doogle-action-icon-btn" id="doogle-web-insert-btn" title="Insert link into document">➕ Insert Link</button>
+      </div>
+      <div id="doogle-iframe-wrap" style="flex:1;position:relative;background:#fff;min-height:0;">
+        <iframe id="doogle-web-iframe" style="width:100%;height:100%;border:none;display:block;" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
+        <div id="doogle-iframe-notice" style="position:absolute;bottom:10px;right:14px;background:rgba(32,33,36,0.92);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.25);z-index:5;">
+          <span>Notice: If this site restricts framing, use</span>
+          <button type="button" id="doogle-notice-popout-btn" style="background:#1a73e8;color:#fff;border:none;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:600;cursor:pointer;">🚀 Pop-out Window</button>
         </div>
       </div>
     </div>
@@ -12618,12 +12649,13 @@ $('#db-btn-add-server')?.addEventListener('click', () => {
 });
 
 /* ==========================================================================
-   DOOGLE SEARCH ENGINE (Google Replica with Real Web Search & Research Tool)
+   DOOGLE SEARCH ENGINE (Google Replica with In-App Web Pop-up & Live Search)
    ========================================================================== */
 let doogleActiveTab = 'all';
 let doogleVoiceRec = null;
 let doogleIsListening = false;
 let doogleCurrentQuery = '';
+let doogleCurrentWebUrl = 'https://wikipedia.org';
 
 function doogleEscape(str) {
   if (!str) return '';
@@ -12633,6 +12665,24 @@ function doogleEscape(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function isDomainOrUrl(str) {
+  if (!str) return false;
+  const s = str.trim();
+  if (/^https?:\/\//i.test(s)) return true;
+  // Match domains like google.com, roblox.com, youtube.com, crazygames.com, wikipedia.org, github.io/page
+  if (/^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$/i.test(s)) return true;
+  return false;
+}
+
+function normalizeUrl(str) {
+  let s = (str || '').trim();
+  if (!s) return 'https://google.com';
+  if (!/^https?:\/\//i.test(s)) {
+    s = 'https://' + s;
+  }
+  return s;
 }
 
 function doogleToast(text, duration = 2500) {
@@ -12652,14 +12702,28 @@ function doogleToast(text, duration = 2500) {
 function setDoogleView(view) {
   const homeView = $('#doogle-home-view');
   const serpView = $('#doogle-serp-view');
+  const browserView = $('#doogle-browser-view');
+  const topSearchWrap = $('#doogle-top-search-wrap');
+
   if (view === 'home') {
-    if (homeView) homeView.hidden = false;
-    if (serpView) serpView.hidden = true;
+    if (homeView) homeView.style.display = 'flex';
+    if (serpView) serpView.style.display = 'none';
+    if (browserView) browserView.style.display = 'none';
+    if (topSearchWrap) topSearchWrap.style.display = 'none';
     setTimeout(() => $('#doogle-home-input')?.focus(), 50);
+  } else if (view === 'browser') {
+    if (homeView) homeView.style.display = 'none';
+    if (serpView) serpView.style.display = 'none';
+    if (browserView) browserView.style.display = 'flex';
+    if (topSearchWrap) topSearchWrap.style.display = 'block';
+    setTimeout(() => $('#doogle-web-address')?.focus(), 50);
   } else {
-    if (homeView) homeView.hidden = true;
-    if (serpView) serpView.hidden = false;
-    setTimeout(() => $('#doogle-serp-input')?.focus(), 50);
+    // serp view
+    if (homeView) homeView.style.display = 'none';
+    if (serpView) serpView.style.display = 'flex';
+    if (browserView) browserView.style.display = 'none';
+    if (topSearchWrap) topSearchWrap.style.display = 'block';
+    setTimeout(() => $('#doogle-top-input')?.focus(), 50);
   }
 }
 
@@ -12679,7 +12743,7 @@ function openDoogle(initialQuery) {
   }
   
   if (q) {
-    doogleSearch(q, doogleActiveTab || 'all');
+    handleDoogleSubmit(q);
   } else {
     setDoogleView('home');
     const homeInp = $('#doogle-home-input');
@@ -12693,12 +12757,55 @@ function closeDoogle() {
   stopDoogleVoice();
 }
 
+function openDoogleWebView(rawUrl, triggerPopout = false) {
+  const norm = normalizeUrl(rawUrl);
+  doogleCurrentWebUrl = norm;
+
+  const addrInp = $('#doogle-web-address');
+  if (addrInp) addrInp.value = norm;
+  const topInp = $('#doogle-top-input');
+  if (topInp) topInp.value = norm;
+
+  const iframe = $('#doogle-web-iframe');
+  if (iframe) {
+    iframe.src = norm;
+  }
+
+  setDoogleView('browser');
+  document.querySelectorAll('.doogle-serp-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === 'browser');
+  });
+
+  if (triggerPopout) {
+    try {
+      window.open(norm, 'DooglePopout', 'width=1180,height=760,menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=yes,resizable=yes');
+    } catch (e) {}
+  }
+  doogleToast(`🌐 Popped up ${norm}`);
+}
+
 function switchDoogleTab(tab) {
   doogleActiveTab = tab;
-  document.querySelectorAll('.doogle-tab').forEach(b => {
+  document.querySelectorAll('.doogle-serp-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.tab === tab);
   });
-  const q = ($('#doogle-serp-input')?.value || doogleCurrentQuery || '').trim();
+
+  if (tab === 'browser') {
+    const q = ($('#doogle-top-input')?.value || $('#doogle-web-address')?.value || doogleCurrentWebUrl || '').trim();
+    openDoogleWebView(q || 'https://en.wikipedia.org');
+    return;
+  }
+
+  setDoogleView('serp');
+  const webResults = $('#doogle-web-results');
+  const imgResults = $('#doogle-image-results');
+  const docResults = $('#doogle-doc-results');
+
+  if (webResults) webResults.style.display = tab === 'all' ? '' : 'none';
+  if (imgResults) imgResults.style.display = tab === 'images' ? 'grid' : 'none';
+  if (docResults) docResults.style.display = tab === 'docs' ? '' : 'none';
+
+  const q = ($('#doogle-top-input')?.value || doogleCurrentQuery || '').trim();
   if (q) {
     doogleSearch(q, tab);
   }
@@ -12777,46 +12884,76 @@ function insertDoogleImageIntoDoc(imgUrl, caption) {
   }
 }
 
+function handleDoogleSubmit(rawQuery) {
+  const q = (rawQuery || '').trim();
+  if (!q) return;
+
+  if (isDomainOrUrl(q)) {
+    // The user searched a domain or URL -> pop up the web viewer directly!
+    openDoogleWebView(q, true);
+    // Also prepare SERP results in the background
+    doogleSearch(q, 'all');
+  } else {
+    // Normal query -> execute search
+    doogleSearch(q, doogleActiveTab === 'browser' ? 'all' : doogleActiveTab);
+  }
+}
+
 async function doogleSearch(query, tab = 'all') {
   const q = (query || '').trim();
   if (!q) return;
   doogleCurrentQuery = q;
-  setDoogleView('serp');
+  
+  if (tab !== 'browser') {
+    setDoogleView('serp');
+  }
   
   const homeInp = $('#doogle-home-input');
-  const serpInp = $('#doogle-serp-input');
+  const topInp = $('#doogle-top-input');
   if (homeInp) homeInp.value = q;
-  if (serpInp) serpInp.value = q;
+  if (topInp) topInp.value = q;
   
-  const clearBtn = $('#doogle-serp-clear');
-  if (clearBtn) clearBtn.hidden = false;
+  const topClear = $('#doogle-top-clear');
+  if (topClear) topClear.style.display = 'block';
   
   const loading = $('#doogle-loading');
-  const stats = $('#doogle-stats');
+  const stats = $('#doogle-stats-text');
   const calcCard = $('#doogle-calc-card');
   const kp = $('#doogle-knowledge-panel');
-  const resultsList = $('#doogle-results-list');
+  const webResults = $('#doogle-web-results');
+  const imgResults = $('#doogle-image-results');
+  const docResults = $('#doogle-doc-results');
+  const emptyState = $('#doogle-empty-state');
   
-  if (loading) loading.hidden = false;
-  if (calcCard) { calcCard.hidden = true; calcCard.innerHTML = ''; }
-  if (kp) { kp.hidden = true; kp.innerHTML = ''; }
-  if (resultsList) resultsList.innerHTML = '';
+  if (loading) loading.style.display = 'flex';
+  if (calcCard) { calcCard.style.display = 'none'; calcCard.innerHTML = ''; }
+  if (kp) { kp.style.display = 'none'; kp.innerHTML = ''; }
+  if (emptyState) emptyState.style.display = 'none';
+  if (webResults) webResults.innerHTML = '';
+  if (imgResults) imgResults.innerHTML = '';
+  if (docResults) docResults.innerHTML = '';
+
+  // Tab container visibility
+  if (webResults) webResults.style.display = (tab === 'all') ? '' : 'none';
+  if (imgResults) imgResults.style.display = (tab === 'images') ? 'grid' : 'none';
+  if (docResults) docResults.style.display = (tab === 'docs') ? '' : 'none';
   
   const startTime = performance.now();
   
   try {
+    // Math Check
     if (tab === 'all') {
       const mathRes = tryEvalMath(q);
       if (mathRes) {
         calcCard.innerHTML = `
-          <div style="font-size:13px;color:#70757a;margin-bottom:4px;">${doogleEscape(mathRes.expr)} =</div>
-          <div class="doogle-calc-display">${doogleEscape(mathRes.result)}</div>
+          <div class="doogle-calc-expr">${doogleEscape(mathRes.expr)} =</div>
+          <div class="doogle-calc-result">${doogleEscape(mathRes.result)}</div>
           <div style="display:flex;gap:8px;align-items:center;">
-            <button class="doogle-insert-btn" id="doogle-calc-insert-btn">➕ Insert Answer into Document</button>
-            <button class="doogle-insert-btn" id="doogle-calc-copy-btn" style="background:#fff;color:#1a73e8;border:1px solid #dadce0;">📋 Copy</button>
+            <button class="doogle-calc-insert-btn" id="doogle-calc-insert-btn">➕ Insert Answer into Document</button>
+            <button class="doogle-calc-insert-btn" id="doogle-calc-copy-btn" style="background:var(--bg);color:#1a73e8;border:1px solid var(--bd);">📋 Copy</button>
           </div>
         `;
-        calcCard.hidden = false;
+        calcCard.style.display = 'block';
         $('#doogle-calc-insert-btn')?.addEventListener('click', () => {
           insertDoogleSnippetIntoDoc('Calculator Calculation', `${mathRes.expr} = ${mathRes.result}`, '');
         });
@@ -12825,6 +12962,34 @@ async function doogleSearch(query, tab = 'all') {
           doogleToast('Copied to clipboard!');
         });
       }
+    }
+    
+    // If it's a domain/URL query, insert Direct Domain Navigation card at top
+    if (isDomainOrUrl(q) && tab === 'all' && webResults) {
+      const normDomain = normalizeUrl(q);
+      const domainCard = document.createElement('div');
+      domainCard.className = 'doogle-card';
+      domainCard.style.cssText = 'background:var(--pg);border:1px solid #1a73e8;border-radius:12px;padding:16px 20px;margin-bottom:18px;box-shadow:0 2px 8px rgba(26,115,232,0.12);';
+      domainCard.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:#1a73e8;font-weight:700;margin-bottom:2px;">Direct Domain / URL</div>
+            <div style="font-size:17px;font-weight:600;color:var(--tx);word-break:break-all;">🌐 ${doogleEscape(normDomain)}</div>
+            <div style="font-size:12px;color:var(--mut);margin-top:2px;">Pop up this website in Doogle or open in a dedicated browser window.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button type="button" class="doogle-primary-btn" id="doogle-domain-launch-btn" style="height:34px;padding:0 16px;font-size:13px;">🌐 Pop up Web View</button>
+            <button type="button" class="doogle-secondary-btn" id="doogle-domain-popout-btn" style="height:34px;padding:0 14px;font-size:13px;">🚀 Pop-out Window ↗</button>
+          </div>
+        </div>
+      `;
+      domainCard.querySelector('#doogle-domain-launch-btn')?.addEventListener('click', () => {
+        openDoogleWebView(normDomain, false);
+      });
+      domainCard.querySelector('#doogle-domain-popout-btn')?.addEventListener('click', () => {
+        openDoogleWebView(normDomain, true);
+      });
+      webResults.appendChild(domainCard);
     }
     
     if (tab === 'images') {
@@ -12837,33 +13002,27 @@ async function doogleSearch(query, tab = 'all') {
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
       if (stats) stats.textContent = `About ${imagesWithThumbs.length} image results (${elapsed} seconds)`;
       
-      if (!imagesWithThumbs.length) {
-        resultsList.innerHTML = `
-          <div class="doogle-empty">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <p>No images found for <b>"${doogleEscape(q)}"</b>.</p>
-            <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Search on Google Images ↗</a>
-          </div>
-        `;
-      } else {
-        const grid = document.createElement('div');
-        grid.className = 'doogle-img-grid';
+      if (!imagesWithThumbs.length && emptyState) {
+        emptyState.style.display = 'block';
+        $('#doogle-empty-query').textContent = q;
+      } else if (imgResults) {
         imagesWithThumbs.forEach(item => {
           const thumbUrl = item.thumbnail.source;
           const title = item.title || 'Image';
           const card = document.createElement('div');
-          card.className = 'doogle-img-card';
+          card.className = 'doogle-image-card';
           card.innerHTML = `
-            <img src="${doogleEscape(thumbUrl)}" alt="${doogleEscape(title)}" loading="lazy" />
-            <div class="doogle-img-title">${doogleEscape(title)}</div>
-            <button class="doogle-insert-btn" style="width:100%;border-radius:0 0 8px 8px;margin:0;font-size:11px;">➕ Insert Image</button>
+            <img src="${doogleEscape(thumbUrl)}" alt="${doogleEscape(title)}" loading="lazy" style="width:100%;height:150px;object-fit:cover;" />
+            <div style="padding:8px 10px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
+              <div style="font-size:12px;font-weight:500;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${doogleEscape(title)}">${doogleEscape(title)}</div>
+              <button type="button" class="doogle-res-btn" style="width:100%;justify-content:center;font-size:11px;">➕ Insert Image</button>
+            </div>
           `;
           card.querySelector('button')?.addEventListener('click', () => {
             insertDoogleImageIntoDoc(thumbUrl, title);
           });
-          grid.appendChild(card);
+          imgResults.appendChild(card);
         });
-        resultsList.appendChild(grid);
       }
     } else if (tab === 'docs') {
       const queryLower = q.toLowerCase();
@@ -12876,35 +13035,40 @@ async function doogleSearch(query, tab = 'all') {
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
       if (stats) stats.textContent = `Found ${matchedDocs.length} matching documents in your library (${elapsed} seconds)`;
       
-      if (!matchedDocs.length) {
-        resultsList.innerHTML = `
-          <div class="doogle-empty">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <p>No documents found in your library matching <b>"${doogleEscape(q)}"</b>.</p>
-            <button class="doogle-search-btn" id="doogle-create-matched-doc-btn" style="margin-top:8px;">Create New Document "${doogleEscape(q)}"</button>
+      const badge = $('#doogle-docs-badge');
+      if (badge) {
+        badge.textContent = matchedDocs.length;
+        badge.style.display = matchedDocs.length ? 'inline-block' : 'none';
+      }
+      
+      if (!matchedDocs.length && docResults) {
+        docResults.innerHTML = `
+          <div class="doogle-empty-state" style="display:block">
+            <h3>No documents found in your library matching "${doogleEscape(q)}"</h3>
+            <button class="doogle-primary-btn" id="doogle-create-matched-doc-btn" style="margin-top:10px;">Create New Document "${doogleEscape(q)}"</button>
           </div>
         `;
         $('#doogle-create-matched-doc-btn')?.addEventListener('click', () => {
           newDoc(`<p>Notes on ${doogleEscape(q)}</p>`, q);
           closeDoogle();
         });
-      } else {
+      } else if (docResults) {
         matchedDocs.forEach(d => {
           const tempDiv = document.createElement('div');
           tempDiv.innerHTML = d.html || '';
           const snippetText = (tempDiv.innerText || '').substring(0, 180) + '...';
           const card = document.createElement('div');
-          card.className = 'doogle-card';
+          card.className = 'doogle-result-item';
           card.innerHTML = `
-            <div class="doogle-card-cite">Docwright Library › My Documents</div>
-            <a class="doogle-card-title" href="javascript:void(0)">${doogleEscape(d.title || 'Untitled')}</a>
-            <div class="doogle-card-snippet">${doogleEscape(snippetText)}</div>
-            <div class="doogle-card-actions">
-              <button class="doogle-insert-btn btn-open">📂 Open Document</button>
-              <button class="doogle-insert-btn btn-insert" style="background:#f1f3f4;color:#3c4043;">➕ Insert Reference</button>
+            <div class="doogle-res-url-row">Docwright Library › My Documents</div>
+            <a class="doogle-res-title" href="javascript:void(0)">${doogleEscape(d.title || 'Untitled')}</a>
+            <div class="doogle-res-snippet">${doogleEscape(snippetText)}</div>
+            <div class="doogle-res-actions">
+              <button class="doogle-res-btn btn-open">📂 Open Document</button>
+              <button class="doogle-res-btn btn-insert">➕ Insert Reference</button>
             </div>
           `;
-          card.querySelector('.doogle-card-title')?.addEventListener('click', () => {
+          card.querySelector('.doogle-res-title')?.addEventListener('click', () => {
             openDoc(d.id);
             closeDoogle();
           });
@@ -12915,10 +13079,11 @@ async function doogleSearch(query, tab = 'all') {
           card.querySelector('.btn-insert')?.addEventListener('click', () => {
             insertDoogleSnippetIntoDoc(d.title, snippetText, '#');
           });
-          resultsList.appendChild(card);
+          docResults.appendChild(card);
         });
       }
     } else {
+      // 'all' Tab: Wikipedia Search + Knowledge Panel + Web Link cards
       const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=10&utf8=&format=json&origin=*`;
       const wikiSummaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/\s+/g, '_'))}`;
       
@@ -12930,21 +13095,25 @@ async function doogleSearch(query, tab = 'all') {
       if (summaryRes.status === 'fulfilled' && summaryRes.value && summaryRes.value.type !== 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') {
         const item = summaryRes.value;
         if (item.extract) {
-          const imgHtml = item.thumbnail?.source ? `<img src="${doogleEscape(item.thumbnail.source)}" class="doogle-kp-thumb" alt="${doogleEscape(item.title)}" />` : '';
+          const imgHtml = item.thumbnail?.source ? `<img src="${doogleEscape(item.thumbnail.source)}" class="doogle-kp-image" alt="${doogleEscape(item.title)}" />` : '';
           const readUrl = item.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`;
           kp.innerHTML = `
             ${imgHtml}
             <div class="doogle-kp-body">
-              <div class="doogle-kp-title">${doogleEscape(item.title)}</div>
-              ${item.description ? `<div class="doogle-kp-subtitle">${doogleEscape(item.description)}</div>` : ''}
+              <h2 class="doogle-kp-title">${doogleEscape(item.title)}</h2>
+              ${item.description ? `<div class="doogle-kp-desc">${doogleEscape(item.description)}</div>` : ''}
               <div class="doogle-kp-extract">${doogleEscape(item.extract)}</div>
-              <div class="doogle-kp-footer">
-                <a href="${doogleEscape(readUrl)}" target="_blank" class="doogle-kp-link">Read more on Wikipedia ↗</a>
-                <button class="doogle-insert-btn" id="doogle-kp-insert-btn">➕ Insert Summary into Doc</button>
+              <div class="doogle-kp-actions">
+                <button type="button" class="doogle-kp-btn primary" id="doogle-kp-web-btn">🌐 Pop up Web Page</button>
+                <button type="button" class="doogle-kp-btn" id="doogle-kp-insert-btn">➕ Insert into Doc</button>
+                <a href="${doogleEscape(readUrl)}" target="_blank" class="doogle-kp-btn">Open in Wikipedia ↗</a>
               </div>
             </div>
           `;
-          kp.hidden = false;
+          kp.style.display = 'flex';
+          $('#doogle-kp-web-btn')?.addEventListener('click', () => {
+            openDoogleWebView(readUrl, false);
+          });
           $('#doogle-kp-insert-btn')?.addEventListener('click', () => {
             insertDoogleSnippetIntoDoc(item.title, item.extract, readUrl);
           });
@@ -12957,16 +13126,10 @@ async function doogleSearch(query, tab = 'all') {
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
       if (stats) stats.textContent = `About ${totalHits.toLocaleString()} results (${elapsed} seconds)`;
       
-      if (!searchItems.length && kp.hidden) {
-        resultsList.innerHTML = `
-          <div class="doogle-empty">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <p>Your search - <b>${doogleEscape(q)}</b> - did not match any documents.</p>
-            <p style="font-size:12px;color:#70757a;">Suggestions: Make sure that all words are spelled correctly, or try different keywords.</p>
-            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:12px;">Search "${doogleEscape(q)}" on Google Web ↗</a>
-          </div>
-        `;
-      } else {
+      if (!searchItems.length && kp.style.display === 'none' && !webResults.children.length && emptyState) {
+        emptyState.style.display = 'block';
+        $('#doogle-empty-query').textContent = q;
+      } else if (webResults) {
         searchItems.forEach(item => {
           const itemUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/\s+/g, '_'))}`;
           const safeTitle = doogleEscape(item.title);
@@ -12974,56 +13137,70 @@ async function doogleSearch(query, tab = 'all') {
           const plainSnippet = snippetHtml.replace(/<\/?[^>]+(>|$)/g, '');
           
           const card = document.createElement('div');
-          card.className = 'doogle-card';
+          card.className = 'doogle-result-item';
           card.innerHTML = `
-            <div class="doogle-card-cite">${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</div>
-            <a class="doogle-card-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
-            <div class="doogle-card-snippet">${snippetHtml}...</div>
-            <div class="doogle-card-actions">
-              <button class="doogle-insert-btn btn-insert">➕ Insert Citation into Doc</button>
-              <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-insert-btn" style="text-decoration:none;background:#fff;color:#1a73e8;border:1px solid #dadce0;">Visit Page ↗</a>
+            <div class="doogle-res-url-row">
+              <span style="color:#1a73e8;font-weight:600">🌐</span>
+              <span>${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</span>
+            </div>
+            <a class="doogle-res-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
+            <div class="doogle-res-snippet">${snippetHtml}...</div>
+            <div class="doogle-res-actions">
+              <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
+              <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
+              <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
             </div>
           `;
+          card.querySelector('.btn-web')?.addEventListener('click', () => {
+            openDoogleWebView(itemUrl, false);
+          });
           card.querySelector('.btn-insert')?.addEventListener('click', () => {
             insertDoogleSnippetIntoDoc(item.title, plainSnippet, itemUrl);
           });
-          resultsList.appendChild(card);
+          webResults.appendChild(card);
         });
         
+        // Full Google search bridge card at bottom
         const googleCard = document.createElement('div');
-        googleCard.className = 'doogle-card';
-        googleCard.style.cssText = 'background:#f8fafd;border:1px dashed #1a73e8;padding:14px;border-radius:8px;margin-top:18px;';
+        googleCard.className = 'doogle-result-item';
+        googleCard.style.cssText = 'background:var(--pg);border:1px dashed #1a73e8;padding:14px 18px;border-radius:10px;margin-top:14px;';
         googleCard.innerHTML = `
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
             <div>
-              <div style="font-weight:500;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader web?</div>
-              <div style="font-size:12px;color:#5f6368;">Open this search query across the entire Google Search network in a new tab.</div>
+              <div style="font-weight:600;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader Google Search web?</div>
+              <div style="font-size:12px;color:var(--mut);">Search this query across Google.com in a dedicated tab.</div>
             </div>
-            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;">Search on Google ↗</a>
+            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;display:inline-flex;align-items:center;gap:6px;">
+              <span>Search on Google ↗</span>
+            </a>
           </div>
         `;
-        resultsList.appendChild(googleCard);
+        webResults.appendChild(googleCard);
       }
     }
   } catch (err) {
     console.error('Doogle search error:', err);
-    if (resultsList) {
-      resultsList.innerHTML = `
-        <div class="doogle-empty">
-          <p style="color:#d93025;">An error occurred while connecting to search services.</p>
-          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Open search on Google.com ↗</a>
+    if (webResults) {
+      webResults.innerHTML = `
+        <div class="doogle-empty-state" style="display:block">
+          <p style="color:#d93025;">Could not complete search request.</p>
+          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Open search on Google.com ↗</a>
         </div>
       `;
     }
   } finally {
-    if (loading) loading.hidden = true;
+    if (loading) loading.style.display = 'none';
   }
 }
 
 function doogleFeelingLucky(query) {
-  const q = (query || $('#doogle-home-input')?.value || $('#doogle-serp-input')?.value || '').trim();
+  const q = (query || $('#doogle-home-input')?.value || $('#doogle-top-input')?.value || '').trim();
   if (!q) {
     window.open('https://www.google.com/doodles', '_blank');
+    return;
+  }
+  if (isDomainOrUrl(q)) {
+    openDoogleWebView(q, true);
     return;
   }
   window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&btnI=1`, '_blank');
@@ -13049,7 +13226,8 @@ function startDoogleVoice() {
     
     doogleVoiceRec.onstart = () => {
       doogleIsListening = true;
-      document.querySelectorAll('.doogle-voice-btn').forEach(b => b.classList.add('listening'));
+      const banner = $('#doogle-voice-listening');
+      if (banner) banner.style.display = 'flex';
       doogleToast('🎙️ Listening... Speak now');
     };
     
@@ -13058,16 +13236,16 @@ function startDoogleVoice() {
         .map(r => r[0].transcript)
         .join('');
       const homeInp = $('#doogle-home-input');
-      const serpInp = $('#doogle-serp-input');
+      const topInp = $('#doogle-top-input');
       if (homeInp) homeInp.value = transcript;
-      if (serpInp) serpInp.value = transcript;
+      if (topInp) topInp.value = transcript;
     };
     
     doogleVoiceRec.onend = () => {
       stopDoogleVoice();
-      const q = ($('#doogle-home-input')?.value || $('#doogle-serp-input')?.value || '').trim();
+      const q = ($('#doogle-home-input')?.value || $('#doogle-top-input')?.value || '').trim();
       if (q) {
-        doogleSearch(q, doogleActiveTab || 'all');
+        handleDoogleSubmit(q);
       }
     };
     
@@ -13086,71 +13264,88 @@ function startDoogleVoice() {
 
 function stopDoogleVoice() {
   doogleIsListening = false;
-  document.querySelectorAll('.doogle-voice-btn').forEach(b => b.classList.remove('listening'));
+  const banner = $('#doogle-voice-listening');
+  if (banner) banner.style.display = 'none';
   if (doogleVoiceRec) {
     try { doogleVoiceRec.abort(); } catch (e) {}
     doogleVoiceRec = null;
   }
 }
 
-// Event Listeners for Doogle
+// ---------------- Event Listeners for Doogle ---------------- //
+
 $('#home-doogle-btn')?.addEventListener('click', () => openDoogle());
 $('#app-doogle-btn')?.addEventListener('click', () => openDoogle());
 $('#doogle-close-btn')?.addEventListener('click', () => closeDoogle());
+$('#doogle-brand-btn')?.addEventListener('click', () => setDoogleView('home'));
 
-// Backdrops click
+// External Google Search button in top bar
+$('#doogle-open-google-ext')?.addEventListener('click', () => {
+  const q = ($('#doogle-top-input')?.value || $('#doogle-home-input')?.value || '').trim();
+  const url = q ? `https://www.google.com/search?q=${encodeURIComponent(q)}` : 'https://www.google.com';
+  window.open(url, '_blank');
+});
+
+// Backdrop click
 $('#doogle-modal')?.addEventListener('click', (e) => {
   if (e.target.id === 'doogle-modal') closeDoogle();
 });
 
-// Home Search Box
-$('#doogle-home-search-btn')?.addEventListener('click', () => {
-  const q = $('#doogle-home-input')?.value || '';
-  if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
+// Prevent form submission crashes and handle searches
+$('#doogle-home-search-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleDoogleSubmit($('#doogle-home-input')?.value);
 });
 
-$('#doogle-home-lucky-btn')?.addEventListener('click', () => {
+$('#doogle-top-search-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleDoogleSubmit($('#doogle-top-input')?.value);
+});
+
+$('#doogle-btn-search')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  handleDoogleSubmit($('#doogle-home-input')?.value);
+});
+
+$('#doogle-btn-lucky')?.addEventListener('click', (e) => {
+  e.preventDefault();
   doogleFeelingLucky();
 });
 
-$('#doogle-home-input')?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    const q = e.target.value;
-    if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
-  }
+// Home input events
+$('#doogle-home-input')?.addEventListener('input', (e) => {
+  const clearBtn = $('#doogle-home-clear');
+  if (clearBtn) clearBtn.style.display = e.target.value ? 'block' : 'none';
 });
 
-// SERP Search Box
-$('#doogle-serp-input')?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    const q = e.target.value;
-    if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
-  }
+$('#doogle-home-clear')?.addEventListener('click', () => {
+  const inp = $('#doogle-home-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  $('#doogle-home-clear').style.display = 'none';
 });
 
-$('#doogle-serp-input')?.addEventListener('input', (e) => {
-  const clearBtn = $('#doogle-serp-clear');
-  if (clearBtn) clearBtn.hidden = !e.target.value;
+// Top input events
+$('#doogle-top-input')?.addEventListener('input', (e) => {
+  const clearBtn = $('#doogle-top-clear');
+  if (clearBtn) clearBtn.style.display = e.target.value ? 'block' : 'none';
 });
 
-$('#doogle-serp-clear')?.addEventListener('click', () => {
-  const serpInp = $('#doogle-serp-input');
-  if (serpInp) { serpInp.value = ''; serpInp.focus(); }
-  $('#doogle-serp-clear').hidden = true;
+$('#doogle-top-clear')?.addEventListener('click', () => {
+  const inp = $('#doogle-top-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  $('#doogle-top-clear').style.display = 'none';
 });
 
-// Suggestion chips
-document.querySelectorAll('.doogle-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    const q = chip.dataset.query || chip.textContent.trim();
-    if (q) doogleSearch(q, 'all');
+// Suggestion tags
+document.querySelectorAll('.doogle-tag-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const q = pill.dataset.q || pill.textContent.trim();
+    if (q) handleDoogleSubmit(q);
   });
 });
 
 // Tabs
-document.querySelectorAll('.doogle-tab').forEach(tab => {
+document.querySelectorAll('.doogle-serp-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     switchDoogleTab(tab.dataset.tab);
   });
@@ -13161,6 +13356,53 @@ document.querySelectorAll('.doogle-voice-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     startDoogleVoice();
   });
+});
+
+// Web Viewer Controls
+$('#doogle-web-back-btn')?.addEventListener('click', () => {
+  setDoogleView('serp');
+});
+
+$('#doogle-web-reload-btn')?.addEventListener('click', () => {
+  const iframe = $('#doogle-web-iframe');
+  if (iframe && iframe.src) {
+    iframe.src = iframe.src;
+    doogleToast('Reloading page...');
+  }
+});
+
+$('#doogle-web-go-btn')?.addEventListener('click', () => {
+  const addr = $('#doogle-web-address')?.value;
+  if (addr) openDoogleWebView(addr, false);
+});
+
+$('#doogle-web-address')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const addr = e.target.value;
+    if (addr) openDoogleWebView(addr, false);
+  }
+});
+
+$('#doogle-web-popout-btn')?.addEventListener('click', () => {
+  const addr = $('#doogle-web-address')?.value || doogleCurrentWebUrl;
+  if (addr) {
+    window.open(normalizeUrl(addr), 'DooglePopout', 'width=1180,height=760,menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=yes,resizable=yes');
+  }
+});
+
+$('#doogle-notice-popout-btn')?.addEventListener('click', () => {
+  const addr = $('#doogle-web-address')?.value || doogleCurrentWebUrl;
+  if (addr) {
+    window.open(normalizeUrl(addr), 'DooglePopout', 'width=1180,height=760,menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=yes,resizable=yes');
+  }
+});
+
+$('#doogle-web-insert-btn')?.addEventListener('click', () => {
+  const addr = $('#doogle-web-address')?.value || doogleCurrentWebUrl;
+  if (addr) {
+    insertDoogleSnippetIntoDoc(addr, addr, addr);
+  }
 });
 
 // Global Keyboard Shortcut: Ctrl+Shift+G or Cmd+Shift+G for Doogle
