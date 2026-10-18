@@ -6043,6 +6043,8 @@ function openDoc(id){
   if(cur!==id&&typeof closeCollab==='function')closeCollab();
   cur=id;
   page.innerHTML=d.html||'<p><br></p>';page.classList.toggle('a4',d.size==='a4');
+  if(ti) ti.value = d.title || 'Untitled document';
+  document.title = (d.title || 'Untitled document') + ' - Docwright';
   const ap = $('#auth-page'); if(ap){ ap.hidden=true; ap.style.display='none'; }
   $('#home').hidden=true;$('#home').style.display='none';$('#app').hidden=false;$('#app').style.display='';
   setMode(true);fit();if(!openDoc.o){openDoc.o=1;$('#outline').hidden=innerWidth<900}stats();outline();renderDocComments();if(typeof loadDocAiMemory==='function')loadDocAiMemory(cur);setSt('Saved');if(typeof updateGDriveDocPill==='function')updateGDriveDocPill(cur);page.focus();
@@ -6135,7 +6137,7 @@ $('#fs').onchange=e=>{
 };
 $('#fc').oninput=e=>{e.target.parentElement.style.setProperty('--c',e.target.value);exec('foreColor',e.target.value,true)};
 $('#hc').oninput=e=>{e.target.parentElement.style.setProperty('--c',e.target.value);exec('hiliteColor',e.target.value,true)};
-$('#tb').addEventListener('mousedown',e=>{if(e.target.closest('button'))e.preventDefault()});
+$('#tb')?.addEventListener('mousedown',e=>{if(e.target.closest('button'))e.preventDefault()});
 
 /* ---------- actions (shared by menus, toolbar, shortcuts) ---------- */
 function htmlToMarkdown(html){
@@ -6303,7 +6305,7 @@ function go(i){
 function replaceOne(){if(hi<0||!edit)return;const i=hi;hits[hi].replaceWith(rv.value);page.normalize();edited();doFind();go(i)}
 function replaceAll(){if(!hits.length||!edit)return;hits.forEach(h=>h.replaceWith(rv.value));page.normalize();edited();doFind()}
 fq.oninput=doFind;$('#cs').onchange=doFind;
-$('#find').addEventListener('keydown',e=>{
+$('#find')?.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeFind();
   else if(e.key==='Enter'&&e.target===fq){e.preventDefault();go(hi+(e.shiftKey?-1:1))}
   else if(e.key==='Enter'&&e.target===rv){e.preventDefault();replaceOne()}
@@ -13399,10 +13401,13 @@ async function doogleSearch(query, tab = 'all') {
     if (webResults) {
       webResults.innerHTML = `
         <div class="doogle-empty-state" style="display:block">
-          <p style="color:#d93025;">Could not complete search request.</p>
-          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Open search on Google.com ↗</a>
+          <p style="color:#d93025;margin-bottom:8px;">Could not complete instant search.</p>
+          <button type="button" class="doogle-primary-btn" id="doogle-err-web-btn" style="padding:8px 18px;">🌐 Search in Doogle In-App Viewer</button>
         </div>
       `;
+      $('#doogle-err-web-btn')?.addEventListener('click', () => {
+        openDoogleWebView(`https://www.google.com/search?q=${encodeURIComponent(q)}`, false);
+      });
     }
   } finally {
     if (loading) loading.style.display = 'none';
@@ -13412,14 +13417,14 @@ async function doogleSearch(query, tab = 'all') {
 function doogleFeelingLucky(query) {
   const q = (query || $('#doogle-home-input')?.value || $('#doogle-top-input')?.value || '').trim();
   if (!q) {
-    window.open('https://www.google.com/doodles', '_blank');
+    openDoogleWebView('https://en.wikipedia.org/wiki/Special:Random', false);
     return;
   }
   if (isDomainOrUrl(q)) {
-    openDoogleWebView(q, true);
+    openDoogleWebView(q, false);
     return;
   }
-  window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&btnI=1`, '_blank');
+  openDoogleWebView(`https://en.wikipedia.org/wiki/${encodeURIComponent(q.replace(/\s+/g, '_'))}`, false);
 }
 
 function startDoogleVoice() {
@@ -13534,7 +13539,8 @@ $('#doogle-home-input')?.addEventListener('input', (e) => {
 $('#doogle-home-clear')?.addEventListener('click', () => {
   const inp = $('#doogle-home-input');
   if (inp) { inp.value = ''; inp.focus(); }
-  $('#doogle-home-clear').style.display = 'none';
+  const clearBtn = $('#doogle-home-clear');
+  if (clearBtn) clearBtn.style.display = 'none';
 });
 
 // Top input events
@@ -13553,7 +13559,8 @@ $('#doogle-top-input')?.addEventListener('input', (e) => {
 $('#doogle-top-clear')?.addEventListener('click', () => {
   const inp = $('#doogle-top-input');
   if (inp) { inp.value = ''; inp.focus(); }
-  $('#doogle-top-clear').style.display = 'none';
+  const clearBtn = $('#doogle-top-clear');
+  if (clearBtn) clearBtn.style.display = 'none';
 });
 
 // Suggestion tags
@@ -13580,7 +13587,11 @@ document.querySelectorAll('.doogle-voice-btn').forEach(btn => {
 
 // Web Viewer Controls
 $('#doogle-web-back-btn')?.addEventListener('click', () => {
-  setDoogleView('serp');
+  const hasResults = ($('#doogle-web-results')?.children?.length || 0) > 0 || ($('#doogle-doc-results')?.children?.length || 0) > 0;
+  setDoogleView(hasResults ? 'serp' : 'home');
+  document.querySelectorAll('.doogle-serp-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === (hasResults ? 'all' : ''));
+  });
 });
 
 $('#doogle-web-reload-btn')?.addEventListener('click', () => {
@@ -13671,6 +13682,16 @@ function playYouTubeInDoogle(queryOrUrl) {
   const addrInp = $('#doogle-web-address');
   if (addrInp) addrInp.value = displayUrl;
   doogleCurrentWebUrl = displayUrl;
+
+  setDoogleView('browser');
+  const ytBar = $('#doogle-youtube-bar');
+  if (ytBar) ytBar.style.display = 'flex';
+  const topInp = $('#doogle-top-input');
+  if (topInp) topInp.value = displayUrl;
+  document.querySelectorAll('.doogle-serp-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === 'browser');
+  });
+
   doogleToast(`▶️ Playing in Doogle: ${q}`);
 }
 
