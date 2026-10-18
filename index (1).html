@@ -13141,7 +13141,7 @@ async function doogleSearch(query, tab = 'all') {
       const kpUrl = ddgData?.AbstractURL || wikiSummaryData?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(q)}`;
       const kpImg = ddgData?.Image || wikiSummaryData?.thumbnail?.source;
 
-      if (kpTitle && kpExtract) {
+        if (kpTitle && kpExtract) {
         const imgHtml = kpImg ? `<img src="${doogleEscape(kpImg)}" class="doogle-kp-image" alt="${doogleEscape(kpTitle)}" onerror="this.style.display='none'" />` : '';
         kp.innerHTML = `
           ${imgHtml}
@@ -13152,7 +13152,7 @@ async function doogleSearch(query, tab = 'all') {
             <div class="doogle-kp-actions">
               <button type="button" class="doogle-kp-btn primary" id="doogle-kp-web-btn">🌐 Pop up Web Page</button>
               <button type="button" class="doogle-kp-btn" id="doogle-kp-insert-btn">➕ Insert into Doc</button>
-              <a href="${doogleEscape(kpUrl)}" target="_blank" class="doogle-kp-btn">Open External ↗</a>
+              <button type="button" class="doogle-kp-btn" id="doogle-kp-open-btn">🌐 Open Article in Doogle</button>
             </div>
           </div>
         `;
@@ -13160,12 +13160,15 @@ async function doogleSearch(query, tab = 'all') {
         $('#doogle-kp-web-btn')?.addEventListener('click', () => {
           openDoogleWebView(kpUrl, false);
         });
+        $('#doogle-kp-open-btn')?.addEventListener('click', () => {
+          openDoogleWebView(kpUrl, false);
+        });
         $('#doogle-kp-insert-btn')?.addEventListener('click', () => {
           insertDoogleSnippetIntoDoc(kpTitle, kpExtract, kpUrl);
         });
       }
 
-      // Render Wikipedia search items
+      // Render Wikipedia search items (All opening inside Doogle!)
       const wikiItems = wikiSearchData?.query?.search || [];
       wikiItems.forEach(item => {
         const itemUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/\s+/g, '_'))}`;
@@ -13176,19 +13179,29 @@ async function doogleSearch(query, tab = 'all') {
         const card = document.createElement('div');
         card.className = 'doogle-result-item';
         card.innerHTML = `
-          <div class="doogle-res-url-row">
+          <div class="doogle-res-url-row" style="cursor:pointer" title="Click to view inside Doogle">
             <span style="color:#1a73e8;font-weight:600">🌐</span>
             <span>${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</span>
           </div>
-          <a class="doogle-res-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
+          <a class="doogle-res-title" href="javascript:void(0)" title="Click to open inside Doogle">${safeTitle}</a>
           <div class="doogle-res-snippet">${snippetHtml}...</div>
           <div class="doogle-res-actions">
-            <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
+            <button type="button" class="doogle-res-btn btn-web" title="Open inside Doogle Web Viewer">🌐 Pop up Web</button>
             <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
-            <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
+            <button type="button" class="doogle-res-btn btn-view-doogle" title="View page inside Doogle">🌐 View Page</button>
           </div>
         `;
+        card.querySelector('.doogle-res-url-row')?.addEventListener('click', () => {
+          openDoogleWebView(itemUrl, false);
+        });
+        card.querySelector('.doogle-res-title')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          openDoogleWebView(itemUrl, false);
+        });
         card.querySelector('.btn-web')?.addEventListener('click', () => {
+          openDoogleWebView(itemUrl, false);
+        });
+        card.querySelector('.btn-view-doogle')?.addEventListener('click', () => {
           openDoogleWebView(itemUrl, false);
         });
         card.querySelector('.btn-insert')?.addEventListener('click', () => {
@@ -13197,7 +13210,7 @@ async function doogleSearch(query, tab = 'all') {
         webResults?.appendChild(card);
       });
 
-      // Render DuckDuckGo Related Topics
+      // Render DuckDuckGo Related Topics (All opening inside Doogle!)
       const ddgTopics = (ddgData?.RelatedTopics || []).filter(t => t.Text && t.FirstURL);
       ddgTopics.slice(0, 6).forEach(topic => {
         const topicUrl = topic.FirstURL;
@@ -13205,19 +13218,29 @@ async function doogleSearch(query, tab = 'all') {
         const card = document.createElement('div');
         card.className = 'doogle-result-item';
         card.innerHTML = `
-          <div class="doogle-res-url-row">
+          <div class="doogle-res-url-row" style="cursor:pointer" title="Click to view inside Doogle">
             <span style="color:#1a73e8;font-weight:600">🌐</span>
             <span>${doogleEscape(topicUrl.replace('https://', ''))}</span>
           </div>
-          <a class="doogle-res-title" href="${doogleEscape(topicUrl)}" target="_blank">${doogleEscape(topicText.slice(0, 70))}</a>
+          <a class="doogle-res-title" href="javascript:void(0)" title="Click to open inside Doogle">${doogleEscape(topicText.slice(0, 70))}</a>
           <div class="doogle-res-snippet">${doogleEscape(topicText)}</div>
           <div class="doogle-res-actions">
-            <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
+            <button type="button" class="doogle-res-btn btn-web" title="Open inside Doogle Web Viewer">🌐 Pop up Web</button>
             <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
-            <a href="${doogleEscape(topicUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
+            <button type="button" class="doogle-res-btn btn-view-doogle" title="View page inside Doogle">🌐 View Page</button>
           </div>
         `;
+        card.querySelector('.doogle-res-url-row')?.addEventListener('click', () => {
+          openDoogleWebView(topicUrl, false);
+        });
+        card.querySelector('.doogle-res-title')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          openDoogleWebView(topicUrl, false);
+        });
         card.querySelector('.btn-web')?.addEventListener('click', () => {
+          openDoogleWebView(topicUrl, false);
+        });
+        card.querySelector('.btn-view-doogle')?.addEventListener('click', () => {
           openDoogleWebView(topicUrl, false);
         });
         card.querySelector('.btn-insert')?.addEventListener('click', () => {
@@ -13230,7 +13253,6 @@ async function doogleSearch(query, tab = 'all') {
       if (!wikiItems.length && !ddgTopics.length && ddgAcData && Array.isArray(ddgAcData[1]) && ddgAcData[1].length) {
         const suggestions = ddgAcData[1].slice(0, 6);
         suggestions.forEach(s => {
-          const searchLink = `https://www.google.com/search?q=${encodeURIComponent(s)}`;
           const card = document.createElement('div');
           card.className = 'doogle-result-item';
           card.innerHTML = `
@@ -13239,17 +13261,17 @@ async function doogleSearch(query, tab = 'all') {
               <span>Search Suggestion › ${doogleEscape(s)}</span>
             </div>
             <a class="doogle-res-title" href="javascript:void(0)">Search for "${doogleEscape(s)}"</a>
-            <div class="doogle-res-snippet">Explore live web results, articles, and research topics for <b>${doogleEscape(s)}</b>.</div>
+            <div class="doogle-res-snippet">Explore live web results, articles, and research topics for <b>${doogleEscape(s)}</b> inside Doogle.</div>
             <div class="doogle-res-actions">
               <button type="button" class="doogle-res-btn btn-search">🔍 Search on Doogle</button>
-              <button type="button" class="doogle-res-btn btn-google">Google Search ↗</button>
+              <button type="button" class="doogle-res-btn btn-google">🌐 View Google Results in Doogle</button>
             </div>
           `;
           card.querySelector('.btn-search')?.addEventListener('click', () => {
             handleDoogleSubmit(s);
           });
           card.querySelector('.btn-google')?.addEventListener('click', () => {
-            window.open(searchLink, '_blank');
+            openDoogleWebView(`https://www.google.com/search?q=${encodeURIComponent(s)}`, false);
           });
           card.querySelector('.doogle-res-title')?.addEventListener('click', () => {
             handleDoogleSubmit(s);
@@ -13258,7 +13280,7 @@ async function doogleSearch(query, tab = 'all') {
         });
       }
 
-      // Always append Google Search network card
+      // Always append Google Search in Doogle bridge card
       const googleCard = document.createElement('div');
       googleCard.className = 'doogle-result-item';
       googleCard.style.cssText = 'background:var(--pg);border:1px dashed #1a73e8;padding:14px 18px;border-radius:10px;margin-top:14px;';
@@ -13266,13 +13288,16 @@ async function doogleSearch(query, tab = 'all') {
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
           <div>
             <div style="font-weight:600;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader Google Search web?</div>
-            <div style="font-size:12px;color:var(--mut);">Search this query across Google.com in a dedicated tab.</div>
+            <div style="font-size:12px;color:var(--mut);">Search this query across Google.com directly inside Doogle.</div>
           </div>
-          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;display:inline-flex;align-items:center;gap:6px;">
-            <span>Search on Google ↗</span>
-          </a>
+          <button type="button" class="doogle-primary-btn btn-google-in-doogle" style="white-space:nowrap;padding:7px 16px;display:inline-flex;align-items:center;gap:6px;">
+            <span>🌐 View Google in Doogle</span>
+          </button>
         </div>
       `;
+      googleCard.querySelector('.btn-google-in-doogle')?.addEventListener('click', () => {
+        openDoogleWebView(`https://www.google.com/search?q=${encodeURIComponent(q)}`, false);
+      });
       webResults?.appendChild(googleCard);
 
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
