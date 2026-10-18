@@ -3656,6 +3656,692 @@ html.dark mark.doc-comment-mark.active-comment {
   color: #d93025;
   border-color: rgba(217,48,37,0.3);
 }
+
+/* ============ DOOGLE (GOOGLE REPLICA SEARCH ENGINE) ============ */
+.doogle-btn-style {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 13px;
+  border-radius: 17px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.doogle-btn-style:hover {
+  background: var(--hov);
+  border-color: #4285F4;
+  box-shadow: 0 1px 6px rgba(66, 133, 244, 0.25);
+  transform: translateY(-1px);
+}
+.doogle-logo-text {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.dg-b { color: #4285F4 !important; }
+.dg-r { color: #EA4335 !important; }
+.dg-y { color: #FBBC05 !important; }
+.dg-g { color: #34A853 !important; }
+
+.doogle-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  z-index: 100008;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.doogle-window {
+  width: 100%;
+  max-width: 900px;
+  height: 88vh;
+  max-height: 740px;
+  background: var(--bg);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: authFadeIn .22s ease-out;
+}
+.doogle-top-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--pg);
+  gap: 14px;
+  flex-shrink: 0;
+}
+.doogle-top-brand {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  cursor: pointer;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  transition: transform .15s ease;
+}
+.doogle-top-brand:hover {
+  transform: scale(1.05);
+}
+.doogle-top-search-wrap {
+  flex: 1;
+  max-width: 580px;
+  position: relative;
+}
+.doogle-search-form {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 24px;
+  padding: 0 14px;
+  height: 40px;
+  transition: all .2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.doogle-search-form:focus-within {
+  border-color: #4285F4;
+  box-shadow: 0 1px 8px rgba(66, 133, 244, 0.25);
+}
+.doogle-icon-search {
+  color: var(--mut);
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+.doogle-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--tx);
+  font-size: 14.5px;
+  outline: none;
+  min-width: 0;
+}
+.doogle-clear-btn {
+  background: none;
+  border: none;
+  color: var(--mut);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  margin-right: 4px;
+}
+.doogle-voice-btn {
+  background: none;
+  border: none;
+  color: #4285F4;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s;
+}
+.doogle-voice-btn:hover {
+  transform: scale(1.15);
+  color: #EA4335;
+}
+.doogle-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.doogle-action-icon-btn {
+  background: transparent;
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  color: var(--mut);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+.doogle-action-icon-btn:hover {
+  color: #4285F4;
+  border-color: #4285F4;
+  background: rgba(66, 133, 244, 0.08);
+}
+.doogle-close-btn {
+  background: none;
+  border: none;
+  color: var(--mut);
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+.doogle-close-btn:hover {
+  background: var(--hov);
+  color: var(--tx);
+}
+
+/* Doogle Homepage View */
+.doogle-home-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  overflow-y: auto;
+}
+.doogle-home-content {
+  width: 100%;
+  max-width: 620px;
+  text-align: center;
+}
+.doogle-hero-logo {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
+}
+.doogle-hero-search-form {
+  width: 100%;
+  margin-bottom: 24px;
+}
+.doogle-search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 26px;
+  padding: 0 18px;
+  height: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all .2s ease;
+}
+.doogle-search-bar:hover, .doogle-search-bar:focus-within {
+  border-color: #4285F4;
+  box-shadow: 0 3px 12px rgba(66, 133, 244, 0.22);
+}
+.doogle-hero-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--tx);
+  font-size: 16px;
+  outline: none;
+}
+.doogle-home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.doogle-primary-btn, .doogle-secondary-btn {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.doogle-primary-btn {
+  background: #1a73e8;
+  color: #fff;
+}
+.doogle-primary-btn:hover {
+  background: #1557b0;
+  box-shadow: 0 1px 4px rgba(26, 115, 232, 0.4);
+}
+.doogle-secondary-btn {
+  background: var(--tb);
+  border-color: var(--bd);
+  color: var(--tx);
+}
+.doogle-secondary-btn:hover {
+  background: var(--hov);
+  border-color: #dadce0;
+}
+.doogle-quick-tags {
+  margin-top: 24px;
+  text-align: center;
+}
+.doogle-quick-label {
+  display: block;
+  font-size: 12px;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.doogle-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.doogle-tag-pill {
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  font-size: 12.5px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.doogle-tag-pill:hover {
+  border-color: #4285F4;
+  color: #4285F4;
+  background: rgba(66, 133, 244, 0.08);
+}
+.doogle-footer-note {
+  font-size: 12px;
+  color: var(--mut);
+  margin-top: 32px;
+  line-height: 1.5;
+}
+
+/* Doogle SERP View */
+.doogle-serp-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+}
+.doogle-serp-tabs-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--pg);
+  gap: 6px;
+  flex-shrink: 0;
+}
+.doogle-serp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: var(--mut);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all .15s ease;
+}
+.doogle-serp-tab:hover {
+  color: #1a73e8;
+}
+.doogle-serp-tab.active {
+  color: #1a73e8;
+  border-bottom-color: #1a73e8;
+  font-weight: 600;
+}
+.doogle-tab-count {
+  background: #1a73e8;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 11px;
+  padding: 1px 6px;
+}
+.doogle-serp-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 24px;
+}
+.doogle-serp-meta {
+  font-size: 13px;
+  color: var(--mut);
+  margin-bottom: 16px;
+}
+.doogle-voice-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(234, 67, 53, 0.1);
+  border: 1px solid rgba(234, 67, 53, 0.3);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  color: #ea4335;
+  font-size: 14px;
+  font-weight: 500;
+}
+.doogle-voice-pulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ea4335;
+  animation: dooglePulse 1s infinite alternate;
+}
+@keyframes dooglePulse {
+  from { transform: scale(0.8); opacity: 0.5; }
+  to { transform: scale(1.3); opacity: 1; }
+}
+
+/* Calculator Card */
+.doogle-calc-card {
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.doogle-calc-expr {
+  font-size: 13px;
+  color: var(--mut);
+  margin-bottom: 4px;
+}
+.doogle-calc-result {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a73e8;
+  margin-bottom: 10px;
+}
+.doogle-calc-insert-btn {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+/* Knowledge Graph Box */
+.doogle-knowledge-card {
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  gap: 16px;
+}
+.doogle-kp-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: var(--hov);
+}
+.doogle-kp-body {
+  flex: 1;
+}
+.doogle-kp-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--tx);
+}
+.doogle-kp-desc {
+  font-size: 12.5px;
+  color: var(--mut);
+  margin: 0 0 8px;
+  text-transform: capitalize;
+}
+.doogle-kp-extract {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--tx);
+  margin: 0 0 12px;
+}
+.doogle-kp-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.doogle-kp-btn {
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--bd);
+  background: var(--bg);
+  color: var(--tx);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s;
+}
+.doogle-kp-btn.primary {
+  background: #1a73e8;
+  color: #fff;
+  border-color: #1a73e8;
+}
+.doogle-kp-btn:hover {
+  border-color: #1a73e8;
+}
+
+/* Web Results List */
+.doogle-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.doogle-result-item {
+  max-width: 680px;
+}
+.doogle-res-url-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--mut);
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.doogle-res-favicon {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+}
+.doogle-res-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a0dab;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+html.dark .doogle-res-title {
+  color: #8ab4f8;
+}
+.doogle-res-title:hover {
+  text-decoration: underline;
+}
+.doogle-res-snippet {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--tx);
+  margin: 0 0 8px;
+}
+.doogle-res-snippet b, .doogle-res-snippet strong {
+  color: var(--tx);
+  font-weight: 600;
+}
+.doogle-res-actions {
+  display: flex;
+  gap: 8px;
+}
+.doogle-res-btn {
+  background: transparent;
+  border: 1px solid var(--bd);
+  color: var(--mut);
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+.doogle-res-btn:hover {
+  background: var(--hov);
+  color: #1a73e8;
+  border-color: #1a73e8;
+}
+
+/* Images Grid */
+.doogle-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+.doogle-image-card {
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all .2s;
+}
+.doogle-image-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border-color: #1a73e8;
+}
+.doogle-img-preview {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background: var(--hov);
+}
+.doogle-img-meta {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.doogle-img-title {
+  font-size: 12px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.doogle-img-insert-btn {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+/* My Documents Result */
+.doogle-docs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.doogle-doc-item {
+  background: var(--pg);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.doogle-doc-item:hover {
+  border-color: #1a73e8;
+  background: var(--hov);
+}
+.doogle-doc-info {
+  flex: 1;
+  min-width: 0;
+}
+.doogle-doc-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #1a73e8;
+}
+.doogle-doc-snippet {
+  font-size: 12.5px;
+  color: var(--mut);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Loading & Empty */
+.doogle-loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 14px;
+  color: var(--mut);
+}
+.doogle-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(66, 133, 244, 0.2);
+  border-top-color: #4285F4;
+  border-radius: 50%;
+  animation: doogleSpin 0.7s linear infinite;
+}
+@keyframes doogleSpin {
+  to { transform: rotate(360deg); }
+}
+.doogle-empty-state {
+  padding: 30px 20px;
+  color: var(--tx);
+}
+.doogle-empty-state h3 {
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+.doogle-empty-state ul {
+  padding-left: 20px;
+  color: var(--mut);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
 </style>
 </head>
 <body>
@@ -3768,6 +4454,10 @@ html.dark mark.doc-comment-mark.active-comment {
  <header class="hh"><span class="hl"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="2" width="18" height="24" rx="3" fill="#1a73e8"/><path d="M9 9h10M9 13h10M9 17h6" stroke="#fff" stroke-width="2"/></svg><span>Docwright</span></span>
   <label class="hs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input type="search" id="hq" placeholder="Search" aria-label="Search documents"></label>
    <button id="home-disboard-btn" class="doc-share-btn" style="background:#5865F2;height:34px;padding:0 14px;border-radius:17px;font-size:13px" title="Open Disboard Chat">💬 Disboard</button>
+   <button type="button" id="home-doogle-btn" class="doogle-btn-style" title="Search with Doogle (Google Search for Docwright)">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span class="doogle-logo-text"><span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span></span>
+   </button>
   <div id="home-gdrive-wrap" style="display:flex;align-items:center;margin-left:auto;margin-right:8px;gap:8px">
    <div id="gdrive-connected-pill" class="gdrive-connected-pill" title="5 TB Central Cloud Storage Active (Every document saves automatically)">
     <svg viewBox="0 0 87.3 78" width="16" height="15" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44c-.8 1.45-1.2 3-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.45 1.2-3 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
@@ -3842,6 +4532,10 @@ html.dark mark.doc-comment-mark.active-comment {
     <span class="collab-dot"></span>
     <span id="collab-text">Live ready</span>
    </div>
+   <button type="button" id="app-doogle-btn" class="doogle-btn-style" title="Search the web with Doogle (Google Search)">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span class="doogle-logo-text"><span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span></span>
+   </button>
    <button id="doc-share-btn" class="doc-share-btn" data-a="share" title="Share document">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
     <span>Share</span>
@@ -4342,6 +5036,146 @@ html.dark mark.doc-comment-mark.active-comment {
    <button id="doc-unlock-submit" class="doc-modal-btn" style="width:100%;height:38px;font-size:14px">Unlock &amp; Open Document</button>
   </div>
  </div>
+</div>
+
+<!-- ============ DOOGLE SEARCH MODAL (GOOGLE REPLICA) ============ -->
+<div id="doogle-modal" class="doc-modal-overlay doogle-modal-overlay" hidden>
+  <div class="doogle-window">
+    <!-- Doogle Top Navigation Bar -->
+    <div class="doogle-top-bar">
+      <div class="doogle-top-brand" id="doogle-brand-btn" title="Go to Doogle Home">
+        <span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span>
+      </div>
+
+      <!-- Compact Search Bar (Shown in Results view) -->
+      <div class="doogle-top-search-wrap" id="doogle-top-search-wrap" style="display:none">
+        <form id="doogle-top-search-form" class="doogle-search-form">
+          <svg class="doogle-icon-search" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="doogle-top-input" class="doogle-search-input" placeholder="Search with Doogle or type a URL" autocomplete="off" spellcheck="false">
+          <button type="button" class="doogle-clear-btn" id="doogle-top-clear" title="Clear search" style="display:none">✕</button>
+          <button type="button" class="doogle-voice-btn" id="doogle-top-voice" title="Search by voice">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="doogle-top-actions">
+        <button type="button" class="doogle-action-icon-btn" id="doogle-open-google-ext" title="Open search in Google.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Google.com</span>
+        </button>
+        <button type="button" class="doogle-close-btn" id="doogle-close-btn" title="Close Doogle (Esc)">✕</button>
+      </div>
+    </div>
+
+    <!-- View 1: Doogle Homepage View -->
+    <div id="doogle-home-view" class="doogle-home-container">
+      <div class="doogle-home-content">
+        <div class="doogle-hero-logo">
+          <span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span>
+        </div>
+
+        <form id="doogle-home-search-form" class="doogle-hero-search-form">
+          <div class="doogle-search-bar">
+            <svg class="doogle-icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="doogle-home-input" class="doogle-hero-input" placeholder="Search Doogle or type a URL" autocomplete="off" spellcheck="false">
+            <button type="button" class="doogle-clear-btn" id="doogle-home-clear" title="Clear search" style="display:none">✕</button>
+            <button type="button" class="doogle-voice-btn" id="doogle-home-voice" title="Search by voice">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+            </button>
+          </div>
+
+          <div class="doogle-home-buttons">
+            <button type="submit" id="doogle-btn-search" class="doogle-primary-btn">Doogle Search</button>
+            <button type="button" id="doogle-btn-lucky" class="doogle-secondary-btn">I'm Feeling Lucky</button>
+          </div>
+        </form>
+
+        <!-- Quick Trending Suggestions -->
+        <div class="doogle-quick-tags">
+          <span class="doogle-quick-label">Trending on Doogle:</span>
+          <div class="doogle-tags-row">
+            <button type="button" class="doogle-tag-pill" data-q="Artificial Intelligence">Artificial Intelligence</button>
+            <button type="button" class="doogle-tag-pill" data-q="World News">World News</button>
+            <button type="button" class="doogle-tag-pill" data-q="Space Exploration">Space Exploration</button>
+            <button type="button" class="doogle-tag-pill" data-q="Quantum Computing">Quantum Computing</button>
+            <button type="button" class="doogle-tag-pill" data-q="Docwright Guide">Docwright Guide</button>
+            <button type="button" class="doogle-tag-pill" data-q="Climate Change">Climate Change</button>
+          </div>
+        </div>
+
+        <div class="doogle-footer-note">
+          <span>Search the entire web, explore Wikipedia facts, or find your Docwright documents with Google-grade speed.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 2: Doogle SERP (Search Results Page) View -->
+    <div id="doogle-serp-view" class="doogle-serp-container" style="display:none">
+      <!-- Tabs (All, Images, My Docs) -->
+      <div class="doogle-serp-tabs-bar">
+        <button type="button" class="doogle-serp-tab active" data-tab="all">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>All</span>
+        </button>
+        <button type="button" class="doogle-serp-tab" data-tab="images">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Images</span>
+        </button>
+        <button type="button" class="doogle-serp-tab" data-tab="docs">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>My Documents</span>
+          <span id="doogle-docs-badge" class="doogle-tab-count" style="display:none">0</span>
+        </button>
+      </div>
+
+      <!-- Results Body Scroll Area -->
+      <div class="doogle-serp-scroll" id="doogle-serp-scroll">
+        <!-- Results Stats & Tools -->
+        <div class="doogle-serp-meta" id="doogle-serp-meta">
+          <span id="doogle-stats-text">About 0 results (0.00 seconds)</span>
+        </div>
+
+        <!-- Voice Search Listening Banner -->
+        <div id="doogle-voice-listening" class="doogle-voice-banner" style="display:none">
+          <div class="doogle-voice-pulse"></div>
+          <span>Listening… speak your search query now</span>
+        </div>
+
+        <!-- Calculator Card (if query is math) -->
+        <div id="doogle-calc-card" class="doogle-calc-card" style="display:none"></div>
+
+        <!-- Knowledge Panel (Instant Answer) -->
+        <div id="doogle-knowledge-panel" class="doogle-knowledge-card" style="display:none"></div>
+
+        <!-- Web Search Results List -->
+        <div id="doogle-web-results" class="doogle-results-list"></div>
+
+        <!-- Images Grid Results List -->
+        <div id="doogle-image-results" class="doogle-images-grid" style="display:none"></div>
+
+        <!-- My Documents Search Results List -->
+        <div id="doogle-doc-results" class="doogle-docs-list" style="display:none"></div>
+
+        <!-- Loading Spinner -->
+        <div id="doogle-loading" class="doogle-loading-spinner" style="display:none">
+          <div class="doogle-spinner"></div>
+          <span>Searching Doogle…</span>
+        </div>
+
+        <!-- Empty State -->
+        <div id="doogle-empty-state" class="doogle-empty-state" style="display:none">
+          <h3>No results found for "<span id="doogle-empty-query"></span>"</h3>
+          <p>Suggestions:</p>
+          <ul>
+            <li>Make sure all words are spelled correctly.</li>
+            <li>Try different keywords or more general terms.</li>
+            <li>Try searching on Google.com directly.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Share Dialog Modal -->
@@ -5239,6 +6073,7 @@ function htmlToMarkdown(html){
 }
 
 const A={
+  doogle:()=>{openDoogle()},
   new:()=>{saveNow();newDoc()}, home:()=>{saveNow();if(typeof closeCollab==='function')closeCollab();cur=null;showAppHome();document.title='Docwright';renderHome()}, disboarder:()=>{if(typeof openDisboard==='function')openDisboard();else A.home()},
   save:()=>{saveNow()}, open:()=>$('#fi').click(), size:()=>{if(!cur)return;page.classList.toggle('a4');docs[cur].size=page.classList.contains('a4')?'a4':'letter';fit();edited()},
   print:()=>{
@@ -5305,7 +6140,7 @@ const M={
  View:[['Editing / viewing mode','mode'],['Show / hide ruler','ruler'],['Show / hide outline','outline'],['Dark mode on / off','dark'],['Full screen','fullscreen']],
  Insert:[['Image','image'],['Table','table'],['Link','link','Ctrl+K'],['Comment','comment','Ctrl+Alt+M'],['Horizontal line','hr'],['Date','date'],['Page break','pbrk','Ctrl+Enter']],
  Format:[['Bold','bold','Ctrl+B'],['Italic','italic','Ctrl+I'],['Underline','underline','Ctrl+U'],['Strikethrough','strike'],['Superscript','sup'],['Subscript','sub'],['Clear formatting','clear']],
- Tools:[['Word count','wcount'],['Readability & Document Radar','radar'],['Voice typing (Dictation)','voice','Ctrl+Shift+S'],['Spelling check on / off','spell']],
+ Tools:[['Word count','wcount'],['Readability & Document Radar','radar'],['Voice typing (Dictation)','voice','Ctrl+Shift+S'],['Doogle Search','doogle','Ctrl+Shift+G'],['Spelling check on / off','spell']],
  Gemini:[['Editorial Studio…','ai','Ctrl+J'],['Draft & Refine…','aiWrite'],['Editorial Workshop (4 Passes)…','aiCowork'],['Doc Q&A (Chat with Doc)…','aiChat']]};
 for(const k in M){
   const d=document.createElement('div');d.className='menu';
@@ -5315,6 +6150,9 @@ for(const k in M){
 const disboarderMenu=document.createElement('div');disboarderMenu.className='menu';
 disboarderMenu.innerHTML=`<button class="mb" data-a="disboarder" title="Open Disboard (Discord-Style Chat)">Disboarder</button>`;
 $('#menus').append(disboarderMenu);
+const doogleMenu=document.createElement('div');doogleMenu.className='menu';
+doogleMenu.innerHTML=`<button class="mb doogle-btn-style" data-a="doogle" title="Search with Doogle (Google Search)" style="height:25px;padding:0 9px;font-size:12px;margin:2px 0"><span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span></button>`;
+$('#menus').append(doogleMenu);
 function closeMenus(){document.querySelectorAll('.dd').forEach(d=>{d.hidden=true;d.previousElementSibling?.setAttribute('aria-expanded','false')})}
 document.addEventListener('click',e=>{
   const mb=e.target.closest('.mb');
@@ -11776,6 +12614,562 @@ $('#db-btn-add-server')?.addEventListener('click', () => {
   const sName = prompt('Enter a name for your custom community server:', 'Writers Guild');
   if (sName && sName.trim()) {
     alert(`Server "${sName.trim()}" created! You can now invite friends to this server.`);
+  }
+});
+
+/* ==========================================================================
+   DOOGLE SEARCH ENGINE (Google Replica with Real Web Search & Research Tool)
+   ========================================================================== */
+let doogleActiveTab = 'all';
+let doogleVoiceRec = null;
+let doogleIsListening = false;
+let doogleCurrentQuery = '';
+
+function doogleEscape(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function doogleToast(text, duration = 2500) {
+  let t = $('#doogle-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'doogle-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#202124;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:100010;box-shadow:0 3px 12px rgba(0,0,0,0.3);display:flex;align-items:center;gap:8px;pointer-events:none;transition:opacity 0.25s ease;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `<span>${text}</span>`;
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { if (t) t.style.opacity = '0'; }, duration);
+}
+
+function setDoogleView(view) {
+  const homeView = $('#doogle-home-view');
+  const serpView = $('#doogle-serp-view');
+  if (view === 'home') {
+    if (homeView) homeView.hidden = false;
+    if (serpView) serpView.hidden = true;
+    setTimeout(() => $('#doogle-home-input')?.focus(), 50);
+  } else {
+    if (homeView) homeView.hidden = true;
+    if (serpView) serpView.hidden = false;
+    setTimeout(() => $('#doogle-serp-input')?.focus(), 50);
+  }
+}
+
+function openDoogle(initialQuery) {
+  const modal = $('#doogle-modal');
+  if (!modal) return;
+  modal.hidden = false;
+  
+  let q = (typeof initialQuery === 'string' ? initialQuery : '').trim();
+  if (!q) {
+    try {
+      const sel = window.getSelection()?.toString()?.trim();
+      if (sel && sel.length > 1 && sel.length < 120 && !sel.includes('\n')) {
+        q = sel;
+      }
+    } catch (e) {}
+  }
+  
+  if (q) {
+    doogleSearch(q, doogleActiveTab || 'all');
+  } else {
+    setDoogleView('home');
+    const homeInp = $('#doogle-home-input');
+    if (homeInp) { homeInp.value = ''; homeInp.focus(); }
+  }
+}
+
+function closeDoogle() {
+  const modal = $('#doogle-modal');
+  if (modal) modal.hidden = true;
+  stopDoogleVoice();
+}
+
+function switchDoogleTab(tab) {
+  doogleActiveTab = tab;
+  document.querySelectorAll('.doogle-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  const q = ($('#doogle-serp-input')?.value || doogleCurrentQuery || '').trim();
+  if (q) {
+    doogleSearch(q, tab);
+  }
+}
+
+function tryEvalMath(rawExpr) {
+  if (!rawExpr) return null;
+  const s = rawExpr.trim();
+  if (s.length > 50) return null;
+  let normalized = s.toLowerCase()
+    .replace(/×/g, '*')
+    .replace(/÷/g, '/')
+    .replace(/\^/g, '**')
+    .replace(/\bpi\b/g, String(Math.PI))
+    .replace(/(\d+)%\s+of\s+(\d+(\.\d+)?)/g, '($1/100)*$2')
+    .replace(/(\d+)%/g, '($1/100)');
+    
+  if (!/^[\d\s\+\-\*\/\(\)\.\%\*\*\,\e]+$/.test(normalized)) return null;
+  if (!/[\+\-\*\/\%]/.test(normalized)) return null;
+
+  try {
+    const val = Function('"use strict"; return (' + normalized + ')')();
+    if (typeof val === 'number' && !isNaN(val) && isFinite(val)) {
+      const formatted = Number.isInteger(val) ? val.toLocaleString() : (parseFloat(val.toFixed(8)) + '');
+      return { expr: s, result: formatted, rawVal: val };
+    }
+  } catch (e) {}
+  return null;
+}
+
+function insertDoogleSnippetIntoDoc(title, snippetText, sourceUrl) {
+  const cleanSnippet = (snippetText || '').replace(/<\/?[^>]+(>|$)/g, '').trim();
+  const safeTitle = doogleEscape(title || 'Research Source');
+  const safeUrl = sourceUrl ? doogleEscape(sourceUrl) : '#';
+  const citeLine = sourceUrl ? `<p style="margin: 0; font-size: 11px; color: #70757a;">— Source: <a href="${safeUrl}" target="_blank" style="color: #1a73e8; text-decoration: underline;">${safeTitle}</a></p>` : `<p style="margin: 0; font-size: 11px; color: #70757a;">— ${safeTitle}</p>`;
+  const quoteHtml = `<blockquote style="border-left: 3px solid #1a73e8; margin: 12px 0; padding: 6px 12px; background: #f8f9fa; color: #202124; font-size: 13.5px; border-radius: 0 4px 4px 0;"><p style="margin: 0 0 4px 0; font-style: italic;">“${doogleEscape(cleanSnippet)}”</p>${citeLine}</blockquote><p><br></p>`;
+  
+  if (typeof cur !== 'undefined' && cur && docs[cur] && $('#app') && !$('#app').hidden) {
+    if (typeof restore === 'function') restore();
+    let ok = false;
+    try { ok = document.execCommand('insertHTML', false, quoteHtml); } catch(e){}
+    if (!ok && page) {
+      page.insertAdjacentHTML('beforeend', quoteHtml);
+    }
+    if (typeof edited === 'function') edited();
+    doogleToast('✓ Citation inserted into document');
+  } else {
+    const newTitle = title ? `Research: ${title}` : 'Research Notes';
+    const initialDocHtml = `<h1>${safeTitle}</h1>${quoteHtml}`;
+    newDoc(initialDocHtml, newTitle);
+    closeDoogle();
+    doogleToast(`✓ Created new document "${newTitle}"`);
+  }
+}
+
+function insertDoogleImageIntoDoc(imgUrl, caption) {
+  const cleanCaption = doogleEscape(caption || 'Doogle Image');
+  const safeImgUrl = doogleEscape(imgUrl);
+  const imgHtml = `<figure style="margin: 14px 0; display: inline-block; max-width: 100%;"><img src="${safeImgUrl}" alt="${cleanCaption}" style="max-width: 100%; max-height: 420px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); display: block;"><figcaption style="font-size: 11px; color: #70757a; margin-top: 4px; font-style: italic;">${cleanCaption}</figcaption></figure><p><br></p>`;
+
+  if (typeof cur !== 'undefined' && cur && docs[cur] && $('#app') && !$('#app').hidden) {
+    if (typeof restore === 'function') restore();
+    let ok = false;
+    try { ok = document.execCommand('insertHTML', false, imgHtml); } catch(e){}
+    if (!ok && page) {
+      page.insertAdjacentHTML('beforeend', imgHtml);
+    }
+    if (typeof edited === 'function') edited();
+    doogleToast('✓ Image inserted into document');
+  } else {
+    const newTitle = `Image: ${cleanCaption}`;
+    const initialDocHtml = `<h1>${cleanCaption}</h1>${imgHtml}`;
+    newDoc(initialDocHtml, newTitle);
+    closeDoogle();
+    doogleToast(`✓ Created new document "${newTitle}"`);
+  }
+}
+
+async function doogleSearch(query, tab = 'all') {
+  const q = (query || '').trim();
+  if (!q) return;
+  doogleCurrentQuery = q;
+  setDoogleView('serp');
+  
+  const homeInp = $('#doogle-home-input');
+  const serpInp = $('#doogle-serp-input');
+  if (homeInp) homeInp.value = q;
+  if (serpInp) serpInp.value = q;
+  
+  const clearBtn = $('#doogle-serp-clear');
+  if (clearBtn) clearBtn.hidden = false;
+  
+  const loading = $('#doogle-loading');
+  const stats = $('#doogle-stats');
+  const calcCard = $('#doogle-calc-card');
+  const kp = $('#doogle-knowledge-panel');
+  const resultsList = $('#doogle-results-list');
+  
+  if (loading) loading.hidden = false;
+  if (calcCard) { calcCard.hidden = true; calcCard.innerHTML = ''; }
+  if (kp) { kp.hidden = true; kp.innerHTML = ''; }
+  if (resultsList) resultsList.innerHTML = '';
+  
+  const startTime = performance.now();
+  
+  try {
+    if (tab === 'all') {
+      const mathRes = tryEvalMath(q);
+      if (mathRes) {
+        calcCard.innerHTML = `
+          <div style="font-size:13px;color:#70757a;margin-bottom:4px;">${doogleEscape(mathRes.expr)} =</div>
+          <div class="doogle-calc-display">${doogleEscape(mathRes.result)}</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="doogle-insert-btn" id="doogle-calc-insert-btn">➕ Insert Answer into Document</button>
+            <button class="doogle-insert-btn" id="doogle-calc-copy-btn" style="background:#fff;color:#1a73e8;border:1px solid #dadce0;">📋 Copy</button>
+          </div>
+        `;
+        calcCard.hidden = false;
+        $('#doogle-calc-insert-btn')?.addEventListener('click', () => {
+          insertDoogleSnippetIntoDoc('Calculator Calculation', `${mathRes.expr} = ${mathRes.result}`, '');
+        });
+        $('#doogle-calc-copy-btn')?.addEventListener('click', () => {
+          navigator.clipboard.writeText(mathRes.result);
+          doogleToast('Copied to clipboard!');
+        });
+      }
+    }
+    
+    if (tab === 'images') {
+      const imgApiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q)}&gsrlimit=24&prop=pageimages&piprop=thumbnail&pithumbsize=500&format=json&origin=*`;
+      const res = await fetch(imgApiUrl);
+      const data = await res.json();
+      const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+      const imagesWithThumbs = pages.filter(p => p.thumbnail && p.thumbnail.source);
+      
+      const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+      if (stats) stats.textContent = `About ${imagesWithThumbs.length} image results (${elapsed} seconds)`;
+      
+      if (!imagesWithThumbs.length) {
+        resultsList.innerHTML = `
+          <div class="doogle-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p>No images found for <b>"${doogleEscape(q)}"</b>.</p>
+            <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Search on Google Images ↗</a>
+          </div>
+        `;
+      } else {
+        const grid = document.createElement('div');
+        grid.className = 'doogle-img-grid';
+        imagesWithThumbs.forEach(item => {
+          const thumbUrl = item.thumbnail.source;
+          const title = item.title || 'Image';
+          const card = document.createElement('div');
+          card.className = 'doogle-img-card';
+          card.innerHTML = `
+            <img src="${doogleEscape(thumbUrl)}" alt="${doogleEscape(title)}" loading="lazy" />
+            <div class="doogle-img-title">${doogleEscape(title)}</div>
+            <button class="doogle-insert-btn" style="width:100%;border-radius:0 0 8px 8px;margin:0;font-size:11px;">➕ Insert Image</button>
+          `;
+          card.querySelector('button')?.addEventListener('click', () => {
+            insertDoogleImageIntoDoc(thumbUrl, title);
+          });
+          grid.appendChild(card);
+        });
+        resultsList.appendChild(grid);
+      }
+    } else if (tab === 'docs') {
+      const queryLower = q.toLowerCase();
+      const matchedDocs = Object.values(typeof docs !== 'undefined' ? docs : {}).filter(d => {
+        const titleMatch = (d.title || '').toLowerCase().includes(queryLower);
+        const textMatch = (d.html || '').toLowerCase().includes(queryLower);
+        return titleMatch || textMatch;
+      });
+      
+      const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+      if (stats) stats.textContent = `Found ${matchedDocs.length} matching documents in your library (${elapsed} seconds)`;
+      
+      if (!matchedDocs.length) {
+        resultsList.innerHTML = `
+          <div class="doogle-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <p>No documents found in your library matching <b>"${doogleEscape(q)}"</b>.</p>
+            <button class="doogle-search-btn" id="doogle-create-matched-doc-btn" style="margin-top:8px;">Create New Document "${doogleEscape(q)}"</button>
+          </div>
+        `;
+        $('#doogle-create-matched-doc-btn')?.addEventListener('click', () => {
+          newDoc(`<p>Notes on ${doogleEscape(q)}</p>`, q);
+          closeDoogle();
+        });
+      } else {
+        matchedDocs.forEach(d => {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = d.html || '';
+          const snippetText = (tempDiv.innerText || '').substring(0, 180) + '...';
+          const card = document.createElement('div');
+          card.className = 'doogle-card';
+          card.innerHTML = `
+            <div class="doogle-card-cite">Docwright Library › My Documents</div>
+            <a class="doogle-card-title" href="javascript:void(0)">${doogleEscape(d.title || 'Untitled')}</a>
+            <div class="doogle-card-snippet">${doogleEscape(snippetText)}</div>
+            <div class="doogle-card-actions">
+              <button class="doogle-insert-btn btn-open">📂 Open Document</button>
+              <button class="doogle-insert-btn btn-insert" style="background:#f1f3f4;color:#3c4043;">➕ Insert Reference</button>
+            </div>
+          `;
+          card.querySelector('.doogle-card-title')?.addEventListener('click', () => {
+            openDoc(d.id);
+            closeDoogle();
+          });
+          card.querySelector('.btn-open')?.addEventListener('click', () => {
+            openDoc(d.id);
+            closeDoogle();
+          });
+          card.querySelector('.btn-insert')?.addEventListener('click', () => {
+            insertDoogleSnippetIntoDoc(d.title, snippetText, '#');
+          });
+          resultsList.appendChild(card);
+        });
+      }
+    } else {
+      const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=10&utf8=&format=json&origin=*`;
+      const wikiSummaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/\s+/g, '_'))}`;
+      
+      const [searchRes, summaryRes] = await Promise.allSettled([
+        fetch(wikiSearchUrl).then(r => r.json()),
+        fetch(wikiSummaryUrl).then(r => r.ok ? r.json() : null)
+      ]);
+      
+      if (summaryRes.status === 'fulfilled' && summaryRes.value && summaryRes.value.type !== 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') {
+        const item = summaryRes.value;
+        if (item.extract) {
+          const imgHtml = item.thumbnail?.source ? `<img src="${doogleEscape(item.thumbnail.source)}" class="doogle-kp-thumb" alt="${doogleEscape(item.title)}" />` : '';
+          const readUrl = item.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`;
+          kp.innerHTML = `
+            ${imgHtml}
+            <div class="doogle-kp-body">
+              <div class="doogle-kp-title">${doogleEscape(item.title)}</div>
+              ${item.description ? `<div class="doogle-kp-subtitle">${doogleEscape(item.description)}</div>` : ''}
+              <div class="doogle-kp-extract">${doogleEscape(item.extract)}</div>
+              <div class="doogle-kp-footer">
+                <a href="${doogleEscape(readUrl)}" target="_blank" class="doogle-kp-link">Read more on Wikipedia ↗</a>
+                <button class="doogle-insert-btn" id="doogle-kp-insert-btn">➕ Insert Summary into Doc</button>
+              </div>
+            </div>
+          `;
+          kp.hidden = false;
+          $('#doogle-kp-insert-btn')?.addEventListener('click', () => {
+            insertDoogleSnippetIntoDoc(item.title, item.extract, readUrl);
+          });
+        }
+      }
+      
+      const searchItems = searchRes.status === 'fulfilled' && searchRes.value?.query?.search ? searchRes.value.query.search : [];
+      const totalHits = searchRes.status === 'fulfilled' && searchRes.value?.query?.searchinfo?.totalhits ? searchRes.value.query.searchinfo.totalhits : searchItems.length;
+      
+      const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+      if (stats) stats.textContent = `About ${totalHits.toLocaleString()} results (${elapsed} seconds)`;
+      
+      if (!searchItems.length && kp.hidden) {
+        resultsList.innerHTML = `
+          <div class="doogle-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <p>Your search - <b>${doogleEscape(q)}</b> - did not match any documents.</p>
+            <p style="font-size:12px;color:#70757a;">Suggestions: Make sure that all words are spelled correctly, or try different keywords.</p>
+            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:12px;">Search "${doogleEscape(q)}" on Google Web ↗</a>
+          </div>
+        `;
+      } else {
+        searchItems.forEach(item => {
+          const itemUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/\s+/g, '_'))}`;
+          const safeTitle = doogleEscape(item.title);
+          const snippetHtml = item.snippet;
+          const plainSnippet = snippetHtml.replace(/<\/?[^>]+(>|$)/g, '');
+          
+          const card = document.createElement('div');
+          card.className = 'doogle-card';
+          card.innerHTML = `
+            <div class="doogle-card-cite">${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</div>
+            <a class="doogle-card-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
+            <div class="doogle-card-snippet">${snippetHtml}...</div>
+            <div class="doogle-card-actions">
+              <button class="doogle-insert-btn btn-insert">➕ Insert Citation into Doc</button>
+              <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-insert-btn" style="text-decoration:none;background:#fff;color:#1a73e8;border:1px solid #dadce0;">Visit Page ↗</a>
+            </div>
+          `;
+          card.querySelector('.btn-insert')?.addEventListener('click', () => {
+            insertDoogleSnippetIntoDoc(item.title, plainSnippet, itemUrl);
+          });
+          resultsList.appendChild(card);
+        });
+        
+        const googleCard = document.createElement('div');
+        googleCard.className = 'doogle-card';
+        googleCard.style.cssText = 'background:#f8fafd;border:1px dashed #1a73e8;padding:14px;border-radius:8px;margin-top:18px;';
+        googleCard.innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:500;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader web?</div>
+              <div style="font-size:12px;color:#5f6368;">Open this search query across the entire Google Search network in a new tab.</div>
+            </div>
+            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;">Search on Google ↗</a>
+          </div>
+        `;
+        resultsList.appendChild(googleCard);
+      }
+    }
+  } catch (err) {
+    console.error('Doogle search error:', err);
+    if (resultsList) {
+      resultsList.innerHTML = `
+        <div class="doogle-empty">
+          <p style="color:#d93025;">An error occurred while connecting to search services.</p>
+          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-search-btn" style="text-decoration:none;display:inline-block;margin-top:8px;">Open search on Google.com ↗</a>
+        </div>
+      `;
+    }
+  } finally {
+    if (loading) loading.hidden = true;
+  }
+}
+
+function doogleFeelingLucky(query) {
+  const q = (query || $('#doogle-home-input')?.value || $('#doogle-serp-input')?.value || '').trim();
+  if (!q) {
+    window.open('https://www.google.com/doodles', '_blank');
+    return;
+  }
+  window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&btnI=1`, '_blank');
+}
+
+function startDoogleVoice() {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    alert('Voice search is not supported in this browser. Please use Google Chrome or Microsoft Edge.');
+    return;
+  }
+  
+  if (doogleIsListening) {
+    stopDoogleVoice();
+    return;
+  }
+  
+  try {
+    doogleVoiceRec = new SpeechRec();
+    doogleVoiceRec.lang = 'en-US';
+    doogleVoiceRec.continuous = false;
+    doogleVoiceRec.interimResults = true;
+    
+    doogleVoiceRec.onstart = () => {
+      doogleIsListening = true;
+      document.querySelectorAll('.doogle-voice-btn').forEach(b => b.classList.add('listening'));
+      doogleToast('🎙️ Listening... Speak now');
+    };
+    
+    doogleVoiceRec.onresult = (e) => {
+      const transcript = Array.from(e.results)
+        .map(r => r[0].transcript)
+        .join('');
+      const homeInp = $('#doogle-home-input');
+      const serpInp = $('#doogle-serp-input');
+      if (homeInp) homeInp.value = transcript;
+      if (serpInp) serpInp.value = transcript;
+    };
+    
+    doogleVoiceRec.onend = () => {
+      stopDoogleVoice();
+      const q = ($('#doogle-home-input')?.value || $('#doogle-serp-input')?.value || '').trim();
+      if (q) {
+        doogleSearch(q, doogleActiveTab || 'all');
+      }
+    };
+    
+    doogleVoiceRec.onerror = (err) => {
+      console.warn('Voice error:', err);
+      stopDoogleVoice();
+      doogleToast('Voice search stopped');
+    };
+    
+    doogleVoiceRec.start();
+  } catch (err) {
+    console.warn('Failed to start voice search:', err);
+    stopDoogleVoice();
+  }
+}
+
+function stopDoogleVoice() {
+  doogleIsListening = false;
+  document.querySelectorAll('.doogle-voice-btn').forEach(b => b.classList.remove('listening'));
+  if (doogleVoiceRec) {
+    try { doogleVoiceRec.abort(); } catch (e) {}
+    doogleVoiceRec = null;
+  }
+}
+
+// Event Listeners for Doogle
+$('#home-doogle-btn')?.addEventListener('click', () => openDoogle());
+$('#app-doogle-btn')?.addEventListener('click', () => openDoogle());
+$('#doogle-close-btn')?.addEventListener('click', () => closeDoogle());
+
+// Backdrops click
+$('#doogle-modal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'doogle-modal') closeDoogle();
+});
+
+// Home Search Box
+$('#doogle-home-search-btn')?.addEventListener('click', () => {
+  const q = $('#doogle-home-input')?.value || '';
+  if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
+});
+
+$('#doogle-home-lucky-btn')?.addEventListener('click', () => {
+  doogleFeelingLucky();
+});
+
+$('#doogle-home-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const q = e.target.value;
+    if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
+  }
+});
+
+// SERP Search Box
+$('#doogle-serp-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const q = e.target.value;
+    if (q.trim()) doogleSearch(q, doogleActiveTab || 'all');
+  }
+});
+
+$('#doogle-serp-input')?.addEventListener('input', (e) => {
+  const clearBtn = $('#doogle-serp-clear');
+  if (clearBtn) clearBtn.hidden = !e.target.value;
+});
+
+$('#doogle-serp-clear')?.addEventListener('click', () => {
+  const serpInp = $('#doogle-serp-input');
+  if (serpInp) { serpInp.value = ''; serpInp.focus(); }
+  $('#doogle-serp-clear').hidden = true;
+});
+
+// Suggestion chips
+document.querySelectorAll('.doogle-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const q = chip.dataset.query || chip.textContent.trim();
+    if (q) doogleSearch(q, 'all');
+  });
+});
+
+// Tabs
+document.querySelectorAll('.doogle-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    switchDoogleTab(tab.dataset.tab);
+  });
+});
+
+// Voice search buttons
+document.querySelectorAll('.doogle-voice-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    startDoogleVoice();
+  });
+});
+
+// Global Keyboard Shortcut: Ctrl+Shift+G or Cmd+Shift+G for Doogle
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'G' || e.key === 'g')) {
+    e.preventDefault();
+    openDoogle();
+  } else if (e.key === 'Escape' && !$('#doogle-modal')?.hidden) {
+    closeDoogle();
   }
 });
 
