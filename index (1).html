@@ -5180,7 +5180,7 @@ html.dark .doogle-res-title {
       </div>
     </div>
 
-    <!-- View 3: Doogle Web Browser View (In-App Web Pop-up for Domains & Links) -->
+      <!-- View 3: Doogle Web Browser View (In-App Web Pop-up for Domains & Links) -->
     <div id="doogle-browser-view" class="doogle-browser-container" style="display:none;flex:1;flex-direction:column;min-height:0;background:var(--bg)">
       <div class="doogle-browser-bar" style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--pg);border-bottom:1px solid var(--bd);flex-shrink:0;">
         <button type="button" class="doogle-action-icon-btn" id="doogle-web-back-btn" title="Back to Search">
@@ -5198,8 +5198,28 @@ html.dark .doogle-res-title {
         </button>
         <button type="button" class="doogle-action-icon-btn" id="doogle-web-insert-btn" title="Insert link into document">➕ Insert Link</button>
       </div>
-      <div id="doogle-iframe-wrap" style="flex:1;position:relative;background:#fff;min-height:0;">
-        <iframe id="doogle-web-iframe" style="width:100%;height:100%;border:none;display:block;" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
+
+      <!-- YouTube In-Doogle Control Strip (Shown when browsing YouTube) -->
+      <div id="doogle-youtube-bar" style="display:none;background:#0f0f0f;color:#fff;padding:6px 14px;border-bottom:1px solid #272727;align-items:center;gap:10px;font-size:12px;flex-wrap:wrap;flex-shrink:0;">
+        <div style="display:flex;align-items:center;gap:6px;font-weight:700;color:#ff0000;letter-spacing:-0.3px;">
+          <svg width="20" height="15" viewBox="0 0 24 18" fill="#ff0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span style="color:#fff;">YouTube <span style="font-size:10px;background:#cc0000;color:#fff;padding:1px 5px;border-radius:4px;font-weight:600;margin-left:2px;">IN-DOOGLE</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <input type="text" id="doogle-yt-search-input" placeholder="Search YouTube video..." style="background:#222;border:1px solid #3f3f3f;color:#fff;border-radius:14px;padding:3px 10px;font-size:12px;width:170px;outline:none;">
+          <button type="button" id="doogle-yt-search-btn" style="background:#cc0000;color:#fff;border:none;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;cursor:pointer;">Play</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <button type="button" class="doogle-yt-tag" data-q="trending music" style="background:#272727;border:1px solid #3f3f3f;color:#eee;border-radius:12px;padding:2px 8px;font-size:11px;cursor:pointer;">🎵 Music</button>
+          <button type="button" class="doogle-yt-tag" data-q="lofi hip hop radio beats to relax study to" style="background:#272727;border:1px solid #3f3f3f;color:#eee;border-radius:12px;padding:2px 8px;font-size:11px;cursor:pointer;">☕ Lofi Beats</button>
+          <button type="button" class="doogle-yt-tag" data-q="gaming highlights" style="background:#272727;border:1px solid #3f3f3f;color:#eee;border-radius:12px;padding:2px 8px;font-size:11px;cursor:pointer;">🎮 Gaming</button>
+          <button type="button" class="doogle-yt-tag" data-q="relaxing nature sounds 4k" style="background:#272727;border:1px solid #3f3f3f;color:#eee;border-radius:12px;padding:2px 8px;font-size:11px;cursor:pointer;">🌿 Nature</button>
+        </div>
+        <button type="button" id="doogle-yt-embed-btn" style="margin-left:auto;background:#cc0000;color:#fff;border:none;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;cursor:pointer;" title="Embed currently playing YouTube video directly into document">➕ Embed in Document</button>
+      </div>
+
+      <div id="doogle-iframe-wrap" style="flex:1;position:relative;background:#000;min-height:0;">
+        <iframe id="doogle-web-iframe" style="width:100%;height:100%;border:none;display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"></iframe>
         <div id="doogle-iframe-notice" style="position:absolute;bottom:10px;right:14px;background:rgba(32,33,36,0.92);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.25);z-index:5;">
           <span>Notice: If this site restricts framing, use</span>
           <button type="button" id="doogle-notice-popout-btn" style="background:#1a73e8;color:#fff;border:none;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:600;cursor:pointer;">🚀 Pop-out Window</button>
@@ -12769,6 +12789,33 @@ function closeDoogle() {
   stopDoogleVoice();
 }
 
+function getEmbedUrl(rawUrl) {
+  let url = normalizeUrl(rawUrl);
+  
+  // YouTube embed handling: YouTube blocks root www.youtube.com framing, but explicitly supports youtube-nocookie.com/embed
+  if (/youtube\.com|youtu\.be/i.test(url)) {
+    // 1. If watch link: youtube.com/watch?v=VIDEO_ID or youtu.be/VIDEO_ID or shorts/VIDEO_ID
+    const vMatch = url.match(/(?:watch\?v=|embed\/|youtu\.be\/|v\/|shorts\/)([a-zA-Z0-9_-]{11})/i);
+    if (vMatch && vMatch[1]) {
+      return `https://www.youtube-nocookie.com/embed/${vMatch[1]}?autoplay=1&enablejsapi=1`;
+    }
+    // 2. If search query: youtube.com/results?search_query=QUERY
+    const qMatch = url.match(/[?&](?:search_query|q)=([^&]+)/i);
+    if (qMatch && qMatch[1]) {
+      return `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(decodeURIComponent(qMatch[1]))}&autoplay=1`;
+    }
+    // 3. Generic youtube.com -> YouTube Trending Player
+    return `https://www.youtube-nocookie.com/embed?listType=search&list=trending+music+and+videos&autoplay=1`;
+  }
+  
+  // Wikipedia -> use mobile view for clean, fast in-frame rendering
+  if (/wikipedia\.org/i.test(url) && !/m\.wikipedia\.org/i.test(url)) {
+    return url.replace('https://en.wikipedia.org', 'https://en.m.wikipedia.org');
+  }
+
+  return url;
+}
+
 function openDoogleWebView(rawUrl, triggerPopout = false) {
   const norm = normalizeUrl(rawUrl);
   doogleCurrentWebUrl = norm;
@@ -12778,9 +12825,14 @@ function openDoogleWebView(rawUrl, triggerPopout = false) {
   const topInp = $('#doogle-top-input');
   if (topInp) topInp.value = norm;
 
+  const isYt = /youtube\.com|youtu\.be/i.test(norm);
+  const ytBar = $('#doogle-youtube-bar');
+  if (ytBar) ytBar.style.display = isYt ? 'flex' : 'none';
+
+  const embedUrl = getEmbedUrl(norm);
   const iframe = $('#doogle-web-iframe');
   if (iframe) {
-    iframe.src = norm;
+    iframe.src = embedUrl;
   }
 
   setDoogleView('browser');
@@ -12793,7 +12845,7 @@ function openDoogleWebView(rawUrl, triggerPopout = false) {
       window.open(norm, 'DooglePopout', 'width=1180,height=760,menubar=yes,toolbar=yes,location=yes,status=yes,scrollbars=yes,resizable=yes');
     } catch (e) {}
   }
-  doogleToast(`🌐 Popped up ${norm}`);
+  doogleToast(isYt ? '▶️ Playing YouTube inside Doogle' : `🌐 Loaded ${norm}`);
 }
 
 function switchDoogleTab(tab) {
@@ -13451,8 +13503,80 @@ $('#doogle-notice-popout-btn')?.addEventListener('click', () => {
 $('#doogle-web-insert-btn')?.addEventListener('click', () => {
   const addr = $('#doogle-web-address')?.value || doogleCurrentWebUrl;
   if (addr) {
-    insertDoogleSnippetIntoDoc(addr, addr, addr);
+    if (/youtube\.com|youtu\.be/i.test(addr)) {
+      insertYouTubeVideoIntoDoc(getEmbedUrl(addr));
+    } else {
+      insertDoogleSnippetIntoDoc(addr, addr, addr);
+    }
   }
+});
+
+// YouTube In-Doogle Controls
+function playYouTubeInDoogle(queryOrUrl) {
+  const q = (queryOrUrl || '').trim();
+  if (!q) return;
+  const embed = getEmbedUrl(isDomainOrUrl(q) ? q : `https://youtube.com/results?search_query=${encodeURIComponent(q)}`);
+  const iframe = $('#doogle-web-iframe');
+  if (iframe) iframe.src = embed;
+  const addrInp = $('#doogle-web-address');
+  if (addrInp) addrInp.value = isDomainOrUrl(q) ? q : `https://youtube.com/results?search_query=${encodeURIComponent(q)}`;
+  doogleCurrentWebUrl = addrInp?.value || embed;
+  doogleToast(`▶️ Playing: ${q}`);
+}
+
+$('#doogle-yt-search-btn')?.addEventListener('click', () => {
+  const q = $('#doogle-yt-search-input')?.value;
+  if (q) playYouTubeInDoogle(q);
+});
+
+$('#doogle-yt-search-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const q = e.target.value;
+    if (q) playYouTubeInDoogle(q);
+  }
+});
+
+document.querySelectorAll('.doogle-yt-tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    const q = tag.dataset.q || tag.textContent.trim();
+    if (q) {
+      const inp = $('#doogle-yt-search-input');
+      if (inp) inp.value = q;
+      playYouTubeInDoogle(q);
+    }
+  });
+});
+
+function insertYouTubeVideoIntoDoc(embedUrl) {
+  const videoHtml = `
+    <div style="margin: 16px 0; max-width: 560px;">
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.25);">
+        <iframe src="${doogleEscape(embedUrl)}" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p style="font-size:11px;color:#70757a;margin:4px 0 0;">Embedded via Doogle YouTube</p>
+    </div><p><br></p>
+  `;
+  if (typeof cur !== 'undefined' && cur && docs[cur] && $('#app') && !$('#app').hidden) {
+    if (typeof restore === 'function') restore();
+    let ok = false;
+    try { ok = document.execCommand('insertHTML', false, videoHtml); } catch(e){}
+    if (!ok && page) {
+      page.insertAdjacentHTML('beforeend', videoHtml);
+    }
+    if (typeof edited === 'function') edited();
+    doogleToast('✓ YouTube video embedded into document');
+  } else {
+    newDoc(`<h1>YouTube Video</h1>${videoHtml}`, 'YouTube Video');
+    closeDoogle();
+    doogleToast('✓ Created new document with YouTube video');
+  }
+}
+
+$('#doogle-yt-embed-btn')?.addEventListener('click', () => {
+  const iframe = $('#doogle-web-iframe');
+  const embed = iframe?.src || getEmbedUrl(doogleCurrentWebUrl);
+  insertYouTubeVideoIntoDoc(embed);
 });
 
 // Global Keyboard Shortcut: Ctrl+Shift+G or Cmd+Shift+G for Doogle
