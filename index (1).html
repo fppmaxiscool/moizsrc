@@ -5049,14 +5049,14 @@ html.dark .doogle-res-title {
 
       <!-- Compact Search Bar (Shown in Results view) -->
       <div class="doogle-top-search-wrap" id="doogle-top-search-wrap" style="display:none">
-        <form id="doogle-top-search-form" class="doogle-search-form">
+        <div id="doogle-top-search-form" class="doogle-search-form">
           <svg class="doogle-icon-search" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <input type="text" id="doogle-top-input" class="doogle-search-input" placeholder="Search with Doogle or type a URL" autocomplete="off" spellcheck="false">
           <button type="button" class="doogle-clear-btn" id="doogle-top-clear" title="Clear search" style="display:none">✕</button>
           <button type="button" class="doogle-voice-btn" id="doogle-top-voice" title="Search by voice">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
           </button>
-        </form>
+        </div>
       </div>
 
       <div class="doogle-top-actions">
@@ -5075,7 +5075,7 @@ html.dark .doogle-res-title {
           <span class="dg-b">D</span><span class="dg-r">o</span><span class="dg-y">o</span><span class="dg-b">g</span><span class="dg-g">l</span><span class="dg-r">e</span>
         </div>
 
-        <form id="doogle-home-search-form" class="doogle-hero-search-form">
+        <div id="doogle-home-search-form" class="doogle-hero-search-form">
           <div class="doogle-search-bar">
             <svg class="doogle-icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             <input type="text" id="doogle-home-input" class="doogle-hero-input" placeholder="Search Doogle or type a URL" autocomplete="off" spellcheck="false">
@@ -5086,10 +5086,10 @@ html.dark .doogle-res-title {
           </div>
 
           <div class="doogle-home-buttons">
-            <button type="submit" id="doogle-btn-search" class="doogle-primary-btn">Doogle Search</button>
+            <button type="button" id="doogle-btn-search" class="doogle-primary-btn">Doogle Search</button>
             <button type="button" id="doogle-btn-lucky" class="doogle-secondary-btn">I'm Feeling Lucky</button>
           </div>
-        </form>
+        </div>
 
         <!-- Quick Trending Suggestions -->
         <div class="doogle-quick-tags">
@@ -12685,6 +12685,18 @@ function normalizeUrl(str) {
   return s;
 }
 
+async function safeFetchJson(url) {
+  try {
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) return null;
+    const text = await res.text();
+    if (!text || text.startsWith('<')) return null;
+    return JSON.parse(text);
+  } catch (e) {
+    return null;
+  }
+}
+
 function doogleToast(text, duration = 2500) {
   let t = $('#doogle-toast');
   if (!t) {
@@ -12886,15 +12898,17 @@ function insertDoogleImageIntoDoc(imgUrl, caption) {
 
 function handleDoogleSubmit(rawQuery) {
   const q = (rawQuery || '').trim();
-  if (!q) return;
+  if (!q) {
+    doogleToast('Please enter a search query or website address');
+    $('#doogle-home-input')?.focus();
+    return;
+  }
 
   if (isDomainOrUrl(q)) {
-    // The user searched a domain or URL -> pop up the web viewer directly!
-    openDoogleWebView(q, true);
-    // Also prepare SERP results in the background
-    doogleSearch(q, 'all');
+    // Directly pop up the in-app web viewer
+    openDoogleWebView(q, false);
   } else {
-    // Normal query -> execute search
+    // Execute live search
     doogleSearch(q, doogleActiveTab === 'browser' ? 'all' : doogleActiveTab);
   }
 }
@@ -12941,7 +12955,7 @@ async function doogleSearch(query, tab = 'all') {
   const startTime = performance.now();
   
   try {
-    // Math Check
+    // 1. Math Check
     if (tab === 'all') {
       const mathRes = tryEvalMath(q);
       if (mathRes) {
@@ -12949,8 +12963,8 @@ async function doogleSearch(query, tab = 'all') {
           <div class="doogle-calc-expr">${doogleEscape(mathRes.expr)} =</div>
           <div class="doogle-calc-result">${doogleEscape(mathRes.result)}</div>
           <div style="display:flex;gap:8px;align-items:center;">
-            <button class="doogle-calc-insert-btn" id="doogle-calc-insert-btn">➕ Insert Answer into Document</button>
-            <button class="doogle-calc-insert-btn" id="doogle-calc-copy-btn" style="background:var(--bg);color:#1a73e8;border:1px solid var(--bd);">📋 Copy</button>
+            <button type="button" class="doogle-calc-insert-btn" id="doogle-calc-insert-btn">➕ Insert Answer into Document</button>
+            <button type="button" class="doogle-calc-insert-btn" id="doogle-calc-copy-btn" style="background:var(--bg);color:#1a73e8;border:1px solid var(--bd);">📋 Copy</button>
           </div>
         `;
         calcCard.style.display = 'block';
@@ -12964,38 +12978,10 @@ async function doogleSearch(query, tab = 'all') {
       }
     }
     
-    // If it's a domain/URL query, insert Direct Domain Navigation card at top
-    if (isDomainOrUrl(q) && tab === 'all' && webResults) {
-      const normDomain = normalizeUrl(q);
-      const domainCard = document.createElement('div');
-      domainCard.className = 'doogle-card';
-      domainCard.style.cssText = 'background:var(--pg);border:1px solid #1a73e8;border-radius:12px;padding:16px 20px;margin-bottom:18px;box-shadow:0 2px 8px rgba(26,115,232,0.12);';
-      domainCard.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <div>
-            <div style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:#1a73e8;font-weight:700;margin-bottom:2px;">Direct Domain / URL</div>
-            <div style="font-size:17px;font-weight:600;color:var(--tx);word-break:break-all;">🌐 ${doogleEscape(normDomain)}</div>
-            <div style="font-size:12px;color:var(--mut);margin-top:2px;">Pop up this website in Doogle or open in a dedicated browser window.</div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button type="button" class="doogle-primary-btn" id="doogle-domain-launch-btn" style="height:34px;padding:0 16px;font-size:13px;">🌐 Pop up Web View</button>
-            <button type="button" class="doogle-secondary-btn" id="doogle-domain-popout-btn" style="height:34px;padding:0 14px;font-size:13px;">🚀 Pop-out Window ↗</button>
-          </div>
-        </div>
-      `;
-      domainCard.querySelector('#doogle-domain-launch-btn')?.addEventListener('click', () => {
-        openDoogleWebView(normDomain, false);
-      });
-      domainCard.querySelector('#doogle-domain-popout-btn')?.addEventListener('click', () => {
-        openDoogleWebView(normDomain, true);
-      });
-      webResults.appendChild(domainCard);
-    }
-    
+    // 2. Images Tab
     if (tab === 'images') {
       const imgApiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q)}&gsrlimit=24&prop=pageimages&piprop=thumbnail&pithumbsize=500&format=json&origin=*`;
-      const res = await fetch(imgApiUrl);
-      const data = await res.json();
+      const data = await safeFetchJson(imgApiUrl);
       const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
       const imagesWithThumbs = pages.filter(p => p.thumbnail && p.thumbnail.source);
       
@@ -13025,6 +13011,7 @@ async function doogleSearch(query, tab = 'all') {
         });
       }
     } else if (tab === 'docs') {
+      // 3. User's Documents Tab
       const queryLower = q.toLowerCase();
       const matchedDocs = Object.values(typeof docs !== 'undefined' ? docs : {}).filter(d => {
         const titleMatch = (d.title || '').toLowerCase().includes(queryLower);
@@ -13045,7 +13032,7 @@ async function doogleSearch(query, tab = 'all') {
         docResults.innerHTML = `
           <div class="doogle-empty-state" style="display:block">
             <h3>No documents found in your library matching "${doogleEscape(q)}"</h3>
-            <button class="doogle-primary-btn" id="doogle-create-matched-doc-btn" style="margin-top:10px;">Create New Document "${doogleEscape(q)}"</button>
+            <button type="button" class="doogle-primary-btn" id="doogle-create-matched-doc-btn" style="margin-top:10px;">Create New Document "${doogleEscape(q)}"</button>
           </div>
         `;
         $('#doogle-create-matched-doc-btn')?.addEventListener('click', () => {
@@ -13064,8 +13051,8 @@ async function doogleSearch(query, tab = 'all') {
             <a class="doogle-res-title" href="javascript:void(0)">${doogleEscape(d.title || 'Untitled')}</a>
             <div class="doogle-res-snippet">${doogleEscape(snippetText)}</div>
             <div class="doogle-res-actions">
-              <button class="doogle-res-btn btn-open">📂 Open Document</button>
-              <button class="doogle-res-btn btn-insert">➕ Insert Reference</button>
+              <button type="button" class="doogle-res-btn btn-open">📂 Open Document</button>
+              <button type="button" class="doogle-res-btn btn-insert">➕ Insert Reference</button>
             </div>
           `;
           card.querySelector('.doogle-res-title')?.addEventListener('click', () => {
@@ -13083,100 +13070,161 @@ async function doogleSearch(query, tab = 'all') {
         });
       }
     } else {
-      // 'all' Tab: Wikipedia Search + Knowledge Panel + Web Link cards
-      const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=10&utf8=&format=json&origin=*`;
+      // 4. 'all' Tab: Multi-Engine Search (DuckDuckGo + Wikipedia)
+      const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_html=1&skip_disambig=1`;
+      const ddgAcUrl = `https://duckduckgo.com/ac/?q=${encodeURIComponent(q)}&type=list`;
+      const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=8&utf8=&format=json&origin=*`;
       const wikiSummaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/\s+/g, '_'))}`;
-      
-      const [searchRes, summaryRes] = await Promise.allSettled([
-        fetch(wikiSearchUrl).then(r => r.json()),
-        fetch(wikiSummaryUrl).then(r => r.ok ? r.json() : null)
+
+      const [ddgData, ddgAcData, wikiSearchData, wikiSummaryData] = await Promise.all([
+        safeFetchJson(ddgUrl),
+        safeFetchJson(ddgAcUrl),
+        safeFetchJson(wikiSearchUrl),
+        safeFetchJson(wikiSummaryUrl)
       ]);
-      
-      if (summaryRes.status === 'fulfilled' && summaryRes.value && summaryRes.value.type !== 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') {
-        const item = summaryRes.value;
-        if (item.extract) {
-          const imgHtml = item.thumbnail?.source ? `<img src="${doogleEscape(item.thumbnail.source)}" class="doogle-kp-image" alt="${doogleEscape(item.title)}" />` : '';
-          const readUrl = item.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`;
-          kp.innerHTML = `
-            ${imgHtml}
-            <div class="doogle-kp-body">
-              <h2 class="doogle-kp-title">${doogleEscape(item.title)}</h2>
-              ${item.description ? `<div class="doogle-kp-desc">${doogleEscape(item.description)}</div>` : ''}
-              <div class="doogle-kp-extract">${doogleEscape(item.extract)}</div>
-              <div class="doogle-kp-actions">
-                <button type="button" class="doogle-kp-btn primary" id="doogle-kp-web-btn">🌐 Pop up Web Page</button>
-                <button type="button" class="doogle-kp-btn" id="doogle-kp-insert-btn">➕ Insert into Doc</button>
-                <a href="${doogleEscape(readUrl)}" target="_blank" class="doogle-kp-btn">Open in Wikipedia ↗</a>
-              </div>
+
+      // Render Knowledge Panel if Heading/Abstract exists
+      const kpTitle = ddgData?.Heading || wikiSummaryData?.title;
+      const kpExtract = ddgData?.Abstract || wikiSummaryData?.extract;
+      const kpUrl = ddgData?.AbstractURL || wikiSummaryData?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(q)}`;
+      const kpImg = ddgData?.Image || wikiSummaryData?.thumbnail?.source;
+
+      if (kpTitle && kpExtract) {
+        const imgHtml = kpImg ? `<img src="${doogleEscape(kpImg)}" class="doogle-kp-image" alt="${doogleEscape(kpTitle)}" onerror="this.style.display='none'" />` : '';
+        kp.innerHTML = `
+          ${imgHtml}
+          <div class="doogle-kp-body">
+            <h2 class="doogle-kp-title">${doogleEscape(kpTitle)}</h2>
+            ${ddgData?.Entity ? `<div class="doogle-kp-desc">${doogleEscape(ddgData.Entity)}</div>` : ''}
+            <div class="doogle-kp-extract">${doogleEscape(kpExtract)}</div>
+            <div class="doogle-kp-actions">
+              <button type="button" class="doogle-kp-btn primary" id="doogle-kp-web-btn">🌐 Pop up Web Page</button>
+              <button type="button" class="doogle-kp-btn" id="doogle-kp-insert-btn">➕ Insert into Doc</button>
+              <a href="${doogleEscape(kpUrl)}" target="_blank" class="doogle-kp-btn">Open External ↗</a>
             </div>
-          `;
-          kp.style.display = 'flex';
-          $('#doogle-kp-web-btn')?.addEventListener('click', () => {
-            openDoogleWebView(readUrl, false);
-          });
-          $('#doogle-kp-insert-btn')?.addEventListener('click', () => {
-            insertDoogleSnippetIntoDoc(item.title, item.extract, readUrl);
-          });
-        }
+          </div>
+        `;
+        kp.style.display = 'flex';
+        $('#doogle-kp-web-btn')?.addEventListener('click', () => {
+          openDoogleWebView(kpUrl, false);
+        });
+        $('#doogle-kp-insert-btn')?.addEventListener('click', () => {
+          insertDoogleSnippetIntoDoc(kpTitle, kpExtract, kpUrl);
+        });
       }
-      
-      const searchItems = searchRes.status === 'fulfilled' && searchRes.value?.query?.search ? searchRes.value.query.search : [];
-      const totalHits = searchRes.status === 'fulfilled' && searchRes.value?.query?.searchinfo?.totalhits ? searchRes.value.query.searchinfo.totalhits : searchItems.length;
-      
-      const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
-      if (stats) stats.textContent = `About ${totalHits.toLocaleString()} results (${elapsed} seconds)`;
-      
-      if (!searchItems.length && kp.style.display === 'none' && !webResults.children.length && emptyState) {
-        emptyState.style.display = 'block';
-        $('#doogle-empty-query').textContent = q;
-      } else if (webResults) {
-        searchItems.forEach(item => {
-          const itemUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/\s+/g, '_'))}`;
-          const safeTitle = doogleEscape(item.title);
-          const snippetHtml = item.snippet;
-          const plainSnippet = snippetHtml.replace(/<\/?[^>]+(>|$)/g, '');
-          
+
+      // Render Wikipedia search items
+      const wikiItems = wikiSearchData?.query?.search || [];
+      wikiItems.forEach(item => {
+        const itemUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/\s+/g, '_'))}`;
+        const safeTitle = doogleEscape(item.title);
+        const snippetHtml = item.snippet;
+        const plainSnippet = snippetHtml.replace(/<\/?[^>]+(>|$)/g, '');
+        
+        const card = document.createElement('div');
+        card.className = 'doogle-result-item';
+        card.innerHTML = `
+          <div class="doogle-res-url-row">
+            <span style="color:#1a73e8;font-weight:600">🌐</span>
+            <span>${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</span>
+          </div>
+          <a class="doogle-res-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
+          <div class="doogle-res-snippet">${snippetHtml}...</div>
+          <div class="doogle-res-actions">
+            <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
+            <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
+            <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
+          </div>
+        `;
+        card.querySelector('.btn-web')?.addEventListener('click', () => {
+          openDoogleWebView(itemUrl, false);
+        });
+        card.querySelector('.btn-insert')?.addEventListener('click', () => {
+          insertDoogleSnippetIntoDoc(item.title, plainSnippet, itemUrl);
+        });
+        webResults?.appendChild(card);
+      });
+
+      // Render DuckDuckGo Related Topics
+      const ddgTopics = (ddgData?.RelatedTopics || []).filter(t => t.Text && t.FirstURL);
+      ddgTopics.slice(0, 6).forEach(topic => {
+        const topicUrl = topic.FirstURL;
+        const topicText = topic.Text;
+        const card = document.createElement('div');
+        card.className = 'doogle-result-item';
+        card.innerHTML = `
+          <div class="doogle-res-url-row">
+            <span style="color:#1a73e8;font-weight:600">🌐</span>
+            <span>${doogleEscape(topicUrl.replace('https://', ''))}</span>
+          </div>
+          <a class="doogle-res-title" href="${doogleEscape(topicUrl)}" target="_blank">${doogleEscape(topicText.slice(0, 70))}</a>
+          <div class="doogle-res-snippet">${doogleEscape(topicText)}</div>
+          <div class="doogle-res-actions">
+            <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
+            <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
+            <a href="${doogleEscape(topicUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
+          </div>
+        `;
+        card.querySelector('.btn-web')?.addEventListener('click', () => {
+          openDoogleWebView(topicUrl, false);
+        });
+        card.querySelector('.btn-insert')?.addEventListener('click', () => {
+          insertDoogleSnippetIntoDoc(topicText.slice(0, 60), topicText, topicUrl);
+        });
+        webResults?.appendChild(card);
+      });
+
+      // If few results, render rich query suggestions
+      if (!wikiItems.length && !ddgTopics.length && ddgAcData && Array.isArray(ddgAcData[1]) && ddgAcData[1].length) {
+        const suggestions = ddgAcData[1].slice(0, 6);
+        suggestions.forEach(s => {
+          const searchLink = `https://www.google.com/search?q=${encodeURIComponent(s)}`;
           const card = document.createElement('div');
           card.className = 'doogle-result-item';
           card.innerHTML = `
             <div class="doogle-res-url-row">
-              <span style="color:#1a73e8;font-weight:600">🌐</span>
-              <span>${doogleEscape(itemUrl.replace('https://', '').replace(/_/g, ' '))}</span>
+              <span style="color:#1a73e8;font-weight:600">🔍</span>
+              <span>Search Suggestion › ${doogleEscape(s)}</span>
             </div>
-            <a class="doogle-res-title" href="${doogleEscape(itemUrl)}" target="_blank">${safeTitle}</a>
-            <div class="doogle-res-snippet">${snippetHtml}...</div>
+            <a class="doogle-res-title" href="javascript:void(0)">Search for "${doogleEscape(s)}"</a>
+            <div class="doogle-res-snippet">Explore live web results, articles, and research topics for <b>${doogleEscape(s)}</b>.</div>
             <div class="doogle-res-actions">
-              <button type="button" class="doogle-res-btn btn-web">🌐 Pop up Web</button>
-              <button type="button" class="doogle-res-btn btn-insert">➕ Insert Citation</button>
-              <a href="${doogleEscape(itemUrl)}" target="_blank" class="doogle-res-btn">Visit Page ↗</a>
+              <button type="button" class="doogle-res-btn btn-search">🔍 Search on Doogle</button>
+              <button type="button" class="doogle-res-btn btn-google">Google Search ↗</button>
             </div>
           `;
-          card.querySelector('.btn-web')?.addEventListener('click', () => {
-            openDoogleWebView(itemUrl, false);
+          card.querySelector('.btn-search')?.addEventListener('click', () => {
+            handleDoogleSubmit(s);
           });
-          card.querySelector('.btn-insert')?.addEventListener('click', () => {
-            insertDoogleSnippetIntoDoc(item.title, plainSnippet, itemUrl);
+          card.querySelector('.btn-google')?.addEventListener('click', () => {
+            window.open(searchLink, '_blank');
           });
-          webResults.appendChild(card);
+          card.querySelector('.doogle-res-title')?.addEventListener('click', () => {
+            handleDoogleSubmit(s);
+          });
+          webResults?.appendChild(card);
         });
-        
-        // Full Google search bridge card at bottom
-        const googleCard = document.createElement('div');
-        googleCard.className = 'doogle-result-item';
-        googleCard.style.cssText = 'background:var(--pg);border:1px dashed #1a73e8;padding:14px 18px;border-radius:10px;margin-top:14px;';
-        googleCard.innerHTML = `
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-            <div>
-              <div style="font-weight:600;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader Google Search web?</div>
-              <div style="font-size:12px;color:var(--mut);">Search this query across Google.com in a dedicated tab.</div>
-            </div>
-            <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;display:inline-flex;align-items:center;gap:6px;">
-              <span>Search on Google ↗</span>
-            </a>
-          </div>
-        `;
-        webResults.appendChild(googleCard);
       }
+
+      // Always append Google Search network card
+      const googleCard = document.createElement('div');
+      googleCard.className = 'doogle-result-item';
+      googleCard.style.cssText = 'background:var(--pg);border:1px dashed #1a73e8;padding:14px 18px;border-radius:10px;margin-top:14px;';
+      googleCard.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#1a73e8;margin-bottom:2px;">Need more from the broader Google Search web?</div>
+            <div style="font-size:12px;color:var(--mut);">Search this query across Google.com in a dedicated tab.</div>
+          </div>
+          <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="doogle-primary-btn" style="text-decoration:none;white-space:nowrap;padding:7px 16px;display:inline-flex;align-items:center;gap:6px;">
+            <span>Search on Google ↗</span>
+          </a>
+        </div>
+      `;
+      webResults?.appendChild(googleCard);
+
+      const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+      if (stats && webResults) stats.textContent = `About ${webResults.children.length} results (${elapsed} seconds)`;
     }
   } catch (err) {
     console.error('Doogle search error:', err);
@@ -13291,28 +13339,23 @@ $('#doogle-modal')?.addEventListener('click', (e) => {
   if (e.target.id === 'doogle-modal') closeDoogle();
 });
 
-// Prevent form submission crashes and handle searches
-$('#doogle-home-search-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
+// Search execution buttons
+$('#doogle-btn-search')?.addEventListener('click', () => {
   handleDoogleSubmit($('#doogle-home-input')?.value);
 });
 
-$('#doogle-top-search-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  handleDoogleSubmit($('#doogle-top-input')?.value);
-});
-
-$('#doogle-btn-search')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  handleDoogleSubmit($('#doogle-home-input')?.value);
-});
-
-$('#doogle-btn-lucky')?.addEventListener('click', (e) => {
-  e.preventDefault();
+$('#doogle-btn-lucky')?.addEventListener('click', () => {
   doogleFeelingLucky();
 });
 
 // Home input events
+$('#doogle-home-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleDoogleSubmit($('#doogle-home-input')?.value);
+  }
+});
+
 $('#doogle-home-input')?.addEventListener('input', (e) => {
   const clearBtn = $('#doogle-home-clear');
   if (clearBtn) clearBtn.style.display = e.target.value ? 'block' : 'none';
@@ -13325,6 +13368,13 @@ $('#doogle-home-clear')?.addEventListener('click', () => {
 });
 
 // Top input events
+$('#doogle-top-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleDoogleSubmit($('#doogle-top-input')?.value);
+  }
+});
+
 $('#doogle-top-input')?.addEventListener('input', (e) => {
   const clearBtn = $('#doogle-top-clear');
   if (clearBtn) clearBtn.style.display = e.target.value ? 'block' : 'none';
