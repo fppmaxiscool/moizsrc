@@ -3711,7 +3711,12 @@ html.dark mark.doc-comment-mark.active-comment {
   border-radius: 0 !important;
   box-sizing: border-box !important;
 }
-#doogle-modal .doogle-window {
+#doogle-modal[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+#doogle-modal:not(.has-windowed) .doogle-window {
   width: 100vw !important;
   max-width: 100vw !important;
   height: 100vh !important;
@@ -3741,9 +3746,14 @@ html.dark mark.doc-comment-mark.active-comment {
   max-width: 1160px !important;
   height: 90vh !important;
   max-height: 840px !important;
+  background: var(--bg) !important;
+  color: var(--tx) !important;
   border: 1px solid var(--bd) !important;
   border-radius: 16px !important;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
   flex: none !important;
 }
 .doogle-top-bar {
@@ -12817,6 +12827,8 @@ function openDoogle(initialQuery) {
   const modal = $('#doogle-modal');
   if (!modal) return;
   modal.hidden = false;
+  modal.style.removeProperty('display');
+  modal.style.display = 'flex';
   
   let q = (typeof initialQuery === 'string' ? initialQuery : '').trim();
   if (!q) {
@@ -12839,7 +12851,12 @@ function openDoogle(initialQuery) {
 
 function closeDoogle() {
   const modal = $('#doogle-modal');
-  if (modal) modal.hidden = true;
+  if (modal) {
+    modal.hidden = true;
+    modal.style.setProperty('display', 'none', 'important');
+  }
+  const iframe = $('#doogle-web-iframe');
+  if (iframe) iframe.src = 'about:blank';
   stopDoogleVoice();
 }
 
